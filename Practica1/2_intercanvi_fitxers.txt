@@ -1,0 +1,38 @@
+root@seax1:~# ls -la /home/shared_folder
+
+total 48
+drwxrwxr-x 1 root root 4096 20 de febr.  2024 .
+drwxr-xr-x 4 root root 4096 19 de febr. 21:11 ..
+-rw-r--r-- 1 root root   66 19 de febr. 22:08 carp_comp.txt
+-rw-r--r-- 1 root root    0 20 de febr.  2024 comparticio.txt
+-r--r--r-- 1 root root 1017 19 de febr. 21:04 cpuinfo
+-rw-r--r-- 1 root root  335 19 de febr. 21:21 disk.txt
+-rw-r--r-- 1 root root  834 19 de febr. 21:35 eth.txt
+-rw-r--r-- 1 root root  857 19 de febr. 22:17 fstab.txt
+-rw-r--r-- 1 root root  206 19 de febr. 23:41 hostname.txt
+-rw-r--r-- 1 root root  207 19 de febr. 21:11 mem.txt
+-rw-r--r-- 1 root root    0 19 de febr. 23:34 nom_equip.txt
+-rw-r--r-- 1 root root  261 19 de febr. 23:45 particions.txt
+-rw-r--r-- 1 root root  140 19 de febr. 21:44 usb.txt
+-rw-r--r-- 1 root root  102 19 de febr. 21:55 versio.txt
+
+----------------------------------------------------------------------------------
+
+
+francesco@francesco:~#ç$ ls -la Documents/Uni/2024/SEAX/practica1/
+
+total 52
+drwxrwxr-x 2 francesco francesco 4096 feb 20 00:45 .
+drwxrwxr-x 5 francesco francesco 4096 feb 20 00:47 ..
+-rw-r--r-- 1 francesco francesco   66 feb 19 22:08 carp_comp.txt
+-rw-r--r-- 1 francesco francesco  792 feb 20 00:45 comparticio.txt
+-r--r--r-- 1 francesco francesco 1017 feb 19 21:04 cpuinfo
+-rw-r--r-- 1 francesco francesco  335 feb 19 21:21 disk.txt
+-rw-r--r-- 1 francesco francesco  834 feb 19 21:35 eth.txt
+-rw-r--r-- 1 francesco francesco  857 feb 19 22:17 fstab.txt
+-rw-r--r-- 1 francesco francesco  206 feb 19 23:41 hostname.txt
+-rw-r--r-- 1 francesco francesco  207 feb 19 21:11 mem.txt
+-rw-r--r-- 1 francesco francesco    0 feb 19 23:34 nom_equip.txt
+-rw-r--r-- 1 francesco francesco  261 feb 19 23:45 particions.txt
+-rw-r--r-- 1 francesco francesco  140 feb 19 21:44 usb.txt
+-rw-r--r-- 1 francesco francesco  102 feb 19 21:55 versio.txt

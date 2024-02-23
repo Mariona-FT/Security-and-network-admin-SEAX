@@ -1,0 +1,165 @@
+--CPU 1 core amb PAE/NX--
+root@seax1:~# cat /proc/cpuinfo
+
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 165
+model name	: Intel(R) Core(TM) i7-10750H CPU @ 2.60GHz
+stepping	: 2
+cpu MHz		: 2592.000
+cache size	: 12288 KB
+physical id	: 0
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ht syscall nx rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc cpuid tsc_known_freq pni pclmulqdq monitor ssse3 cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt aes xsave avx rdrand hypervisor lahf_lm abm 3dnowprefetch invpcid_single pti fsgsbase bmi1 avx2 bmi2 invpcid rdseed clflushopt arat md_clear flush_l1d arch_capabilities
+bugs		: cpu_meltdown spectre_v1 spectre_v2 spec_store_bypass l1tf mds swapgs itlb_multihit srbds mmio_stale_data retbleed gds
+bogomips	: 5184.00
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+--------------------------------------------------------------------------------------
+
+
+--RAM 1024MB--
+root@seax1:~# free -m
+
+               total        used        free      shared  buff/cache   available
+Mem:             960         208         785           0          72         751
+Swap:            974           0         974
+
+--------------------------------------------------------------------------------------
+
+
+--Disc 4GB--
+root@seax1:~# df -h
+
+S. fitxers      Mida En ús Lliure  %Ús Muntat a
+udev            459M     0   459M   0% /dev
+tmpfs            97M  520K    96M   1% /run
+/dev/sda1       3,0G  1,2G   1,7G  42% /
+tmpfs           481M     0   481M   0% /dev/shm
+tmpfs           5,0M     0   5,0M   0% /run/lock
+practica1       692G  137G   556G  20% /home/shared_folder
+
+--------------------------------------------------------------------------------------
+
+
+--USB 2.0--
+root@seax1:~# lsusb -v | grep -i bcdUSB
+
+  bcdUSB               2.00
+  bcdUSB               2.00
+  bcdUSB               2.00
+  bcdUSB               1.10
+  bcdUSB               1.10
+  
+--------------------------------------------------------------------------------------
+
+
+--Xarxa 1 interfície Ethernet--
+root@seax1:~# ip addr
+
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:b0:b5:f0 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
+       valid_lft 86296sec preferred_lft 86296sec
+    inet6 fe80::a00:27ff:feb0:b5f0/64 scope link 
+       valid_lft forever preferred_lft forever
+3: enp0s8: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+
+--------------------------------------------------------------------------------------
+
+
+--S.O. Debian 64 bits--
+root@seax1:~# uname -a
+
+Linux debianseax1 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64 GNU/Linux
+
+--------------------------------------------------------------------------------------
+
+
+--Share 1 carpeta compartida ~/scripts--
+root@seax1:~# cat /etc/fstab
+
+# /etc/fstab: static file system information.
+#
+# Use 'blkid' to print the universally unique identifier for a
+# device; this may be used with UUID= as a more robust way to name devices
+# that works even if disks are added and removed. See fstab(5).
+#
+# systemd generates mount units based on this file, see systemd.mount(5).
+# Please run 'systemctl daemon-reload' after making changes here.
+#
+# <file system> <mount point>   <type>  <options>       <dump>  <pass>
+# / was on /dev/sda1 during installation
+UUID=a8ecec66-a976-4f2a-9be6-e665b086d3d2 /               ext4    errors=remount-ro 0       1
+# swap was on /dev/sda5 during installation
+UUID=8a2bd2ea-2a7b-4429-a7bd-dbf9e5d9029a none            swap    sw              0       0
+/dev/sr0        /media/cdrom0   udf,iso9660 user,noauto     0       0
+practica1	/home/shared_folder	vboxsf	rw,nofail	0	0
+
+--------------------------------------------------------------------------------------
+
+
+--La interfície de xarxa Ethernet tindrà una @ MAC definida manualment--
+root@seax1:~# ip addr
+
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:b0:b5:f0 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
+       valid_lft 86296sec preferred_lft 86296sec
+    inet6 fe80::a00:27ff:feb0:b5f0/64 scope link 
+       valid_lft forever preferred_lft forever
+3: enp0s8: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    
+--------------------------------------------------------------------------------------
+
+
+--Els equips s'anomenaran: seax1.epsevg.upc.edu i seax2.epsevg.upc.edu--
+root@seax1:~# cat /etc/hosts
+
+127.0.0.1	localhost
+127.0.1.1	seax1.epsevg.upc.edu	seax1
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+--------------------------------------------------------------------------------------
+
+
+--Mida i partició dels usuaris--
+root@seax1:~# lsblk
+
+NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sda      8:0    0    4G  0 disk 
+├─sda1   8:1    0    3G  0 part /
+├─sda2   8:2    0    1K  0 part 
+└─sda5   8:5    0  975M  0 part [SWAP]
+sdb      8:16   1 14,5G  0 disk 
+sr0     11:0    1 1024M  0 rom  

@@ -1,0 +1,85 @@
+root@seax1:~# : top -b -n 1 > /scripts/2_monitor_concret.txt
+top - 20:34:54 up  2:19,  1 user,  load average: 0,00, 0,00, 0,00
+Tasks:  77 total,   1 running,  73 sleeping,   3 stopped,   0 zombie
+%Cpu(s):  0,0 us,  0,0 sy,  0,0 ni,100,0 id,  0,0 wa,  0,0 hi,  0,0 si,  0,0 st 
+MiB Mem :    960,8 total,    767,2 free,    221,0 used,     84,7 buff/cache     
+MiB Swap:    975,0 total,    975,0 free,      0,0 used.    739,8 avail Mem 
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND
+    759 root      20   0       0      0      0 I   6,7   0,0   0:00.64 kworker+
+      1 root      20   0  101852  11996   9172 S   0,0   1,2   0:00.44 systemd
+      2 root      20   0       0      0      0 S   0,0   0,0   0:00.00 kthreadd
+      3 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 rcu_gp
+      4 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 rcu_par+
+      5 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 slub_fl+
+      6 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 netns
+      8 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 kworker+
+     10 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 mm_perc+
+     11 root      20   0       0      0      0 I   0,0   0,0   0:00.00 rcu_tas+
+     12 root      20   0       0      0      0 I   0,0   0,0   0:00.00 rcu_tas+
+     13 root      20   0       0      0      0 I   0,0   0,0   0:00.00 rcu_tas+
+     14 root      20   0       0      0      0 S   0,0   0,0   0:00.02 ksoftir+
+     15 root      20   0       0      0      0 I   0,0   0,0   0:00.28 rcu_pre+
+     16 root      rt   0       0      0      0 S   0,0   0,0   0:00.44 migrati+
+     18 root      20   0       0      0      0 S   0,0   0,0   0:00.00 cpuhp/0
+     20 root      20   0       0      0      0 S   0,0   0,0   0:00.00 kdevtmp+
+     21 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 inet_fr+
+     22 root      20   0       0      0      0 S   0,0   0,0   0:00.00 kauditd
+     23 root      20   0       0      0      0 S   0,0   0,0   0:00.00 khungta+
+     24 root      20   0       0      0      0 S   0,0   0,0   0:00.00 oom_rea+
+     27 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 writeba+
+     28 root      20   0       0      0      0 S   0,0   0,0   0:00.47 kcompac+
+     29 root      25   5       0      0      0 S   0,0   0,0   0:00.00 ksmd
+     30 root      39  19       0      0      0 S   0,0   0,0   0:00.11 khugepa+
+     31 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 kintegr+
+     32 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 kblockd
+     33 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 blkcg_p+
+     34 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 tpm_dev+
+     35 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 edac-po+
+     36 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 devfreq+
+     37 root       0 -20       0      0      0 I   0,0   0,0   0:00.31 kworker+
+     38 root      20   0       0      0      0 S   0,0   0,0   0:00.00 kswapd0
+     44 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 kthrotld
+     46 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 acpi_th+
+     47 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 mld
+     48 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 ipv6_ad+
+     53 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 kstrp
+     58 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 zswap-s+
+     59 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 kworker+
+    120 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 ata_sff
+    121 root      20   0       0      0      0 S   0,0   0,0   0:00.01 scsi_eh+
+    122 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 scsi_tm+
+    123 root      20   0       0      0      0 S   0,0   0,0   0:00.01 scsi_eh+
+    124 root      20   0       0      0      0 S   0,0   0,0   0:00.00 scsi_eh+
+    125 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 scsi_tm+
+    126 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 scsi_tm+
+    164 root      20   0       0      0      0 S   0,0   0,0   0:00.03 jbd2/sd+
+    165 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 ext4-rs+
+    203 root      20   0   32972  11512   8404 S   0,0   1,2   0:00.11 systemd+
+    232 root      20   0   26412   6620   4664 S   0,0   0,7   0:00.06 systemd+
+    275 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 iprt-VB+
+    282 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 cryptd
+    301 root      20   0    6608   2728   2476 S   0,0   0,3   0:00.04 cron
+    302 message+  20   0    8024   4296   3744 S   0,0   0,4   0:00.36 dbus-da+
+    304 root      20   0   24744   6904   6012 S   0,0   0,7   0:00.03 systemd+
+    318 root     -51   0       0      0      0 S   0,0   0,0   0:00.00 irq/18-+
+    334 root      20   0   16520   5880   5012 S   0,0   0,6   0:00.13 wpa_sup+
+    363 root      20   0    5868   3720   2892 S   0,0   0,4   0:00.00 dhclient
+    473 root      20   0    4256   2796   2372 S   0,0   0,3   0:00.03 login
+    613 root      20   0  155168   3164    980 S   0,0   0,3   0:02.99 VBoxDRM+
+    617 root      20   0  358428   2864   2460 S   0,0   0,3   0:04.80 VBoxSer+
+    635 root      20   0    7524   4328   3732 S   0,0   0,4   0:00.11 bash
+    688 root      20   0       0      0      0 S   0,0   0,0   0:00.00 scsi_eh+
+    689 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 scsi_tm+
+    693 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 uas
+    704 root      20   0    5604    904    812 T   0,0   0,1   0:00.18 cat
+    726 root      20   0       0      0      0 S   0,0   0,0   0:00.00 scsi_eh+
+    727 root       0 -20       0      0      0 I   0,0   0,0   0:00.00 scsi_tm+
+    742 root      20   0       0      0      0 I   0,0   0,0   0:00.02 kworker+
+    743 root      20   0       0      0      0 I   0,0   0,0   0:01.81 kworker+
+    751 root      20   0       0      0      0 I   0,0   0,0   0:00.03 kworker+
+    752 root      20   0       0      0      0 I   0,0   0,0   0:00.10 kworker+
+    754 root      20   0   11616   5148   3256 T   0,0   0,5   0:00.01 top
+    755 root      20   0   11628   4980   3080 T   0,0   0,5   0:00.00 top
+    760 root      20   0       0      0      0 I   0,0   0,0   0:00.00 kworker+
+    763 root      20   0   11624   5080   3180 R   0,0   0,5   0:00.00 top

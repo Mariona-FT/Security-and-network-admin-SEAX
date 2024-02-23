@@ -1,0 +1,56 @@
+
+--Abans de fer la instantània--
+
+root@seax1:~# echo "pre-snapshot estat" > 2_snapshot.txt
+
+root@seax1:~# /home # ls
+2_snapshot.txt
+entel
+
+root@seax1:~# /home # cat 2_snapshot.txt
+pre-snapshot estat
+
+--------------------------------------------------------------------------------------
+
+-------------Fer la instantània-----------
+
+
+--Canviar el contingut del fitxer de les snapshots--
+
+
+root@seax1:~# echo "post snapshot estat" > 2_snapshot.txt
+
+root@seax1:~# /home # ls
+2_snapshot.txt
+entel
+
+root@seax1:~# /home # cat 2_snapshot.txt
+post snapshot estat
+
+--Es pot crear nous fitxers instantànies --
+
+root@seax1:~# echo "fet dins instantania" > 2_noufitxer.txt
+
+root@seax1:~# /home # ls
+2_noufitxer.txt
+2_snapshot.txt
+entel
+
+root@seax1:~# /home # cat 2_noufitxer.txt
+fet dins instantania
+
+--------------------------------------------------------------------------------------
+
+-------------Revertir la instantània-----------
+
+root@seax1:~# /home # ls
+2_snapshot.txt
+entel
+
+root@seax1:~# /home # cat 2_snapshot.txt
+pre-snapshot estat
+
+--(Es retorna al estat de abans de guardar la instantània)--
+
+
+

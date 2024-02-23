@@ -1,0 +1,26 @@
+PS C:\Users\mft19\OneDrive\Documents> ls
+
+
+    Directory: C:\Users\mft19\OneDrive\Documents
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         20/2/2024     18:13      459517952 seax1_pract1.ova
+
+
+--------------------------------------------------------------------------------------
+PS C:\Users\mft19\OneDrive\Documents> Get-Item 'C:\Users\mft19\OneDrive\Documents\seax1_pract1.ova' | Select-Object Name, Length
+
+Name                 Length
+----                 ------
+seax1_pract1.ova 1009303552
+
+--------------------------------------------------------------------------------------
+
+
+PS C:\Users\mft19\OneDrive\Documents> tar -tf C:\Users\mft19\OneDrive\Documents\seax1_pract1.ova
+seax1_pract1.ovf
+seax1_pract1-disk001.vmdk
+seax1_pract1.mf
+
