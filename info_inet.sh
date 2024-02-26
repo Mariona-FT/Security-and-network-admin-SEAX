@@ -40,7 +40,9 @@ get_max_length() {
 
 
     #Fabricant - $fabricant
-
+    funcio_fabricant(){
+        fabricant=$
+    }
 
     #Adreça mac - $mac
     funcio_mac() {
@@ -54,7 +56,14 @@ get_max_length() {
     }
 
     #Estat interficie - $estat_interficie
-
+    funcio_estat(){
+        estat=$(ip addr show "$1" 2>/dev/null | grep -Po 'state \K[^ ]+')
+        if [ -z "$estat" ] || [ "$estat" == "DOWN" ]; then
+            echo "DOWN (no responent...)"
+        else
+            echo "UP (responent...)"
+        fi
+    }
 
     #Mode interficie - $mode_interficie
 
@@ -68,12 +77,14 @@ for interficie in $(ls /sys/class/net); do
 
 
     #RESULTATS
+    fabricant=$(funcio_fabricant $interficie)
     mac=$(funcio_mac $interficie)
+    estat=$(funcio_estat $interficie)
    # mac=$(cat /sys/class/net/$interficie/address)
 
     fabricante="Unknown" # Placeholder, replace with the command to get the actual manufacturer
-    estado=$(cat /sys/class/net/$interficie/operstate)
-    estado="UNKNOWN (responent...)" # Replace with actual condition
+    #estado=$(cat /sys/class/net/$interficie/operstate)
+    #estado="UNKNOWN (responent...)" # Replace with actual condition
     mtu=$(cat /sys/class/net/$interficie/mtu)
 
     # Collect all details
@@ -83,7 +94,7 @@ for interficie in $(ls /sys/class/net); do
         "Interfície:                $interficie"
         "Fabricant:                 $fabricante"
         "Adreça MAC:                $mac"
-        "Estat de la interfície:    $estado"
+        "Estat de la interfície:    $estat"
         "Mode de la interfície:     normal, amb mtu $mtu"
         "Adreçament:                Unknown"
         "Adreça IP / màscara:       Unknown"
