@@ -10,38 +10,38 @@ taula_inicial=(
 
 # Determina la longitud de la linia més llarga
 long_max=0
-for line in "${taula_inicial[@]}"; do
-    (( ${#line} > long_max )) && long_max=${#line}
+for linia in "${taula_inicial[@]}"; do
+    (( ${#linia} > long_max )) && long_max=${#linia}
 done
 
-# Crea un separador dinàmic basat en la longitud màxima de taula_inicial
-separator_line=$(printf '%*s' "$long_max" | tr ' ' '-')
+# Crea un separador dinàmic basat en la longitud màxima de la taula_inicial
+separador_linia=$(printf '%*s' "$long_max" | tr ' ' '-')
 
-# Adjust for padding and borders
-adjusted_length=$((long_max + 2)) # 1 space padding on each side
+# Ajustem l'emplenament i els marges
+long_ajustada=$((long_max + 2)) # 1 espai d'emplenament a cada costat
 
-# Print the top border
+# Mostra per pantalla el marge superior
 printf '╔'
-printf '═%.0s' $(seq 1 $adjusted_length)
+printf '═%.0s' $(seq 1 $long_ajustada)
 printf '╗\n'
 
-# Function to print a line with padding
-print_line() {
+# Mostra per pantalla una línia amb emplenament
+print_linia() {
     printf "║ %-${long_max}s ║\n" "$1"
 }
 
-# Print the header separator
-print_line "$separator_line"
+# Mostra per patalla el separador de capçalera
+print_linia "$separador_linia"
 
-# Print taula_inicial and dynamic separators
-for line in "${taula_inicial[@]}"; do
-    print_line "$line"
+# Mostra la taula_inicial and els separadors dinàmics
+for linia in "${taula_inicial[@]}"; do
+    print_linia "$linia"
 done
 
-# Print the footer separator
-print_line "$separator_line"
+# Imprimeix el separador final
+print_linia "$separador_linia"
 
-# Print the bottom border
+# Mostra el marge inferior
 printf '╚'
-printf '═%.0s' $(seq 1 $adjusted_length)
+printf '═%.0s' $(seq 1 $long_ajustada)
 printf '╝\n'
