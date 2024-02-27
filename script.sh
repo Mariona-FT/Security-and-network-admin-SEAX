@@ -1,11 +1,36 @@
 #!/bin/bash
+# La cridem al principi de tot perquè ens calculi la hora només començar l'script]
+hora_inici=$(funcio_hora_inici)
+# OPCIONS A BUSCAR
+
+    # Sistema Operatiu - $SO
+    funcio_SO() {
+        versio_SO=$(grep 'PRETTY_NAME' /etc/os-release | cut -d'=' -f2 | tr -d '"')
+        echo $versio_SO
+    }
+
+    # Data de compilació - $data_compilacio
+    funcio_data_compilacio() {
+        data_compilacio=$(stat -c '%y' "$0" | cut -d' ' -f1)
+        echo $data_compilacio
+    }
+
+    # Hora inici  - $hora_inici
+    funcio_hora_inici() {
+        hora_inici=$(date +'%H:%M:%S')
+        echo $hora_inici
+    }
+
+    # RESULTATS
+    versio_SO=$(funcio_SO)
+    data_compilacio=$(funcio_data_compilacio)
 
 # Contingut taula inicial
 taula_inicial=(
     "Analisi de les interficies del sistema realitzada per l'usuari root de l'equip debian."
-    "Sistema operatiu Debian GNU/Linux 11 (bullseye)."
-    "Versio del script 0.03 compilada el 07/02/2023."
-    "Analisi iniciada en data 2023-02-12 a les 19:09:04 i finalitzada en data 2023-02-12 a les 19:09:21 [20s]."
+    "Sistema operatiu $versio_SO."
+    "Versio del script 0.05 compilada el $data_compilacio."
+    "Analisi iniciada en data $(date +'%Y-%m-%d') a les $hora_inici i finalitzada en data $(date +'%Y-%m-%d') a les $hora_final [s]."
 )
 
 # Determina la longitud de la linia més llarga
@@ -35,6 +60,7 @@ print_linia "$separador_linia"
 
 # Mostra la taula_inicial and els separadors dinàmics
 for linia in "${taula_inicial[@]}"; do
+    hora_final="$(date '+%H:%M:%S')"
     print_linia "$linia"
 done
 
