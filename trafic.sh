@@ -2,9 +2,6 @@
 
 #exec > test.log 2>&1
 
-#Variable global - tipus de adrecament: noconfig, dinamic,estatic,loopback
-tipus=""
-
 print_horizontal_line() {
     printf "┌"
     printf '─%.0s' $(seq 1 $1)
@@ -39,16 +36,18 @@ get_max_length() {
     echo $((max_len + 4)) # Add some padding
 }
  #ABANS Mirar si paquets per execucio instalats
-funcio_verifica_paquets() {
-    if ! command -v $1 &> /dev/null; then
-        echo "El paquet $1 no esta instal·lat, shaura d'instalar per fer totes les proves amb exit"
-        exit 1
-    fi
-}
-
-funcio_verifica_paquets curl
-funcio_verifica_paquets dig
-
+    funcio_verifica_paquets() {
+        if ! command -v curl >/dev/null 2>&1; then
+            #echo "El paquet 'curl' no està instal·lat. Intentant instal·lar..."
+            apt-get update && apt-get install -y curl
+            if [ $? -ne 0 ]; then
+            #  echo "Hi ha hagut un problema instal·lant 'curl'. Si us plau, comprova la teva connexió a internet i els teus permisos de sudo."
+                exit 1
+            fi
+        else
+           echo "'curl' ja està instal·lat."
+        fi
+    }
 
  #OPCIONS A BUSCAR
 
@@ -156,14 +155,12 @@ funcio_verifica_paquets dig
         # Cas NO CONFIGURAT
         if ! ip addr show "$1" | grep -q 'inet'; then
             echo "no configurat"
-            tipus="noconfig"
             return 0
         fi
 
         # Cas LOOPBACK
         if ip addr show "$1" | grep -q "LOOPBACK"; then
             echo "loopback (fitxer /etc/network/interfaces)"
-            tipus="loopback"
             return 0
         fi
 
@@ -173,13 +170,11 @@ funcio_verifica_paquets dig
             # Si és DHCP, buscar la seva adreça DHCP
             local dhcp_address=$(ip addr show "$1" | grep 'inet ' | awk '{print $2}' | cut -f1 -d'/')
             echo "dinamic (DHCP $dhcp_address)"
-            tipus="dinamic"
             return 0
 
         # Cas ESTATIC - Fet manualment
         else
             echo "estatic (des de la consola)"
-            tipus="estatic"
             return 0
         fi
     }
@@ -311,37 +306,7 @@ funcio_verifica_paquets dig
         nom_dns=$
     }
 
-    #Ip publica -$ipp
-    funcio_ipp(){
-        #buscar ip publica de la xarxa
-        local public_ip=$(curl -s https://ifconfig.me/ip)
-        echo "$public_ip [-]"
-    }
-
-    #Deteccio Nat
-    funcio_nat(){
-        echo
-    }
-
-    #Nom domini- $nom_dom
-    funcio_dom(){
-        #buscar ip publica de la xarxa
-        local public_ip=$(curl -s https://ifconfig.me/ip)
-        if [ -z "$public_ip" ]; then
-            echo "No hi ha ip publica"
-            return 1
-        fi
-        #buscar el domini de la adreca ip publica de la xarxa 
-        local dom=$(curl -s "https://api.hackertarget.com/reverseiplookup/?q=$public_ip")
-        if [ -z "$dom" ]; then
-            echo "-"
-            return 1
-        fi
-
-        echo $dom
-    }
-
-    funcio_trafic(){
+    funcio_trafic_rebut(){
         interface=$1
         # Obté l'informació de tràfic
         rx_bytes=$(ip -s link show $interface | awk '/RX:/ {getline; print $1}')
@@ -349,48 +314,66 @@ funcio_verifica_paquets dig
         rx_errors=$(ip -s link show $interface | awk '/RX:/ {getline; print $3}')
         rx_descartats=$(ip -s link show $interface | awk '/RX:/ {getline; print $4}')
         rx_perduts=$(ip -s link show $interface | awk '/RX:/ {getline; print $5}')
-
-        tx_bytes=$(ip -s link show $interface | awk '/TX:/{print $2}' | cut -d' ' -f1)
-        tx_packets=$(ip -s link show $interface | awk '/TX:/{print $1}' | cut -d' ' -f1)
         
         # Si hi ha més de 1024 bits ho transforma a kb
         rx_bytes_kb=$(echo "scale=2; $rx_bytes/1024" | bc)
 
         # Return traffic information as an array
-        echo "$rx_bytes_kb $rx_packets $rx_errors $rx_descartats $rx_perduts $tx_bytes $tx_packets"
+        echo "$rx_bytes_kb $rx_packets $rx_errors $rx_descartats $rx_perduts"
     }
 
+    funcio_trafic_transmes(){
+        interface=$1
+        # Obté l'informació de tràfic
+        tx_bytes=$(ip -s link show $interface | awk '/TX:/ {getline; print $1}')
+        tx_packets=$(ip -s link show $interface | awk '/TX:/ {getline; print $2}')
+        tx_errors=$(ip -s link show $interface | awk '/TX:/ {getline; print $3}')
+        tx_descartats=$(ip -s link show $interface | awk '/TX:/ {getline; print $4}')
+        tx_perduts=$(ip -s link show $interface | awk '/TX:/ {getline; print $5}')
+        
+        # Si hi ha més de 1024 bits ho transforma a kb
+        tx_bytes_kb=$(echo "scale=2; $tx_bytes/1024" | bc)
+
+        # Return traffic information as an array
+        echo "$tx_bytes_kb $tx_packets $tx_errors $tx_descartats $tx_perduts"
+    }
 
 # Llistat de totes les interficies de la maquina
+
+
 for interficie in $(ls /sys/class/net); do
 
     #ABANS
-
     #funcio_verifica_paquets
-   
+
     #RESULTATS
     interfi=$(funcio_nom $interficie)
     fabricant=$(funcio_fabricant $interficie)
     mac=$(funcio_mac $interficie)
     estat=$(funcio_estat $interficie)
     mode_interficie=$(funcio_mode $interficie)
- 
+
     adrecament=$(funcio_adrecament $interficie)
-    echo "hola"
-        echo $tipus
     ip_masc=$(funcio_ip_mascara $interficie)
     adxarxa=$(funcio_xarxa $interficie)
     broadcast=$(funcio_broadcast $interficie)
     gateway=$(funcio_gateway $interficie)
     nom_dns=$(funcio_dns_nom $interficie)
 
-    trafic_rebut_info=($(funcio_trafic $interficie))
+    trafic_rebut_info=($(funcio_trafic_rebut $interficie))
     t_rebut=${trafic_rebut_info[0]}
     paq_rebut=${trafic_rebut_info[1]}
     errors_rebut=${trafic_rebut_info[2]}
     descartats_rebut=${trafic_rebut_info[3]}
     perduts_rebut=${trafic_rebut_info[4]}
-    t_transmes=${trafic_rebut_info[1]}
+
+    trafic_transmes_info=($(funcio_trafic_transmes $interficie))
+    t_transmes=${trafic_transmes_info[0]}
+    paq_transmes=${trafic_transmes_info[1]}
+    errors_transmes=${trafic_transmes_info[2]}
+    descartats_transmes=${trafic_transmes_info[3]}
+    perduts_transmes=${trafic_transmes_info[4]}
+
     vel_recep=${trafic_rebut_info[2]}
     vel_trans=${trafic_rebut_info[3]}
 
@@ -409,6 +392,7 @@ for interficie in $(ls /sys/class/net); do
         "Adreça broadcast:          $broadcast"
         "Gateway per defecte:       $gateway"
         "Nom DNS:                   $nom_dns"
+       
         ""
 
         "Adreça IP pública:         "
@@ -420,33 +404,10 @@ for interficie in $(ls /sys/class/net); do
         "" #Possible ruta involucrada
 
         "Tràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)"
-        "Tràfic transmès:           $t_transmes Kbytes [ paquets] ( errors,  descartats i  perduts)"
+        "Tràfic transmès:           $t_transmes Kbytes [$paq_transmes paquets] ($errors_transmes errors, $descartats_transmes descartats i $perduts_transmes perduts)"
         "Velocitat de Recepció:     $vel_recep bytes/s [ paquets/s]"
         "Velocitat de Transmissió:  $vel_trans bytes/s [ paquets/s]"
     )
-
-    if [ "$tipus" != "loopback" ] && [ "$tipus" != "noconfig" ]; then
-        ip_publica=$(funcio_ipp $interficie)
-        dic_nat=$(funcio_nat $interficie)
-        nom_dom=$(funcio_dom $interficie)
-
-        resultats+=(
-            "Adreça IP pública:         $ip_publica"
-            "Detecció de NAT:           $dic_nat"
-            "Nom del domini:            $nom_dom"
-            "Xarxes de l'entitat:       "
-            "Entitat propietària:       "
-        )
-    fi
-    
-    #Possible ruta involucrada
-    if [ "$tipus" != "loopback" ]; then
-        resultats+=(
-            "Rutes incolucrades: :         "
-        )
-    fi  
-   
-    
 
     # Determine the max length of the details
     table_width=$(get_max_length "${resultats[@]}")
