@@ -1,6 +1,4 @@
 #!/bin/bash
-# La cridem al principi de tot perquè ens calculi la hora només començar l'script]
-hora_inici=$(funcio_hora_inici)
 # OPCIONS A BUSCAR
 
     # Sistema Operatiu - $SO
@@ -21,16 +19,25 @@ hora_inici=$(funcio_hora_inici)
         echo $hora_inici
     }
 
+    # Hora final  - $hora_final
+    funcio_hora_final() {
+        hora_final="$(date '+%H:%M:%S')"
+        echo $hora_final
+    }
+    
+
     # RESULTATS
     versio_SO=$(funcio_SO)
     data_compilacio=$(funcio_data_compilacio)
+    hi=$(funcio_hora_inici)
+    hf=$(funcio_hora_final)
 
     # Contingut taula inicial
     taula_inicial=(
        "Analisi de les interficies del sistema realitzada per l'usuari root de l'equip debian."
         "Sistema operatiu $versio_SO."
         "Versio del script 0.05 compilada el $data_compilacio."
-        "Analisi iniciada en data $(date +'%Y-%m-%d') a les $hora_inici i finalitzada en data $(date +'%Y-%m-%d') a les $hora_final [s]."
+        "Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf."
 )
     # Determina la longitud de la linia més llarga
     long_max=0
@@ -55,7 +62,6 @@ hora_inici=$(funcio_hora_inici)
 
     # Mostra la taula_inicial and els separadors dinàmics
     for linia in "${taula_inicial[@]}"; do
-        hora_final="$(date '+%H:%M:%S')"
         print_linia "$linia"
     done
 
