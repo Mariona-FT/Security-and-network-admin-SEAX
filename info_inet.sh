@@ -42,12 +42,36 @@ get_max_length() {
     #Fabricant - $fabricant
     funcio_fabricant(){
         fabricant=$
+        
+        local i="$1"
+        local vendor_file="/sys/class/net/${i}/device/vendor"
+        local pci_database="/usr/share/misc/pci.ids"
+
+        # Check if the vendor file exists for the interface
+        if [ -f "${vendor_file}" ]; then
+            # Read the vendor ID
+            local vendor_id=$(cat "${vendor_file}")
+            
+            # Remove leading '0x' from vendor ID if present
+            vendor_id=${vendor_id#0x}
+            
+            # Lookup the vendor ID in the PCI database
+            local manufacturer=$(grep -i "^${vendor_id}" "${pci_database}" | awk '{$1=""; print $0}' | sed 's/^\s*//')
+            
+            # Check if a manufacturer was found
+            if [ -n "${manufacturer}" ]; then
+                echo "${manufacturer}"
+            else
+                echo "Fabricant desconegut"
+            fi
+        else
+            echo "Fitxer del fabricant no trobat"
+        fi
     }
 
     #Adreça mac - $mac
     funcio_mac() {
        mac=$( ip link show "$1" | grep "link/" |awk '{printf $2}' )
-
         if [ -z "$mac" ]; then
             echo "Cap mac trobada"
         else 
@@ -66,7 +90,10 @@ get_max_length() {
     }
 
     #Mode interficie - $mode_interficie
-
+    funcio_mode(){
+        mode_interficie=$
+         mtu=$(cat /sys/class/net/$interficie/mtu)
+    }
 
 
 # List all network interfaces
@@ -80,9 +107,11 @@ for interficie in $(ls /sys/class/net); do
     fabricant=$(funcio_fabricant $interficie)
     mac=$(funcio_mac $interficie)
     estat=$(funcio_estat $interficie)
+    mode_interficie=$(funcio_mode $interfice)
+
    # mac=$(cat /sys/class/net/$interficie/address)
 
-    fabricante="Unknown" # Placeholder, replace with the command to get the actual manufacturer
+    #fabricante="Unknown" # Placeholder, replace with the command to get the actual manufacturer
     #estado=$(cat /sys/class/net/$interficie/operstate)
     #estado="UNKNOWN (responent...)" # Replace with actual condition
     mtu=$(cat /sys/class/net/$interficie/mtu)
@@ -92,10 +121,10 @@ for interficie in $(ls /sys/class/net); do
         "titotl : Configuració de la interfície $interficie."
 
         "Interfície:                $interficie"
-        "Fabricant:                 $fabricante"
+        "Fabricant:                 $fabricant"
         "Adreça MAC:                $mac"
         "Estat de la interfície:    $estat"
-        "Mode de la interfície:     normal, amb mtu $mtu"
+        "Mode de la interfície:     $mode_interficie"
         "Adreçament:                Unknown"
         "Adreça IP / màscara:       Unknown"
         "Adreça de xarxa:           Unknown"
