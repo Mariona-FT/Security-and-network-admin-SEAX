@@ -38,7 +38,23 @@ get_max_length() {
 
  #OPCIONS A BUSCAR
 
-    #interficie - $interficie
+    #interficie - $interficie 
+    funcio_titol(){
+        # TITOL INTERFÍCIE
+        # per $table table_width centra els echos
+        local i=$1
+        local table_width=$2
+        # Calculate padding
+        local title_length=$(( ${#i} + 33 )) # Length of "Configuració de la interfície " and spaces
+        local padding=$(( ($table_width - $title_length) / 2 ))
+        local line="│ $(printf -- '-%.0s' $(seq 1 $((table_width - 4)))) │" # Creates the horizontal line
+
+        # Print the title with padding
+        echo "$line"
+        printf "│ %*s%s%*s│\n" $padding '' "Configuració de la interfície $i." $padding ''
+        echo "$line"
+
+    }
 
     #Fabricant - $fabricant
     funcio_fabricant(){
@@ -92,22 +108,28 @@ get_max_length() {
     }
 
     #Mode interficie - $mode_interficie
+    # estat de la interficie + passar la mtu 
+    # Si funciona correctament: configurada, corrent electrica i activada --> NORMAL
+    # sino retorna NO NORMAL
     funcio_mode(){
         mode_interficie=$
          mtu=$(cat /sys/class/net/$interficie/mtu)
     }
 
     # adreçament - $adrecament
+    # tipus adreçament: loopback ,estatic , dinamic
     funcio_adrecament() {
         adrecament=$
     }
 
     #Adreca ip i mascara - $ip_masc
+    # passar ip amb mascara + (ip només  mascara nomes )
     funcio_ip_mascara() {
         adip_masc=$
     }
 
     #Adreca de xarxa - $adxarxa
+    # adreça de xarxa + (ip de la xarxa + mascara i RANG d'aquesta)
     funcio_xarxa() {
         adxarxa=$
     }
@@ -123,6 +145,7 @@ get_max_length() {
     }
 
     #Nom dns - $nom_dns
+    # nom donat pel sistema dns utilitzat
     funcio_dns_nom() {
         nom_dns=$
     }
@@ -142,9 +165,6 @@ get_max_length() {
 
 
 for interficie in $(ls /sys/class/net); do
-
-    # TITOL INTERFÍCIE
-
 
     #RESULTATS
     fabricant=$(funcio_fabricant $interficie)
@@ -204,13 +224,21 @@ for interficie in $(ls /sys/class/net); do
 
     # Print the table for the current interface
     print_horizontal_line $table_width
+    
     print_middle_line $table_width
+
+    funcio_titol $interficie $table_width
+    
+    print_middle_line $table_width
+
     print_separator $table_width
     for detail in "${resultats[@]}"; do
         print_row $table_width "$detail"
     done
     print_separator $table_width
-    print_middle_line $table_width
-    print_horizontal_line $table_width
+   # print_middle_line $table_width
+   # print_horizontal_line $table_width
     echo # Newline for spacing between tables
-done
+
+
+done # final del bucle x cada interficie
