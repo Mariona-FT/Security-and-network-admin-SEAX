@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exec > test.log 2>&1
+
 print_horizontal_line() {
     printf "┌"
     printf '─%.0s' $(seq 1 $1)
@@ -22,7 +24,7 @@ print_row() {
     printf "│ %-$(($1 - 2))s │\n" "$2"
 }
 
-# Determine the longest line for dynamic table width
+#Maxima longitud linea a inprimir
 get_max_length() {
     max_len=0
     for str in "$@"; do
@@ -38,27 +40,25 @@ get_max_length() {
 
     #interficie - $interficie
 
-
     #Fabricant - $fabricant
     funcio_fabricant(){
         fabricant=$
         
         local i="$1"
-        local vendor_file="/sys/class/net/${i}/device/vendor"
-        local pci_database="/usr/share/misc/pci.ids"
+        local vendor_file="/sys/class/net/${i}/device/vendor" #buscar codi id fabricant
+        local pci_database="/usr/share/misc/pci.ids"            #buscar en bases de dades el nom 
 
-        # Check if the vendor file exists for the interface
         if [ -f "${vendor_file}" ]; then
-            # Read the vendor ID
+            #Si existeix llegir el id del fabricant
             local vendor_id=$(cat "${vendor_file}")
             
-            # Remove leading '0x' from vendor ID if present
+            # Treure '0x' si estan
             vendor_id=${vendor_id#0x}
             
-            # Lookup the vendor ID in the PCI database
+            # Buscar en les bades de dades de pci el codi del fabricant
             local manufacturer=$(grep -i "^${vendor_id}" "${pci_database}" | awk '{$1=""; print $0}' | sed 's/^\s*//')
             
-            # Check if a manufacturer was found
+            # Si el fabricant es ta desconegur
             if [ -n "${manufacturer}" ]; then
                 echo "${manufacturer}"
             else
@@ -96,9 +96,8 @@ get_max_length() {
     }
 
 
-# List all network interfaces
+# Llistat de totes les interficies de la maquina
 for interficie in $(ls /sys/class/net); do
-    # Perform the operations
 
     # TITOL INTERFÍCIE
 
@@ -111,13 +110,8 @@ for interficie in $(ls /sys/class/net); do
 
    # mac=$(cat /sys/class/net/$interficie/address)
 
-    #fabricante="Unknown" # Placeholder, replace with the command to get the actual manufacturer
-    #estado=$(cat /sys/class/net/$interficie/operstate)
-    #estado="UNKNOWN (responent...)" # Replace with actual condition
-    mtu=$(cat /sys/class/net/$interficie/mtu)
-
-    # Collect all details
-    details=(
+    # Print dels resultats
+    resultats=(
         "titotl : Configuració de la interfície $interficie."
 
         "Interfície:                $interficie"
@@ -125,12 +119,25 @@ for interficie in $(ls /sys/class/net); do
         "Adreça MAC:                $mac"
         "Estat de la interfície:    $estat"
         "Mode de la interfície:     $mode_interficie"
+       
+        ""
         "Adreçament:                Unknown"
         "Adreça IP / màscara:       Unknown"
         "Adreça de xarxa:           Unknown"
         "Adreça broadcast:          Unknown"
         "Gateway per defecte:       Unknown"
         "Nom DNS:                   Unknown"
+       
+        ""
+
+        "Adreça IP pública:         "
+        "Detecció de NAT:           "
+        "Nom del domini:            "
+        "Xarxes de l'entitat:       "
+        "Entitat propietària:       "
+       
+        "" 
+
         "Tràfic rebut:              Unknown"
         "Tràfic transmès:           Unknown"
         "Velocitat de Recepció:     Unknown"
@@ -138,13 +145,13 @@ for interficie in $(ls /sys/class/net); do
     )
 
     # Determine the max length of the details
-    table_width=$(get_max_length "${details[@]}")
+    table_width=$(get_max_length "${resultats[@]}")
 
     # Print the table for the current interface
     print_horizontal_line $table_width
     print_middle_line $table_width
     print_separator $table_width
-    for detail in "${details[@]}"; do
+    for detail in "${resultats[@]}"; do
         print_row $table_width "$detail"
     done
     print_separator $table_width
