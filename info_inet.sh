@@ -2,6 +2,77 @@
 
 #exec > test.log 2>&1
 
+    # Sistema Operatiu - $SO
+    funcio_SO() {
+        versio_SO=$(grep 'PRETTY_NAME' /etc/os-release | cut -d'=' -f2 | tr -d '"')
+        echo $versio_SO
+    }
+
+    # Data de compilació - $data_compilacio
+    funcio_data_compilacio() {
+        data_compilacio=$(stat -c '%y' "$0" | cut -d' ' -f1)
+        echo $data_compilacio
+    }
+
+    # Hora inici  - $hora_inici
+    funcio_hora_inici() {
+        hora_inici=$(date +'%H:%M:%S')
+        echo $hora_inici
+    }
+
+    # Hora final  - $hora_final
+    funcio_hora_final() {
+        hora_final="$(date '+%H:%M:%S')"
+        echo $hora_final
+    }
+    
+
+    # RESULTATS
+    versio_SO=$(funcio_SO)
+    data_compilacio=$(funcio_data_compilacio)
+    hi=$(funcio_hora_inici)
+    hf=$(funcio_hora_final)
+
+    # Contingut taula inicial
+    taula_inicial=(
+       "Analisi de les interficies del sistema realitzada per l'usuari root de l'equip debian."
+        "Sistema operatiu $versio_SO."
+        "Versio del script 0.35 compilada el $data_compilacio."
+        "Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf."
+)
+    # Determina la longitud de la linia més llarga
+    long_max=0
+    for linia in "${taula_inicial[@]}"; do
+        (( ${#linia} > long_max )) && long_max=${#linia}
+    done
+    
+    # Crea un separador dinàmic basat en la longitud màxima de la taula_inicial
+    separador_linia=$(printf '%*s' "$long_max" | tr ' ' '-')
+    # Ajustem l'emplenament i els marges
+    long_ajustada=$((long_max + 2)) # 1 espai d'emplenament a cada costat
+    # Mostra per pantalla el marge superior
+    printf '╔'
+    printf '═%.0s' $(seq 1 $long_ajustada)
+    printf '╗\n'
+    # Mostra per pantalla una línia amb emplenament
+    print_linia() {
+        printf "║ %-${long_max}s ║\n" "$1"
+    }
+    # Mostra per patalla el separador de capçalera
+    print_linia "$separador_linia"
+
+    # Mostra la taula_inicial and els separadors dinàmics
+    for linia in "${taula_inicial[@]}"; do
+        print_linia "$linia"
+    done
+
+    # Imprimeix el separador final
+    print_linia "$separador_linia"
+    # Mostra el marge inferior
+    printf '╚'
+    printf '═%.0s' $(seq 1 $long_ajustada)
+    printf '╝\n'
+
 #Variable global - tipus de adrecament: noconfig, dinamic,estatic,loopback
 tipus=""
 
@@ -370,15 +441,36 @@ funcio_verifica_paquets whois
         fi
     }
 
-    funcio_trafic(){
+    funcio_trafic_rebut(){
         interface=$1
-        # Get traffic information using ifconfig
-        rx_bytes=$(ip -s link show $interface | awk '/RX:/{print $2}' | cut -d' ' -f1)
-        tx_bytes=$(ip -s link show $interface | awk '/TX:/{print $2}' | cut -d' ' -f1)
-        rx_packets=$(ip -s link show $interface | awk '/RX:/{print $1}' | cut -d' ' -f1)
-        tx_packets=$(ip -s link show $interface | awk '/TX:/{print $1}' | cut -d' ' -f1)
+        # Obté l'informació de tràfic
+        rx_bytes=$(ip -s link show $interface | awk '/RX:/ {getline; print $1}')
+        rx_packets=$(ip -s link show $interface | awk '/RX:/ {getline; print $2}')
+        rx_errors=$(ip -s link show $interface | awk '/RX:/ {getline; print $3}')
+        rx_descartats=$(ip -s link show $interface | awk '/RX:/ {getline; print $4}')
+        rx_perduts=$(ip -s link show $interface | awk '/RX:/ {getline; print $5}')
+        
+        # Si hi ha més de 1024 bits ho transforma a kb
+        rx_bytes_kb=$(echo "$rx_bytes/1024" | bc)
+
         # Return traffic information as an array
-        echo "$rx_bytes $tx_bytes $rx_packets $tx_packets"
+        echo "$rx_bytes_kb $rx_packets $rx_errors $rx_descartats $rx_perduts"
+    }
+
+    funcio_trafic_transmes(){
+        interface=$1
+        # Obté l'informació de tràfic
+        tx_bytes=$(ip -s link show $interface | awk '/TX:/ {getline; print $1}')
+        tx_packets=$(ip -s link show $interface | awk '/TX:/ {getline; print $2}')
+        tx_errors=$(ip -s link show $interface | awk '/TX:/ {getline; print $3}')
+        tx_descartats=$(ip -s link show $interface | awk '/TX:/ {getline; print $4}')
+        tx_perduts=$(ip -s link show $interface | awk '/TX:/ {getline; print $5}')
+        
+        # Si hi ha més de 1024 bits ho transforma a kb
+        tx_bytes_kb=$(echo "$tx_bytes/1024" | bc)
+
+        # Return traffic information as an array
+        echo "$tx_bytes_kb $tx_packets $tx_errors $tx_descartats $tx_perduts"
     }
 
 
@@ -402,6 +494,20 @@ for interficie in $(ls /sys/class/net); do
     broadcast=$(funcio_broadcast $interficie)
     gateway=$(funcio_gateway $interficie)
     nom_dns=$(funcio_dns_nom $interficie)
+
+    trafic_rebut_info=($(funcio_trafic_rebut $interficie))
+    t_rebut=${trafic_rebut_info[0]}
+    paq_rebut=${trafic_rebut_info[1]}
+    errors_rebut=${trafic_rebut_info[2]}
+    descartats_rebut=${trafic_rebut_info[3]}
+    perduts_rebut=${trafic_rebut_info[4]}
+
+    trafic_transmes_info=($(funcio_trafic_transmes $interficie))
+    t_transmes=${trafic_transmes_info[0]}
+    paq_transmes=${trafic_transmes_info[1]}
+    errors_transmes=${trafic_transmes_info[2]}
+    descartats_transmes=${trafic_transmes_info[3]}
+    perduts_transmes=${trafic_transmes_info[4]}
 
     # Print dels resultats
     resultats=(
@@ -436,7 +542,15 @@ for interficie in $(ls /sys/class/net); do
             "Entitat propietària:       $entitat"
         )
     fi
+
+    resultats+=(
+        "Tràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)"
+        "Tràfic transmès:           $t_transmes Kbytes [$paq_transmes paquets] ($errors_transmes errors, $descartats_transmes descartats i $perduts_transmes perduts)"
+        "Velocitat de Recepció:     $vel_recep bytes/s [ paquets/s]"
+        "Velocitat de Transmissió:  $vel_trans bytes/s [ paquets/s]"
+        )
     
+
     # Determine the max length of the details
     table_width=$(get_max_length "${resultats[@]}")
 

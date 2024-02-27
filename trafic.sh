@@ -316,7 +316,7 @@ get_max_length() {
         rx_perduts=$(ip -s link show $interface | awk '/RX:/ {getline; print $5}')
         
         # Si hi ha més de 1024 bits ho transforma a kb
-        rx_bytes_kb=$(echo "scale=2; $rx_bytes/1024" | bc)
+        rx_bytes_kb=$(echo "$rx_bytes/1024" | bc)
 
         # Return traffic information as an array
         echo "$rx_bytes_kb $rx_packets $rx_errors $rx_descartats $rx_perduts"
@@ -332,7 +332,7 @@ get_max_length() {
         tx_perduts=$(ip -s link show $interface | awk '/TX:/ {getline; print $5}')
         
         # Si hi ha més de 1024 bits ho transforma a kb
-        tx_bytes_kb=$(echo "scale=2; $tx_bytes/1024" | bc)
+        tx_bytes_kb=$(echo "$tx_bytes/1024" | bc)
 
         # Return traffic information as an array
         echo "$tx_bytes_kb $tx_packets $tx_errors $tx_descartats $tx_perduts"
