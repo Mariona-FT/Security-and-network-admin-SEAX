@@ -205,17 +205,54 @@ get_max_length() {
 
     #Adreça de broadcast - $broadcast
     funcio_broadcast() {
-        broadcast=$(ip addr show "$1" | grep 'link/ether' | awk '{printf $2}')
-        if [ -z "$broadcast" ]; then
+        # Verificar si l'interficie existeix
+        if ! ip link show "$1" &>/dev/null; then
             echo "-"
-        else
-            echo $broadcast
+            return 0
         fi
+
+        # Obtenir l'adreça de difusió (broadcast) de l'interficie
+        local broadcast=$(ip addr show "$1" | awk '/inet / {print $4}' | cut -d '/' -f1)
+         # Obtenir l'adreça IP i la màscara de l'interfície
+        local ip_mask=$(ip addr show "$1" | awk '/inet / {print $4}')
+        local ip=$(echo "$ip_mask" | cut -d '/' -f1)
+
+        # Comprovar si l'adreça IP és vàlida -casos error
+        if [[ ! "$ip" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "-"
+            return 1
+        fi
+
+        # Separar els octets de l'adreça IP
+        IFS='.' read -r -a octets <<< "$ip"
+
+        # Trobar mascara broadcast - si num diferent a 255==0 si num igual a 255=255
+        local new_broadcast=""
+        for octet in "${octets[@]}"; do
+            if [ "$octet" = "255" ]; then
+                new_broadcast+="$octet."
+            else
+                new_broadcast+="0."
+            fi
+        done
+        new_broadcast=${new_broadcast%?}
+
+
+        # Mostrar l'adreça de broadcast + la seva mascara
+        echo "$broadcast ($new_broadcast)"
     }
 
     #Adreça gateway per defecte - $gateway
     funcio_gateway() {
-        gateway=$
+        # Verificar si l'interficie existeix
+        if ! ip link show "$1" &>/dev/null; then
+            echo "-"
+            return 0
+        fi
+        # Obtenir la porta d'enllaç (gateway) de l'interfície
+        local gateway=$(ip route show | awk '$1 == "default" && $5 == "'"$1"'" {print $3}')
+
+        echo  $gateway
     }
 
     #Nom dns - $nom_dns
