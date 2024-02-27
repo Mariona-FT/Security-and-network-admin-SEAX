@@ -6,8 +6,9 @@
 tipus=""
 
 print_horizontal_line() {
+  local length=$1
     printf "┌"
-    printf '─%.0s' $(seq 1 $1)
+    printf '─%.0s' $(seq 1 $length)
     printf "┐\n"
 }
 
@@ -36,7 +37,7 @@ get_max_length() {
             max_len=$current_len
         fi
     done
-    echo $((max_len + 4)) # Add some padding
+    echo $((max_len + 1)) # Add some padding
 }
  #ABANS Mirar si paquets per execucio instalats
 funcio_verifica_paquets() {
@@ -48,6 +49,7 @@ funcio_verifica_paquets() {
 
 funcio_verifica_paquets curl
 funcio_verifica_paquets dig
+funcio_verifica_paquets whois
 
 
  #OPCIONS A BUSCAR
@@ -67,7 +69,6 @@ funcio_verifica_paquets dig
         echo "$line"
         printf "│ %*s%s%*s│\n" $padding '' "Configuració de la interfície $i." $padding ''
         echo "$line"
-
     }
 
     #Nom interficie - $nom interficie
@@ -315,7 +316,11 @@ funcio_verifica_paquets dig
     funcio_ipp(){
         #buscar ip publica de la xarxa
         local public_ip=$(curl -s https://ifconfig.me/ip)
-        echo "$public_ip [-]"
+        if [ -z $public_ip ]; then
+        echo "-"
+        else 
+            echo "$public_ip [-]"
+        fi
     }
 
     #Deteccio Nat
@@ -341,23 +346,39 @@ funcio_verifica_paquets dig
         echo $dom
     }
 
+    #Info entitat -
+    funcio_xarxa_ent(){
+        local public_ip=$(curl -s https://ifconfig.me/ip)
+        xarxa=$(whois $ip_publica | grep -i 'inetnum|netname' | head -n 2)
+        if [ -z $xarxa ]; then #si info entitat buida
+            echo "-"
+        else 
+            echo $xarxa 
+        fi
+    }
+
+    #Entitat propietaria
+    funcio_entitat(){
+        #trobar la ip publica de la xarxa 
+        local ip_publica==$(curl -s https://ifconfig.me/ip)
+        #trobar el propietari de la xarxa
+        owner=$(whois $ip_publica | grep -i 'owner' | head -n 1)
+        if [ -z $owner ]; then
+            echo "-"
+        else 
+            echo $owner
+        fi
+    }
+
     funcio_trafic(){
         interface=$1
-        # Obté l'informació de tràfic
-        rx_bytes=$(ip -s link show $interface | awk '/RX:/ {getline; print $1}')
-        rx_packets=$(ip -s link show $interface | awk '/RX:/ {getline; print $2}')
-        rx_errors=$(ip -s link show $interface | awk '/RX:/ {getline; print $3}')
-        rx_descartats=$(ip -s link show $interface | awk '/RX:/ {getline; print $4}')
-        rx_perduts=$(ip -s link show $interface | awk '/RX:/ {getline; print $5}')
-
+        # Get traffic information using ifconfig
+        rx_bytes=$(ip -s link show $interface | awk '/RX:/{print $2}' | cut -d' ' -f1)
         tx_bytes=$(ip -s link show $interface | awk '/TX:/{print $2}' | cut -d' ' -f1)
+        rx_packets=$(ip -s link show $interface | awk '/RX:/{print $1}' | cut -d' ' -f1)
         tx_packets=$(ip -s link show $interface | awk '/TX:/{print $1}' | cut -d' ' -f1)
-        
-        # Si hi ha més de 1024 bits ho transforma a kb
-        rx_bytes_kb=$(echo "scale=2; $rx_bytes/1024" | bc)
-
         # Return traffic information as an array
-        echo "$rx_bytes_kb $rx_packets $rx_errors $rx_descartats $rx_perduts $tx_bytes $tx_packets"
+        echo "$rx_bytes $tx_bytes $rx_packets $tx_packets"
     }
 
 
@@ -376,23 +397,11 @@ for interficie in $(ls /sys/class/net); do
     mode_interficie=$(funcio_mode $interficie)
  
     adrecament=$(funcio_adrecament $interficie)
-    echo "hola"
-        echo $tipus
     ip_masc=$(funcio_ip_mascara $interficie)
     adxarxa=$(funcio_xarxa $interficie)
     broadcast=$(funcio_broadcast $interficie)
     gateway=$(funcio_gateway $interficie)
     nom_dns=$(funcio_dns_nom $interficie)
-
-    trafic_rebut_info=($(funcio_trafic $interficie))
-    t_rebut=${trafic_rebut_info[0]}
-    paq_rebut=${trafic_rebut_info[1]}
-    errors_rebut=${trafic_rebut_info[2]}
-    descartats_rebut=${trafic_rebut_info[3]}
-    perduts_rebut=${trafic_rebut_info[4]}
-    t_transmes=${trafic_rebut_info[1]}
-    vel_recep=${trafic_rebut_info[2]}
-    vel_trans=${trafic_rebut_info[3]}
 
     # Print dels resultats
     resultats=(
@@ -410,44 +419,24 @@ for interficie in $(ls /sys/class/net); do
         "Gateway per defecte:       $gateway"
         "Nom DNS:                   $nom_dns"
         ""
-
-        "Adreça IP pública:         "
-        "Detecció de NAT:           "
-        "Nom del domini:            "
-        "Xarxes de l'entitat:       "
-        "Entitat propietària:       "
-       
-        "" #Possible ruta involucrada
-
-        "Tràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)"
-        "Tràfic transmès:           $t_transmes Kbytes [ paquets] ( errors,  descartats i  perduts)"
-        "Velocitat de Recepció:     $vel_recep bytes/s [ paquets/s]"
-        "Velocitat de Transmissió:  $vel_trans bytes/s [ paquets/s]"
     )
 
     if [ "$tipus" != "loopback" ] && [ "$tipus" != "noconfig" ]; then
         ip_publica=$(funcio_ipp $interficie)
         dic_nat=$(funcio_nat $interficie)
         nom_dom=$(funcio_dom $interficie)
+        xarxa_entitat=$(funcio_xarxa_ent $interficie)
+        entitat=$(funcio_entitat $interficie)
 
         resultats+=(
             "Adreça IP pública:         $ip_publica"
             "Detecció de NAT:           $dic_nat"
             "Nom del domini:            $nom_dom"
-            "Xarxes de l'entitat:       "
-            "Entitat propietària:       "
+            "Xarxes de l'entitat:       $xarxa_entitat"
+            "Entitat propietària:       $entitat"
         )
     fi
     
-    #Possible ruta involucrada
-    if [ "$tipus" != "loopback" ]; then
-        resultats+=(
-            "Rutes incolucrades: :         "
-        )
-    fi  
-   
-    
-
     # Determine the max length of the details
     table_width=$(get_max_length "${resultats[@]}")
 
@@ -465,6 +454,7 @@ for interficie in $(ls /sys/class/net); do
         print_row $table_width "$detail"
     done
     print_separator $table_width
+
    # print_middle_line $table_width
    # print_horizontal_line $table_width
     echo # Newline for spacing between tables
