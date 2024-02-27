@@ -235,8 +235,7 @@ get_max_length() {
                 new_broadcast+="0."
             fi
         done
-        new_broadcast=${new_broadcast%?}
-
+        new_broadcast=${new_broadcast%?} #treure ultim punt
 
         # Mostrar l'adreça de broadcast + la seva mascara
         echo "$broadcast ($new_broadcast)"
@@ -249,10 +248,20 @@ get_max_length() {
             echo "-"
             return 0
         fi
-        # Obtenir la porta d'enllaç (gateway) de l'interfície
-        local gateway=$(ip route show | awk '$1 == "default" && $5 == "'"$1"'" {print $3}')
+        # Obtenir la porta d'enllaç per defecte (gateway) per a l'interfície especificada
+        if grep -q "iface $1 inet dhcp" /etc/network/interfaces; then
+                gateway=$(ip route show default dev "$1" | awk '/via/ {print $3}')
+        else
+            gateway=$(awk '/gateway/ {print $2}' /etc/network/interfaces | head -n1)
+        fi
 
-        echo  $gateway
+        # Comprovar si la porta d'enllaç és buida o no vàlida
+        if [ -z "$gateway" ] || [[ ! "$gateway" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "-"
+            return 1
+        fi
+
+        echo $gateway
     }
 
     #Nom dns - $nom_dns
