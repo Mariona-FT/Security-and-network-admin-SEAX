@@ -2,6 +2,9 @@
 
 #exec > test.log 2>&1
 
+#Variable global - tipus de adrecament: noconfig, dinamic,estatic,loopback
+tipus=""
+
 print_horizontal_line() {
     printf "┌"
     printf '─%.0s' $(seq 1 $1)
@@ -36,18 +39,16 @@ get_max_length() {
     echo $((max_len + 4)) # Add some padding
 }
  #ABANS Mirar si paquets per execucio instalats
-    funcio_verifica_paquets() {
-        if ! command -v curl >/dev/null 2>&1; then
-            #echo "El paquet 'curl' no està instal·lat. Intentant instal·lar..."
-            apt-get update && apt-get install -y curl
-            if [ $? -ne 0 ]; then
-            #  echo "Hi ha hagut un problema instal·lant 'curl'. Si us plau, comprova la teva connexió a internet i els teus permisos de sudo."
-                exit 1
-            fi
-        else
-           echo "'curl' ja està instal·lat."
-        fi
-    }
+funcio_verifica_paquets() {
+    if ! command -v $1 &> /dev/null; then
+        echo "El paquet $1 no esta instal·lat, shaura d'instalar per fer totes les proves amb exit"
+        exit 1
+    fi
+}
+
+funcio_verifica_paquets curl
+funcio_verifica_paquets dig
+
 
  #OPCIONS A BUSCAR
 
@@ -155,12 +156,14 @@ get_max_length() {
         # Cas NO CONFIGURAT
         if ! ip addr show "$1" | grep -q 'inet'; then
             echo "no configurat"
+            tipus="noconfig"
             return 0
         fi
 
         # Cas LOOPBACK
         if ip addr show "$1" | grep -q "LOOPBACK"; then
             echo "loopback (fitxer /etc/network/interfaces)"
+            tipus="loopback"
             return 0
         fi
 
@@ -170,11 +173,13 @@ get_max_length() {
             # Si és DHCP, buscar la seva adreça DHCP
             local dhcp_address=$(ip addr show "$1" | grep 'inet ' | awk '{print $2}' | cut -f1 -d'/')
             echo "dinamic (DHCP $dhcp_address)"
+            tipus="dinamic"
             return 0
 
         # Cas ESTATIC - Fet manualment
         else
             echo "estatic (des de la consola)"
+            tipus="estatic"
             return 0
         fi
     }
@@ -306,6 +311,36 @@ get_max_length() {
         nom_dns=$
     }
 
+    #Ip publica -$ipp
+    funcio_ipp(){
+        #buscar ip publica de la xarxa
+        local public_ip=$(curl -s https://ifconfig.me/ip)
+        echo "$public_ip [-]"
+    }
+
+    #Deteccio Nat
+    funcio_nat(){
+        echo
+    }
+
+    #Nom domini- $nom_dom
+    funcio_dom(){
+        #buscar ip publica de la xarxa
+        local public_ip=$(curl -s https://ifconfig.me/ip)
+        if [ -z "$public_ip" ]; then
+            echo "No hi ha ip publica"
+            return 1
+        fi
+        #buscar el domini de la adreca ip publica de la xarxa 
+        local dom=$(curl -s "https://api.hackertarget.com/reverseiplookup/?q=$public_ip")
+        if [ -z "$dom" ]; then
+            echo "-"
+            return 1
+        fi
+
+        echo $dom
+    }
+
     funcio_trafic(){
         interface=$1
         # Get traffic information using ifconfig
@@ -317,33 +352,29 @@ get_max_length() {
         echo "$rx_bytes $tx_bytes $rx_packets $tx_packets"
     }
 
+
 # Llistat de totes les interficies de la maquina
-
-
 for interficie in $(ls /sys/class/net); do
 
     #ABANS
-    #funcio_verifica_paquets
 
+    #funcio_verifica_paquets
+   
     #RESULTATS
     interfi=$(funcio_nom $interficie)
     fabricant=$(funcio_fabricant $interficie)
     mac=$(funcio_mac $interficie)
     estat=$(funcio_estat $interficie)
     mode_interficie=$(funcio_mode $interficie)
-
+ 
     adrecament=$(funcio_adrecament $interficie)
+    echo "hola"
+        echo $tipus
     ip_masc=$(funcio_ip_mascara $interficie)
     adxarxa=$(funcio_xarxa $interficie)
     broadcast=$(funcio_broadcast $interficie)
     gateway=$(funcio_gateway $interficie)
     nom_dns=$(funcio_dns_nom $interficie)
-
-    trafic_info=($(funcio_trafic $interficie))
-    t_rebut=${trafic_info[0]}
-    t_transmes=${trafic_info[1]}
-    vel_recep=${trafic_info[2]}
-    vel_trans=${trafic_info[3]}
 
     # Print dels resultats
     resultats=(
@@ -360,22 +391,31 @@ for interficie in $(ls /sys/class/net); do
         "Adreça broadcast:          $broadcast"
         "Gateway per defecte:       $gateway"
         "Nom DNS:                   $nom_dns"
-       
         ""
-
-        "Adreça IP pública:         "
-        "Detecció de NAT:           "
-        "Nom del domini:            "
-        "Xarxes de l'entitat:       "
-        "Entitat propietària:       "
-       
-        "" #Possible ruta involucrada
-
-        "Tràfic rebut:              $t_rebut"
-        "Tràfic transmès:           $t_transmes"
-        "Velocitat de Recepció:     $vel_recep"
-        "Velocitat de Transmissió:  $vel_trans"
     )
+
+    if [ "$tipus" != "loopback" ] && [ "$tipus" != "noconfig" ]; then
+        ip_publica=$(funcio_ipp $interficie)
+        dic_nat=$(funcio_nat $interficie)
+        nom_dom=$(funcio_dom $interficie)
+
+        resultats+=(
+            "Adreça IP pública:         $ip_publica"
+            "Detecció de NAT:           $dic_nat"
+            "Nom del domini:            $nom_dom"
+            "Xarxes de l'entitat:       "
+            "Entitat propietària:       "
+        )
+    fi
+    
+    #Possible ruta involucrada
+    if [ "$tipus" != "loopback" ]; then
+        resultats+=(
+            "Rutes incolucrades: :         "
+        )
+    fi  
+   
+    
 
     # Determine the max length of the details
     table_width=$(get_max_length "${resultats[@]}")
