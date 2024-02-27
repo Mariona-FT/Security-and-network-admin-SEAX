@@ -130,10 +130,17 @@ get_max_length() {
     # Si funciona correctament: configurada, corrent electrica i activada --> NORMAL
     # sino retorna NO NORMAL
     funcio_mode(){
-       # mode_interficie=$
+        mode=$(ip link show $1 | grep -o 'PROMISC' | head -n1)
+        if [ -z $mode]; then
+            mode="normal"   #trobat que esta mode normal
+        else 
+            mode="promisu"  #trobat que esta mode promiscu
+        fi
+        #Trobar el mtu de la interficie
         mtu=$(ip addr show "$1" | grep 'mtu' | cut -d ' ' -f5 )
-        mode=", amb mtu $mtu"
-        echo $mode
+        mode_interficie="$mode, amb mtu $mtu "
+        
+        echo $mode_interficie
     }
 
     # adreçament - $adrecament
