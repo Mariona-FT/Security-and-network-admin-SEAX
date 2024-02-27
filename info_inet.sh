@@ -121,6 +121,7 @@ funcio_verifica_paquets() {
 funcio_verifica_paquets curl
 funcio_verifica_paquets dig
 funcio_verifica_paquets whois
+funcio_verifica_paquets bc
 
 
  #OPCIONS A BUSCAR
