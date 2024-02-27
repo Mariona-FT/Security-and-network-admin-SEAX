@@ -35,19 +35,6 @@ get_max_length() {
     done
     echo $((max_len + 4)) # Add some padding
 }
- #ABANS Mirar si paquets per execucio instalats
-    funcio_verifica_paquets() {
-        if ! command -v curl >/dev/null 2>&1; then
-            #echo "El paquet 'curl' no està instal·lat. Intentant instal·lar..."
-            apt-get update && apt-get install -y curl
-            if [ $? -ne 0 ]; then
-            #  echo "Hi ha hagut un problema instal·lant 'curl'. Si us plau, comprova la teva connexió a internet i els teus permisos de sudo."
-                exit 1
-            fi
-        else
-           echo "'curl' ja està instal·lat."
-        fi
-    }
 
  #OPCIONS A BUSCAR
 
@@ -86,20 +73,30 @@ get_max_length() {
 
     #Fabricant - $fabricant
     funcio_fabricant(){
-        local interficie=$1
+        fabricant=$
         
-        # Obtenir l'adreça MAC de la interfície
-        local ad_mac=$(ip link show "$interficie" | awk '/ether/ {print $2}')
-        local oui=${ad_mac:0:8}  # Extreure els primers 3 octets (OUI) de l'adreça MAC
-        
-        # Cercar l'OUI a la base de dades de la IEEE Registration Authority
-        local fabricant=$(curl -s "https://macaddress.io/database/oui?search=$oui" | grep -oP '(?<=organization":").*?(?=")' | head -1)
-        
-        # Comprovar si s'ha trobat la informació del fabricant
-        if [ -n "$fabricant" ]; then
-            echo "$fabricant"
+        local i="$1"
+        local vendor_file="/sys/class/net/${i}/device/vendor" #buscar codi id fabricant
+        local pci_database="/usr/share/misc/pci.ids"            #buscar en bases de dades el nom 
+
+        if [ -f "${vendor_file}" ]; then
+            #Si existeix llegir el id del fabricant
+            local vendor_id=$(cat "${vendor_file}")
+            
+            # Treure '0x' si estan
+            vendor_id=${vendor_id#0x}
+            
+            # Buscar en les bades de dades de pci el codi del fabricant
+            local manufacturer=$(grep -i "^${vendor_id}" "${pci_database}" | awk '{$1=""; print $0}' | sed 's/^\s*//')
+            
+            # Si el fabricant es ta desconegur
+            if [ -n "${manufacturer}" ]; then
+                echo "${manufacturer}"
+            else
+                echo "Fabricant desconegut"
+            fi
         else
-            echo "Desconegut"
+            echo "Fitxer del fabricant no trobat"
         fi
     }
 
@@ -139,37 +136,9 @@ get_max_length() {
     # adreçament - $adrecament
     # tipus adreçament: loopback ,estatic , dinamic
     funcio_adrecament() {
-            # Comprovar si la interfície existeix
-        if ! ip link show "$1" &>/dev/null; then
-            echo "La interficie especificada no existeix"
-            return 1
-        fi
-
-        # Cas NO CONFIGURAT
-        if ! ip addr show "$1" | grep -q 'inet'; then
-            echo "no configurat"
-            return 0
-        fi
-
-        # Cas LOOPBACK
-        if ip addr show "$1" | grep -q "LOOPBACK"; then
-            echo "loopback (fitxer /etc/network/interfaces)"
-            return 0
-        fi
-
-        # Cas DHCP
-        # Comprovar si hi ha fitxers de DHCP per a la interfície
-        if grep -q "iface $1 inet dhcp" /etc/network/interfaces; then
-            # Si és DHCP, buscar la seva adreça DHCP
-            local dhcp_address=$(ip addr show "$1" | grep 'inet ' | awk '{print $2}' | cut -f1 -d'/')
-            echo "dinamic (DHCP $dhcp_address)"
-            return 0
-
-        # Cas ESTATIC - Fet manualment
-        else
-            echo "estatic (des de la consola)"
-            return 0
-        fi
+        local fitxer="/etc/network/nterfaces"
+        local tipus=
+        adrecament=$
     }
 
     #Adreca ip i mascara - $ip_masc
@@ -221,17 +190,14 @@ get_max_length() {
 
 for interficie in $(ls /sys/class/net); do
 
-    #ABANS
-    #funcio_verifica_paquets
-
     #RESULTATS
-    interfi=$(funcio_nom $interficie)
+    inter=$(funcio_nom $interficie)
     fabricant=$(funcio_fabricant $interficie)
     mac=$(funcio_mac $interficie)
     estat=$(funcio_estat $interficie)
     mode_interficie=$(funcio_mode $interficie)
 
-    adrecament=$(funcio_adrecament $interficie)
+    adrecament=$(funcio_adrecament $interfice)
     ip_masc=$(funcio_ip_mascara $interficie)
     adxarxa=$(funcio_xarxa $interficie)
     broadcast=$(funcio_broadcast $interficie)
