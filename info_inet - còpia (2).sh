@@ -207,36 +207,7 @@ get_max_length() {
     #Adreca de xarxa - $adxarxa
     # adreça de xarxa + (ip de la xarxa + mascara i RANG d'aquesta)
     funcio_xarxa() {
-        # Verificar si l'interfície existeix
-        if ! ip link show "$1" &>/dev/null; then
-            echo "-"
-            return 0
-        fi
-
-        #Agafar la ip mascara 
-        local ip_mask=$(ip addr show "$1" | awk '/inet / {print $2}')
-
-        # Aconseguir la ip de la interficie i de la xarxa
-        local ip_address=$(echo "$ip_mask" | cut -d'/' -f1)
-        local network_prefix=$(echo "$ip_mask" | cut -d'/' -f2)
-
-        #Aconseguir la adreca de la xarxa amb el prefix trobat anteriorment
-        local network_address=$(echo "$ip_address" | awk -F'.' -v np="$network_prefix" '{
-            for (i=1; i<=NF; i++) {
-                if (i <= int(np/8)) {
-                    printf "%d", $i
-                } else {
-                    printf "0"
-                }
-                if (i < NF) printf "."
-            }
-            printf "\n"
-        }')
-        #treure els 3 ultims digits per aconseguir base del rang
-         local network_nonumt=$(echo "$network_address" | rev | cut -c 2- | rev)
-
-        # Resultat adreca de la xarxa i el seu rang del .1 al .254
-        echo "${network_address:-"-"} [${network_nonumt}1 - ${network_nonumt}254]"
+        adxarxa=$
     }
 
     #Adreça de broadcast - $broadcast
