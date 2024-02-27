@@ -56,6 +56,21 @@ get_max_length() {
 
     }
 
+    #Nom interficie - $nom interficie
+    #Treure el nom posat i el nom original
+    funcio_nom() {
+        local i=$1
+        #busca nom original 
+        local nom_og=$(ip addr show $i| grep -oP '(?<=altname )[^ ]+' || true) 
+
+        if [ -z "$nom_og" ]; then # si NO te nom original posar els dos noms com resposta
+            echo "$1 [ $1 ]"
+        else
+            echo "$1 [ $nom_og ]" # si te nom original passa els dos com a resposta
+        fi
+    }
+
+
     #Fabricant - $fabricant
     funcio_fabricant(){
         fabricant=$
@@ -88,11 +103,11 @@ get_max_length() {
     #Adreça mac - $mac
     funcio_mac() {
         #Ip link per buscar la mac de la interficie donada
-       mac=$( ip link show "$1" | grep "link/" |awk '{printf $2}' )
+        mac=$( ip link show "$1" | grep "link/" |awk '{printf $2}' )
         if [ -z "$mac" ]; then  # Si retorna una mac buida
             echo "Cap mac trobada"
         else 
-            echo "$mac"
+            echo $mac
         fi
     }
 
@@ -112,13 +127,17 @@ get_max_length() {
     # Si funciona correctament: configurada, corrent electrica i activada --> NORMAL
     # sino retorna NO NORMAL
     funcio_mode(){
-        mode_interficie=$
-         mtu=$(cat /sys/class/net/$interficie/mtu)
+       # mode_interficie=$
+        mtu=$(ip addr show "$1" | grep 'mtu' | cut -d ' ' -f5 )
+        mode=", amb mtu $mtu"
+        echo $mode
     }
 
     # adreçament - $adrecament
     # tipus adreçament: loopback ,estatic , dinamic
     funcio_adrecament() {
+        local fitxer="/etc/network/nterfaces"
+        local tipus=
         adrecament=$
     }
 
@@ -136,7 +155,12 @@ get_max_length() {
 
     #Adreça de broadcast - $broadcast
     funcio_broadcast() {
-        broadcast=$
+        broadcast=$(ip addr show "$1" | grep 'link/ether' | awk '{printf $2}')
+        if [ -z "$broadcast" ]; then
+            echo "-"
+        else
+            echo $broadcast
+        fi
     }
 
     #Adreça gateway per defecte - $gateway
@@ -167,10 +191,11 @@ get_max_length() {
 for interficie in $(ls /sys/class/net); do
 
     #RESULTATS
+    inter=$(funcio_nom $interficie)
     fabricant=$(funcio_fabricant $interficie)
     mac=$(funcio_mac $interficie)
     estat=$(funcio_estat $interficie)
-    mode_interficie=$(funcio_mode $interfice)
+    mode_interficie=$(funcio_mode $interficie)
 
     adrecament=$(funcio_adrecament $interfice)
     ip_masc=$(funcio_ip_mascara $interficie)
@@ -187,9 +212,7 @@ for interficie in $(ls /sys/class/net); do
 
     # Print dels resultats
     resultats=(
-        "titotl : Configuració de la interfície $interficie."
-
-        "Interfície:                $interficie"
+        "Interfície:                $inter"
         "Fabricant:                 $fabricant"
         "Adreça MAC:                $mac"
         "Estat de la interfície:    $estat"
