@@ -137,7 +137,7 @@ get_max_length() {
     }
 
     # adreçament - $adrecament
-    # tipus adreçament: loopback ,estatic , dinamic
+    # tipus adreçament: loopback ,estatic , dinamic, no configurada
     funcio_adrecament() {
             # Comprovar si la interfície existeix
         if ! ip link show "$1" &>/dev/null; then
@@ -175,7 +175,26 @@ get_max_length() {
     #Adreca ip i mascara - $ip_masc
     # passar ip amb mascara + (ip només  mascara nomes )
     funcio_ip_mascara() {
-        adip_masc=$
+        # Verificar si l'interfície existeix
+        if ! ip link show "$1" &>/dev/null; then
+            echo "-"
+            return 0
+        fi
+
+        # Obtenir l'adreça IP i la màscara de l'interfície
+        local ip_masc=$(ip addr show "$1" | awk '/inet / {print $2}')
+
+        # Separar l'adreça IP
+        local i=$(echo "$ip_masc" | cut -d'/' -f1)
+        #Separar la mascara 
+        local mascara=$(echo "$ip_masc" | cut -d'/' -f2)
+
+        #Calculs per trobar la mascara en decimal
+        local decimal_mask=$((0xffffffff << (32 - mascara) & 0xffffffff))
+        local mascara_decimal=$(printf "%d.%d.%d.%d\n" $((decimal_mask >> 24 & 0xff)) $((decimal_mask >> 16 & 0xff)) $((decimal_mask >> 8 & 0xff)) $((decimal_mask & 0xff)))
+
+        # Retornar l'adreça IP amb la mascara i les parts separades
+        echo "$ip_masc ($i $mascara_decimal)"
     }
 
     #Adreca de xarxa - $adxarxa
