@@ -1,0 +1,2 @@
+root@seax1:~# ip addr show ethseax |grep altname
+    altname enp0s8

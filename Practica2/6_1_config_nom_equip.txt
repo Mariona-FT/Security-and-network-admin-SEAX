@@ -1,0 +1,39 @@
+--Fitxer /etc/hosts:--
+--Abans de canviar el nom de l'equip:--
+
+127.0.0.1	localhost
+127.0.1.1	seax1.epsevg.upc.edu	seax1
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+---------------------------------------------------------------
+
+
+--Un cop hem canviat el nom de l'equip:--
+
+127.0.0.1	localhost
+127.0.1.1	exemple_6_1.epsevg.upc.edu	exemple_6_1
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+
+------------------------------------------------------------------------------------------------------------------------------
+
+
+--Fitxer /etc/hostname:--
+--Abans de canviar el fitxer:--
+
+seax1
+
+---------------------------------------------------------------
+
+
+--Un cop hem canviat el fitxer:--
+
+exemple_6_1

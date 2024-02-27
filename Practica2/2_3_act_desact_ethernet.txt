@@ -1,0 +1,22 @@
+
+-- Interfície Activada --
+root@seax1:~# ip link set dev enp0s8 up
+root@seax1:~#  ip addr show enp0s8 
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.4/24 brd 10.0.2.255 scope global dynamic enp0s8
+       valid_lft 560sec preferred_lft 560sec
+    inet6 fe80::a00:27ff:fe11:2233/64 scope link 
+       valid_lft forever preferred_lft forever
+
+--------------------------------------------------------------------------------------
+-- Interfície Desactivada --
+
+root@seax1:~# ip link set dev enp0s8 down
+root@seax1:~# ip addr show enp0s8 
+3: enp0s8: <BROADCAST,MULTICAST> mtu 1500 qdisc fq_codel state DOWN group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.4/24 brd 10.0.2.255 scope global dynamic enp0s8
+       valid_lft 526sec preferred_lft 526sec
+
+

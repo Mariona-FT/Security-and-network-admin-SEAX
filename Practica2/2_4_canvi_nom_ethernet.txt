@@ -1,0 +1,73 @@
+root@seax1:~# ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:55:d8:4d brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
+       valid_lft 84134sec preferred_lft 84134sec
+    inet6 fe80::a00:27ff:fe55:d84d/64 scope link 
+       valid_lft forever preferred_lft forever
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.4/24 brd 10.0.2.255 scope global dynamic enp0s8
+       valid_lft 462sec preferred_lft 462sec
+    inet6 fe80::a00:27ff:fe11:2233/64 scope link 
+       valid_lft forever preferred_lft forever
+--------------------------------------------------------------------------------------
+--Canvi del nom--
+
+root@seax1:~# ip link set dev enp0s8 down
+
+root@seax1:~#  ip link set dev enp0s8 name ethseax
+
+root@seax1:~#  ip link set dev ethseax up
+--------------------------------------------------------------------------------------
+
+root@seax1:~# ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:55:d8:4d brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
+       valid_lft 84970sec preferred_lft 84970sec
+    inet6 fe80::a00:27ff:fe55:d84d/64 scope link 
+       valid_lft forever preferred_lft forever
+3: ethseax: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    altname enp0s8
+    inet 10.0.2.4/24 brd 10.0.2.255 scope global dynamic ethseax
+       valid_lft 235sec preferred_lft 235sec
+    inet6 fe80::a00:27ff:fe11:2233/64 scope link 
+       valid_lft forever preferred_lft forever
+--------------------------------------------------------------------------------------
+-- Fitxer d'interficies Modificat--
+
+root@seax1:~# cat /etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug enp0s3
+
+auto enp0s3
+iface enp0s3 inet dhcp
+
+#auto enp0s8
+#iface enp0s8 inet dhcp
+auto ethseax
+iface ethseax inet dhcp
+

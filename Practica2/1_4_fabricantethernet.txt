@@ -1,0 +1,5 @@
+root@seax1:~# cat /sys/class/net/enp0s8/device/subsystem_vendor
+0x8086
+
+root@seax1:~# lpsci -- | grep 00:08.0
+00:08.0 Ethernet controller [0200]: Intel Corporation 82540EM Gigabit Ethernet Controller [8086:100e] (rev 02)

@@ -1,0 +1,78 @@
+root@seax1:~#  ping -M do -s 500 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 500(528) bytes of data.
+76 bytes from 8.8.8.8: icmp_seq=1 ttl=114 (truncated)
+76 bytes from 8.8.8.8: icmp_seq=2 ttl=114 (truncated)
+76 bytes from 8.8.8.8: icmp_seq=3 ttl=114 (truncated)
+76 bytes from 8.8.8.8: icmp_seq=4 ttl=114 (truncated)
+
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3007ms
+rtt min/avg/max/mdev = 16.479/17.117/17.817/0.566 ms
+
+--------------------------------------------------------------------------------------
+root@seax1:~#  ping -M do -s 100 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 100(128) bytes of data.
+76 bytes from 8.8.8.8: icmp_seq=1 ttl=114 (truncated)
+76 bytes from 8.8.8.8: icmp_seq=2 ttl=114 (truncated)
+76 bytes from 8.8.8.8: icmp_seq=3 ttl=114 (truncated)
+
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2005ms
+rtt min/avg/max/mdev = 15.775/17.350/19.187/1.405 ms
+
+--------------------------------------------------------------------------------------
+root@seax1:~#  ping -M do -s 70 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 70(98) bytes of data.
+76 bytes from 8.8.8.8: icmp_seq=1 ttl=114 (truncated)
+76 bytes from 8.8.8.8: icmp_seq=2 ttl=114 (truncated)
+76 bytes from 8.8.8.8: icmp_seq=3 ttl=114 (truncated)
+
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2006ms
+rtt min/avg/max/mdev = 15.896/16.410/17.396/0.696 ms
+
+--------------------------------------------------------------------------------------
+root@seax1:~#  ping -M do -s 69 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 69(97) bytes of data.
+76 bytes from 8.8.8.8: icmp_seq=1 ttl=114 (truncated)
+76 bytes from 8.8.8.8: icmp_seq=2 ttl=114 (truncated)
+76 bytes from 8.8.8.8: icmp_seq=3 ttl=114 (truncated)
+
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2007ms
+rtt min/avg/max/mdev = 15.948/23.862/39.430/11.008 ms
+
+--------------------------------------------------------------------------------------
+
+---**---MTU---**---
+root@seax1:~#  ping -M do -s 68 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 68(96) bytes of data.
+76 bytes from 8.8.8.8: icmp_seq=1 ttl=114 time=16.7 ms
+76 bytes from 8.8.8.8: icmp_seq=2 ttl=114 time=18.5 ms
+76 bytes from 8.8.8.8: icmp_seq=3 ttl=114 time=16.3 ms
+76 bytes from 8.8.8.8: icmp_seq=4 ttl=114 time=16.5 ms
+
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3007ms
+rtt min/avg/max/mdev = 16.349/17.030/18.540/0.880 ms
+
+--------------------------------------------------------------------------------------
+root@seax1:~#  ping -M do -s 65 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 65(93) bytes of data.
+73 bytes from 8.8.8.8: icmp_seq=1 ttl=114 time=17.0 ms
+73 bytes from 8.8.8.8: icmp_seq=2 ttl=114 time=17.4 ms
+
+--- 8.8.8.8 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1003ms
+rtt min/avg/max/mdev = 17.045/17.245/17.446/0.200 ms
+
+--------------------------------------------------------------------------------------
+root@seax1:~#  ping -M do -s 50 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 50(78) bytes of data.
+58 bytes from 8.8.8.8: icmp_seq=1 ttl=114 time=16.2 ms
+58 bytes from 8.8.8.8: icmp_seq=2 ttl=114 time=17.8 ms
+58 bytes from 8.8.8.8: icmp_seq=3 ttl=114 time=17.9 ms
+
+--- 8.8.8.8 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2006ms
+rtt min/avg/max/mdev = 16.183/17.285/17.919/0.782 ms

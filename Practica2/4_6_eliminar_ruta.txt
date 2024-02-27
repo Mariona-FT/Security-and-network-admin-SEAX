@@ -1,0 +1,19 @@
+--Abans d'eliminar la ruta:--
+
+default via 10.0.2.2 dev enp0s3 
+default dev enp0s9 scope link metric 1004 
+10.0.2.0/24 via 10.0.2.16 dev enp0s3 
+169.254.0.0/16 dev enp0s9 proto kernel scope link src 169.254.5.192 
+169.254.0.0/16 dev enp0s8 scope link metric 1000 
+192.168.1.0/24 via 192.168.1.160 dev enp0s8 
+
+---------------------------------------------------------------------
+
+
+--Un cop hem eliminat la ruta:--
+
+default via 10.0.2.2 dev enp0s3 
+default dev enp0s9 scope link metric 1004
+169.254.0.0/16 dev enp0s9 proto kernel scope link src 169.254.5.192 
+169.254.0.0/16 dev enp0s8 scope link metric 1000 
+192.168.1.0/24 via 192.168.1.160 dev enp0s8 

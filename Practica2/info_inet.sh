@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#exec > test.log 2>&1
+exec > log_inet.log 2>&1
 
     # Sistema Operatiu - $SO
     funcio_SO() {
@@ -38,8 +38,8 @@
        "Analisi de les interficies del sistema realitzada per l'usuari root de l'equip debian."
         "Sistema operatiu $versio_SO."
         "Versio del script 0.35 compilada el $data_compilacio."
-        "Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf."
-)
+        "Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf.")
+
     # Determina la longitud de la linia més llarga
     long_max=0
     for linia in "${taula_inicial[@]}"; do
@@ -119,9 +119,9 @@ funcio_verifica_paquets() {
 }
 
 funcio_verifica_paquets curl
-funcio_verifica_paquets dig
 funcio_verifica_paquets whois
 funcio_verifica_paquets bc
+funcio_verifica_paquets dnsutils
 
 
  #OPCIONS A BUSCAR
@@ -576,3 +576,4 @@ for interficie in $(ls /sys/class/net); do
 
 
 done # final del bucle x cada interficie
+
