@@ -46,33 +46,9 @@ echo "Comencar a veure la configuracio del sistema.."
         echo $hora_inici
     }
 
-    # Hora final  - $hora_final
-    funcio_hora_final() {
-        hora_final="$(date '+%H:%M:%S')"
-        echo $hora_final
-    }
-    
+#Variable global - tipus de adrecament: noconfig, dinamic,estatic,loopback
+tipus=""
 
-    # RESULTATS
-    versio_SO=$(funcio_SO)
-    data_compilacio=$(funcio_data_compilacio)
-    versio_script=0.35
-    hi=$(funcio_hora_inici)
-    hf=$(funcio_hora_final)
-
-cat << EOF > log_inet_s3.log
-        
-        ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-        ║                                                                                                                   ║
-        ║  ------------------------------------------------------------------------------------------------------------     ║
-        ║   Analisi de les interficies del sistema realitzada per l'usuari root de l'equip debian.                          ║
-        ║    Sistema operatiu $versio_SO.                                                                                   ║    
-        ║    Versio del script $versio_script compilada el $data_compilacio.                                                ║   
-        ║    Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf.)   ║
-        ║  ------------------------------------------------------------------------------------------------------------     ║
-        ║                                                                                                                   ║
-        ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-EOF
 
  #OPCIONS A BUSCAR
 
@@ -84,7 +60,7 @@ EOF
         local nom_og=$(ip addr show $i| grep -oP '(?<=altname )[^ ]+' || true) 
 
         if [ -z "$nom_og" ]; then # si NO te nom original posar els dos noms com resposta
-            echo "$1 [ $1 ]"
+            echo $1 [ $1 ]
         else
             echo "$1 [ $nom_og ]" # si te nom original passa els dos com a resposta
         fi
@@ -159,9 +135,6 @@ EOF
         echo $mode_interficie
     }
 
-#Variable global - tipus de adrecament: noconfig, dinamic,estatic,loopback
-tipus="tipusinicial"
-
     # adreçament - $adrecament
     # tipus adreçament: loopback ,estatic , dinamic, no configurada
     funcio_adrecament() {
@@ -173,17 +146,15 @@ tipus="tipusinicial"
 
         # Cas NO CONFIGURAT
         if ! ip addr show "$1" | grep -q 'inet'; then
+            echo "no configurat"
             tipus="noconfig"
-            r="no configurat"
-            echo "$r| $tipus"
             return 0
         fi
 
         # Cas LOOPBACK
         if ip addr show "$1" | grep -q "LOOPBACK"; then
+            echo "loopback (fitxer /etc/network/interfaces)"
             tipus="loopback"
-            r="loopback (fitxer /etc/network/interfaces)"
-            echo "$r |$tipus"
             return 0
         fi
 
@@ -192,22 +163,16 @@ tipus="tipusinicial"
         if grep -q "iface $1 inet dhcp" /etc/network/interfaces; then
             # Si és DHCP, buscar la seva adreça DHCP
             local dhcp_address=$(ip addr show "$1" | grep 'inet ' | awk '{print $2}' | cut -f1 -d'/')
+            echo "dinamic (DHCP $dhcp_address)"
             tipus="dinamic"
-            r="dinamic (DHCP $dhcp_address)"
-            echo "$r|$tipus"        
-
             return 0
 
         # Cas ESTATIC - Fet manualment
         else
+            echo "estatic (des de la consola)"
             tipus="estatic"
-            r="estatic (des de la consola)"
-            echo "$r|$tipus"
-           
             return 0
         fi
-
-    echo "TIPUS INTERFICIE" $tipus
     }
 
     #Adreca ip i mascara - $ip_masc
@@ -430,7 +395,7 @@ tipus="tipusinicial"
 
 # Llistat de totes les interficies de la maquina
 for interficie in $(ls /sys/class/net); do
-    echo "INTERFICIE A ANALITZAR : $interficie "
+    echo "INTERFICIE A ANALITZAR :$interficie "
 
     #RESULTATS
     echo "SEGUIMENT DELS RESULTATS: " 
@@ -446,10 +411,7 @@ for interficie in $(ls /sys/class/net); do
         mode_interficie=$(funcio_mode $interficie)
  
     echo "Trobant l'adreçament.."
-        read adrecament tipus <<< "$(funcio_adrecament $interficie | sed 's/|/ /')"
-    echo "resultats" $adrecament
-    echo "resultats" $tipus
-
+        adrecament=$(funcio_adrecament $interficie)
     echo "Trobant la ip amb la mascara .."
         ip_masc=$(funcio_ip_mascara $interficie)
     echo "Trobant ladreça de xarxa.."
@@ -498,7 +460,7 @@ cat >> log_inet_s3.log << EOF
         └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘  
 
 EOF
-echo "EL tipus de la interfic1e" $tipus 
+echo "EL tipus de la interfice" $tipus 
 
     if [ "$tipus" != "loopback" ] && [ "$tipus" != "noconfig" ]; then
         ip_publica=$(funcio_ipp $interficie)
@@ -525,7 +487,36 @@ cat >> log_inet_s3.log << EOF
         └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘  
 
 EOF
-    echo #separacio de les interficies trobades per terminal
+    
+    # Hora final  - $hora_final
+    funcio_hora_final() {
+        hora_final="$(date '+%H:%M:%S')"
+        echo $hora_final
+    }
+
+    # RESULTATS
+    versio_SO=$(funcio_SO)
+    data_compilacio=$(funcio_data_compilacio)
+    versio_script=0.35
+    hi=$(funcio_hora_inici)
+    hf=$(funcio_hora_final)
+    si=$(date -d "$hi" +%s)
+    sf=$(date -d "$hf" +%s)
+    s=$((sf - si))
+
+cat << EOF > log_inet_s3_part1.log
+        
+    ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+    ║                                                                                                                      ║
+    ║  ------------------------------------------------------------------------------------------------------------------  ║
+    ║  Analisi de les interficies del sistema realitzada per l'usuari root de l'equip debian.                              ║
+    ║  Sistema operatiu $versio_SO.                                                                                        ║    
+    ║  Versio del script $versio_script compilada el $data_compilacio.                                                     ║   
+    ║  Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf [$s s].  ║
+    ║  ------------------------------------------------------------------------------------------------------------------  ║
+    ║                                                                                                                      ║
+    ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+EOF
 
     # # Determine the max length of the details
     # table_width=$(get_max_length "${resultats[@]}")
@@ -548,6 +539,9 @@ EOF
    # print_middle_line $table_width
    # print_horizontal_line $table_width
    # echo # Newline for spacing between tables
+   
+   cat log_inet_s3_part1.log log_inet_s3.log >> log_inet_s3_final.log
+
 
 done # final del bucle x cada interficie
 
