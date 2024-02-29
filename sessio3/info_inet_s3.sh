@@ -82,14 +82,13 @@ tipus=""
 
     #Nom interficie - $nom interficie
     #Treure el nom posat i el nom original
-    echo "Trobant el nom de la interficie.."
     funcio_nom() {
         local i=$1
         #busca nom original 
         local nom_og=$(ip addr show $i| grep -oP '(?<=altname )[^ ]+' || true) 
 
         if [ -z "$nom_og" ]; then # si NO te nom original posar els dos noms com resposta
-            echo "$1 [ $1 ]"
+            echo $1 [ $1 ]
         else
             echo "$1 [ $nom_og ]" # si te nom original passa els dos com a resposta
         fi
@@ -97,7 +96,6 @@ tipus=""
 
 
     #Fabricant - $fabricant
-    echo "Trobant el fabricant.."
     funcio_fabricant(){
         local i="$1"
         local vendor_file="/sys/class/net/${i}/device/vendor"
@@ -123,7 +121,6 @@ tipus=""
     }
 
     #Adreça mac - $mac
-    echo "Trobant la mac.."
     funcio_mac() {
         #Ip link per buscar la mac de la interficie donada
         mac=$( ip link show "$1" | grep "link/" |awk '{printf $2}' )
@@ -135,13 +132,16 @@ tipus=""
     }
 
     #Estat interficie - $estat_interficie
+    #MES ESTATS A MIRAR
     funcio_estat(){
         #Ip addr per buscar lestat de la maquina UP o DOWN
         estat=$(ip addr show "$1" 2>/dev/null | grep -Po 'state \K[^ ]+')
-        if [ -z "$estat" ] || [ "$estat" == "DOWN" ]; then #Depenen estat echo diferents 
+        if [ -z "$estat" ]; then
+            echo "UNKNOWN"
+        elif [ "$estat" == "DOWN" ]; then #Lestat interficie avall 
             echo "DOWN (no responent...)"
         else
-            echo "UP (responent...)"
+            echo "UP (responent...)"    #Lestat interficie amunt
         fi
     }
 
@@ -423,24 +423,33 @@ tipus=""
 
 # Llistat de totes les interficies de la maquina
 for interficie in $(ls /sys/class/net); do
+    echo "INTERFICIE A ANALITZAR :$interficie "
 
-    #ABANS
-
-    #funcio_verifica_paquets
-   
     #RESULTATS
-    inter=$(funcio_nom $interficie)
-    fabricant=$(funcio_fabricant $interficie)
-    mac=$(funcio_mac $interficie)
-    estat=$(funcio_estat $interficie)
-    mode_interficie=$(funcio_mode $interficie)
+    echo "SEGUIMENT DELS RESULTATS: " 
+    echo "Trobant el nom .."
+        inter=$(funcio_nom $interficie)
+    echo "Trobant el fabricant.."
+        fabricant=$(funcio_fabricant $interficie)
+    echo "Trobant la mac.."
+        mac=$(funcio_mac $interficie)
+    echo "Trobant l'estat.."
+        estat=$(funcio_estat $interficie)
+    echo "Trobant el mode i la mtu.."
+        mode_interficie=$(funcio_mode $interficie)
  
-    adrecament=$(funcio_adrecament $interficie)
-    ip_masc=$(funcio_ip_mascara $interficie)
-    adxarxa=$(funcio_xarxa $interficie)
-    broadcast=$(funcio_broadcast $interficie)
-    gateway=$(funcio_gateway $interficie)
-    nom_dns=$(funcio_dns_nom $interficie)
+    echo "Trobant l'adreçament.."
+        adrecament=$(funcio_adrecament $interficie)
+    echo "Trobant la ip amb la mascara .."
+        ip_masc=$(funcio_ip_mascara $interficie)
+    echo "Trobant ladreça de xarxa.."
+        adxarxa=$(funcio_xarxa $interficie)
+    echo "Trobant el broadcast.."
+        broadcast=$(funcio_broadcast $interficie)
+    echo "Trobant el gateway.."
+        gateway=$(funcio_gateway $interficie)
+    echo "Trobant el servidor dns.."
+        nom_dns=$(funcio_dns_nom $interficie)
 
     trafic_rebut_info=($(funcio_trafic_rebut $interficie))
     t_rebut=${trafic_rebut_info[0]}
@@ -479,6 +488,7 @@ cat >> log_inet_s3.log << EOF
         └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘  
 
 EOF
+echo "EL tipus de la interfice" $tipus 
 
     if [ "$tipus" != "loopback" ] && [ "$tipus" != "noconfig" ]; then
         ip_publica=$(funcio_ipp $interficie)
@@ -505,7 +515,7 @@ cat >> log_inet_s3.log << EOF
         └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘  
 
 EOF
-    
+    echo #separacio de les interficies trobades per terminal
 
     # # Determine the max length of the details
     # table_width=$(get_max_length "${resultats[@]}")
