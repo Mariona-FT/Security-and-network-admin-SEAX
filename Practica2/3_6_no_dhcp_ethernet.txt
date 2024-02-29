@@ -1,0 +1,23 @@
+--Adreça ip dinàmica amb dhcp--
+
+root@seax1:~# ip addr show enp0s8 
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.3/24 brd 10.0.2.255 scope global enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe11:2233/64 scope link 
+       valid_lft forever preferred_lft forever
+--------------------------------------------------------------------------------------
+
+root@seax1:~# dhclient -r enp0s8
+Killed old client process
+
+--------------------------------------------------------------------------------------
+
+--Adreça ip eliminada dhcp--
+
+root@seax1:~# ip addr show enp0s8 
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::a00:27ff:fe11:2233/64 scope link 
+       valid_lft forever preferred_lft forever

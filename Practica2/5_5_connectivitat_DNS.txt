@@ -1,0 +1,20 @@
+
+; <<>> DiG 9.18.24-1-Debian <<>> google.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 21001
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		45	IN	A	142.250.178.174
+
+;; Query time: 4 msec
+;; SERVER: 10.0.3.1#53(10.0.3.1) (UDP)
+;; WHEN: Mon Feb 26 17:37:49 CET 2024
+;; MSG SIZE  rcvd: 55
+

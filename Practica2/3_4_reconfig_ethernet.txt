@@ -1,0 +1,55 @@
+--Adreça ip configurada manualment--
+
+root@seax1:~# ip link show enp0s8 
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.3/24 brd 10.0.2.255 scope global enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe11:2233/64 scope link 
+       valid_lft forever preferred_lft forever
+--------------------------------------------------------------------------------------
+--Canvi ip de estatica a dinàmica--
+
+root@seax1:~# cat /etc/network/interfaces
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug enp0s3
+
+auto enp0s3
+iface enp0s3 inet dhcp
+
+auto enp0s8
+iface enp0s8 inet dhcp
+#iface enp0s8 inet static
+#	address 10.0.2.3
+#	netmask 255.255.255.0
+#	gateway 10.0.2.1
+
+--------------------------------------------------------------------------------------
+
+--Reinici sistema --
+root@seax1:~# ip link set dev enp0s8 down
+
+root@seax1:~# ip link set dev enp0s8 up
+
+--------------------------------------------------------------------------------------
+-- Adreça ip configurada--
+
+root@seax1:~# ip addr show enp0s8 
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.4/24 brd 10.0.2.255 scope global dynamic enp0s8
+       valid_lft 258sec preferred_lft 258sec
+    inet6 fe80::a00:27ff:fe11:2233/64 scope link 
+       valid_lft forever preferred_lft forever
+
+
+

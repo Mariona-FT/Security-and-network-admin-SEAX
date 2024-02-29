@@ -1,0 +1,19 @@
+--Abans d'afegir el gatewat per defecte, la taula de rutes era la següent:--
+
+default dev enp0s9 scope link metric 1004 
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 
+169.254.0.0/16 dev enp0s9 proto kernel scope link src 169.254.5.192 
+169.254.0.0/16 dev enp0s8 scope link metric 1000 
+192.168.1.0/24 dev enp0s8 proto kernel scope link src 192.168.1.160 
+
+-----------------------------------------------------------------------
+
+
+--Després d'afegir el gateway per defecte:--
+
+default via 10.0.2.15 dev enp0s3 
+default dev enp0s9 scope link metric 1004 
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 
+169.254.0.0/16 dev enp0s9 proto kernel scope link src 169.254.5.192 
+169.254.0.0/16 dev enp0s8 scope link metric 1000 
+192.168.1.0/24 dev enp0s8 proto kernel scope link src 192.168.1.160 

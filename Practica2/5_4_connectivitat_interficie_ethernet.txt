@@ -1,0 +1,56 @@
+--Per veure les interfícies Ethernet que tenim, utilitzem la comanda: root@seax2:~# ip addr--
+
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:b0:b5:f0 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
+       valid_lft 81380sec preferred_lft 81380sec
+    inet6 fe80::a00:27ff:feb0:b5f0/64 scope link 
+       valid_lft forever preferred_lft forever
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.160/24 brd 192.168.1.255 scope global enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe11:2233/64 scope link 
+       valid_lft forever preferred_lft forever
+4: enp0s9: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:d6:18:13 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.3.4/24 brd 10.0.3.255 scope global dynamic enp0s9
+       valid_lft 475sec preferred_lft 475sec
+    inet6 fe80::a00:27ff:fed6:1813/64 scope link 
+       valid_lft forever preferred_lft forever
+       
+-------------------------------------------------------------------------------------------------------------------
+       
+
+--Ping cap a xarxa local des d'interfície Ethernet:--
+
+PING 10.0.2.2 (10.0.2.2) from 10.0.2.15 enp0s3: 56(84) bytes of data.
+64 bytes from 10.0.2.2: icmp_seq=1 ttl=64 time=0.340 ms
+64 bytes from 10.0.2.2: icmp_seq=2 ttl=64 time=0.385 ms
+64 bytes from 10.0.2.2: icmp_seq=3 ttl=64 time=0.447 ms
+64 bytes from 10.0.2.2: icmp_seq=4 ttl=64 time=0.485 ms
+
+--- 10.0.2.2 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3064ms
+rtt min/avg/max/mdev = 0.340/0.414/0.485/0.055 ms
+
+-------------------------------------------------------------------------------------------------------------------
+
+
+--Ping cap a Internet des d'interfície Ethernet:--
+
+PING google.com (142.250.178.174) from 10.0.2.15 enp0s3: 56(84) bytes of data.
+64 bytes from mad41s08-in-f14.1e100.net (142.250.178.174): icmp_seq=1 ttl=63 time=11.7 ms
+64 bytes from mad41s08-in-f14.1e100.net (142.250.178.174): icmp_seq=2 ttl=63 time=11.8 ms
+64 bytes from mad41s08-in-f14.1e100.net (142.250.178.174): icmp_seq=3 ttl=63 time=12.3 ms
+64 bytes from mad41s08-in-f14.1e100.net (142.250.178.174): icmp_seq=4 ttl=63 time=12.4 ms
+
+--- google.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3005ms
+rtt min/avg/max/mdev = 11.732/12.051/12.449/0.315 ms

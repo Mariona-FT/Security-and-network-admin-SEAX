@@ -1,0 +1,43 @@
+--Comanda: root@seax1:~# nslookup google.com--
+
+Server:		10.0.2.3
+Address:	10.0.2.3#53
+
+Non-authoritative answer:
+Name:	google.com
+Address: 142.250.178.174
+Name:	google.com
+Address: 2a00:1450:4003:807::200e
+
+------------------------------------------------------------------------------
+
+
+--Comanda: root@seax1:~# dig google.com--
+
+; <<>> DiG 9.18.24-1-Debian <<>> google.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 60638
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		64	IN	A	142.250.178.174
+
+;; Query time: 16 msec
+;; SERVER: 10.0.2.3#53(10.0.2.3) (UDP)
+;; WHEN: Mon Feb 26 02:05:32 CET 2024
+;; MSG SIZE  rcvd: 55
+
+------------------------------------------------------------------------------
+
+
+--Comanda: root@seax1:~# host google.com--
+
+google.com has address 142.250.178.174
+google.com has IPv6 address 2a00:1450:4003:807::200e
+google.com mail is handled by 10 smtp.google.com.

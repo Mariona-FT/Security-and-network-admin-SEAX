@@ -1,0 +1,7 @@
+root@seax1:~# dmesg | grep 00:08.0
+[    0.209060] pci 0000:00:08.0: [8086:100e] type 00 class 0x020000
+[    0.209289] pci 0000:00:08.0: reg 0x10: [mem 0xf0820000-0xf083ffff]
+[    0.209517] pci 0000:00:08.0: reg 0x18: [io  0xd240-0xd247]
+[    1.894036] e1000 0000:00:08.0 eth1: (PCI:33MHz:32-bit) 08:00:27:11:22:33
+[    1.894041] e1000 0000:00:08.0 eth1: Intel(R) PRO/1000 Network Connection
+[    1.905364] e1000 0000:00:08.0 enp0s8: renamed from eth1

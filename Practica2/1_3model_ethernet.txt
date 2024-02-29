@@ -1,0 +1,9 @@
+root@seax1:~# lspci  -nn | grep -i ethernet 
+00:03.0 Ethernet controller [0200]: Intel Corporation 82540EM Gigabit Ethernet Controller [8086:100e] (rev 02)
+00:08.0 Ethernet controller [0200]: Intel Corporation 82540EM Gigabit Ethernet Controller [8086:100e] (rev 02)
+
+--------------------------------------------------------------------------------------
+
+root@seax1:~# cat /sys/class/net/enp0s8/device/modalias
+pci:v00008086d0000100Esv00008086sd0000001Ebc02sc00i00
+

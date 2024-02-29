@@ -1,0 +1,16 @@
+--Fitxer sense modificar:--
+
+domain Home
+search Home
+nameserver 10.0.2.3
+
+--------------------------------------------------------------
+
+
+--Un cop hem modificat el fitxer:--
+
+domain Home
+search Home
+nameserver 10.0.2.3
+nameserver 8.8.8.8
+nameserver 8.8.4.4

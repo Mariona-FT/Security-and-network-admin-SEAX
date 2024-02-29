@@ -1,0 +1,13 @@
+--Mode promisc Activat--
+root@seax1:~# ip link set dev enp0s8 promisc on
+root@seax1:~# ip link show enp0s8 
+3: enp0s8: <BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+
+--------------------------------------------------------------------------------------
+
+--Mode promisc Desactivat--
+root@seax1:~# ip link set dev enp0s8 promisc off
+root@seax1:~# ip link show enp0s8 
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP mode DEFAULT group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
