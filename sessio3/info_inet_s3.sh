@@ -46,34 +46,6 @@ echo "Comencar a veure la configuracio del sistema.."
         echo $hora_inici
     }
 
-    # Hora final  - $hora_final
-    funcio_hora_final() {
-        hora_final="$(date '+%H:%M:%S')"
-        echo $hora_final
-    }
-    
-
-    # RESULTATS
-    versio_SO=$(funcio_SO)
-    data_compilacio=$(funcio_data_compilacio)
-    versio_script=0.35
-    hi=$(funcio_hora_inici)
-    hf=$(funcio_hora_final)
-
-cat << EOF > log_inet_s3.log
-        
-        ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-        ║                                                                                                                   ║
-        ║  ------------------------------------------------------------------------------------------------------------     ║
-        ║   Analisi de les interficies del sistema realitzada per l'usuari root de l'equip debian.                          ║
-        ║    Sistema operatiu $versio_SO.                                                                                   ║    
-        ║    Versio del script $versio_script compilada el $data_compilacio.                                                ║   
-        ║    Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf.)   ║
-        ║  ------------------------------------------------------------------------------------------------------------     ║
-        ║                                                                                                                   ║
-        ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
-EOF
-
 #Variable global - tipus de adrecament: noconfig, dinamic,estatic,loopback
 tipus=""
 
@@ -506,6 +478,35 @@ cat >> log_inet_s3.log << EOF
 
 EOF
     
+    # Hora final  - $hora_final
+    funcio_hora_final() {
+        hora_final="$(date '+%H:%M:%S')"
+        echo $hora_final
+    }
+
+    # RESULTATS
+    versio_SO=$(funcio_SO)
+    data_compilacio=$(funcio_data_compilacio)
+    versio_script=0.35
+    hi=$(funcio_hora_inici)
+    hf=$(funcio_hora_final)
+    si=$(date -d "$hi" +%s)
+    sf=$(date -d "$hf" +%s)
+    s=$((sf - si))
+
+cat << EOF > log_inet_s3_part1.log
+        
+    ╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+    ║                                                                                                                      ║
+    ║  ------------------------------------------------------------------------------------------------------------------  ║
+    ║  Analisi de les interficies del sistema realitzada per l'usuari root de l'equip debian.                              ║
+    ║  Sistema operatiu $versio_SO.                                                                                        ║    
+    ║  Versio del script $versio_script compilada el $data_compilacio.                                                     ║   
+    ║  Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf [$s s].  ║
+    ║  ------------------------------------------------------------------------------------------------------------------  ║
+    ║                                                                                                                      ║
+    ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+EOF
 
     # # Determine the max length of the details
     # table_width=$(get_max_length "${resultats[@]}")
@@ -528,6 +529,9 @@ EOF
    # print_middle_line $table_width
    # print_horizontal_line $table_width
    # echo # Newline for spacing between tables
+   
+   cat log_inet_s3_part1.log log_inet_s3.log >> log_inet_s3_final.log
+
 
 done # final del bucle x cada interficie
 
