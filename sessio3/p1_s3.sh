@@ -534,7 +534,7 @@ for interficie in $(ls /sys/class/net); do
     info_velocitat_final=($(funcio_velocitat_final $interficie))
 
     # Utilitzar per càlculs aritmètics
-    velocitat_recepcio_bytes=${(info_velocitat_final[0] - info_velocitat_inicial[0])}
+    velocitat_recepcio_bytes=$((info_velocitat_final[0] - info_velocitat_inicial[0]))
     velocitat_recepcio_paquets=$((info_velocitat_final[1] - info_velocitat_inicial[1]))
     velocitat_transmissio_bytes=$((info_velocitat_final[2] - info_velocitat_inicial[2]))
     velocitat_transmissio_paquets=$((info_velocitat_final[3] - info_velocitat_inicial[3]))
