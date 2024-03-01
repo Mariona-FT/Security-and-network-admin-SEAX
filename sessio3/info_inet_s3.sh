@@ -285,7 +285,7 @@ EOF
         local ip_mask=$(ip addr show "$1" | awk '/inet / {print $4}')
         local ip=$(echo "$ip_mask" | cut -d '/' -f1)
 
-        # Comprovar si l'adreça IP és vàlida -casos error
+        # Comprovar si l'adreça IP es valida
         if [[ ! "$ip" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "-"
             return 1
