@@ -160,8 +160,9 @@ EOF
     }
 
     # adreçament - $adrecament
-    # Resultat del tipus adreçament: loopback ,estatic , dinamic, no configurada
+    # tipus adreçament: loopback ,estatic , dinamic, no configurada
     funcio_adrecament() {
+
         # Comprovar si la interfície existeix
         if ! ip link show "$1" &>/dev/null; then
             echo "La interficie especificada no existeix"
@@ -185,27 +186,21 @@ EOF
         echo $adrecament
     }
 
-    #Aconseguir el tipus de la interficie
-    # tipus adreçament: loopback ,estatic , dinamic, noconfig
     funcio_tipus() {
-        # Comprovar si la interfície existeix
         if ! ip link show "$1" &>/dev/null; then
             echo "La interficie especificada no existeix"
             return 1
         fi
-        # Cas NO CONFIGURAT
         if ! ip addr show "$1" | grep -q 'inet'; then
             tipus="noconfig"
-        # Cas LOOPBACK
         elif ip addr show "$1" | grep -q "LOOPBACK"; then
             tipus="loopback"
-        # Cas DHCP    
         elif grep -q "iface $1 inet dhcp" /etc/network/interfaces; then
             tipus=$"dinamic"
-        # Cas ESTATIC 
         else
             tipus="estatic"
         fi
+        
         echo $tipus
     }
 
@@ -371,8 +366,8 @@ EOF
         echo $dom
     }
 
-    #Informacio de la entitat de la xarxa
-    funcio_enitat_xarxa(){
+    #Info entitat -
+    funcio_xarxa_ent(){
         local public_ip=$(curl -s https://ifconfig.me/ip)
         xarxa=$(whois $ip_publica | grep -i 'inetnum|netname' | head -n 2)
         if [ -z $xarxa ]; then #si info entitat buida
@@ -382,8 +377,8 @@ EOF
         fi
     }
 
-    #Informacio Entitat propietaria
-    funcio_entitat_prop(){
+    #Entitat propietaria
+    funcio_entitat(){
         #trobar la ip publica de la xarxa 
         local ip_publica==$(curl -s https://ifconfig.me/ip)
         #trobar el propietari de la xarxa
@@ -447,9 +442,12 @@ for interficie in $(ls /sys/class/net); do
  
     echo "Trobant l'adreçament.."
         adrecament=$(funcio_adrecament $interficie)
+            echo "resultats" $adrecament
+
     echo "Trobant el tipus.."
         tipus=$(funcio_tipus $interficie)
 
+    echo "resultats" $tipus
 
     echo "Trobant la ip amb la mascara .."
         ip_masc=$(funcio_ip_mascara $interficie)
@@ -490,7 +488,7 @@ cat >> log_inet_s3.log << EOF
                 Estat de la interfície:    $estat
                 Mode de la interfície:     $mode_interficie
             
-                Adreçament:                $tipus - $adrecament
+                Adreçament:                $tipus $adrecament
                 Adreça IP / màscara:       $ip_masc
                 Adreça de xarxa:           $adxarxa
                 Adreça broadcast:          $broadcast
@@ -499,35 +497,30 @@ cat >> log_inet_s3.log << EOF
         └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘  
 
 EOF
+echo "EL tipus de la interfic1e" $tipus 
 
     if [ "$tipus" != "loopback" ] && [ "$tipus" != "noconfig" ]; then
-    echo "RESULTATS DE LA XARXA PUBLICA:"
-    echo "Trobant la ip publica.."
         ip_publica=$(funcio_ipp $interficie)
-    echo "Trobant la NAT.."
         dic_nat=$(funcio_nat $interficie)
-    echo "Trobant el domini.."
         nom_dom=$(funcio_dom $interficie)
-    echo "Trobant la xarxa de l'entiat.."
-        xarxa_entitat=$(funcio_enitat_xarxa $interficie)
-    echo "Trobant l'entitat propietaria.."
-        entitat=$(funcio_entitat_prop $interficie)
+        xarxa_entitat=$(funcio_xarxa_ent $interficie)
+        entitat=$(funcio_entitat $interficie)
 
-cat >> log_inet_s3.log << EOF
-                Adreça IP pública:         $ip_publica
-                Detecció de NAT:           $dic_nat
-                Nom del domini:            $nom_dom
-                Xarxes de l'entitat:       $xarxa_entitat
-                Entitat propietària:       $entitat
-EOF
+        resultats+=(
+            "Adreça IP pública:         $ip_publica"
+            "Detecció de NAT:           $dic_nat"
+            "Nom del domini:            $nom_dom"
+            "Xarxes de l'entitat:       $xarxa_entitat"
+            "Entitat propietària:       $entitat"
+        )
     fi
 
     # Print dels resultats
 cat >> log_inet_s3.log << EOF
-                Tràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)
-                Tràfic transmès:           $t_transmes Kbytes [$paq_transmes paquets] ($errors_transmes errors, $descartats_transmes descartats i $perduts_transmes perduts)
-                Velocitat de Recepció:     $vel_recep bytes/s [ paquets/s]
-                Velocitat de Transmissió:  $vel_trans bytes/s [ paquets/s]
+            Tràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)
+            Tràfic transmès:           $t_transmes Kbytes [$paq_transmes paquets] ($errors_transmes errors, $descartats_transmes descartats i $perduts_transmes perduts)
+            Velocitat de Recepció:     $vel_recep bytes/s [ paquets/s]
+            Velocitat de Transmissió:  $vel_trans bytes/s [ paquets/s]
         └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘  
 
 EOF
