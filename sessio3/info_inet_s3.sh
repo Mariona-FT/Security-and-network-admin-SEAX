@@ -236,7 +236,7 @@ EOF
     }
 
     #Adreca de xarxa - $adxarxa
-    # adreça de xarxa + (ip de la xarxa + mascara i RANG d'aquesta)
+    #adreça de xarxa + (ip de la xarxa + mascara i RANG d'aquesta)
     funcio_xarxa() {
         # Verificar si l'interfície existeix
         if ! ip link show "$1" &>/dev/null; then
