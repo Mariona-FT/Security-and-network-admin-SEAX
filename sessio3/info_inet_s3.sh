@@ -236,38 +236,38 @@ EOF
     }
 
     #Adreca de xarxa - $adxarxa
-    #adreça de xarxa + (ip de la xarxa + mascara i RANG d'aquesta)
+    # adreça de xarxa + (ip de la xarxa + mascara i RANG d'aquesta)
     funcio_xarxa() {
-        # Verificar si l'interfície existeix
+        # Verificar si l'interficie existeix
         if ! ip link show "$1" &>/dev/null; then
             echo "-"
-            return 0
+            return 1
         fi
 
-        #Agafar la ip mascara 
+        # Verificar si hi ha l'adreça IP amb mascara de l'interfície
         local ip_mask=$(ip addr show "$1" | awk '/inet / {print $2}')
+        if [ -z "$ip_mask" ]; then
+            echo "No s'ha trobat cap adreça IP per a l'interfície."
+            return 1
+        fi
 
-        # Aconseguir la ip de la interficie i de la xarxa
+        # Separar l'adreça IP de la mascara
         local ip_address=$(echo "$ip_mask" | cut -d'/' -f1)
-        local network_prefix=$(echo "$ip_mask" | cut -d'/' -f2)
+        local cidr_mask=$(echo "$ip_mask" | cut -d'/' -f2)
 
-        #Aconseguir la adreca de la xarxa amb el prefix trobat anteriorment
-        local network_address=$(echo "$ip_address" | awk -F'.' -v np="$network_prefix" '{
-            for (i=1; i<=NF; i++) {
-                if (i <= int(np/8)) {
-                    printf "%d", $i
-                } else {
-                    printf "0"
-                }
-                if (i < NF) printf "."
-            }
-            printf "\n"
-        }')
-        #treure els 3 ultims digits per aconseguir base del rang
-         local network_nonumt=$(echo "$network_address" | rev | cut -c 2- | rev)
+        # Convertir CIDR a màscara de subxarxa en decimal
+        local mask=$((0xffffffff ^ ((1 << (32 - cidr_mask)) - 1)))
+        local mask1=$((mask >> 24 & 0xff))
+        local mask2=$((mask >> 16 & 0xff))
+        local mask3=$((mask >> 8 & 0xff))
+        local mask4=$((mask & 0xff))
+
+        # Aplicar mascara de subxarxa a l'adreça IP per obtenir l'adreça de la xarxa
+        IFS='.' read -r i1 i2 i3 i4 <<< "$ip_address"
+        local network_address=$(printf "%d.%d.%d.%d\n" $(($i1 & $mask1)) $(($i2 & $mask2)) $(($i3 & $mask3)) $(($i4 & $mask4)))
 
         # Resultat adreca de la xarxa i el seu rang del .1 al .254
-        echo "${network_address:-"-"} [${network_nonumt}1 - ${network_nonumt}254]"
+        echo "${network_address:-"-"} [ ${network_address%.*}.1 - ${network_address%.*}.254]"
     }
 
     #Adreça de broadcast - $broadcast
