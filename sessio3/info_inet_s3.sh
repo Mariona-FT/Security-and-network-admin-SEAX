@@ -270,14 +270,15 @@ EOF
         echo "${network_address:-"-"} [ ${network_address%.*}.1 - ${network_address%.*}.254]"
     }
 
-    #Adreça de broadcast - $broadcast
+  
+    # Adreça de broadcast - $broadcast
+    # adreça de broadcast + (la seva mascara)
     funcio_broadcast() {
         # Verificar si l'interficie existeix
         if ! ip link show "$1" &>/dev/null; then
             echo "-"
             return 0
         fi
-
         # Obtenir l'adreça de difusió (broadcast) de l'interficie
         local broadcast=$(ip addr show "$1" | awk '/inet / {print $4}' | cut -d '/' -f1)
          # Obtenir l'adreça IP i la màscara de l'interfície
@@ -289,23 +290,23 @@ EOF
             echo "-"
             return 1
         fi
-
+ 
         # Separar els octets de l'adreça IP
         IFS='.' read -r -a octets <<< "$ip"
 
         # Trobar mascara broadcast - si num diferent a 255==0 si num igual a 255=255
-        local new_broadcast=""
+        local masc_broadcast=""
         for octet in "${octets[@]}"; do
             if [ "$octet" = "255" ]; then
-                new_broadcast+="$octet."
+                masc_broadcast+="$octet."
             else
-                new_broadcast+="0."
+                masc_broadcast+="0."
             fi
         done
-        new_broadcast=${new_broadcast%?} #treure ultim punt
+        masc_broadcast=${masc_broadcast%?} #treure ultim punt
 
         # Mostrar l'adreça de broadcast + la seva mascara
-        echo "$broadcast ($new_broadcast)"
+        echo "$broadcast ($masc_broadcast)"
     }
 
     #Adreça gateway per defecte - $gateway
