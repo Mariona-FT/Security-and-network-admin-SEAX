@@ -353,26 +353,24 @@ EOF
     }
 
     #Nom dns - $nom_dns
-    # Nom  donat pel sistema dns utilitzat - posat tmb la ip del servidor dns
+    # Nom  donat pel sistema dns utilitzat - en sistema de fitxers /etc/hosts
     funcio_dns_nom() {
-        local resolv_conf="/etc/resolv.conf"
+        # Trobar la ip de la xarxa 
+        # Obtenir l'adreça IP i la màscara de l'interfície
+        local ip_masc=$(ip addr show "$1" | awk '/inet / {print $2}')
 
-        # Check if /etc/resolv.conf exists
-        if [[ ! -f "$resolv_conf" ]]; then
-            echo "Error: $resolv_conf  no existeix"
-            return 1
-        fi
-        # Trobar la ip dels dns 
-        local dns_server=$(grep '^nameserver' "$resolv_conf" | head -n 1 | awk '{print $2}')
-        if [[ -z "$dns_server" ]]; then #No hi ha ip del servidor dns
-            echo "-"
-        #Trobar el nom del dns a partir de la ip del servidor dns
-        else 
-            local dns_name=$(dig +short -x $dns_server | sed 's/\.$//') #Trobar el NOM
-            if [ -z "$dns_name" ]; then
-                echo "Nom del DNS no trobat ($dns_server) " # no hi ha nom de DNS
+        # Separar l'adreça IP
+        local i=$(echo "$ip_masc" | cut -d'/' -f1)
+        #Mirar si la ip de la xarxa es de la localhost -127.0.0.1
+        if [[ "$i" == "127.0.0.1" ]]; then
+            echo "localhost" #el nom del servidor dns sera aquest
+        else
+            #Trobar laltre nom del servidor dns que no sigui localhost - 127.0.1.1
+            local dns_nom=$(grep -E "127.0.1.1" /etc/hosts | awk '{print $2}')
+            if [[ -z "$dns_nom" ]]; then
+                echo "Nom del DNS no trobat ($i)" # No hi ha nom de DNS
             else
-                echo "$dns_name ($dns_server)"  # Hi ha nom del servidor DNS
+                echo $dns_nom
             fi
         fi
     }
