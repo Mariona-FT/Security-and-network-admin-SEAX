@@ -366,7 +366,7 @@ EOF
         local dns_server=$(grep '^nameserver' "$resolv_conf" | head -n 1 | awk '{print $2}')
         if [[ -z "$dns_server" ]]; then #No hi ha ip del servidor dns
             echo "-"
-        #Trobar el nom del dns a partir de la ip d'aquesta
+        #Trobar el nom del dns a partir de la ip del servidor dns
         else 
             local dns_name=$(dig +short -x $dns_server | sed 's/\.$//') #Trobar el NOM
             if [ -z "$dns_name" ]; then
@@ -418,22 +418,26 @@ EOF
     }
 
     #Nom domini- $nom_dom
+    #Dos ultims termes del nom del dns - ex: orange.es
     funcio_dom(){
         #buscar ip publica de la xarxa
-        local public_ip=$(curl -s https://ifconfig.me/ip)
+        local public_ip=$(curl -s http://ipecho.net/plain)
         if [ -z "$public_ip" ]; then
-            echo "No hi ha ip publica"
+            echo "- No hi ha ip publica"
             return 1
+        else        
+        #Trobar el nom del dns a partir de la ip del servidor dns    
+            local dns_name=$(dig +short -x "$public_ip" | sed 's/\.$//')
+            if [ -z "$dns_name" ]; then
+                echo " - No hi ha nom de dns"
+                return 1
+            else 
+                #Trobar nom del domini - els dos ultims valors del nom dns 
+                local dom=$(echo "$dns_name" | awk -F. '{if (NF>1) print $(NF-1)"."$NF; else print $NF}')
+                echo $dom 
+            fi 
         fi
-        #buscar el domini de la adreca ip publica de la xarxa 
-        local dom=$(curl -s "https://api.hackertarget.com/reverseiplookup/?q=$public_ip")
-        if [ -z "$dom" ]; then
-            echo "-"
-            return 1
-        fi
-
-        echo $dom
-    }
+    }       
 
     #Informacio de la entitat de la xarxa
     funcio_enitat_xarxa(){
