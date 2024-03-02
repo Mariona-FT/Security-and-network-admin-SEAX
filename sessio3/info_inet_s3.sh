@@ -2,15 +2,24 @@
 
 #exec > log_inet.log 2>&1
 
-    #COMPROVACIONS INICIALS
+echo "COMPROVACIONS INICIALS"
 
 echo "Veure si es compleixen les comprovacions inicials.."
-    #Usuari amb usuari root
-    if [ "$(whoami)" = "root" ]; then
-        echo "Usuari es root"
+
+    #Verificar suari amb usuari root
+    if [ "$(whoami)" != "root" ]; then
+         echo "Usuari no es root, NO es pot executar l'script"
+        exit 1 # Atura l'execucio
     else
-        echo "Usuari NO  root"
-        exit 1
+        echo "Usuari es root, SI es pot executar l'script" 
+    fi
+    #Verificar Sistema Operatiu
+    SO=$(grep 'PRETTY_NAME' /etc/os-release | cut -d'=' -f2 | tr -d '"')
+    if [[ $SO != *"Debian"* ]]; then
+        echo "Aquest script nomes es pot executar en Debian. El sistema actual és: $SO"
+        exit 1 # Atura l'execucio
+    else
+        echo "Sistema Operatiu Correcte : $SO"
     fi
 
     #ABANS Mirar si paquets per execucio instalats
@@ -20,7 +29,6 @@ echo "Veure si es compleixen les comprovacions inicials.."
             exit 1
         fi
     }
-
     funcio_verifica_paquets curl
     funcio_verifica_paquets whois
     funcio_verifica_paquets bc
@@ -62,16 +70,16 @@ echo "Comencar a veure la configuracio del sistema.."
 
 cat << EOF > log_inet_s3.log
         
-        ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-        ║                                                                                                                   ║
-        ║  ------------------------------------------------------------------------------------------------------------     ║
-        ║   Analisi de les interficies del sistema realitzada per l'usuari root de l'equip debian.                          ║
-        ║    Sistema operatiu $versio_SO.                                                                                   ║    
-        ║    Versio del script $versio_script compilada el $data_compilacio.                                                ║   
-        ║    Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf.)   ║
-        ║  ------------------------------------------------------------------------------------------------------------     ║
-        ║                                                                                                                   ║
-        ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+        ╔═════════════════════════════════════════════════════════════════════════════════════════════╗
+        ║                                                                                                                       ║
+        ║  ------------------------------------------------------------------------------------------------------------         ║
+        ║   Analisi de les interficies del sistema realitzada per l'usuari root de l'equip $SO.      ║
+        ║    Sistema operatiu $versio_SO.                                                                   ║    
+        ║    Versio del script $versio_script compilada el $data_compilacio.                                                            ║   
+        ║    Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf.)                ║
+        ║  ------------------------------------------------------------------------------------------------------------         ║
+        ║                                                                                                                       ║
+        ╚═════════════════════════════════════════════════════════════════════════════════════════════╝
 EOF
 
  #OPCIONS A BUSCAR
@@ -89,7 +97,6 @@ EOF
             echo "$1 [ $nom_og ]" # si te nom original passa els dos com a resposta
         fi
     }
-
 
     #Fabricant - $fabricant
     funcio_fabricant(){
@@ -130,16 +137,30 @@ EOF
     #Estat interficie - $estat_interficie
     #MES ESTATS A MIRAR
     funcio_estat(){
-        #Ip addr per buscar lestat de la maquina UP o DOWN
-        estat=$(ip addr show "$1" 2>/dev/null | grep -Po 'state \K[^ ]+')
-        if [ -z "$estat" ]; then
-            echo "UNKNOWN"
-        elif [ "$estat" == "DOWN" ]; then #Lestat interficie avall 
-            echo "DOWN (no responent...)"
-        else
-            echo "UP (responent...)"    #Lestat interficie amunt
+        # Ip addr per buscar l'estat de la maquina UP o DOWN
+        inte_est=$(ip addr show "$1" 2>/dev/null | grep -Po 'state \K[^ ]+')
+        cable=$(ip link show "$1" | grep -c "NO-CARRIER")
+
+        if [ "$inte_est" == "UP" ]; then  # interficie si esta configurada i amb senyal
+            est="UP"  # L'estat interficie amunt
+            if [ $cable -eq 0 ]; then
+                estat="$est (responent.. amb senyal)"
+            else
+                estat="$est (responent.. sense senyal)"
+            fi
+        elif [ "$inte_est" == "DOWN" ]; then # L'estat interficie avall
+            est="DOWN"
+            if [ $cable -eq 0 ]; then
+                estat="$est (responent.. amb senyal)"
+            else
+                estat="$est (responent.. sense senyal)"
+            fi
+        elif [ -z "$inte_est" ]; then
+            estat="UNKNOWN (no responent.. sense senyal)"
         fi
-    }
+
+        echo $estat
+}
 
     #Mode interficie - $mode_interficie
     # estat de la interficie + passar la mtu 
@@ -269,7 +290,6 @@ EOF
         # Resultat adreca de la xarxa i el seu rang del .1 al .254
         echo "${network_address:-"-"} [ ${network_address%.*}.1 - ${network_address%.*}.254]"
     }
-
   
     # Adreça de broadcast - $broadcast
     # adreça de broadcast + (la seva mascara)
@@ -303,8 +323,8 @@ EOF
                 masc_broadcast+="0."
             fi
         done
-        masc_broadcast=${masc_broadcast%?} #treure ultim punt
 
+        masc_broadcast=${masc_broadcast%?} #treure ultim punt
         # Mostrar l'adreça de broadcast + la seva mascara
         echo "$broadcast ($masc_broadcast)"
     }
@@ -317,13 +337,14 @@ EOF
             return 0
         fi
         # Obtenir la porta d'enllaç per defecte (gateway) per a l'interfície especificada
+        # Si es dinamicament -mirar en fitxers amb dhcp
         if grep -q "iface $1 inet dhcp" /etc/network/interfaces; then
                 gateway=$(ip route show default dev "$1" | awk '/via/ {print $3}')
+        #Si es estaticament - mirar en fitxers gateway
         else
             gateway=$(awk '/gateway/ {print $2}' /etc/network/interfaces | head -n1)
         fi
-
-        # Comprovar si la porta d'enllaç és buida o no vàlida
+        # Comprovar si la gateway es buida o no vàlida
         if [ -z "$gateway" ] || [[ ! "$gateway" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "-"
             return 1
