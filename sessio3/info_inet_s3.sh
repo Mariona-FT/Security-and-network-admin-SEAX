@@ -442,27 +442,59 @@ EOF
     }       
 
     #Informacio de la entitat de la xarxa
+    # Trobar public ip - mascara
     funcio_enitat_xarxa(){
-        local public_ip=$(curl -s https://ifconfig.me/ip)
-        xarxa=$(whois $ip_publica | grep -i 'inetnum|netname' | head -n 2)
-        if [ -z $xarxa ]; then #si info entitat buida
-            echo "-"
-        else 
-            echo $xarxa 
-        fi
+    #     local public_ip=$(curl -s http://ipecho.net/plain)
+        
+    #     info_red=$(whois "$public_ip" | grep -E 'inetnum|netname|descr' | head -n 3)
+
+    # echo "Xarxes de l'entitat: $(echo ${info_red:-"-"} | awk '{print $2, $3, $4, $5}')"
+    # echo "Entidad propietaria: $(echo ${info_red:-"-"} | awk '{print $6, $7, $8, $9, $10}')"
+    
+      local public_ip=$(curl -s http://ipecho.net/plain)
+    
+    if [ -z "$public_ip" ]; then
+        echo "Error: Unable to retrieve public IP address."
+        return 1
+    fi
+
+    local info_red=$(whois "$public_ip" | grep -E 'inetnum|netname|descr' | head -n 1)
+
+    if [ -z "$info_red" ]; then
+        echo "Error: Unable to retrieve network entity information."
+        return 1
+    fi
+
+    local network=$(echo "$info_red" | awk '{print $2}')
+    local netmask=$(echo "$info_red" | awk '{print $4}')
+
+    # Calculate range end manually
+    local prefix_len=$(echo "$netmask" | awk -F'/' '{print $2}')
+    local host_bits=$((32 - prefix_len))
+    local range_start=$(echo "$network" | cut -d'/' -f1)
+    local range_end=$(for i in $(seq 1 $host_bits); do range_start=$((range_start | (1 << (32 - i)))); done; echo $range_start)
+
+    echo "Red: $network [$range_start - $range_end]"
     }
+
 
     #Informacio Entitat propietaria
     funcio_entitat_prop(){
-        #trobar la ip publica de la xarxa 
-        local ip_publica==$(curl -s https://ifconfig.me/ip)
-        #trobar el propietari de la xarxa
-        owner=$(whois $ip_publica | grep -i 'owner' | head -n 1)
-        if [ -z $owner ]; then
-            echo "-"
-        else 
-            echo $owner
+         local public_ip=$(curl -s http://ipecho.net/plain)
+
+        if [ -z "$public_ip" ]; then
+            echo "Error: Unable to retrieve public IP address."
+            return 1
         fi
+
+        local info_red=$(whois "$public_ip" | grep -E 'inetnum|netname|descr' | head -n 3)
+
+        if [ -z "$info_red" ]; then
+            echo "Error: Unable to retrieve entity owner information."
+            return 1
+        fi
+
+        echo " echo ${info_red:-"-"} | awk '{print $6, $7, $8, $9, $10}')"
     }
 
     funcio_trafic_rebut(){
