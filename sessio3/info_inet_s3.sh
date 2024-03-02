@@ -230,7 +230,6 @@ EOF
         echo $tipus
     }
 
-
     #Adreca ip i mascara - $ip_masc
     # passar ip amb mascara + (ip només  mascara nomes )
     funcio_ip_mascara() {
@@ -354,19 +353,23 @@ EOF
     }
 
     #Nom dns - $nom_dns
-    # nom donat pel sistema dns utilitzat
+    # Nom  donat pel sistema dns utilitzat
     funcio_dns_nom() {
         nom_dns=$
     }
 
     #Ip publica -$ipp
-    funcio_ipp(){
+    # adreça ip publica + [nom de lentitat de la ip publica]
+    funcio_ippublic(){
         #buscar ip publica de la xarxa
-        local public_ip=$(curl -s https://ifconfig.me/ip)
-        if [ -z $public_ip ]; then
-        echo "-"
-        else 
-            echo "$public_ip [-]"
+        local public_ip=$(curl -s http://ipecho.net/plain)
+        #buscar el nom de la ip publica -  nom dins dns
+        local reverse_ip=$(dig -x $public_ip +short)       
+        
+        if [ -z $public_ip ]; then # si ippublica no configurada
+                echo "-"
+        else #si ippublica configurada retorna la ip + el nom entitat de la ip publica
+            echo "$public_ip [ $reverse_ip ]"
         fi
     }
 
@@ -519,13 +522,12 @@ cat >> log_inet_s3.log << EOF
                 Gateway per defecte:       $gateway
                 Nom DNS:                   $nom_dns
         └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘  
-
 EOF
 
     if [ "$tipus" != "loopback" ] && [ "$tipus" != "noconfig" ]; then
     echo "RESULTATS DE LA XARXA PUBLICA:"
     echo "Trobant la ip publica.."
-        ip_publica=$(funcio_ipp $interficie)
+        ip_publica=$(funcio_ippublic $interficie)
     echo "Trobant la NAT.."
         dic_nat=$(funcio_nat $interficie)
     echo "Trobant el domini.."
