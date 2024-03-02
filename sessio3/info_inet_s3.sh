@@ -353,9 +353,28 @@ EOF
     }
 
     #Nom dns - $nom_dns
-    # Nom  donat pel sistema dns utilitzat
+    # Nom  donat pel sistema dns utilitzat - posat tmb la ip del servidor dns
     funcio_dns_nom() {
-        nom_dns=$
+        local resolv_conf="/etc/resolv.conf"
+
+        # Check if /etc/resolv.conf exists
+        if [[ ! -f "$resolv_conf" ]]; then
+            echo "Error: $resolv_conf  no existeix"
+            return 1
+        fi
+        # Trobar la ip dels dns 
+        local dns_server=$(grep '^nameserver' "$resolv_conf" | head -n 1 | awk '{print $2}')
+        if [[ -z "$dns_server" ]]; then #No hi ha ip del servidor dns
+            echo "-"
+        #Trobar el nom del dns a partir de la ip d'aquesta
+        else 
+            local dns_name=$(dig +short -x $dns_server | sed 's/\.$//') #Trobar el NOM
+            if [ -z "$dns_name" ]; then
+                echo "Nom del DNS no trobat ($dns_server) " # no hi ha nom de DNS
+            else
+                echo "$dns_name ($dns_server)"  # Hi ha nom del servidor DNS
+            fi
+        fi
     }
 
     #Ip publica -$ipp
