@@ -418,22 +418,26 @@ EOF
     #Nom domini- $nom_dom
     #Dos ultims termes del nom del dns - ex: orange.es
     funcio_dom(){
-        #buscar ip publica de la xarxa
-        local public_ip=$(curl -s http://ipecho.net/plain)
-        if [ -z "$public_ip" ]; then
-            echo "- No hi ha ip publica"
-            return 1
-        else        
-        #Trobar el nom del dns a partir de la ip del servidor dns    
-            local dns_name=$(dig +short -x "$public_ip" | sed 's/\.$//')
-            if [ -z "$dns_name" ]; then
-                echo " - No hi ha nom de dns"
-                return 1
-            else 
-                #Trobar nom del domini - els dos ultims valors del nom dns 
-                local dom=$(echo "$dns_name" | awk -F. '{if (NF>1) print $(NF-1)"."$NF; else print $NF}')
-                echo $dom 
-            fi 
+        # Trobar la ip de la xarxa 
+        # Obtenir l'adreça IP i la màscara de l'interfície
+        local ip_masc=$(ip addr show "$1" | awk '/inet / {print $2}')
+
+        # Separar l'adreça IP
+        local i=$(echo "$ip_masc" | cut -d'/' -f1)
+
+        # Mirar si la ip de la xarxa és de la localhost - 127.0.0.1
+        if [[ "$i" == "127.0.0.1" ]]; then
+            echo "localhost" # el nom del servidor DNS serà aquest
+        else
+            # Trobar l'altre nom del servidor DNS que no sigui localhost - 127.0.1.1
+            local dns_nom=$(grep -E "127.0.1.1" /etc/hosts | awk '{print $2}')
+            if [[ -z "$dns_nom" ]]; then
+                echo "- no hi ha DNS" # No hi ha nom de DNS
+            else
+                # Extract the last three terms of the DNS name
+                dns_nom=$(echo "$dns_nom" | awk -F'.' '{print $(NF-2)"."$(NF-1)"."$NF}')
+                echo "$dns_nom"
+            fi
         fi
     }       
 
