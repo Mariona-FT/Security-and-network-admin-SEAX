@@ -367,15 +367,35 @@ EOF
         local reverse_ip=$(dig -x $public_ip +short)       
         
         if [ -z $public_ip ]; then # si ippublica no configurada
-                echo "-"
+                echo "- No sha trobat cap ip publica"
         else #si ippublica configurada retorna la ip + el nom entitat de la ip publica
             echo "$public_ip [ $reverse_ip ]"
         fi
     }
 
-    #Deteccio Nat
+    #Deteccio Nat - $dic_nat
+    # NAT no detectat 
+    # NAT detectat - tornar numero routers i la ip publica + nom ip publica
     funcio_nat(){
-        echo
+        # Use traceroute to determine the number of hops to an external IP
+        local local_ip=$(hostname -I | awk '{print $1}')
+        #buscar ip publica de la xarxa
+        local public_ip=$(curl -s http://ipecho.net/plain)
+        #buscar el nom de la ip publica -  nom dins dns
+        local reverse_ip=$(dig -x $public_ip +short)       
+
+        #Utilitzar traceroute per trobar el numero de routers
+        hops=$(traceroute -m 2 -q 1 8.8.8.8 | grep -o "(\([0-9]*\.[0-9]*\.[0-9]*\.[0-9]*\))" | wc -l)
+
+        if [[ $hops -le 1 ]]; then
+            if [[ $public_ip == $local_ip ]]; then # ip publica es igual a la local no es nat
+                echo "NAT no detectat, la IP publica $public_ip es la mateixa que la IP local $local_ip. "
+            else # error de un sol router - mirar
+                echo "NAT detectat,nomes un hop sha trobat - possible error"
+            fi
+        else # NAT detectat - tornar numero routers i la ip publica + nom ip publica
+            echo "NAT detectat, $hops routers involucrats [$local_ip -> ( $public_ip ($reverse_ip) ) ] "
+        fi
     }
 
     #Nom domini- $nom_dom
