@@ -16,6 +16,7 @@ echo "Veure si es compleixen les comprovacions inicials.."
     else
         echo "Usuari es root, SI es pot executar l'script" 
     fi
+
     #Verificar Sistema Operatiu
     SO=$(grep 'PRETTY_NAME' /etc/os-release | cut -d'=' -f2 | tr -d '"')
     if [[ $SO != *"Debian"* ]]; then
@@ -108,7 +109,6 @@ echo "Comencar a veure la configuracio del sistema.."
     }
 
     #Estat interficie - $estat_interficie
-    #MES ESTATS A MIRAR
     funcio_estat(){
         # Ip addr per buscar l'estat de la maquina UP o DOWN
         inte_est=$(ip addr show "$1" 2>/dev/null | grep -Po 'state \K[^ ]+')
@@ -447,6 +447,8 @@ echo "Comencar a veure la configuracio del sistema.."
         echo "$ent_prop"
     }
 
+    #Resultats del TRAFIC
+    # trafic rebut amb trafic transmes
      funcio_trafic_rebut(){
         interface=$1
         # Obté l'informació de tràfic
@@ -459,7 +461,7 @@ echo "Comencar a veure la configuracio del sistema.."
         # Si hi ha més de 1024 bits ho transforma a kb
         rx_bytes_kb=$(echo "$rx_bytes/1024" | bc)
 
-        # Return traffic information as an array
+        # Retornar resultats com un array
         echo "$rx_bytes_kb $rx_packets $rx_errors $rx_descartats $rx_perduts"
     }
 
@@ -475,27 +477,31 @@ echo "Comencar a veure la configuracio del sistema.."
         # Si hi ha més de 1024 bits ho transforma a kb
         tx_bytes_kb=$(echo "$tx_bytes/1024" | bc)
 
-        # Return traffic information as an array
+        # Retornar resultats com un array
         echo "$tx_bytes_kb $tx_packets $tx_errors $tx_descartats $tx_colisions"
     }
  
-     funcio_velocitat_inicial(){
+    #Resultats de les VELOCITATS
+    # velocitat inicial amb velocitat final
+    funcio_velocitat_inicial(){
         local interface=$1
+        # Obté l'informació de la velocitat
         rx_bytes_inicial=$(cat /sys/class/net/$interface/statistics/rx_bytes)
         rx_paquets_inicial=$(cat /sys/class/net/$interface/statistics/rx_packets)
         tx_bytes_inicial=$(cat /sys/class/net/$interface/statistics/tx_bytes)
         tx_paquets_inicial=$(cat /sys/class/net/$interface/statistics/tx_packets)
-
+        # Retornar resultats com un array
         echo $rx_bytes_inicial $rx_paquets_inicial $tx_bytes_inicial $tx_paquets_inicial
     }
 
     funcio_velocitat_final(){
         local interface=$1
+        # Obté l'informació de la velocitat
         rx_bytes_final=$(cat /sys/class/net/$interface/statistics/rx_bytes)
         rx_paquets_final=$(cat /sys/class/net/$interface/statistics/rx_packets)
         tx_bytes_final=$(cat /sys/class/net/$interface/statistics/tx_bytes)
         tx_paquets_final=$(cat /sys/class/net/$interface/statistics/tx_packets)
-
+        # Retornar resultats com un array
         echo $rx_bytes_final $rx_paquets_final $tx_bytes_final $tx_paquets_final
     }
 
@@ -533,30 +539,33 @@ for interficie in $(ls /sys/class/net); do
     echo "Trobant el servidor dns.."
         nom_dns=$(funcio_dns_nom $interficie)
 
-     trafic_rebut_info=($(funcio_trafic_rebut $interficie))
-    t_rebut=${trafic_rebut_info[0]}
-    paq_rebut=${trafic_rebut_info[1]}
-    errors_rebut=${trafic_rebut_info[2]}
-    descartats_rebut=${trafic_rebut_info[3]}
-    perduts_rebut=${trafic_rebut_info[4]}
+
+    echo "Trobant els valors del tràfic.."
+    trafic_rebut_info=($(funcio_trafic_rebut $interficie))
+        t_rebut=${trafic_rebut_info[0]}
+        paq_rebut=${trafic_rebut_info[1]}
+        errors_rebut=${trafic_rebut_info[2]}
+        descartats_rebut=${trafic_rebut_info[3]}
+        perduts_rebut=${trafic_rebut_info[4]}
 
     trafic_transmes_info=($(funcio_trafic_transmes $interficie))
-    t_transmes=${trafic_transmes_info[0]}
-    paq_transmes=${trafic_transmes_info[1]}
-    errors_transmes=${trafic_transmes_info[2]}
-    descartats_transmes=${trafic_transmes_info[3]}
-    col_transmes=${trafic_transmes_info[4]}
+        t_transmes=${trafic_transmes_info[0]}
+        paq_transmes=${trafic_transmes_info[1]}
+        errors_transmes=${trafic_transmes_info[2]}
+        descartats_transmes=${trafic_transmes_info[3]}
+        col_transmes=${trafic_transmes_info[4]}
 
+    echo "Trobant els valors de la velocitat.."
     info_velocitat_inicial=($(funcio_velocitat_inicial $interficie))
-    sleep 3 # Esperar 3 segons entre mesures
+        sleep 3 # Esperar 3 segons entre mesures
     info_velocitat_final=($(funcio_velocitat_final $interficie))
     # Utilitzar per càlculs aritmètics
-    velocitat_recepcio_bytes=$((info_velocitat_final[0] - info_velocitat_inicial[0]))
-    velocitat_recepcio_paquets=$((info_velocitat_final[1] - info_velocitat_inicial[1]))
-    velocitat_transmissio_bytes=$((info_velocitat_final[2] - info_velocitat_inicial[2]))
-    velocitat_transmissio_paquets=$((info_velocitat_final[3] - info_velocitat_inicial[3]))
+        velocitat_recepcio_bytes=$((info_velocitat_final[0] - info_velocitat_inicial[0]))
+        velocitat_recepcio_paquets=$((info_velocitat_final[1] - info_velocitat_inicial[1]))
+        velocitat_transmissio_bytes=$((info_velocitat_final[2] - info_velocitat_inicial[2]))
+        velocitat_transmissio_paquets=$((info_velocitat_final[3] - info_velocitat_inicial[3]))
 
-    # Print dels resultats
+    #Retornar valors INICIALS x INTERFICIE
 cat >> log_inet_s3.log << EOF    
     ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                                         
                                                 
@@ -577,6 +586,7 @@ cat >> log_inet_s3.log << EOF
                                 --------------------------------------------------  
 EOF
 
+    #Retornar valors si son de XARXA PÚBLICA
     if [ "$tipus" != "loopback" ] && [ "$tipus" != "noconfig" ]; then
         echo "RESULTATS DE LA XARXA PUBLICA:"
         echo "Trobant la ip publica.."
@@ -610,7 +620,7 @@ cat >> log_inet_s3.log << EOF
 EOF
     fi
 
-
+    #Retornar els valors TRAFIC i VELOCITAT 
 cat >> log_inet_s3.log << EOF
         
         ràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)
@@ -623,7 +633,8 @@ cat >> log_inet_s3.log << EOF
 EOF
 
 
-    # RESULTATS
+    # RESULTATS CAPÇALERA
+    usuari=$(hostname)
     versio_SO=$(funcio_SO)
     data_compilacio=$(funcio_data_compilacio)
     versio_script=0.35
@@ -636,7 +647,7 @@ cat << EOF > log_inet_s3_capc.log
     ╔═════════════════════════════════════════════════════════════════════════════════════════════╗
                                                                                                                             
     --------------------------------------------------------------------------------------------------------------------------------         
-            Analisi de les interficies del sistema realitzada per l'usuari root de l'equip $SO.     
+            Analisi de les interficies del sistema realitzada per l'usuari root de l'equip $usuari.     
             Sistema operatiu $versio_SO.                                                                      
             Versio del script $versio_script compilada el $data_compilacio.                                                              
             Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf [$s s].               
