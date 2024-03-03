@@ -475,6 +475,26 @@ echo "Comencar a veure la configuracio del sistema.."
         # Return traffic information as an array
         echo "$tx_bytes_kb $tx_packets $tx_errors $tx_descartats $tx_perduts"
     }
+ 
+    funcio_velocitat_inicial(){
+        local interface=$1
+        rx_bytes_inicial=$(cat /sys/class/net/$interface/statistics/rx_bytes)
+        rx_paquets_inicial=$(cat /sys/class/net/$interface/statistics/rx_packets)
+        tx_bytes_inicial=$(cat /sys/class/net/$interface/statistics/tx_bytes)
+        tx_paquets_inicial=$(cat /sys/class/net/$interface/statistics/tx_packets)
+
+        echo $rx_bytes_inicial $rx_paquets_inicial $tx_bytes_inicial $tx_paquets_inicial
+    }
+
+    funcio_velocitat_final(){
+        local interface=$1
+        rx_bytes_final=$(cat /sys/class/net/$interface/statistics/rx_bytes)
+        rx_paquets_final=$(cat /sys/class/net/$interface/statistics/rx_packets)
+        tx_bytes_final=$(cat /sys/class/net/$interface/statistics/tx_bytes)
+        tx_paquets_final=$(cat /sys/class/net/$interface/statistics/tx_packets)
+
+        echo $rx_bytes_final $rx_paquets_final $tx_bytes_final $tx_paquets_final
+    }
 
 
 # Llistat de totes les interficies de la maquina
@@ -525,6 +545,17 @@ for interficie in $(ls /sys/class/net); do
     descartats_transmes=${trafic_transmes_info[3]}
     perduts_transmes=${trafic_transmes_info[4]}
 
+    info_velocitat_inicial=($(funcio_velocitat_inicial $interficie))
+    sleep 3 # Esperar 3 segons entre mesures
+    info_velocitat_final=($(funcio_velocitat_final $interficie))
+
+    # Utilitzar per càlculs aritmètics
+    velocitat_recepcio_bytes=$((info_velocitat_final[0] - info_velocitat_inicial[0]))
+    velocitat_recepcio_paquets=$((info_velocitat_final[1] - info_velocitat_inicial[1]))
+    velocitat_transmissio_bytes=$((info_velocitat_final[2] - info_velocitat_inicial[2]))
+    velocitat_transmissio_paquets=$((info_velocitat_final[3] - info_velocitat_inicial[3]))
+
+
     # Print dels resultats
 cat >> log_inet_s3.log << EOF    
     ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                                         
@@ -570,9 +601,9 @@ EOF
     fi 
 
     echo "Trobant si hi han rutes.."
-    #Trobar si hi han rutes involucrades la interficie - concatenar resultats
+    #Trobar si hi han rutes - concatenar resultats
     rutes=$(ip route | grep $interficie| tr '\n' ' ')
-    if [ ! -z "$rutes" ]; then  #SI hi ha rutes treure el resultat en el log
+    if [ ! -z "$rutes" ]; then  #Si hi ha rutes treure el resultat en el log
 
 cat >> log_inet_s3.log << EOF
         Rutes involucrades:         $rutes
@@ -584,8 +615,8 @@ cat >> log_inet_s3.log << EOF
         
         Tràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)
         Tràfic transmès:           $t_transmes Kbytes [$paq_transmes paquets] ($errors_transmes errors, $descartats_transmes descartats i $perduts_transmes perduts)
-        Velocitat de Recepció:     $vel_recep bytes/s [ paquets/s]
-        Velocitat de Transmissió:  $vel_trans bytes/s [ paquets/s]
+        Velocitat de Recepció:     $velocitat_recepcio_bytes bytes/s [$velocitat_recepcio_paquets paquets/s]
+        Velocitat de Transmissió:  $velocitat_transmissio_bytes bytes/s [$velocitat_transmissio_paquets paquets/s]
     
     └───────────────────────────────────────────────────────────────────────────────────────────────────────────┘                                                                                                                             
 
@@ -613,7 +644,8 @@ cat << EOF > log_inet_s3_capc.log
                                                                                                                             
     ╚═════════════════════════════════════════════════════════════════════════════════════════════╝
 EOF
-   cat log_inet_s3_capc.log log_inet_s3.log >> log_inet_s3_final.log
+
+cat log_inet_s3_capc.log log_inet_s3.log >> log_inet_s3_final.log
     # Overwrite the final log file with the capc log content
 cat log_inet_s3_capc.log > log_inet_s3_final.log
 
