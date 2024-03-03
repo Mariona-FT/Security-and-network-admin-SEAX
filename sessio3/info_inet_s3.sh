@@ -442,59 +442,42 @@ EOF
     }       
 
     #Informacio de la entitat de la xarxa
-    # Trobar public ip - mascara
+    # Trobar nom de la entitat
+    # Trobar public ip - mascara + rang
     funcio_enitat_xarxa(){
-    #     local public_ip=$(curl -s http://ipecho.net/plain)
-        
-    #     info_red=$(whois "$public_ip" | grep -E 'inetnum|netname|descr' | head -n 3)
-
-    # echo "Xarxes de l'entitat: $(echo ${info_red:-"-"} | awk '{print $2, $3, $4, $5}')"
-    # echo "Entidad propietaria: $(echo ${info_red:-"-"} | awk '{print $6, $7, $8, $9, $10}')"
-    
-      local public_ip=$(curl -s http://ipecho.net/plain)
-    
+    local public_ip=$(curl -s http://ipecho.net/plain)
     if [ -z "$public_ip" ]; then
-        echo "Error: Unable to retrieve public IP address."
+        echo "- No hi ha Ip publica"
         return 1
     fi
+    #Trobar el nom de la entitat de la xarxa
+    local nom_entitat=$(whois "$public_ip" | grep 'netname' | awk '{print $2}')
+    #Trobar la ip amb la mascara de la entitat de la xarxa - filtrat per retornar nomes els valors de la ip i mascara
+    local ip=$(whois "$public_ip" |  grep -E 'CIDR|route'| awk '/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+(\/[0-9]+)?/{print $2}')
+    #Trobar el rang de la entitat de la xarxa - fitrat nomes retorni els valors del rang
+    local rang=$(whois "$public_ip" | grep 'inetnum' |awk -F':' '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')
 
-    local info_red=$(whois "$public_ip" | grep -E 'inetnum|netname|descr' | head -n 1)
-
-    if [ -z "$info_red" ]; then
-        echo "Error: Unable to retrieve network entity information."
-        return 1
-    fi
-
-    local network=$(echo "$info_red" | awk '{print $2}')
-    local netmask=$(echo "$info_red" | awk '{print $4}')
-
-    # Calculate range end manually
-    local prefix_len=$(echo "$netmask" | awk -F'/' '{print $2}')
-    local host_bits=$((32 - prefix_len))
-    local range_start=$(echo "$network" | cut -d'/' -f1)
-    local range_end=$(for i in $(seq 1 $host_bits); do range_start=$((range_start | (1 << (32 - i)))); done; echo $range_start)
-
-    echo "Red: $network [$range_start - $range_end]"
+    echo "${nom_entitat} ${ip} [$rang]"
     }
 
 
     #Informacio Entitat propietaria
     funcio_entitat_prop(){
-         local public_ip=$(curl -s http://ipecho.net/plain)
+        local public_ip=$(curl -s http://ipecho.net/plain)
 
         if [ -z "$public_ip" ]; then
             echo "Error: Unable to retrieve public IP address."
             return 1
         fi
 
-        local info_red=$(whois "$public_ip" | grep -E 'inetnum|netname|descr' | head -n 3)
+        local info_red=$(whois "$public_ip" | grep -E 'descr' | head -n 1)
 
         if [ -z "$info_red" ]; then
             echo "Error: Unable to retrieve entity owner information."
             return 1
         fi
 
-        echo " echo ${info_red:-"-"} | awk '{print $6, $7, $8, $9, $10}')"
+        echo " echo ${info_red:-"-"} | awk '{print $1}')"
     }
 
     funcio_trafic_rebut(){
@@ -606,7 +589,7 @@ EOF
     echo "Trobant la ip publica.."
         ip_publica=$(funcio_ippublic $interficie)
     echo "Trobant la NAT.."
-        dic_nat=$(funcio_nat $interficie)
+       # dic_nat=$(funcio_nat $interficie)
     echo "Trobant el domini.."
         nom_dom=$(funcio_dom $interficie)
     echo "Trobant la xarxa de l'entiat.."
