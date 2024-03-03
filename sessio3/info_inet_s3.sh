@@ -430,7 +430,6 @@ echo "Comencar a veure la configuracio del sistema.."
         echo "${nom_entitat} ${ip} [$rang]"
     }
 
-
     #Informacio de la entitat propietaria
     # Trobar el nom de la entitat propietaria 
     funcio_entitat_prop(){
@@ -527,8 +526,6 @@ for interficie in $(ls /sys/class/net); do
     perduts_transmes=${trafic_transmes_info[4]}
 
     # Print dels resultats
-
-
 cat >> log_inet_s3.log << EOF    
     ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                                         
                                                 
@@ -570,7 +567,18 @@ cat >> log_inet_s3.log << EOF
         Entitat propietària:       $entitat
                                 --------------------------------------------------
 EOF
+    fi 
+
+    echo "Trobant si hi han rutes.."
+    #Trobar si hi han rutes involucrades la interficie - concatenar resultats
+    rutes=$(ip route | grep $interficie| tr '\n' ' ')
+    if [ ! -z "$rutes" ]; then  #SI hi ha rutes treure el resultat en el log
+
+cat >> log_inet_s3.log << EOF
+        Rutes involucrades:         $rutes
+EOF
     fi
+
 
 cat >> log_inet_s3.log << EOF
         
