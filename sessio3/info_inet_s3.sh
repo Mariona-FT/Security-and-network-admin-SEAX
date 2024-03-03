@@ -36,7 +36,10 @@ echo "Veure si es compleixen les comprovacions inicials.."
     funcio_verifica_paquets whois
     funcio_verifica_paquets bc
     funcio_verifica_paquets dig
-    
+    funcio_verifica_paquets whois
+    funcio_verifica_paquets traceroute
+
+
 echo "Comencar a veure la configuracio del sistema.."
 
     # Sistema Operatiu - $SO
@@ -444,7 +447,7 @@ echo "Comencar a veure la configuracio del sistema.."
         echo "$ent_prop"
     }
 
-    funcio_trafic_rebut(){
+     funcio_trafic_rebut(){
         interface=$1
         # Obté l'informació de tràfic
         rx_bytes=$(ip -s link show $interface | awk '/RX:/ {getline; print $1}')
@@ -467,16 +470,16 @@ echo "Comencar a veure la configuracio del sistema.."
         tx_packets=$(ip -s link show $interface | awk '/TX:/ {getline; print $2}')
         tx_errors=$(ip -s link show $interface | awk '/TX:/ {getline; print $3}')
         tx_descartats=$(ip -s link show $interface | awk '/TX:/ {getline; print $4}')
-        tx_perduts=$(ip -s link show $interface | awk '/TX:/ {getline; print $5}')
+        tx_colisions=$(ip -s link show $interface | awk '/TX:/ {getline; print $6}')
         
         # Si hi ha més de 1024 bits ho transforma a kb
         tx_bytes_kb=$(echo "$tx_bytes/1024" | bc)
 
         # Return traffic information as an array
-        echo "$tx_bytes_kb $tx_packets $tx_errors $tx_descartats $tx_perduts"
+        echo "$tx_bytes_kb $tx_packets $tx_errors $tx_descartats $tx_colisions"
     }
  
-    funcio_velocitat_inicial(){
+     funcio_velocitat_inicial(){
         local interface=$1
         rx_bytes_inicial=$(cat /sys/class/net/$interface/statistics/rx_bytes)
         rx_paquets_inicial=$(cat /sys/class/net/$interface/statistics/rx_packets)
@@ -495,7 +498,6 @@ echo "Comencar a veure la configuracio del sistema.."
 
         echo $rx_bytes_final $rx_paquets_final $tx_bytes_final $tx_paquets_final
     }
-
 
 # Llistat de totes les interficies de la maquina
 for interficie in $(ls /sys/class/net); do
@@ -531,7 +533,7 @@ for interficie in $(ls /sys/class/net); do
     echo "Trobant el servidor dns.."
         nom_dns=$(funcio_dns_nom $interficie)
 
-    trafic_rebut_info=($(funcio_trafic_rebut $interficie))
+     trafic_rebut_info=($(funcio_trafic_rebut $interficie))
     t_rebut=${trafic_rebut_info[0]}
     paq_rebut=${trafic_rebut_info[1]}
     errors_rebut=${trafic_rebut_info[2]}
@@ -543,18 +545,16 @@ for interficie in $(ls /sys/class/net); do
     paq_transmes=${trafic_transmes_info[1]}
     errors_transmes=${trafic_transmes_info[2]}
     descartats_transmes=${trafic_transmes_info[3]}
-    perduts_transmes=${trafic_transmes_info[4]}
+    col_transmes=${trafic_transmes_info[4]}
 
     info_velocitat_inicial=($(funcio_velocitat_inicial $interficie))
     sleep 3 # Esperar 3 segons entre mesures
     info_velocitat_final=($(funcio_velocitat_final $interficie))
-
     # Utilitzar per càlculs aritmètics
     velocitat_recepcio_bytes=$((info_velocitat_final[0] - info_velocitat_inicial[0]))
     velocitat_recepcio_paquets=$((info_velocitat_final[1] - info_velocitat_inicial[1]))
     velocitat_transmissio_bytes=$((info_velocitat_final[2] - info_velocitat_inicial[2]))
     velocitat_transmissio_paquets=$((info_velocitat_final[3] - info_velocitat_inicial[3]))
-
 
     # Print dels resultats
 cat >> log_inet_s3.log << EOF    
@@ -613,11 +613,11 @@ EOF
 
 cat >> log_inet_s3.log << EOF
         
-        Tràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)
-        Tràfic transmès:           $t_transmes Kbytes [$paq_transmes paquets] ($errors_transmes errors, $descartats_transmes descartats i $perduts_transmes perduts)
+        ràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)
+        Tràfic transmès:           $t_transmes Kbytes [$paq_transmes paquets] ($errors_transmes errors, $descartats_transmes descartats i $col_transmes colisions)
         Velocitat de Recepció:     $velocitat_recepcio_bytes bytes/s [$velocitat_recepcio_paquets paquets/s]
         Velocitat de Transmissió:  $velocitat_transmissio_bytes bytes/s [$velocitat_transmissio_paquets paquets/s]
-    
+        
     └───────────────────────────────────────────────────────────────────────────────────────────────────────────┘                                                                                                                             
 
 EOF
