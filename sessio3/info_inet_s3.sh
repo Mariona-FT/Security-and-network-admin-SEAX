@@ -70,16 +70,16 @@ echo "Comencar a veure la configuracio del sistema.."
 
 cat << EOF > log_inet_s3.log
         
-        ╔═════════════════════════════════════════════════════════════════════════════════════════════╗
-        ║                                                                                                                       ║
-        ║  ------------------------------------------------------------------------------------------------------------         ║
-        ║   Analisi de les interficies del sistema realitzada per l'usuari root de l'equip $SO.      ║
-        ║    Sistema operatiu $versio_SO.                                                                   ║    
-        ║    Versio del script $versio_script compilada el $data_compilacio.                                                            ║   
-        ║    Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf.)                ║
-        ║  ------------------------------------------------------------------------------------------------------------         ║
-        ║                                                                                                                       ║
-        ╚═════════════════════════════════════════════════════════════════════════════════════════════╝
+    ╔═════════════════════════════════════════════════════════════════════════════════════════════╗
+                                                                                                                            
+    --------------------------------------------------------------------------------------------------------------------------------         
+            Analisi de les interficies del sistema realitzada per l'usuari root de l'equip $SO.     
+            Sistema operatiu $versio_SO.                                                                      
+            Versio del script $versio_script compilada el $data_compilacio.                                                              
+            Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf.)               
+    --------------------------------------------------------------------------------------------------------------------------------         
+                                                                                                                            
+    ╚═════════════════════════════════════════════════════════════════════════════════════════════╝
 EOF
 
  #OPCIONS A BUSCAR
@@ -557,26 +557,24 @@ for interficie in $(ls /sys/class/net); do
     perduts_transmes=${trafic_transmes_info[4]}
 
     # Print dels resultats
-cat >> log_inet_s3.log << EOF
-        
-        ┌────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-        │                                                                                                                            │
-                                                        
-                                                    Configuració de la interfície $interficie.
-        │  -------------------------------------------------------------------------------------------------------------------------- │
-                Interfície:                $inter
-                Fabricant:                 $fabricant
-                Adreça MAC:                $mac
-                Estat de la interfície:    $estat
-                Mode de la interfície:     $mode_interficie
-            
-                Adreçament:                $tipus - $adrecament
-                Adreça IP / màscara:       $ip_masc
-                Adreça de xarxa:           $adxarxa
-                Adreça broadcast:          $broadcast
-                Gateway per defecte:       $gateway
-                Nom DNS:                   $nom_dns
-        └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘  
+cat >> log_inet_s3.log << EOF    
+    ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                                         
+                                                
+                                        Configuració de la interfície $interficie.
+        ---------------------------------------------------------------------------------------------------------------
+        Interfície:                $inter
+        Fabricant:                 $fabricant
+        Adreça MAC:                $mac
+        Estat de la interfície:    $estat
+        Mode de la interfície:     $mode_interficie
+    
+        Adreçament:                $tipus - $adrecament
+        Adreça IP / màscara:       $ip_masc
+        Adreça de xarxa:           $adxarxa
+        Adreça broadcast:          $broadcast
+        Gateway per defecte:       $gateway
+        Nom DNS:                   $nom_dns
+                                --------------------------------------------------  
 EOF
 
     if [ "$tipus" != "loopback" ] && [ "$tipus" != "noconfig" ]; then
@@ -593,46 +591,26 @@ EOF
         entitat=$(funcio_entitat_prop $interficie)
 
 cat >> log_inet_s3.log << EOF
-                Adreça IP pública:         $ip_publica
-                Detecció de NAT:           $dic_nat
-                Nom del domini:            $nom_dom
-                Xarxes de l'entitat:       $xarxa_entitat
-                Entitat propietària:       $entitat
+        Adreça IP pública:         $ip_publica
+        Detecció de NAT:           $dic_nat
+        Nom del domini:            $nom_dom
+        Xarxes de l'entitat:       $xarxa_entitat
+        Entitat propietària:       $entitat
+                                --------------------------------------------------
 EOF
     fi
 
-    # Print dels resultats
 cat >> log_inet_s3.log << EOF
-                Tràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)
-                Tràfic transmès:           $t_transmes Kbytes [$paq_transmes paquets] ($errors_transmes errors, $descartats_transmes descartats i $perduts_transmes perduts)
-                Velocitat de Recepció:     $vel_recep bytes/s [ paquets/s]
-                Velocitat de Transmissió:  $vel_trans bytes/s [ paquets/s]
-        └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘  
+        
+        Tràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)
+        Tràfic transmès:           $t_transmes Kbytes [$paq_transmes paquets] ($errors_transmes errors, $descartats_transmes descartats i $perduts_transmes perduts)
+        Velocitat de Recepció:     $vel_recep bytes/s [ paquets/s]
+        Velocitat de Transmissió:  $vel_trans bytes/s [ paquets/s]
+    
+    └───────────────────────────────────────────────────────────────────────────────────────────────────────────┘                                                                                                                             
 
 EOF
     echo #separacio de les interficies trobades per terminal
-
-    # # Determine the max length of the details
-    # table_width=$(get_max_length "${resultats[@]}")
-
-    # # Print the table for the current interface
-    # print_horizontal_line $table_width
-    
-    # print_middle_line $table_width
-
-    # funcio_titol $interficie $table_width
-    
-    # print_middle_line $table_width
-
-    # print_separator $table_width
-    # for detail in "${resultats[@]}"; do
-    #     print_row $table_width "$detail"
-    # done
-    # print_separator $table_width
-
-   # print_middle_line $table_width
-   # print_horizontal_line $table_width
-   # echo # Newline for spacing between tables
 
 done # final del bucle x cada interficie
 
