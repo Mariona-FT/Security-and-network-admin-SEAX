@@ -461,23 +461,18 @@ EOF
     }
 
 
-    #Informacio Entitat propietaria
+    #Informacio de la entitat propietaria
+    # Trobar el nom de la entitat propietaria 
     funcio_entitat_prop(){
         local public_ip=$(curl -s http://ipecho.net/plain)
-
         if [ -z "$public_ip" ]; then
-            echo "Error: Unable to retrieve public IP address."
+            echo "- No hi ha Ip publica"
             return 1
         fi
+        #Trobar la informacio de la entitat propietaria - filtrat per nomes mostrar el nom daquesta
+        local ent_prop=$(whois "$public_ip" | grep -E 'descr' | head -n 1 | awk '{$1=""; print $0}' | sed 's/^ //')
 
-        local info_red=$(whois "$public_ip" | grep -E 'descr' | head -n 1)
-
-        if [ -z "$info_red" ]; then
-            echo "Error: Unable to retrieve entity owner information."
-            return 1
-        fi
-
-        echo " echo ${info_red:-"-"} | awk '{print $1}')"
+        echo "$ent_prop"
     }
 
     funcio_trafic_rebut(){
