@@ -1,6 +1,9 @@
 #!/bin/bash
 
-#exec > log_inet.log 2>&1
+#Hora inicial
+hi=$(date +'%H:%M:%S')
+#Borrar el .log de antics resultats  
+> log_inet_s3.log
 
 echo "COMPROVACIONS INICIALS"
 
@@ -48,39 +51,6 @@ echo "Comencar a veure la configuracio del sistema.."
         echo $data_compilacio
     }
 
-    # Hora inici  - $hora_inici
-    funcio_hora_inici() {
-        hora_inici=$(date +'%H:%M:%S')
-        echo $hora_inici
-    }
-
-    # Hora final  - $hora_final
-    funcio_hora_final() {
-        hora_final="$(date '+%H:%M:%S')"
-        echo $hora_final
-    }
-    
-
-    # RESULTATS
-    versio_SO=$(funcio_SO)
-    data_compilacio=$(funcio_data_compilacio)
-    versio_script=0.35
-    hi=$(funcio_hora_inici)
-    hf=$(funcio_hora_final)
-
-cat << EOF > log_inet_s3.log
-        
-    ╔═════════════════════════════════════════════════════════════════════════════════════════════╗
-                                                                                                                            
-    --------------------------------------------------------------------------------------------------------------------------------         
-            Analisi de les interficies del sistema realitzada per l'usuari root de l'equip $SO.     
-            Sistema operatiu $versio_SO.                                                                      
-            Versio del script $versio_script compilada el $data_compilacio.                                                              
-            Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf.)               
-    --------------------------------------------------------------------------------------------------------------------------------         
-                                                                                                                            
-    ╚═════════════════════════════════════════════════════════════════════════════════════════════╝
-EOF
 
  #OPCIONS A BUSCAR
 
@@ -557,6 +527,8 @@ for interficie in $(ls /sys/class/net); do
     perduts_transmes=${trafic_transmes_info[4]}
 
     # Print dels resultats
+
+
 cat >> log_inet_s3.log << EOF    
     ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                                         
                                                 
@@ -578,17 +550,17 @@ cat >> log_inet_s3.log << EOF
 EOF
 
     if [ "$tipus" != "loopback" ] && [ "$tipus" != "noconfig" ]; then
-    echo "RESULTATS DE LA XARXA PUBLICA:"
-    echo "Trobant la ip publica.."
-        ip_publica=$(funcio_ippublic $interficie)
-    echo "Trobant la NAT.."
-        dic_nat=$(funcio_nat $interficie)
-    echo "Trobant el domini.."
-        nom_dom=$(funcio_dom $interficie)
-    echo "Trobant la xarxa de l'entiat.."
-        xarxa_entitat=$(funcio_entitat_xarxa $interficie)
-    echo "Trobant l'entitat propietaria.."
-        entitat=$(funcio_entitat_prop $interficie)
+        echo "RESULTATS DE LA XARXA PUBLICA:"
+        echo "Trobant la ip publica.."
+            ip_publica=$(funcio_ippublic $interficie)
+        echo "Trobant la NAT.."
+            dic_nat=$(funcio_nat $interficie)
+        echo "Trobant el domini.."
+            nom_dom=$(funcio_dom $interficie)
+        echo "Trobant la xarxa de l'entiat.."
+            xarxa_entitat=$(funcio_entitat_xarxa $interficie)
+        echo "Trobant l'entitat propietaria.."
+            entitat=$(funcio_entitat_prop $interficie)
 
 cat >> log_inet_s3.log << EOF
         Adreça IP pública:         $ip_publica
@@ -610,6 +582,37 @@ cat >> log_inet_s3.log << EOF
     └───────────────────────────────────────────────────────────────────────────────────────────────────────────┘                                                                                                                             
 
 EOF
+
+
+    # RESULTATS
+    versio_SO=$(funcio_SO)
+    data_compilacio=$(funcio_data_compilacio)
+    versio_script=0.35
+    hf=$(date +'%H:%M:%S')
+    si=$(date -d "$hi" +%s)
+    sf=$(date -d "$hf" +%s)
+    s=$((sf - si))
+
+cat << EOF > log_inet_s3_capc.log
+    ╔═════════════════════════════════════════════════════════════════════════════════════════════╗
+                                                                                                                            
+    --------------------------------------------------------------------------------------------------------------------------------         
+            Analisi de les interficies del sistema realitzada per l'usuari root de l'equip $SO.     
+            Sistema operatiu $versio_SO.                                                                      
+            Versio del script $versio_script compilada el $data_compilacio.                                                              
+            Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf [$s s].               
+    --------------------------------------------------------------------------------------------------------------------------------         
+                                                                                                                            
+    ╚═════════════════════════════════════════════════════════════════════════════════════════════╝
+EOF
+   cat log_inet_s3_capc.log log_inet_s3.log >> log_inet_s3_final.log
+    # Overwrite the final log file with the capc log content
+cat log_inet_s3_capc.log > log_inet_s3_final.log
+
+# Append the other log to the final log file
+cat log_inet_s3.log >> log_inet_s3_final.log
+
+
     echo #separacio de les interficies trobades per terminal
 
 done # final del bucle x cada interficie
