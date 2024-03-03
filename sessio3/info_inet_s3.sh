@@ -444,20 +444,20 @@ EOF
     #Informacio de la entitat de la xarxa
     # Trobar nom de la entitat
     # Trobar public ip - mascara + rang
-    funcio_enitat_xarxa(){
-    local public_ip=$(curl -s http://ipecho.net/plain)
-    if [ -z "$public_ip" ]; then
-        echo "- No hi ha Ip publica"
-        return 1
-    fi
-    #Trobar el nom de la entitat de la xarxa
-    local nom_entitat=$(whois "$public_ip" | grep 'netname' | awk '{print $2}')
-    #Trobar la ip amb la mascara de la entitat de la xarxa - filtrat per retornar nomes els valors de la ip i mascara
-    local ip=$(whois "$public_ip" |  grep -E 'CIDR|route'| awk '/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+(\/[0-9]+)?/{print $2}')
-    #Trobar el rang de la entitat de la xarxa - fitrat nomes retorni els valors del rang
-    local rang=$(whois "$public_ip" | grep 'inetnum' |awk -F':' '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')
+    funcio_entitat_xarxa(){
+        local public_ip=$(curl -s http://ipecho.net/plain)
+        if [ -z "$public_ip" ]; then
+            echo "- No hi ha Ip publica"
+            return 1
+        fi
+        #Trobar el nom de la entitat de la xarxa
+        local nom_entitat=$(whois "$public_ip" | grep 'netname' | awk '{print $2}')
+        #Trobar la ip amb la mascara de la entitat de la xarxa - filtrat per retornar nomes els valors de la ip i mascara
+        local ip=$(whois "$public_ip" |  grep -E 'CIDR|route'| awk '/[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+(\/[0-9]+)?/{print $2}')
+        #Trobar el rang de la entitat de la xarxa - fitrat nomes retorni els valors del rang
+        local rang=$(whois "$public_ip" | grep 'inetnum' |awk -F':' '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')
 
-    echo "${nom_entitat} ${ip} [$rang]"
+        echo "${nom_entitat} ${ip} [$rang]"
     }
 
 
@@ -584,11 +584,11 @@ EOF
     echo "Trobant la ip publica.."
         ip_publica=$(funcio_ippublic $interficie)
     echo "Trobant la NAT.."
-       # dic_nat=$(funcio_nat $interficie)
+        dic_nat=$(funcio_nat $interficie)
     echo "Trobant el domini.."
         nom_dom=$(funcio_dom $interficie)
     echo "Trobant la xarxa de l'entiat.."
-        xarxa_entitat=$(funcio_enitat_xarxa $interficie)
+        xarxa_entitat=$(funcio_entitat_xarxa $interficie)
     echo "Trobant l'entitat propietaria.."
         entitat=$(funcio_entitat_prop $interficie)
 
