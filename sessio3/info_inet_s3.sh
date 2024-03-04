@@ -790,6 +790,7 @@ iw dev $interface scan | while read -r line; do
 
         echo -e "$ssid\t$channel\t$freq\t$signal dBm\t$v_max\t$xif\t$sta_channel_width\t$admac\t$fab" >> log_inet_s3.log 
     fi
+done
 
     #tancar taula
 cat >> log_inet_s3.log << EOF
