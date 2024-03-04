@@ -771,9 +771,9 @@ cat >> log_inet_s3.log << EOF
         SSID          canal  freqüència    senyal     v. max.   xifrat    algorismes xifrat       Adreça MAC           fabricant       
   -------------------------------------------------------------------------------------------------------------------------------------   
 EOF
-    iw dev $interficie scan | while read -r line; do
+iw dev $interface scan | while read -r line; do
     if [[ $line =~ BSS\ ([0-9a-fA-F:]+) ]]; then
-        bssid=${BASH_REMATCH[1]}
+        admac=${BASH_REMATCH[1]}
     elif [[ $line =~ freq:\ ([0-9.]+) ]]; then
         freq=${BASH_REMATCH[1]}
     elif [[ $line =~ SSID:\ (.+) ]]; then
@@ -782,12 +782,15 @@ EOF
         signal=${BASH_REMATCH[1]}
     elif [[ $line =~ HT\ operation:\  ]]; then
         al_xif=${line#*: }
-        echo -e "$ssid\t\t$freq\t$signal dBm\t$ht_mode"
-cat >> log_inet_s3.log << EOF
-    $ssid       $canal      $freq          $signal      $v_max      $xif          $al_xif           $ad_mac             $fab
-EOF
+        v_max=$(grep -oP 'Maximum RX AMPDU length \K[0-9]+' <<< "$al_xif")
+        xif=$(grep -oP 'Supported rates: \K[0-9]+.[0-9]+' <<< "$al_xif")
+        fab=$(grep -oP 'Manufacturer: \K\w+' <<< "$al_xif")
+        channel=$(grep -oP 'primary channel: \K\d+' <<< "$al_xif")
+        sta_channel_width=$(grep -oP 'STA channel width: \K\S+' <<< "$al_xif")
+        echo -e "$ssid\t$channel\t$freq\t$signal dBm\t$v_max\t$xif\t$sta_channel_width\t$admac\t$fab" >> log_inet_s3.log
     fi
 done
+
 
     #tancar taula
 cat >> log_inet_s3.log << EOF
