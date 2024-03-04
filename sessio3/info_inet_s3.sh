@@ -455,8 +455,8 @@ echo "Comencar a veure la configuracio del sistema.."
 
     #Tornar nom del dispositiu wifi  -$nom_w
     disp_wifi(){
-        dp=$( iw list | grep 'Wiphy' | awk '{print $2}')
-        echo $dp
+        dp=$( iw dev $1 info | grep "wiphy" | awk '{print $2}')
+        echo "phy$dp"
     }
 
     #Mode de treball de la wifi -$mode_w
@@ -494,7 +494,7 @@ echo "Comencar a veure la configuracio del sistema.."
     #Canal de treball de la wifi -$canalt_w
     # Numero total + (frequencia MHz)
     canalt_wifi(){
-       local can=$( iw $1 info | grep -oE 'channel' | awk '{gsub(",", "", $4); print $2, $3, $4}')
+       local can=$( iw $1 info | grep 'channel' | awk '{gsub(",", "", $4); print $2, $3, $4}')
        echo $can
     }
 
@@ -766,7 +766,7 @@ EOF
 cat >> log_inet_s3.log << EOF
    
     ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                                         
-                            S'ha detectat $num_x xarxes en $num_c canals a la interfície $interficie. 
+                            S'han detectat $num_x xarxes en $num_c canals a la interfície $interficie. 
   -------------------------------------------------------------------------------------------------------------------------------------   
         SSID          canal  freqüència    senyal     v. max.   xifrat    algorismes xifrat       Adreça MAC           fabricant       
   -------------------------------------------------------------------------------------------------------------------------------------   
@@ -807,16 +807,16 @@ EOF
     s=$((sf - si))
 
 cat << EOF > log_inet_s3_capc.log
-    ╔═════════════════════════════════════════════════════════════════════════════════════════════╗
-                                                                                                                            
-    --------------------------------------------------------------------------------------------------------------------------------         
-            Analisi de les interficies del sistema realitzada per l'usuari root de l'equip $usuari.     
-            Sistema operatiu $versio_SO.                                                                      
-            Versio del script $versio_script compilada el $data_compilacio.                                                              
-            Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf [$s s].               
-    --------------------------------------------------------------------------------------------------------------------------------         
-                                                                                                                            
-    ╚═════════════════════════════════════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
+                                                                                                                        
+    ------------------------------------------------------------------------------------------------------------------------         
+        Analisi de les interficies del sistema realitzada per l'usuari root de l'equip $usuari.     
+        Sistema operatiu $versio_SO.                                                                      
+        Versio del script $versio_script compilada el $data_compilacio.                                                              
+        Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf [$s s].               
+    ------------------------------------------------------------------------------------------------------------------------         
+                                                                                                                        
+╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 EOF
 
 cat log_inet_s3_capc.log log_inet_s3.log >> log_inet_s3_final.log
