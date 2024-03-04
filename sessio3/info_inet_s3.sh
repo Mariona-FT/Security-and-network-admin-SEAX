@@ -774,22 +774,40 @@ EOF
 iw dev $interface scan | while read -r line; do
     if [[ $line =~ BSS\ ([0-9a-fA-F:]+) ]]; then
         admac=${BASH_REMATCH[1]}
-    elif [[ $line =~ freq:\ ([0-9.]+) ]]; then
-        freq=${BASH_REMATCH[1]}
-    elif [[ $line =~ SSID:\ (.+) ]]; then
-        ssid=${BASH_REMATCH[1]}
-    elif [[ $line =~ signal:\ (-[0-9]+) ]]; then
-        signal=${BASH_REMATCH[1]}
-    elif [[ $line =~ HT\ operation:\  ]]; then
-        al_xif=${line#*: }
-        v_max=$(grep -oP 'Maximum RX AMPDU length \K[0-9]+' <<< "$al_xif")
-        xif=$(grep -oP 'Supported rates: \K[0-9]+.[0-9]+' <<< "$al_xif")
-        fab=$(grep -oP 'Manufacturer: \K\w+' <<< "$al_xif")
-        channel=$(grep -oP 'primary channel: \K\d+' <<< "$al_xif")
-        sta_channel_width=$(grep -oP 'STA channel width: \K\S+' <<< "$al_xif")
+        # Check if the current BSS matches the desired MAC address
+        if [[ $admac == "f4:b8:a7:f0:e7:1e" ]]; then
+            # Initialize variables to store information
+            ssid=""
+            channel=""
+            freq=""
+            signal=""
+            v_max=""
+            xif=""
+            sta_channel_width=""
+            fab=""
+            
+            # Extract other information for the current BSS entry
+            while read -r subline; do
+                if [[ $subline =~ freq:\ ([0-9.]+) ]]; then
+                    freq=${BASH_REMATCH[1]}
+                elif [[ $subline =~ SSID:\ (.+) ]]; then
+                    ssid=${BASH_REMATCH[1]}
+                elif [[ $subline =~ signal:\ (-[0-9]+) ]]; then
+                    signal=${BASH_REMATCH[1]}
+                elif [[ $subline =~ HT\ operation:\  ]]; then
+                    al_xif=${subline#*: }
+                    v_max=$(grep -oP 'Maximum RX AMPDU length \K[0-9]+' <<< "$al_xif")
+                    xif=$(grep -oP 'Supported rates: \K[0-9]+.[0-9]+' <<< "$al_xif")
+                    fab=$(grep -oP 'Manufacturer: \K\w+' <<< "$al_xif")
+                    channel=$(grep -oP 'primary channel: \K\d+' <<< "$al_xif")
+                    sta_channel_width=$(grep -oP 'STA channel width: \K\S+' <<< "$al_xif")
+                fi
+            done <<< "$line"
+
+            # Echo the collected information for the current BSS entry
+            echo -e " HOLA $ssid\t$channel\t$freq\t$signal dBm\t$v_max\t$xif\t$sta_channel_width\t$admac\t$fab" >> log_inet_s3.log
+        fi
     fi
-     echo -e " HOLA $ssid\t$channel\t$freq\t$signal dBm\t$v_max\t$xif\t$sta_channel_width\t$admac\t$fab" >> log_inet_s3.log 
-    
 done
     #tancar taula
 cat >> log_inet_s3.log << EOF
