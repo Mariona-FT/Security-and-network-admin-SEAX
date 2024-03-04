@@ -494,7 +494,7 @@ echo "Comencar a veure la configuracio del sistema.."
     #Canal de treball de la wifi -$canalt_w
     # Numero total + (frequencia MHz)
     canalt_wifi(){
-       local can=$( iw phy $1 info | grep -oE 'Frequencies:' | wc -l) #nofunciona
+       local can=$( iw $1 info | grep -oE 'channel' | awk '{gsub(",", "", $4); print $2, $3, $4}')
        echo $can
     }
 
