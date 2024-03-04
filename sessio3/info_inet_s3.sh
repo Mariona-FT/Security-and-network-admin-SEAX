@@ -771,28 +771,28 @@ cat >> log_inet_s3.log << EOF
         SSID          canal  freqüència    senyal     v. max.   xifrat    algorismes xifrat       Adreça MAC           fabricant       
   -------------------------------------------------------------------------------------------------------------------------------------   
 EOF
-    #for every xarxa in all of the channels do 
-    # resultats=taula_wifi()
-    # ssid=
-    # canal=
-    # freq=
-    # seny=
-    # freq=
-    # v_max=
-    # xif=
-    # al_xif=
-    # ad_mac=
-    # fab=
-
+    iw dev $interficie scan | while read -r line; do
+    if [[ $line =~ BSS\ ([0-9a-fA-F:]+) ]]; then
+        bssid=${BASH_REMATCH[1]}
+    elif [[ $line =~ freq:\ ([0-9.]+) ]]; then
+        freq=${BASH_REMATCH[1]}
+    elif [[ $line =~ SSID:\ (.+) ]]; then
+        ssid=${BASH_REMATCH[1]}
+    elif [[ $line =~ signal:\ (-[0-9]+) ]]; then
+        signal=${BASH_REMATCH[1]}
+    elif [[ $line =~ HT\ operation:\  ]]; then
+        al_xif=${line#*: }
+        echo -e "$ssid\t\t$freq\t$signal dBm\t$ht_mode"
 cat >> log_inet_s3.log << EOF
-    $ssid       $canal      $freq          $seny      $v_max      $xif          $al_xif           $ad_mac             $fab
+    $ssid       $canal      $freq          $signal      $v_max      $xif          $al_xif           $ad_mac             $fab
 EOF
+done
 
     #tancar taula
 cat >> log_inet_s3.log << EOF
     └───────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 EOF
-    
+
     fi #if interfice es wifi
 
 
