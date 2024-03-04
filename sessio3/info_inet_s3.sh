@@ -460,14 +460,22 @@ echo "Comencar a veure la configuracio del sistema.."
 
     #Mode de treball de la wifi -$mode_w
     # tipus: managed ..
+    #ex:  type managed
     mode_wifi(){
-        echo "2"
+        #iw dev $1 info | grep type 
+        mw=$( iw dev $1 info | grep -oE 'type [a-zA-Z]+')
+        echo $mw
+
     }
 
     #Potencia de transmissio wifi -$ptrans_w
     #Unitats  dBm
+    #ex: txpower 19.00 dBm
     pottrans_wifi(){
-        echo "3"
+        #iw dev $1 info | grep txpower  
+        pt=$( dev $1 info | grep -oE 'txpower [0-9]+\.?[0-9]* dBm' )
+        echo $pt
+        #echo "3"
     }
     
     #Si la wifi te connexió en una xarxa - $con_xarxa_w
@@ -480,31 +488,42 @@ echo "Comencar a veure la configuracio del sistema.."
 
     #SSID de la xarxa - $ssid_w
     ssidxarxa_wifi(){
-        echo "4"
+        sw=$( iw dev $1 link | grep -oE 'SSID: .+$' | cut -d ' ' -f 2-)
+        echo $sw
+        #echo "4"
     }
 
     #Canal de treball de la wifi -$canalt_w
     # Numero total + (frequencia MHz)
     canalt_wifi(){
-        echo "5"
+       can=$( iw phy $1 info | grep -oE 'Frequencies:' | wc -l)
+       echo $can
+
+       # echo "5"
     }
 
     #Nivell de senyal de la wifi- $nivell_s_w
     #Unitats  dBm
     nivells_wifi(){
-        echo "6"
+       sy=$( iw dev $1 link | grep "signal" | awk '{print $2, $3}')
+       echo $sy
+
     } 
 
-    #Punt acces associat de la wifi -$punt_acces_w=
+    #Punt acces associat de la wifi -$punt_acces_w
+    #Contar punts d'acces 
     funcio_pacces_wifi(){
-        echo "7"
+       local pa=$(iw dev $1 scan | grep -c "SSID:")
+       echo $pa
     }
        
     #Obtenir la velocitat recepcio i transmissio de la wifi 
     #Tornar en array : velocitat recepcio[0] velocitat transmsissio[1]
     #Unitats Mbit/s
     velocitat_wifi(){
-        echo "8""9"
+        local vr=$(iw dev $1 link | grep "tx bitrate" | awk '{print $3, $4}')
+        local vt=$(iw dev $1 link | grep "rx bitrate" | awk '{print $3, $4}')
+        echo "$vr $vt"
     }
 
 #/******************************************************************************************************/
@@ -649,7 +668,7 @@ cat >> log_inet_s3.log << EOF
 EOF
    
     #Retornar valors si son de WIFI
-   # if [ -d "/sys/class/net/$interficie/wireless" ]; then
+    if [ -d "/sys/class/net/$interficie/wireless" ]; then
         echo "RESULTATS DE LA INTERFICIE WIFI:"
         inter_wifi=1 # Interficie de tipus WIFI - 1
 
@@ -694,8 +713,8 @@ cat >> log_inet_s3.log << EOF
         Vel. Wi-Fi Transmissió:    $vel_trans_w
                                 --------------------------------------------------
 EOF
-        fi
-   #fi
+        fi # si interficie wifi te connexio a la xarxa
+   fi # si interficie wifi
 
     #Retornar valors si son de XARXA PÚBLICA
     if [ "$tipus" != "loopback" ] && [ "$tipus" != "noconfig" ]; then
@@ -720,7 +739,7 @@ cat >> log_inet_s3.log << EOF
         Entitat propietària:       $entitat
                                 --------------------------------------------------
 EOF
-    fi 
+    fi #si interficie amb xarxa publica
 
     echo "Trobant si hi han rutes.."
     #Trobar si hi han rutes - concatenar resultats
@@ -730,7 +749,7 @@ EOF
 cat >> log_inet_s3.log << EOF
         Rutes involucrades:         $rutes
 EOF
-    fi
+    fi #si rutes
 
     #Retornar els valors TRAFIC i VELOCITAT 
 cat >> log_inet_s3.log << EOF
@@ -749,6 +768,7 @@ EOF
 
     #Capçalera de la taula
 cat >> log_inet_s3.log << EOF
+   
     ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                                         
                             S'ha detectat $num_x xarxes en $num_c canals a la interfície $interficie. 
   -------------------------------------------------------------------------------------------------------------------------------------   
@@ -756,11 +776,21 @@ cat >> log_inet_s3.log << EOF
   -------------------------------------------------------------------------------------------------------------------------------------   
 EOF
     #for every xarxa in all of the channels do 
+    # resultats=taula_wifi()
+    # ssid=
+    # canal=
+    # freq=
+    # seny=
+    # freq=
+    # v_max=
+    # xif=
+    # al_xif=
+    # ad_mac=
+    # fab=
 
 cat >> log_inet_s3.log << EOF
     $ssid       $canal      $freq          $seny      $v_max      $xif          $al_xif           $ad_mac             $fab
 EOF
-
 
     #tancar taula
 cat >> log_inet_s3.log << EOF
