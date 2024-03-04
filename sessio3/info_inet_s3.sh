@@ -786,6 +786,7 @@ EOF
 cat >> log_inet_s3.log << EOF
     $ssid       $canal      $freq          $signal      $v_max      $xif          $al_xif           $ad_mac             $fab
 EOF
+    fi
 done
 
     #tancar taula
