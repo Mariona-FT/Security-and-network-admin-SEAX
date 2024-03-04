@@ -455,7 +455,8 @@ echo "Comencar a veure la configuracio del sistema.."
 
     #Tornar nom del dispositiu wifi  -$nom_w
     disp_wifi(){
-        echo "1"
+        dp=$( iw list | grep 'Wiphy' | awk '{print $2}')
+        echo $dp
     }
 
     #Mode de treball de la wifi -$mode_w
@@ -463,19 +464,17 @@ echo "Comencar a veure la configuracio del sistema.."
     #ex:  type managed
     mode_wifi(){
         #iw dev $1 info | grep type 
-        mw=$( iw dev $1 info | grep -oE 'type [a-zA-Z]+')
+        mw=$( iw dev $1 info | grep -oE 'type [a-zA-Z]+' | awk '{print $2}')
         echo $mw
 
     }
 
     #Potencia de transmissio wifi -$ptrans_w
-    #Unitats  dBm
+    #Unitats  dBm - en el .log
     #ex: txpower 19.00 dBm
     pottrans_wifi(){
-        #iw dev $1 info | grep txpower  
-        pt=$( dev $1 info | grep -oE 'txpower [0-9]+\.?[0-9]* dBm' )
+        local pt=$(iw dev $1 info | grep 'txpower' | awk '{print $2}')
         echo $pt
-        #echo "3"
     }
     
     #Si la wifi te connexió en una xarxa - $con_xarxa_w
@@ -488,24 +487,21 @@ echo "Comencar a veure la configuracio del sistema.."
 
     #SSID de la xarxa - $ssid_w
     ssidxarxa_wifi(){
-        sw=$( iw dev $1 link | grep -oE 'SSID: .+$' | cut -d ' ' -f 2-)
+        local sw=$( iw dev $1 link | grep -oE 'SSID: .+$' | cut -d ' ' -f 2-)
         echo $sw
-        #echo "4"
     }
 
     #Canal de treball de la wifi -$canalt_w
     # Numero total + (frequencia MHz)
     canalt_wifi(){
-       can=$( iw phy $1 info | grep -oE 'Frequencies:' | wc -l)
+       local can=$( iw phy $1 info | grep -oE 'Frequencies:' | wc -l) #nofunciona
        echo $can
-
-       # echo "5"
     }
 
     #Nivell de senyal de la wifi- $nivell_s_w
     #Unitats  dBm
     nivells_wifi(){
-       sy=$( iw dev $1 link | grep "signal" | awk '{print $2, $3}')
+       local sy=$( iw dev $1 link | grep "signal" | awk '{print $2, $3}')
        echo $sy
 
     } 
@@ -519,10 +515,10 @@ echo "Comencar a veure la configuracio del sistema.."
        
     #Obtenir la velocitat recepcio i transmissio de la wifi 
     #Tornar en array : velocitat recepcio[0] velocitat transmsissio[1]
-    #Unitats Mbit/s
+    #Unitats Mbit/s - en el .log
     velocitat_wifi(){
-        local vr=$(iw dev $1 link | grep "tx bitrate" | awk '{print $3, $4}')
-        local vt=$(iw dev $1 link | grep "rx bitrate" | awk '{print $3, $4}')
+        local vr=$(iw dev $1 link | grep "tx bitrate" | awk '{print $3 }')
+        local vt=$(iw dev $1 link | grep "rx bitrate" | awk '{print $3 }')
         echo "$vr $vt"
     }
 
@@ -684,7 +680,7 @@ EOF
 cat >> log_inet_s3.log << EOF
         Dispositiu Wi-Fi:          $nom_w                                                                                                              
         Mode de treball:           $mode_w                                                                                                           
-        Potència de transmissió:   $ptrans_w                                                                                                           
+        Potència de transmissió:   $ptrans_w dBm                                                                                                         
         Connexio a la xarxa:       $con_xarxa_w
 
 EOF
@@ -700,17 +696,17 @@ EOF
             echo "Trobant el punt d'acces associat.."
                 punt_acces_w=$(funcio_pacces_wifi $interficie)
             echo "Trobant la velocitat recepcio i transmissio de la wifi.."
-            vel_w=$(velocitat_wifi $interficie)
-                vel_recep_w=vel_w[0]
-                vel_trans_w=vel_w[1]
+            vel_w=($(velocitat_wifi $interficie))
+                vel_recep_w=${vel_w[0]}
+                vel_trans_w=${vel_w[1]}
 
 cat >> log_inet_s3.log << EOF                                                                                                                                                 
         SSID de la xarxa:          $ssid_w                                                                                                
         Canal de treball:          $canalt_w                                                                                                     
         Nivell de senyal:          $nivell_s_w                                                                                                            
         Punt d'accés associat:     $punt_acces_w                                                                                        
-        Vel. Wi-Fi Recepció:       $vel_recep_w                                                                                                         
-        Vel. Wi-Fi Transmissió:    $vel_trans_w
+        Vel. Wi-Fi Recepció:       $vel_recep_w Mbit/s                                                                                                       
+        Vel. Wi-Fi Transmissió:    $vel_trans_w Mbit/s
                                 --------------------------------------------------
 EOF
         fi # si interficie wifi te connexio a la xarxa
