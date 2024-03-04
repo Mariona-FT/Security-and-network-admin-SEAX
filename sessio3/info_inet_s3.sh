@@ -788,12 +788,8 @@ iw dev $interface scan | while read -r line; do
         channel=$(grep -oP 'primary channel: \K\d+' <<< "$al_xif")
         sta_channel_width=$(grep -oP 'STA channel width: \K\S+' <<< "$al_xif")
 
-cat >> log_inet_s3.log << EOF 
-        "$ssid\t$channel\t$freq\t$signal dBm\t$v_max\t$xif\t$sta_channel_width\t$admac\t$fab"
- EOF  
+        echo -e "$ssid\t$channel\t$freq\t$signal dBm\t$v_max\t$xif\t$sta_channel_width\t$admac\t$fab" >> log_inet_s3.log 
     fi
-done
-
 
     #tancar taula
 cat >> log_inet_s3.log << EOF
