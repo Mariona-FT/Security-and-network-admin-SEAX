@@ -1,5 +1,41 @@
 #!/bin/bash
 
+function show_help() {
+  echo "Aquest script ens dona informació de totes les interfícies ethernet i wifi on s'està executant. Genera el seu resultat en el fitxer: log_inet_s3_final.log"
+  echo "Genera 3 fitxers auxiliars anomenats: log_inet_s3_capc.log, log_inet_s3.log i log_scan.log"
+  echo ""
+  echo "Requisits:"
+  echo "            És necessari ser root per poder executar l'script"
+  echo "            És necessari que el sistema operatiu sigui Debian"
+  echo ""
+  echo "Paquets necessaris a tenir instal·lats:"
+  echo "curl"
+  echo "whois"
+  echo "bc"
+  echo "dnsutils (dig)"
+  echo "traceroute"
+  echo "Per instal·lar-los utilitza la comanda:"
+  echo "apt install <paquet>"
+  echo ""
+  echo "Opcions:"
+  echo "  -h                Mostra aquesta ajuda i surt"
+  echo " ./info_inet.sh     per executar el script"
+}
+
+while getopts "h" opt; do
+  case ${opt} in
+    h )
+      show_help
+      exit 0
+      ;;
+    \? )
+      echo "Opció invalida: $OPTARG" 1>&2
+      show_help
+      exit 1
+      ;;
+  esac
+done
+
 #Hora inicial
 hi=$(date +'%H:%M:%S')
 #Borrar el .log de antics resultats  
@@ -494,8 +530,12 @@ echo "Comencar a veure la configuracio del sistema.."
     # Si NO te : No associat   
     # Si te :  xarxa associada --> es fara print resultat de la xarxa wifi        
     connexiox_wifi(){
-        #"No associat"
-        echo "11"
+       local pa=$(iw dev $1 info | grep 'addr')
+        if [ -z "$pa"]; then
+            echo "No associat"
+            return 1
+        fi
+       echo "Xarxa associada"
     } 
 
     #SSID de la xarxa - $ssid_w
@@ -529,12 +569,12 @@ echo "Comencar a veure la configuracio del sistema.."
         fi
        echo $sy
 
-    } 
+    }
 
     #Punt acces associat de la wifi -$punt_acces_w
     #Contar punts d'acces 
     funcio_pacces_wifi(){
-       local pa=$(iw dev $1 scan | grep -c "SSID:")
+       local pa=$(iw dev $1 info | grep 'addr')
         if [ -z "$pa"]; then
             echo "- punt acces associat "
             return 1
@@ -832,6 +872,8 @@ EOF
                 case "$key" in
                     "xif")
                         xarxa["$key"]="sense" ;;
+                    "fab")
+                        xarxa["$key"]="desconegut" ;;
                     *)
                         xarxa["$key"]="." ;;
                 esac
