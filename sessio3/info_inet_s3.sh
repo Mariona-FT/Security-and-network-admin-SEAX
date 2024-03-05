@@ -773,54 +773,35 @@ EOF
     #TAULA de resultats de XARXES WIFI
     if [ "$inter_wifi" -eq 1 ]; then
         echo "CREANT TAULA XARXES WIFI.."
+        > log_scan.txt
+        iw dev "$interface" scan > log_scan.txt
+        declare -A unique_ssids
+        declare -A unique_channels
+
+        # Read each line from the input file
+        while IFS= read -r line; do
+            if [[ $line =~ SSID:\ (.+) ]]; then
+                ssid="${BASH_REMATCH[1]}"
+                unique_ssids["$ssid"]=1
+            elif [[ $line =~ channel:\ ([0-9]+) ]]; then
+                channel="${BASH_REMATCH[1]}"
+                unique_channels["$channel"]=1
+            fi
+        done < log_scan.txt
+
+        num_ssids=${#unique_ssids[@]}
+        num_channels=${#unique_channels[@]}
 
     #Capçalera de la taula
 cat >> log_inet_s3.log << EOF
    
     ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                                         
-                            S'han detectat $num_x xarxes en $num_c canals a la interfície $interficie. 
+                            S'ha detectat $num_ssids xarxes en $num_channels canals a la interfície $interficie. 
   -------------------------------------------------------------------------------------------------------------------------------------   
         SSID          canal  freqüència    senyal     v. max.   xifrat    algorismes xifrat       Adreça MAC           fabricant       
   -------------------------------------------------------------------------------------------------------------------------------------   
 EOF
-iw dev $interface scan | while read -r line; do
-    if [[ $line =~ BSS\ ([0-9a-fA-F:]+) ]]; then
-        admac=${BASH_REMATCH[1]}
-        # Check if the current BSS matches the desired MAC address
-        if [[ $admac == "f4:b8:a7:f0:e7:1e" ]]; then
-            # Initialize variables to store information
-            ssid=""
-            channel=""
-            freq=""
-            signal=""
-            v_max=""
-            xif=""
-            sta_channel_width=""
-            fab=""
-            
-            # Extract other information for the current BSS entry
-            while read -r subline; do
-                if [[ $subline =~ freq:\ ([0-9.]+) ]]; then
-                    freq=${BASH_REMATCH[1]}
-                elif [[ $subline =~ SSID:\ (.+) ]]; then
-                    ssid=${BASH_REMATCH[1]}
-                elif [[ $subline =~ signal:\ (-[0-9]+) ]]; then
-                    signal=${BASH_REMATCH[1]}
-                elif [[ $subline =~ HT\ operation:\  ]]; then
-                    al_xif=${subline#*: }
-                    v_max=$(grep -oP 'Maximum RX AMPDU length \K[0-9]+' <<< "$al_xif")
-                    xif=$(grep -oP 'Supported rates: \K[0-9]+.[0-9]+' <<< "$al_xif")
-                    fab=$(grep -oP 'Manufacturer: \K\w+' <<< "$al_xif")
-                    channel=$(grep -oP 'primary channel: \K\d+' <<< "$al_xif")
-                    sta_channel_width=$(grep -oP 'STA channel width: \K\S+' <<< "$al_xif")
-                fi
-            done <<< "$line"
 
-            # Echo the collected information for the current BSS entry
-            echo -e " HOLA $ssid\t$channel\t$freq\t$signal dBm\t$v_max\t$xif\t$sta_channel_width\t$admac\t$fab" >> log_inet_s3.log
-        fi
-    fi
-done
     #tancar taula
 cat >> log_inet_s3.log << EOF
     └───────────────────────────────────────────────────────────────────────────────────────────────────────────┘
