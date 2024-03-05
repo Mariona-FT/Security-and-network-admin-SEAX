@@ -4,6 +4,7 @@
 hi=$(date +'%H:%M:%S')
 #Borrar el .log de antics resultats  
 > log_inet_s3.log
+> log_scan.log
 
 echo "COMPROVACIONS INICIALS"
 
@@ -789,8 +790,7 @@ EOF
     #TAULA de resultats de XARXES WIFI
     if [ "$inter_wifi" -eq 1 ]; then
         echo "CREANT TAULA XARXES WIFI.."
-        > log_scan.txt
-        iw dev "$interface" scan > log_scan.txt
+        iw dev "$interficie" scan > log_scan.log
         declare -A unique_ssids
         declare -A unique_channels
 
@@ -803,7 +803,7 @@ EOF
                 channel="${BASH_REMATCH[1]}"
                 unique_channels["$channel"]=1
             fi
-        done < log_scan.txt
+        done < log_scan.log
 
         num_ssids=${#unique_ssids[@]}
         num_channels=${#unique_channels[@]}
@@ -812,11 +812,75 @@ EOF
 cat >> log_inet_s3.log << EOF
    
     ┌───────────────────────────────────────────────────────────────────────────────────────────────────────────┐                                                                                                                         
-                            S'ha detectat $num_ssids xarxes en $num_channels canals a la interfície $interficie. 
+                        S'han detectat $num_ssids xarxes en $num_channels canals a la interfície $interficie. 
   -------------------------------------------------------------------------------------------------------------------------------------   
         SSID          canal  freqüència    senyal     v. max.   xifrat    algorismes xifrat       Adreça MAC           fabricant       
   -------------------------------------------------------------------------------------------------------------------------------------   
 EOF
+        #Inicialitzar vector de informacio de la xarxa
+        declare -A xarxa
+        keys=("admac" "ssid" "channel" "freq" "signal" "v_max" "xif" "al_xif" "fab")
+        info_rsn=0
+        while IFS= read -r line; do
+            if [[ $line =~ BSS\ ([0-9a-fA-F:]+) ]]; then
+                if [ ${xarxa[admac]+_} ]; then
+                echo -e "${xarxa[ssid]}\t\t ${xarxa[channel]}\t${xarxa[freq]} MHz ${xarxa[signal]} dBm \t ${xarxa[v_max]} Mbps\t ${xarxa[xif]}\t ${xarxa[al_xif]}\t\t ${xarxa[admac]}\t ${xarxa[fab]}" >> log_inet_s3.log
+                fi
+                unset xarxa
+                declare -A xarxa
+                for key in "${keys[@]}"; do
+                case "$key" in
+                    "xif")
+                        xarxa["$key"]="sense" ;;
+                    *)
+                        xarxa["$key"]="." ;;
+                esac
+            done
+            #Troba la mac de la xarxa 
+                xarxa["admac"]=${BASH_REMATCH[1]}
+            #Troba el ssid de la xarxa
+            elif [[ $line =~ SSID:\ (.+) ]]; then
+                xarxa["ssid"]=${BASH_REMATCH[1]} 
+            #Troba el num del canal de la xarxa
+            elif [[ $line =~ ' * primary channel: '([[:alnum:]]+) ]]; then
+                xarxa["channel"]=${BASH_REMATCH[1]}
+            #Troba frequencia de la xarxa 
+            elif [[ $line =~ freq:\ ([0-9.]+) ]]; then
+                xarxa["freq"]=${BASH_REMATCH[1]}
+            #Troba la senyal de la xarxa
+            elif [[ $line =~ signal:\ (-[0-9]+) ]]; then
+                xarxa["signal"]=${BASH_REMATCH[1]}
+            #Troba la velocitat maxima de la xarxa
+            elif [[ $line =~ 'Supported rates:' ]]; then
+                vm=$(grep -oP '\b[0-9]+(\.[0-9]+)?(?=\s*\*?\s*$)' <<< "$line" | tail -n 1)
+                xarxa["v_max"]=$vm
+            #Troba el xifrat de la xarxa
+            elif [[ $line =~ 'WEP' || $line =~ 'WPA' || $line =~ 'TKIP' || $line =~ 'AES' ]]; then
+                        xarxa["xif"]=""
+                        encryption_method=$(grep -oP '(WEP|WPA|TKIP|AES)' <<< "$line")
+                        wpa_version=$(grep -oP '\b[0-9]+(\.[0-9]+)?(?=\s*\*?\s*$)' <<< "$line" | tail -n 1) #treure versio
+                        encryption_method+="$wpa_version"
+                        xarxa["xif"]+="$encryption_method"        
+            #Troba els algorismes xifrats - estaran despres de la linia RSN  - sino no son els algorismes de la xarxa
+            elif [[ $line =~ 'RSN:' ]]; then
+                info_rsn=1
+                xarxa["al_xif"]=""
+            elif [[ $line =~ 'Group cipher: '(.+) && $info_rsn -eq 1 ]]; then #si abans linia RSN - si algorisme xifrat
+                xarxa["al_xif"]="${BASH_REMATCH[1]}-"
+            elif [[ $line =~ 'Pairwise ciphers: '(.+) && $info_rsn -eq 1 ]]; then #si abans linia RSN - si algorisme xifrat
+                xarxa["al_xif"]+="${BASH_REMATCH[1]}-"
+            elif [[ $line =~ 'Authentication suites: '(.+) && $info_rsn -eq 1 ]]; then #si abans linia RSN - si algorisme xifrat
+                xarxa["al_xif"]+="${BASH_REMATCH[1]}"
+                info_rsn=0
+            #Troba el fabricant de la xarxa
+            elif [[ $line =~ ' * Manufacturer: '([[:alnum:]]+) ]]; then
+                xarxa["fab"]=${BASH_REMATCH[1]}
+            fi
+        done < log_scan.log
+        #Hem de fer un print de l'últim, perquè no entra en el bucle
+        if [ ${xarxa[admac]+_} ]; then
+            echo -e "${xarxa[ssid]}\t\t ${xarxa[channel]}\t${xarxa[freq]} MHz ${xarxa[signal]} dBm \t ${xarxa[v_max]} Mbps\t ${xarxa[xif]}\t ${xarxa[al_xif]}\t\t ${xarxa[admac]}\t ${xarxa[fab]}" >> log_inet_s3.log
+        fi
 
     #tancar taula
 cat >> log_inet_s3.log << EOF
