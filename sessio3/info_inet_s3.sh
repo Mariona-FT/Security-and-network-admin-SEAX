@@ -531,7 +531,7 @@ echo "Comencar a veure la configuracio del sistema.."
     # Si te :  xarxa associada --> es fara print resultat de la xarxa wifi        
     connexiox_wifi(){
        local pa=$(iw dev $1 info | grep 'addr')
-        if [ -z "$pa"]; then
+        if [ -z "$pa" ]; then
             echo "No associat"
             return 1
         fi
@@ -563,7 +563,7 @@ echo "Comencar a veure la configuracio del sistema.."
     #Unitats  dBm
     nivells_wifi(){
        local sy=$( iw dev $1 link | grep "signal" | awk '{print $2, $3}')
-        if [ -z "$sy"]; then
+        if [ -z "$sy" ]; then
             echo "- No senyal wifi "
             return 1
         fi
@@ -575,7 +575,7 @@ echo "Comencar a veure la configuracio del sistema.."
     #Contar punts d'acces 
     funcio_pacces_wifi(){
        local pa=$(iw dev $1 info | grep 'addr')
-        if [ -z "$pa"]; then
+        if [ -z "$pa" ]; then
             echo "- punt acces associat "
             return 1
         fi
@@ -587,7 +587,15 @@ echo "Comencar a veure la configuracio del sistema.."
     #Unitats Mbit/s - en el .log
     velocitat_wifi(){
         local vr=$(iw dev $1 link | grep "tx bitrate" | awk '{print $3 }')
+        if [ -z "$vr" ]; then
+            echo "- No potencia transmissio "
+            return 1
+        fi
         local vt=$(iw dev $1 link | grep "rx bitrate" | awk '{print $3 }')
+        if [ -z "$vt" ]; then
+            echo "- No potencia transmissio "
+            return 1
+        fi
         echo "$vr $vt"
     }
 
@@ -754,7 +762,7 @@ cat >> log_inet_s3.log << EOF
 
 EOF
     #Si hi ha CONNEXIO A LA XARXA
-        if [ $con_xarxa_w != "No associat" ]; then
+        if [ "$con_xarxa_w" != "No associat" ]; then
             echo "WIFI AMB CONNEXIO A UNA XARXA"
             echo "Trobant la ssid de la xarxa.."
                 ssid_w=$(ssidxarxa_wifi $interficie)
@@ -819,7 +827,7 @@ EOF
     #Retornar els valors TRAFIC i VELOCITAT 
 cat >> log_inet_s3.log << EOF
         
-        ràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)
+        Tràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)
         Tràfic transmès:           $t_transmes Kbytes [$paq_transmes paquets] ($errors_transmes errors, $descartats_transmes descartats i $col_transmes colisions)
         Velocitat de Recepció:     $velocitat_recepcio_bytes bytes/s [$velocitat_recepcio_paquets paquets/s]
         Velocitat de Transmissió:  $velocitat_transmissio_bytes bytes/s [$velocitat_transmissio_paquets paquets/s]
