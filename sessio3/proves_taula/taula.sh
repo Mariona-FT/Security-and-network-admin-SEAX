@@ -1,13 +1,38 @@
 #!/bin/bash
 
-# Clear the content of taula.log if it exists
+# Esborra el contingut de taula.log si existeix
 > taula.log
 
-# Add header to taula.log
+#!/bin/bash
+
+input_file="log_scan.txt"
+declare -A unique_ssids
+declare -A unique_channels
+
+# Read each line from the input file
+while IFS= read -r line; do
+    if [[ $line =~ SSID:\ (.+) ]]; then
+        ssid="${BASH_REMATCH[1]}"
+        unique_ssids["$ssid"]=1
+    elif [[ $line =~ channel:\ ([0-9]+) ]]; then
+        channel="${BASH_REMATCH[1]}"
+        unique_channels["$channel"]=1
+    fi
+done < "$input_file"
+
+num_ssids=${#unique_ssids[@]}
+num_channels=${#unique_channels[@]}
+
+# Now, you can add this information to your taula.log
+echo "                              S'ha detectat $num_ssids xarxes en $num_channels canals a la interfície wlan0, wlan0." > taula.log
+
+
+# Afegeix la capçalera a taula.log
 echo " ------------------------------------------------------------------------------------------------------------------------------------- " >> taula.log
-echo "       SSID          canal  freqüència    senyal     v. max.   xifrat    algorismes xifrat       Adreça MAC           fabricant        " >> taula.log
+echo "       SSID                     canal  freqüència    senyal     v. max.   xifrat    algorismes xifrat       Adreça MAC           fabricant        " >> taula.log
 echo " ------------------------------------------------------------------------------------------------------------------------------------- " >> taula.log 
 
+# Funció per processar l'arxiu d'entrada
 process_file() {
     input_file="log_scan.txt"
     output_file="taula.log"
