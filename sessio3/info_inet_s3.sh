@@ -455,7 +455,11 @@ echo "Comencar a veure la configuracio del sistema.."
 
     #Tornar nom del dispositiu wifi  -$nom_w
     disp_wifi(){
-        dp=$( iw dev $1 info | grep "wiphy" | awk '{print $2}')
+        local dp=$( iw dev $1 info | grep "wiphy" | awk '{print $2}')
+        if [ -z "$dp" ]; then
+            echo "- No nom wifi"
+            return 1
+        fi
         echo "phy$dp"
     }
 
@@ -464,7 +468,11 @@ echo "Comencar a veure la configuracio del sistema.."
     #ex:  type managed
     mode_wifi(){
         #iw dev $1 info | grep type 
-        mw=$( iw dev $1 info | grep -oE 'type [a-zA-Z]+' | awk '{print $2}')
+        local mw=$( iw dev $1 info | grep -oE 'type [a-zA-Z]+' | awk '{print $2}')
+        if [ -z "$mw" ]; then
+            echo "- No mode treball"
+            return 1
+        fi
         echo $mw
 
     }
@@ -474,6 +482,10 @@ echo "Comencar a veure la configuracio del sistema.."
     #ex: txpower 19.00 dBm
     pottrans_wifi(){
         local pt=$(iw dev $1 info | grep 'txpower' | awk '{print $2}')
+        if [ -z "$pt" ]; then
+            echo "- No potencia transmissio "
+            return 1
+        fi
         echo $pt
     }
     
