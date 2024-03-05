@@ -827,7 +827,7 @@ EOF
     #Retornar els valors TRAFIC i VELOCITAT 
 cat >> log_inet_s3.log << EOF
         
-        ràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)
+        Tràfic rebut:              $t_rebut Kbytes [$paq_rebut paquets] ($errors_rebut errors, $descartats_rebut descartats i $perduts_rebut perduts)
         Tràfic transmès:           $t_transmes Kbytes [$paq_transmes paquets] ($errors_transmes errors, $descartats_transmes descartats i $col_transmes colisions)
         Velocitat de Recepció:     $velocitat_recepcio_bytes bytes/s [$velocitat_recepcio_paquets paquets/s]
         Velocitat de Transmissió:  $velocitat_transmissio_bytes bytes/s [$velocitat_transmissio_paquets paquets/s]
