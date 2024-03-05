@@ -500,6 +500,10 @@ echo "Comencar a veure la configuracio del sistema.."
     #SSID de la xarxa - $ssid_w
     ssidxarxa_wifi(){
         local sw=$( iw dev $1 link | grep -oE 'SSID: .+$' | cut -d ' ' -f 2-)
+        if [ -z "$sw" ]; then
+            echo "- No ssid de xarxa "
+            return 1
+        fi
         echo $sw
     }
 
@@ -507,6 +511,10 @@ echo "Comencar a veure la configuracio del sistema.."
     # Numero total + (frequencia MHz)
     canalt_wifi(){
        local can=$( iw $1 info | grep 'channel' | awk '{gsub(",", "", $4); print $2, $3, $4}')
+        if [ -z "$pt" ]; then
+            echo "- No canal treball wifi "
+            return 1
+        fi
        echo $can
     }
 
@@ -514,6 +522,10 @@ echo "Comencar a veure la configuracio del sistema.."
     #Unitats  dBm
     nivells_wifi(){
        local sy=$( iw dev $1 link | grep "signal" | awk '{print $2, $3}')
+        if [ -z "$sy"]; then
+            echo "- No senyal wifi "
+            return 1
+        fi
        echo $sy
 
     } 
@@ -522,6 +534,10 @@ echo "Comencar a veure la configuracio del sistema.."
     #Contar punts d'acces 
     funcio_pacces_wifi(){
        local pa=$(iw dev $1 scan | grep -c "SSID:")
+        if [ -z "$pa"]; then
+            echo "- punt acces associat "
+            return 1
+        fi
        echo $pa
     }
        
@@ -806,7 +822,6 @@ EOF
 cat >> log_inet_s3.log << EOF
     └───────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 EOF
-
     fi #if interfice es wifi
 
 
