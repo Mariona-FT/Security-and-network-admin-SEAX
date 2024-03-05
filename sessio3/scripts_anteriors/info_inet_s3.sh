@@ -1,9 +1,13 @@
 #!/bin/bash
 
+
 function show_help() {
-  echo "Aquest script ens dona informació de totes les interfícies ethernet i wifi on s'està executant. Genera el seu resultat en el fitxer: log_inet_s3_final.log"
+  echo "Aquest script ens dona informació de totes les interfícies ethernet i wifi on s'està executant."
+  echo "Genera el seu resultat en el fitxer: log_inet.log"
   echo "Genera 3 fitxers auxiliars anomenats: log_inet_s3_capc.log, log_inet_s3.log i log_scan.log"
-  echo ""
+  echo "Es necessita donar el permís d'execució de script:"
+  echo "    chmod +x info_inet.sh"
+  echo "" 
   echo "Requisits:"
   echo "            És necessari ser root per poder executar l'script"
   echo "            És necessari que el sistema operatiu sigui Debian"
@@ -14,6 +18,7 @@ function show_help() {
   echo "bc"
   echo "dnsutils (dig)"
   echo "traceroute"
+  echo "iw"
   echo "Per instal·lar-los utilitza la comanda:"
   echo "apt install <paquet>"
   echo ""
@@ -21,7 +26,6 @@ function show_help() {
   echo "  -h                Mostra aquesta ajuda i surt"
   echo " ./info_inet.sh     per executar el script"
 }
-
 while getopts "h" opt; do
   case ${opt} in
     h )
