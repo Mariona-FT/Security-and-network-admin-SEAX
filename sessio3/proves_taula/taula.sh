@@ -18,7 +18,8 @@ process_file() {
 
     # Initialize variables to store BSS information
     declare -A bss_info
-    keys=("admac" "ssid" "channel" "freq" "signal" "v_max" "xif" "sta_channel_width" "fab")
+    keys=("admac" "ssid" "channel" "freq" "signal" "v_max" "xif" "al_xif" "fab")
+    info_rsn=0
 
     # Read each line from the input file
     while IFS= read -r line; do
@@ -42,17 +43,44 @@ process_file() {
             bss_info["fab"]=${BASH_REMATCH[1]}
         elif [[ $line =~ ' * primary channel: '([[:alnum:]]+) ]]; then
             bss_info["channel"]=${BASH_REMATCH[1]}
-        elif [[ $line =~ ' Maximum RX AMPDU length' ]]; then
-            bss_info["v_max"]=${BASH_REMATCH[1]}
+        elif [[ $line =~ 'Maximum RX AMPDU length' ]]; then
+            echo "aa"
+            bss_info["v_max"]=$(grep -oP 'Maximum RX AMPDU length \K[0-9]+' <<< "$line")
         
-        elif [[ $line =~ 'HT\ operation:\'  ]]; then
-                    al_xif=${line#*: }
-            #bss_info["v_max"]=$(grep -oP' \K[0-9]+' <<< "$al_xif")
-            bss_info["xif"]=$(grep -oP 'Supported rates: \K[0-9]+.[0-9]+' <<< "$al_xif")
-           # bss_info["fab"]=$(grep -oP 'Manufacturer: \K\w+' <<< "$al_xif")
-           # bss_info["channel"]=$(grep -oP ' * primary channel: \K\d+' <<< "$al_xif")
-            bss_info["sta_channel_width"]=$(grep -oP 'STA channel width: \K\S+' <<< "$al_xif")
+        elif [[ $line =~ 'RSN:' ]]; then
+            info_rsn=1
+            echo "rsn" $info_rsn
+        elif [[ $line =~ 'Group cipher: '(.+) && $info_rsn -eq 1 ]]; then
+            bss_info["al_xif"]+="${BASH_REMATCH[1]}-"
+             echo "gr" $info_rsn
+
+        elif [[ $line =~ 'Pairwise ciphers: '(.+) && $info_rsn -eq 1 ]]; then
+            bss_info["al_xif"]+="${BASH_REMATCH[1]}-"
+             echo "pc" $info_rsn
+
+        elif [[ $line =~ 'Authentication suites: '(.+) && $info_rsn -eq 1 ]]; then
+            bss_info["al_xif"]+="${BASH_REMATCH[1]}"
+                        echo "as" $info_rsn
+
+            info_rsn=0
+        elif [[ $line =~ 'WEP' || $line =~ 'WPA' || $line =~ 'TKIP' || $line =~ 'AES' ]]; then
+            echo "bb"
+            encryption_method=$(grep -oP '(WEP|WPA|TKIP|AES)' <<< "$line")
+            if [[ $line =~ 'WPA: *Version: ([0-9]+)' ]]; then
+                wpa_version=${BASH_REMATCH[1]}
+                encryption_method+=" WPA$wpa_version"
+            fi
+            bss_info["xif"]+="$encryption_method "
         fi
+        # elif [[ $line =~ 'HT\ operation:\'  ]]; then
+        #             al_xif=${line#*: }
+        #     #bss_info["v_max"]=$(grep -oP' \K[0-9]+' <<< "$al_xif")
+        #    # bss_info["xif"]=$(grep -oP 'Supported rates: \K[0-9]+.[0-9]+' <<< "$al_xif")
+        #    # bss_info["fab"]=$(grep -oP 'Manufacturer: \K\w+' <<< "$al_xif")
+        #    # bss_info["channel"]=$(grep -oP ' * primary channel: \K\d+' <<< "$al_xif")
+        #     bss_info["sta_channel_width"]=$(grep -oP 'STA channel width: \K\S+' <<< "$al_xif")
+        
+        # fi
     done < "$input_file"
 
     # Print the information of the last BSS entry
@@ -65,7 +93,7 @@ process_file() {
 
 # Function to print BSS information
 print_bss_info() {
-    echo -e " HOLA ${bss_info[ssid]}\t${bss_info[channel]}\t${bss_info[freq]}\t${bss_info[signal]} dBm\t${bss_info[v_max]}\t${bss_info[xif]}\t${bss_info[sta_channel_width]}\t${bss_info[admac]}\t${bss_info[fab]}" >> "$output_file"
+    echo -e "${bss_info[ssid]}\t${bss_info[channel]}\t${bss_info[freq]} MHz \t${bss_info[signal]} dBm\t${bss_info[v_max]} Mbps\t${bss_info[xif]}\t${bss_info[al_xif]}\t${bss_info[admac]}\t${bss_info[fab]}" >> "$output_file"
 }
 
 # Call the function to process the input file
