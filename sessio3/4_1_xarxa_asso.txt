@@ -1,0 +1,36 @@
+--Comanda wpa_cli --
+
+root@seax1:~# wpa_cli -i wlxfc3497286aa3 status
+
+bssid=32:2a:d2:fe:eb:c2
+freq=2437
+ssid=iPhoneFrancesco
+id=0
+mode=station
+wifi_generation=4
+pairwise_cipher=CCMP
+group_cipher=CCMP
+key_mgmt=WPA2-PSK
+wpa_state=COMPLETED
+ip_address=172.20.10.6
+p2p_device_address=fc:34:97:28:6a:a3
+address=fc:34:97:28:6a:a3
+uuid=e4f57a19-84cc-5b69-93c9-477f0c7b7ce0
+
+-------------------------------------------------------------
+
+--Comanda iw --
+root@seax1:~# iw dev wlxfc3497286aa3 link
+
+Connected to 32:2a:d2:fe:eb:c2 (on wlxfc3497286aa3)
+	SSID: iPhoneFrancesco
+	freq: 2437
+	RX: 1577358 bytes (10546 packets)
+	TX: 21243 bytes (230 packets)
+	signal: -46 dBm
+	rx bitrate: 1.0 MBit/s
+	tx bitrate: 72.2 MBit/s MCS 7 short GI
+
+	bss flags:	short-preamble short-slot-time
+	dtim period:	1
+	beacon int:	100

@@ -1,0 +1,31 @@
+--IP i reserva DHCP sense alliberar:--
+
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: wlxfc3497286aa3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether fc:34:97:28:6a:a3 brd ff:ff:ff:ff:ff:ff
+    inet 172.20.10.6/28 brd 172.20.10.15 scope global dynamic wlxfc3497286aa3
+       valid_lft 86357sec preferred_lft 86357sec
+    inet6 fe80::fe34:97ff:fe28:6aa3/64 scope link 
+       valid_lft forever preferred_lft forever
+       
+-------------------------------------------------------------------------------
+
+       
+--IP i reserva DHCP alliberades:--       
+  root@seax2:~# dhclient -r wlxfc3497286aa3
+       
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: wlxfc3497286aa3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether fc:34:97:28:6a:a3 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::fe34:97ff:fe28:6aa3/64 scope link 
+       valid_lft forever preferred_lft forever

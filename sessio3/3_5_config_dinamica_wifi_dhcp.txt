@@ -1,0 +1,9 @@
+root@seax2:~# dhclient wlxfc3497286aa3
+
+root@seax2:~# ip addr show wlxfc3497286aa3
+2: wlxfc3497286aa3: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether fc:34:97:28:6a:a3 brd ff:ff:ff:ff:ff:ff
+    inet 172.20.10.6/28 brd 172.20.10.15 scope global dynamic wlxfc3497286aa3
+       valid_lft 85510sec preferred_lft 85510sec
+    inet6 fe80::fe34:97ff:fe28:6aa3/64 scope link 
+       valid_lft forever preferred_lft forever

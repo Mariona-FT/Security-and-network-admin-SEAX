@@ -1,0 +1,171 @@
+Band 1:
+	* 2412 MHz [1] 
+	  Maximum TX power: 16.0 dBm
+	  Channel widths: 20MHz HT40+
+	* 2417 MHz [2] 
+	  Maximum TX power: 16.0 dBm
+	  Channel widths: 20MHz HT40+
+	* 2422 MHz [3] 
+	  Maximum TX power: 16.0 dBm
+	  Channel widths: 20MHz HT40+
+	* 2427 MHz [4] 
+	  Maximum TX power: 16.0 dBm
+	  Channel widths: 20MHz HT40+
+	* 2432 MHz [5] 
+	  Maximum TX power: 16.0 dBm
+	  Channel widths: 20MHz HT40- HT40+
+	* 2437 MHz [6] 
+	  Maximum TX power: 16.0 dBm
+	  Channel widths: 20MHz HT40- HT40+
+	* 2442 MHz [7] 
+	  Maximum TX power: 16.0 dBm
+	  Channel widths: 20MHz HT40- HT40+
+	* 2447 MHz [8] 
+	  Maximum TX power: 16.0 dBm
+	  Channel widths: 20MHz HT40- HT40+
+	* 2452 MHz [9] 
+	  Maximum TX power: 16.0 dBm
+	  Channel widths: 20MHz HT40- HT40+
+	* 2457 MHz [10] 
+	  Maximum TX power: 16.0 dBm
+	  Channel widths: 20MHz HT40-
+	* 2462 MHz [11] 
+	  Maximum TX power: 16.0 dBm
+	  Channel widths: 20MHz HT40-
+	* 2467 MHz [12] 
+	  Maximum TX power: 16.0 dBm
+	  Channel widths: 20MHz HT40-
+	* 2472 MHz [13] 
+	  Maximum TX power: 16.0 dBm
+	  Channel widths: 20MHz HT40-
+	* 2484 MHz [14] (disabled)
+Band 2:
+	* 5180 MHz [36] 
+	  Maximum TX power: 20.0 dBm
+	  Channel widths: 20MHz HT40+ VHT80
+	* 5200 MHz [40] 
+	  Maximum TX power: 20.0 dBm
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	* 5220 MHz [44] 
+	  Maximum TX power: 20.0 dBm
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	* 5240 MHz [48] 
+	  Maximum TX power: 20.0 dBm
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	* 5260 MHz [52] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5280 MHz [56] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5300 MHz [60] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5320 MHz [64] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5500 MHz [100] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5520 MHz [104] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5540 MHz [108] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5560 MHz [112] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5580 MHz [116] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5600 MHz [120] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5620 MHz [124] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5640 MHz [128] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5660 MHz [132] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5680 MHz [136] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5700 MHz [140] 
+	  Maximum TX power: 20.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5720 MHz [144] 
+	  Maximum TX power: 13.0 dBm
+	  Radar detection
+	  Channel widths: 20MHz HT40- VHT80
+	  DFS state: usable (for 647 sec)
+	  DFS CAC time: 60000 ms
+	* 5745 MHz [149] 
+	  Maximum TX power: 13.0 dBm
+	  Channel widths: 20MHz HT40+ VHT80
+	* 5765 MHz [153] 
+	  Maximum TX power: 13.0 dBm
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	* 5785 MHz [157] 
+	  Maximum TX power: 13.0 dBm
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	* 5805 MHz [161] 
+	  Maximum TX power: 13.0 dBm
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	* 5825 MHz [165] 
+	  Maximum TX power: 13.0 dBm
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	* 5845 MHz [169] 
+	  Maximum TX power: 13.0 dBm
+	  Channel widths: 20MHz HT40- HT40+ VHT80
+	* 5865 MHz [173] 
+	  Maximum TX power: 13.0 dBm
+	  Channel widths: 20MHz HT40- VHT80

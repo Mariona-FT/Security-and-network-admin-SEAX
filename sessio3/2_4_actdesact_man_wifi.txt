@@ -1,0 +1,11 @@
+--Activar interficie --
+root@seax1:~#  ip link set dev wlxfc3497286aa3 up
+root@seax1:~# ip link show wlxfc3497286aa3 | grep 'state' | awk ‘{print $9}’ 
+UP
+
+---------------------------------------------------------------------------
+
+--Desactivar interficie --
+root@seax1:~# ip link set dev wlxfc3497286aa3 down
+root@seax1:~# ip link show wlxfc3497286aa3 | grep 'state' | awk ‘{print $9}’ 
+DOWN

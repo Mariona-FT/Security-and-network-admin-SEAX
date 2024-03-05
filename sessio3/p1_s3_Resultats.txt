@@ -1,0 +1,717 @@
+﻿Pràctica 1 - Interfícies de xarxa
+
+
+  Sessió 3 - Configuració de les interfícies de xarxa Wi-Fi
+
+
+Alumnes:
+Mariona Farré Tapias,
+Francesco Oncins Spedo
+
+---------------------------------------------------------------------------------------------------------------------------
+- Respon a cadascuna de les següents preguntes tot seguint aquesta estructura:
+   - Breu raonament de la resposta.
+   - Comanda / menú / opció a utilitzar.
+             Nota: utilitzar la comanda "iw" i evitar comandes obsoletes.
+   - Fitxers de configuració involucrats, si s’escau.
+   - Evidència d'ús.
+   - Bibliografia.
+           Nota: es recomana utilitzar la targeta Wi-Fi ASUS USB-AC51 (disponible en préstec als Serveis TIC de l'escola).
+
+Paquets que s’han d'instal·lar per fer les comandes següents i per l’script:
+ root@seax1:~# apt install man
+ root@seax1:~#  apt install dnsutils
+ root@seax1:~# apt install curl
+ root@seax1:~# apt install bc
+ root@seax1:~# apt install whois
+ root@seax1:~# apt install traceroute
+ root@seax1:~# apt install rfkill
+
+
+Comentari: Si es detecten canvis en el nom de la màquina (hostname) durant l'execució de les comandes o en les seves sortides, això es deu a l'ús de dues màquines diferents per realitzar la pràctica.Igualment, els resultats obtinguts són idèntics independentment de la màquina utilitzada. 
+
+
+________________
+
+
+    1 - Dispositiu Wi-Fi.
+           - 1.1 Què cal fer per a que la interfície Wi-Fi USB sigui controlada per la VM?
+
+
+Mirem que el USB ASUS estigui connectat
+root@seax2:~# lsusb | grep ASUS
+
+
+Busquem el nom de la  interfície i l’activem
+root@seax2:~# ip link set dev wlxfc3497286aa3 up  (per trobar el nom de la interficie podem fer ip link show, si ens fixem, és wlx[adreçaMAC])
+
+
+Ara busquem la wifi a la que ens volem connectar (el nostre mòbil)
+root@seax2:~# iw dev wlxfc3497286aa3 scan | grep SSID
+
+
+Creem un fitxer de configuració wpa_supplicant. Si el nom del wifi té espais entre mig, haurem de canviar el nom de manera que no en tingui (en el nostre mòbil marca Iphone, anem a Settings -> General -> About -> Name)
+iPhoneFrancesco és el SSID del wifi del mòbil i Cesco_46 és el password
+Guardarem el fitxer de configuració al fitxer wpa_supplicant.conf
+root@seax2:~# wpa_passphrase iPhoneFrancesco Cesco_46 | tee /etc/wpa_supplicant/wpa_supplicant.conf > /dev/null
+
+
+Ens connectem a la xarxa
+root@seax2:~# wpa_supplicant -B -i wlxfc3497286aa3 -c /etc/wpa_supplicant/wpa_supplicant.conf
+
+
+Ara hem de crear un psk que després posarem al fitxer /etc/network/interfaces
+root@seax2:~# wpa_passphrase wlxfc3497286aa3 Cesco_46
+Això ens donarà una sortida amb 3 línies. I ens quedem amb el valor de psk
+
+
+Canviem el fitxer /etc/network/intrefaces:
+auto wlxfc3497286aa3
+iface wlxfc3497286aa3 inet dhcp
+  wpa-ssid iPhoneFrancesco
+  wpa-psk ca3d0da15822b64121491f4a8167ca70a7ec5dfd3a94f7fa01eaa3711c214b30
+
+
+Tanquem la VM.
+Anem a l’apartat de settings d’Oracle VM VirtualBox i on posa network, desactivem totes les interfícies de xarxa.
+Ara tornem a engegar la màquina virtual.
+
+
+Cada cop que engeguem la VM haurem d’activar la interfície wifi, mentre tenim el hotspot del mòbil en mode discoverable:
+root@seax2:~# ifdown wlxfc3497286aa3 && ifup wlxfc3497286aa3
+
+
+Ens hauria d’aparèixer, que la ruta per defecte és la de wifi:
+Fem root@seax2:~# ip route show
+
+
+Haurem de fer 2 comprovacions per saber que funciona:
+root@seax2:~# ip link show (l’estat haurà de d’apareixer com a UP, i també haurà d’apareixer el flag de BROADCAST)
+L’opció -c 4 serveix per configurar que envii 4 paquets
+root@seax2:~# ping -c 4 www.google.com
+
+
+Fitxers involucrats:
+* /etc/wpa_supplicant/wpa_supplicant.conf
+
+
+* modificar /etc/network/interfaces
+Afegir la interfície de wifi, amb el ssid i psk de la xarxa wifi a la que ens volguem connectar
+
+
+Fitxers d’evidència:
+* 1_1_passos_config.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Web debian interficie wifi: https://wiki.debian.org/WiFi/HowToUse 
+Web debian interficie usb wifi: https://wiki.debian.org/WiFi#Prerequisites 
+
+
+            - 1.2 Com es verifica que existeix el dispositiu USB a l'equip des de la línia de comandes?
+Per verificar si existeix el dispositiu ho podem fer de 2 maneres:
+La primera si no sabem quin és el nom del USB, i la segona si coneixem el seu nom.
+Hauriem de veure el nom del usb que hem connectat, en el nostre cas serà l’ASUS. Ens hem de fixar que posi Wireless Adapter.
+
+
+Si volem veure quins dispositius USB existeixen, ho farem amb la següent comanda:
+root@seax1:~# lsusb
+
+
+Filtrant pel nom de la interfície usb de wifi que coneixem:
+root@seax1:~# lsusb | grep ASUS
+
+
+Fitxer d’evidència:
+* 1_2_verificar_USB.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Web debian dispositius usb wifi: https://wiki.debian.org/WiFi#USB_Devices 
+
+           - 1.3 Com es verifica que existeix el controlador Wi-Fi a l'equip des de la línia de comandes?
+Per poder veure el controlador wifi que està present, el que podem fer és mirar amb la comanda de les interfícies de wifi, si ens retorna els diferents valors d’una interfície serà que tenim wifi, sinó ens retorna res no tindrem cap controlador wifi enllaçat.
+executant:root@seax1:~# iw dev 
+
+
+Fitxers d’evidència:
+* 1_3_verificar_controlador_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+Font informació: man iw (en comandes a la terminal de Debian)
+Web debian device usb:https://wiki.debian.org/HowToIdentifyADevice/USB 
+
+           - 1.4 Com s'obté informació de les característiques del dispositiu Wi-Fi instal·lat des de la línia de comandes?
+Per obtenir les característiques del dispositiu, haurem d’utilitzar la següent comanda:
+root@seax1:~# iw list
+Ens dóna la següent informació:
+* Informació general del dispositiu 
+   * id. del dispositiu “wiphy phy1”
+   * índex numèric del dispositiu “wiphy index”
+   * nº de SSIDs que pot escanejar a la vegada “max # scan SSIDs”
+   * màxim nº de bytes que pot utilitzar en sol·licituds d’escaneig “max scan IEs length”
+   * límits per a intents de retransmissió “Retry short limit, Retry long limit”
+   * classe de cobertura, afecta al rang “Coverage class”
+   * suport per modes específics i funcionalitats avançades “Device supports”
+* Llista d’algorismes de xifrat suportats
+* Antenes i modes d'interfície
+* Informació de banda
+* Comandes suportades
+* Característiques avançades
+* Tipus de trames suportades
+* Característiques esteses suportades
+
+
+Fitxers d’evidència:
+* 1_4_info_caracteristiques_disp_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Font informació: man iw (en comandes a la terminal de Debian)
+
+           - 1.5 Com s'obté informació dels modes de treball suportats per la interfície Wi-Fi?
+Per veure el mode de treball de cada interfície es pot veure executant, iw dev info per aquella interfície wlxfc3497286aa3 i fent un filtratge amb el type, ens retornarà el mode de treball:
+root@seax1:~# iw dev wlxfc3497286aa3 info | grep  'type'
+
+
+Fitxers d’evidència:
+* 1_5_info_models_treball_suportats.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Font informació: man iw (en comandes a la terminal de Debian)
+
+           - 1.6 Com s'obté informació dels canals suportats per la interfície Wi-Fi?
+Hem obtingut el nom de phy amb la comanda iw list, aquest ens donarà el nom de la interfície, en el nostre cas la wlxfc3497286aa3 retorna el seu nom com : phy0 
+Amb el nom de la interfície wifi tipus phy podem executar un iw i fent un filtratge amb channels ens retorna el número total de canals:
+root@seax1:~# iw phy phy0 channels
+
+
+Fitxers d’evidència:
+* 1_6_info_canals_suportats.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+Veurem només la llista dels canals suportats de la iw phy
+
+
+Font informació: man iw (en comandes a la terminal de Debian)
+
+           - 1.7 Com s'obté informació dels algorismes de xifrat suportats per la interfície Wi-Fi?
+Per trobar tots els algorismes xifrats suportats, es poden trobar en la llista de iw, per poder 
+veure només els algorismes podem filtrar perque ens retornin tots els algorismes fins la següent característica de la llista (Available Antennas) executant:
+root@seax1:~# iw list | awk '/Supported Ciphers:/{flag=1; next} /Available Antennas:/{flag=0} flag’
+
+
+Fitxers d’evidència:
+* 1_7_algorismes_xifrat.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+Veurem només la llista dels algorismes xifrats suportats de la iw list
+
+
+Font informació: man iw (en comandes a la terminal de Debian)
+
+           - 1.8 Com s'obté informació del model del dispositiu Wi-Fi des de la línia de comandes?
+Per obtenir informació del dispositiu físic usb de la Wifi, ho hem de mirar amb el lsusb, filtrar per el tipus wireless, que serà el nostre dispositiu wifi , ens retornarà la informació dels models dels usbs de la màquina:
+root@seax1:~# lsusb | grep Wireless
+També es pot fer un filtratge amb el nom si ens el sabem, executant: 
+root@seax1:~# lsusb | grep ASUS 
+
+
+Fitxers d’evidència:
+* 1_8_info_model_dispositiu.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Font informació: man lsusb (en comandes a la terminal de Debian)
+Web debian device usb:https://wiki.debian.org/HowToIdentifyADevice/USB 
+ 
+           - 1.9 Com s'obté informació del fabricant del dispositiu Wi-Fi des de la línia de comandes?
+Per obtenir informació del dispositiu físic usb de la Wifi, ho hem de mirar amb el lsusb, filtrar per el idVendor, ens retornarà la informació dels fabricants dels usbs de la màquina:
+root@seax1:~#  “lsusb -v | grep idVendor”
+
+
+Fitxers d’evidència:
+* 1_9_info_fabricant_dispositiu.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+El nostre serà el ASUSTek Computer, Inc.
+
+
+Font informació: man lsusb (en comandes a la terminal de Debian)
+
+           - 1.10 Com s'obté informació dels missatges del kernel relacionats amb el dispositiu Wi-Fi?
+
+
+Per poder mirar els missatges de la kernel, podem utilitzar la funció dmesg, que ens retorna tots els missatges del kernel, així que per retornar els que estan relacionats amb el dispositiu wifi, podem fer un filtratge utilitzant el seu nom, en el nostre cas es diu wlxfc3497286aa3:
+root@seax1:~#dmesg | grep wlxfc3497286aa3 
+
+
+Fitxers d’evidència:
+* 1_10_info_missatges_kernel.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Font informació: man dmesg (en comandes a la terminal de Debian)
+               
+    2 - Interfícies Wi-Fi.
+           - 2.1 Com es visualitzen les interfícies Wi-Fi existents des de la línia de comandes?
+Per veure totes les interfícies de Wifi disponibles en la nostra màquina podem fer-ho utilitzant  la següent comanda que ens retornarà la llista de interfícies wireless (wifi):
+root@seax1:~# iw dev 
+
+
+Fitxers d’evidència:
+* 2_1_interficies_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Font informació: man iw (en comandes a la terminal de Debian)
+
+           - 2.2 Com es reanomena una interfície Wi-Fi?
+El procés és com una interfície de ethernet, primer desactivar la interfície que se li vol canviar el nom, després assignar-li un nom diferent i utilitzant el nou nom activar la interfície.
+En el nostre cas es la interfície:  wlxfc3497286aa3 i la canviarem a nom: wseax
+Per desactivar la interfície executar:root@seax1:~#  ip link set dev wlxfc3497286aa3 down
+Canviar el nom: root@seax1:~# ip link set dev wlxfc3497286aa3 name wseax
+Activar la interfície reanomenada: root@seax1:~# ip link set dev wseax up
+Per provar que les comandes han funcionat podem mirar-ho en:  root@seax1:~# ip addr
+
+
+Fitxers d’evidència:
+* 2_2reanomena_wifitxt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Web forum archilinux canvi nom interficie: https://bbs.archlinux.org/viewtopic.php?id=109057 
+
+           - 2.3 Com s'obté informació de l’estat actiu o desactiu d’una interfície Wi-Fi des de la línia de comandes?
+Per obtenir si l’estat de una interfície es activa o desactivada, podem fer un filtratge per el nom de la interfície en el nostre cas el wlxfc3497286aa3, i per l'estat i amb el print podem fer que ens retorni directament l’estat:
+ root@seax1:~# ip link show wlxfc3497286aa3 | grep 'state' | awk ‘{print $9}’ 
+
+
+Fitxers d’evidència:
+* 2_3_actdesact_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+Si retorna UP la interfície esta activada
+Si retorna DOWN la interfície esta desactivada
+
+
+Font informació: man ip (en comandes a la terminal de Debian)
+Font informació: man  awk  (en comandes a la terminal de Debian)
+
+
+            - 2.4  Com s’activa o es desactiva una interfície Wi-Fi des de la línia de comandes?
+El procés seria exactament el mateix que una interfície de ethernet, per activar o desactivar la interfície manualment per línia de comandes, en el nostre cas la interfície wlxfc3497286aa3 , seria executant:
+
+
+Activar la interfície (up): root@seax1:~#  ip link set dev wlxfc3497286aa3 up
+Desactivar la interfície (down): root@seax1:~# ip link set  dev wlxfc3497286aa3 down
+Es poden veure el estat executant:  
+root@seax1:~# ip link show wlxfc3497286aa3 | grep 'state'  
+
+
+Fitxers d’evidència:
+* 2_4_actdesact_man_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+Si retorna UP la interfície esta activada
+Si retorna DOWN la interfície esta desactivada
+
+
+Font informació: man ip  link (en comandes a la terminal de Debian)
+Web ibilbio comandes linux ip link per confirmar comandes: https://www.ibiblio.org/pub/Linux/docs/LuCaS/Presentaciones/200103hispalinux/eric/html/interfaces.html 
+
+           - 2.5 Com s'obté informació de les característiques de la interfície Wi-Fi des de la línia de comandes?
+ Per poder tenir informació de una interfície Wifi, s’ha de fer servir la comanda iw especificada per wifi i passant-li el nom de la interfície a trobar les característiques, en el nostre cas la wlxfc3497286aa3. 
+root@seax1:~# iw dev wlxfc3497286aa3 info
+
+
+Fitxers d’evidència:
+* 2_5_info_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+Ens dóna la següent informació:
+* nom de la interfície
+* número de índex interfície (identificador)
+* El seu id del dispositiu (wdev)
+* l’adreça mac
+* el mode de treball
+* index de la capa física (wiphy)
+* el poder de transmissió
+* I la resta és els nombres de paquets transmesos
+
+
+Font informació: man iw dev (en comandes a la terminal de Debian)
+Web archilinux interficies wifi: https://bbs.archlinux.org/viewtopic.php?id=109057 
+
+
+            - 2.6 Com s'obté informació de l'adreça MAC de la interfície Wi-Fi des de la línia de comandes?
+ Per obtenir l’adreça mac de la interfície wifi, en el nostre cas la wlxfc3497286aa3, el que s'ha de fer es o com en altres interfícies mirar-ho utilitzant ip link i filtrant per link,
+executar: root@seax1:~# ip link show wlxfc3497286aa3 | grep link/ether
+Però ara es pot utilitzar la comanda iw amb la interfície wifi i un grep de l’adreça (que sera mac):
+root@seax1:~# iw dev wlxfc3497286aa3 info | grep  'addr’ 
+
+
+Fitxers d’evidència:
+* 2_6_admac_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Font informació: man ip link (en comandes a la terminal de Debian)
+Font informació: man iw dev (en comandes a la terminal de Debian)
+
+           - 2.7 Com s'obté informació del dispositiu corresponent a la interfície Wi-Fi des de la línia de comandes?
+Per saber tota la informació corresponent a la interfíce wifi, el que podem fer és fer un filtratge utilitzant el nom network per trobar les interfícies lligades a xarxes wifi:
+ executar: root@seax1:~# lsusb | grep -i “network” 
+
+
+Fitxers d’evidència:
+* 2_7_infodisp_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Font informació: man lsusb (en comandes a la terminal de Debian)
+
+           - 2.8 Com s'obté informació del mode de funcionament de la interfície Wi-Fi des de la línia de comandes?
+Per trobar el mode de funcionament, s'ha de buscar en la comanda de iw dev info, especificant la interfície en el nostre cas la wlxfc3497286aa3 i filtrant per type, si executem la següent comanda ens retornarà el seu valor: 
+ root@seax1:~#  iw dev wlxfc3497286aa3 info | grep 'type’ 
+
+
+Fitxers d’evidència:
+* 2_8_modefun_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Font informació: man iw dev (en comandes a la terminal de Debian)
+
+
+            - 2.9 Com s'obté informació de la potència de transmissió de la interfície Wi-Fi des de la línia de comandes?
+Per trobar la potència de transmissió, s'ha de buscar en la comanda de iw dev info, especificant la interfície en el nostre cas la wlxfc3497286aa3 i filtrant per txpower, si executem la següent comanda ens retornarà el valor i les unitats de la potencia.
+root@seax1:~#iw dev wlxfc3497286aa3 info | grep 'txpower’
+
+
+Fitxers d’evidència:
+* 2_9_ptrans_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Font informació: man iw dev (en comandes a la terminal de Debian)
+
+           - 2.10 Com s'obté informació de si la interfície Wi-Fi està bloquejada des de la línia de comandes?
+ Per veure els diferents dispositius bloquejats, primer de tot haurem de instalar un paquet anomenat: rfkill per poder gestionar el bloqueig de les interfícies wifi, per fer això executar:
+root@seax1:~# sudo apt update
+root@seax1:~# sudo apt install rfkill
+
+
+Només si som usuari root  podrem veure la llista d’interfícies bloquejades executant:
+root@seax1:~#  rfkill list 
+
+
+Fitxers d’evidència:
+* 2_10_llistbloquejat_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+Com es pot veure la nostre interficie wifi phy0 no esta bloquejada ni de tipus soft ni hard.
+
+
+Font informació: man rfkill (en comandes a la terminal de Debian)
+
+
+            - 2.11 Com es bloqueja o desbloqueja una interfície Wi-Fi des de la línia de comandes?
+Per bloquejar o desbloquejar una interífice, primer de tot haurem de instal·lar un paquet anomenat: rfkill per poder gestionar el bloqueig de les interfícies wifi, per fer això executar:
+root@seax1:~# sudo apt update
+root@seax1:~# sudo apt rfkill
+
+
+Només si som usuari root podrem executant els canvis en la interfície wifi amb el nombre que ens retorni en la rfkill list :
+Bloquejar la interfície: root@seax1:~#  rfkill block 0
+Desbloquejar la interfície: root@seax1:~# rfkill unblock 0
+Podem veure els canvis utilitzant: root@seax1:~#  rfkill list 
+
+
+Fitxers d’evidència:
+* 2_11_bloc_desb_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+Al bloquejar utilitzant la comanda  rfkill block 0, només es bloquejarà de manera soft.
+
+
+Font informació: man rfkill (en comandes a la terminal de Debian)
+
+
+            - 2.12 Com es pot canviar l'adreça MAC de la interfície Wi-Fi des de la línia de comandes?
+Per canviar l'adreça mac d’una interfície wifi, s’ha de desactivar aquella interfície en el nostre cas la wlxfc3497286aa3, canviar l’adreça MAC per la que es vulgui, només canviarem els 6 últims números per no borrar la informació del dispositiu que ens dona els primers  6 números, i després si l’activem podrem veure la MAC canviada.
+
+
+Desactivar la interfície: root@seax1:~# ip link set dev wlxfc3497286aa3 down
+Canviar la MAC: root@seax1:~# ip link set dev wlxfc3497286aa3 address fc:34:97:12:33:21
+Activar la interfície: root@seax1:~# ip link set dev wlxfc3497286aa3 up
+
+
+Fitxers d’evidència:
+* 2_12_canvi_mac_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+Es pot veure l'estat de la interfície al executar: root@seax1:~#  ip addr show wlxfc3497286aa3  
+
+
+Web forum virtualbox configuració mac: https://forums.virtualbox.org/viewtopic.php?t=98353 
+
+
+    3 - Adreçament IP (ip address | iw).
+
+           - 3.1 Com es visualitza l'adreça IP d'una interfície Wi-Fi?
+Per poder veure l’adreça ip d’una interfície, ja sigui de tipus ethernet o de wifi, es pot veure utilitzant la comanda ip addr per veure totes les interfícies de la màquina, però si es vol una adreça específica de la ip es pot posar el nom de la interfície i el paràmetre show, en el nostre cas wlxfc3497286aa3:
+root@seax2:~# ip addr show wlxfc3497286aa3
+
+
+Fitxer d’evidència:
+* 3_1_adreca_ip_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Font informació: man ip addr(en comandes a la terminal de Debian)
+
+
+            - 3.2 Com es configura dinàmicament una interficie Wi-Fi mitjançant fitxers de configuració?
+La configuració dinàmica d’una interfície wifi es refereix a tenir un servei dhcp enllaçat en aquella interfície, fent que sigui automàtica la seva configuració.
+Per fer-ho s’ha de configurar el fitxer de networks del sistema debian, nosaltres volem modificar la interfície wlxfc3497286aa3
+Per a fer-ho entrar al sistema de fitxers i fer un nano per modificar-lo i posar la nostra configuració dinàmica:
+
+
+Hem de canviar el fitxer de /network/interfaces i posar la interfície wifi per dhcp.
+amb el wpa-ssid: el nom de la wifi que es vulgui conectar
+i el wpa-psk: la clau donada executant amb el nom de la interfície i la contrasenya de la wifi que es vulgui connectar:  root@seax2:~# wpa_passphrase wlxfc3497286aa3 Cesco_46
+ root@seax2:~# nano /etc/network/interfaces
+auto wlxfc3497286aa3
+iface wlxfc3497286aa3 inet dhcp
+  wpa-ssid iPhoneFrancesco
+  wpa-psk ca3d0da15822b64121491f4a8167ca70a7ec5dfd3a94f7fa01eaa3711c214b30
+
+
+Guardar el fitxer i fer un reboot de la màquina o el sistema network per guardar els canvis:
+root@seax2:~#  systemctl reboot networking
+
+
+Fitxers involucrats:
+* modificar el /etc/network/interfaces
+Posar que la configuració de la interfície wlxfc3497286aa3 sigui:
+auto wlxfc3497286aa3
+iface wlxfc3497286aa3 inet dhcp
+  wpa-ssid iPhoneFrancesco
+  wpa-psk ca3d0da15822b64121491f4a8167ca70a7ec5dfd3a94f7fa01eaa3711c214b30
+
+
+Fitxer d’evidència:
+* 3_2_config_wifi_dinamica.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Font informació: man rfkill (en comandes a la terminal de Debian)
+Web virtualbox virtual networking: https://www.virtualbox.org/manual/ch06.html 
+
+           - 3.3 Com es configura estàticament una interficie Wi-Fi mitjançant fitxers de configuració?
+La configuració estàtica d’una interfície wifi es refereix a tenir una configuració preconfigurada per una interfície.
+Per fer-ho s’ha de configurar el fitxer de networks del sistema debian, nosaltres volem modificar la interfície wlxfc3497286aa3 
+Per a fer-ho entrar al sistema de fitxers i fer un nano per modificar-lo i posar la nostra configuració dinàmica, però ara assignant nosaltres a la interfície wifi, de manera estàtica, una adreça i màscara que volguem, la resta com sense modificar les wpa creada:
+Comanda a executar: root@seax2:~# nano /etc/network/interfaces
+auto wlxfc3497286aa3
+iface wlxfc3497286aa3 inet static
+  address 172.10.0.8
+  netmask 255.255.255.0
+  wpa-ssid iPhoneFrancesco
+  wpa-psk ca3d0da15822b64121491f4a8167ca70a7ec5dfd3a94f7fa01eaa3711c214b30
+
+
+Guardar el fitxer i fer un reboot de la màquina o el sistema network per guardar els canvis:
+root@seax2:~#  systemctl reboot networking
+
+
+Fitxers involucrats:
+* modificar el /etc/network/interfaces
+Posar que la configuració de la interfície wlxfc3497286aa3 sigui:
+auto wlxfc3497286aa3
+iface wlxfc3497286aa3 inet static
+  address 172.10.0.8
+  netmask 255.255.255.0
+  wpa-ssid iPhoneFrancesco
+  wpa-psk ca3d0da15822b64121491f4a8167ca70a7ec5dfd3a94f7fa01eaa3711c214b30
+
+
+Fitxer d’evidència:
+* 3_3_config_WIFI_estatica.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Web debian configuració xarxes: https://wiki.debian.org/NetworkConfiguration 
+
+
+            - 3.4 Com s'activa la interfície Wi-Fi i configuren els paràmetres IP (o desactiva i desconfiguren) amb fitxers de configuració? 
+Per activar la interfície i desactivarla utilitzarem s’han d’utilitzar 2 comandes diferents:
+Comanda a executar per activar: root@seax2:~# ifup wlxfc3497286aa3
+Comanda a executar per desactivar: root@seax2:~# ifdown wlxfc3497286aa3
+
+
+
+
+Fitxer d’evidència:
+* 3_4_activacio_desactivacio_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+Si la interfície està activa, apareixerà en estat UP
+2: wlxfc3497286aa3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether fc:34:97:28:6a:a3 brd ff:ff:ff:ff:ff:ff
+
+
+Si la interfície esta desactivada, apareixerà en estat DOWN.
+2: wlxfc3497286aa3: <BROADCAST,MULTICAST> mtu 1500 qdisc noqueue state DOWN group default qlen 1000
+    link/ether fc:34:97:28:6a:a3 brd ff:ff:ff:ff:ff:ff
+
+
+Font informació: man rfkill (en comandes a la terminal de Debian)
+
+
+            - 3.5 Com es configura dinàmicament (DHCP) una interficie Wi-Fi des de la línia de comandes?
+Per configurar manualment des de la terminal una interfície s’ha de utlilitzar la comanda de dhclient i  configurar-ho amb la interfície que es vulgui, en el nostre cas la wlxfc3497286aa3:
+Executar: root@seax2:~# dhclient wlxfc3497286aa3
+
+
+Fitxer d’evidència:
+* 3_5_config_dinamica_wifi_dhcp.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+Es pot veure l'estat de la interfície executant: root@seax2:~#  ip addr show wlxfc3497286aa3  
+Si surt el paràmetre de: dynamic , vol dir que s’ha configurat correctament dinàmicament
+
+
+Web virtualbox networks: https://www.virtualbox.org/manual/ch06.html 
+
+
+            - 3.6 Com s'allibera l'adreça IP dinàmica i la reserva del DHCP des de la línia de comandes?
+Per configurar manualment des de la terminal una interfície s’ha de utlilitzar la comanda de dhclient i  configurar-ho amb la interfície que es vulgui, en el nostre cas la wlxfc3497286aa3i posar el paràmetre -r per fer una eliminació d’aquella interfície en el dhcp i alliberar l’adreça dinàmica:
+Executar: root@seax2:~# dhclient -r wlxfc3497286aa3
+
+
+Fitxer d’evidència:
+* 3_6_alliberar_adreca_reserva_DHCP.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+Es pot veure l'estat de la interfície executant: root@seax2:~#  ip addr show wlxfc3497286aa3  
+Si NO surt el paràmetre de: dynamic , vol dir que s’ha desconfigurat correctament la configuració dinàmica
+
+
+Web virtualbox networks: https://www.virtualbox.org/manual/ch06.html 
+
+
+
+
+            - 3.7 Com es configura estàticament una interficie Wi-Fi des de la línia de comandes?
+Per configurar estàticament una interfície WIFI hem d’executar un parell de comandes per anar especificant les diferents adreces ip i les rutes d’una interfície, en el nostre cas la wlxfc3497286aa3.
+
+
+Comanda a executar: root@seax2:~# ip addr add 192.168.1.100/24 dev wlxfc3497286aa3
+Comanda a executar: root@seax2:~# ip route add default via 192.168.1.1
+
+
+Configurar el servidor el DNS:
+Comanda a executar: root@seax2:~# echo "nameserver 192.168.1.1" | tee /etc/resolv.conf > /dev/null
+
+
+Fitxer d’evidència:
+* 3_7_config_estatica_wifi.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Web virtualbox networks: https://www.virtualbox.org/manual/ch06.html 
+
+
+
+
+    4 - Connectivitat Wi-Fi (iw | wpa_cli).
+           - 4.1 Com s'obté informació de la xarxa Wi-Fi on s'està associat
+Per obtenir informació de la xarxa wifi associada, es poden fer servir dues comandes:
+root@seax1:~# wpa_cli -i wlxfc3497286aa3 status
+Retorna l’estat de la connexió, la xarxa ssid, l’adreça mac i altres detalls de la connexió.
+
+
+root@seax1:~# iw dev wlxfc3497286aa3 link
+Retorna informació sobre l’estat actual de l’enllaç actual de la interfície especificada, amb la qualitat de senyal, l’adreça mac i altres detalls de la connexió wifi.
+
+
+Fitxers d’evidència:
+* 4_1_xarxa_asso.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+
+Font informació: man iw (en comandes a la terminal de Debian)
+Font informació: man wpa_cli (en comandes a la terminal de Debian)
+
+           - 4.2 Com es poden detectar les xarxes disponibles a l'abast d'una interfície Wi-Fi?
+
+
+Per detectar totes les xarxes disponibles a l’abast de la wifi, s’ha d’executar un scan, on s’inicia un escaneig de totes les xarxes utilitzant la comanda iw, al detectar una xarxa 
+retorna la seva informació com: ssid, la senyal, la seva freqüència, els canals suportats, el seu xifratge, el algoritmes de xifratge i el fabricant entre altres.
+
+
+root@seax1:~# iw dev wlxfc3497286aa3 scan
+root@seax1:~# wpa_cli -i wlxfc3497286aa3 scan
+
+
+També podem posar filtratge de el tipus de resposta que es vulgui obtenir, com ara la ssid de les xarxes: 
+root@seax1:~# iw dev wlxfc3497286aa3 scan | grep SSID
+
+
+Fitxers d’evidència:
+* 4_2_xarxa_disp.txt
+Es poden veure els resultats de l’execució de les comandes anteriors
+
+Font informació: man iw (en comandes a la terminal de Debian)
+Web debian web interface: https://wiki.debian.org/WiFi/HowToUse 
+
+
+Comentaris de script:
+  Hi ha la opció de -h per obtenir més informació del script
+  L'script s'anomena info_inet.sh
+  Genera el seu resultat en el fitxer: log_inet.log
+  Genera 3 fitxers auxiliars anomenats: log_inet_s3_capc.log, log_inet_s3.log i log_scan.log
+  Per executar donar permisos d'execució: chmod +x info_inet.sh
+	i executar directament fent: ./info_inet.sh
+	
+
+
+
+
+
+
+
+
+
+
+
+________________
+
+
+--------------------------------------------------------------------------------------------------------------------------
+- Programa l'ampliació de l'script "info_inet.sh" per que proporcioni informació de les interfícies Wi-Fi de l'equip.
+   - Cal utilitzar el llenguatge bash.
+   - Cal que generi un fitxer de sortida anomenat "log_inet.log".
+        - Cal que proporcioni la mateixa informació, de l'equip on s'executi, que l'exemple proporcionat.
+   - Cal que contempli la possibilitat d'existència de múltiples interfícies Wi-Fi.
+   - Cal que diferenciï un valor nul de no obtenir el valor.
+   - Cal utilitzar les comandes de les preguntes anteriors.
+   - Cal que maqueti la informació com a l'exemple aportat.
+   
+- Aspectes a tenir en compte.
+        - Robustesa
+           - Verificar programari necessari (comandes, paquets, etc).
+           - Verificar condicions de contorn (usuari, sistema operatiu, etc).
+           - Verificar paràmetres d’entrada (interfície, protocol, número de port, etc).
+        - Usabilitat
+           - Interacció de l’usuari amb el programari.
+           - Informació cap a l’usuari.
+           - Seguiment de l’evolució de les accions.
+           - Maquetació dels resultats.
+        - Fiabilitat
+           - Interacció amb el sistema operatiu.
+           - Coherència dels resultats.
+           - Implementació en bash (shellcheck).           
+---------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------------------
+- Lliura els resultats mitjançant Atenea (2 fitxers).
+        - Fitxer 1: Redactar l'informe de la pràctica p1_s3_cognom1_nom.txt.
+        - Fitxer 2: Realitzar les proves necessàries per justificar els resultats i
+     encapsular els fitxers necessaris en el fitxer p1_s3_cognom1_nom.zip.
+---------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------------------------------
+- Recomanació de comandes més utilitzades
+   - awk case cat column curl dhclient dig echo for grep hostname if ifdown ifup ip iw ls lsmod lspci lsusb mktemp nano paste ping printf reboot rfkill sed service sort udevadm uniq wpa_cli wpa_passphrase
+---------------------------------------------------------------------------------------------------------------------------

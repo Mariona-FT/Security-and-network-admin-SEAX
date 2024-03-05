@@ -1,0 +1,9 @@
+[    7.174964] mt76x0u 1-1:1.0 wlxfc3497286aa3: renamed from wlan0
+[  121.725073] wlxfc3497286aa3: authenticate with 46:7a:a1:e5:ac:bf
+[  122.681842] wlxfc3497286aa3: send auth to 46:7a:a1:e5:ac:bf (try 1/3)
+[  122.735270] wlxfc3497286aa3: authenticated
+[  122.736296] wlxfc3497286aa3: associate with 46:7a:a1:e5:ac:bf (try 1/3)
+[  122.741494] wlxfc3497286aa3: RX AssocResp from 46:7a:a1:e5:ac:bf (capab=0x411 status=0 aid=1)
+[  122.852210] wlxfc3497286aa3: associated
+[  122.852314] wlxfc3497286aa3: Limiting TX power to 20 (20 - 0) dBm as advertised by 46:7a:a1:e5:ac:bf
+[  122.952360] IPv6: ADDRCONF(NETDEV_CHANGE): wlxfc3497286aa3: link becomes ready

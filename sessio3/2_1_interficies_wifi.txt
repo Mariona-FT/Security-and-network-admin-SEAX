@@ -1,0 +1,13 @@
+--llistat interficies wifi--
+
+root@seax1:~# iw dev 
+phy#0
+	Interface wlxfc3497286aa3
+		ifindex 2
+		wdev 0x1
+		addr fc:34:97:28:6a:a3
+		type managed
+		txpower 19.00 dBm
+		multicast TXQ:
+			qsz-byt	qsz-pkt	flows	drops	marks	overlmt	hashcol	tx-bytes	tx-packets
+			0	0	0	0	0	0	0	0		0

@@ -1,0 +1,15 @@
+--Bloquejar la interfície--
+
+root@seax1:~#  rfkill block 0
+root@seax1:~#  rfkill list 
+0: phy0: Wireless LAN
+	Soft blocked: yes
+	Hard blocked: no
+---------------------------------------------------------------------------
+--Desbloquejar la interfície--
+
+root@seax1:~# rfkill unblock 0
+root@seax1:~#  rfkill list 
+0: phy0: Wireless LAN
+	Soft blocked: no
+	Hard blocked: no

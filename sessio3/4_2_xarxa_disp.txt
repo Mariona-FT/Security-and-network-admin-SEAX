@@ -1,0 +1,18 @@
+	SSID: iPhoneFrancesco
+	SSID: Livebox6-7BED
+	SSID: Masia
+	SSID: DIRECT-93-HP ENVY 5000 series
+	SSID: MOVISTAR_20A0
+	SSID: MiFibra-C6B7
+	SSID: iPhoneFrancesco
+	SSID: 
+	SSID: Livebox6-7BED
+	SSID: Livebox6-7BED-5G
+	SSID: iPhoneFrancesco
+	SSID: iPhoneFrancesco
+	SSID: iPhoneFrancesco
+	SSID: iPhoneFrancesco
+	SSID: iPhoneFrancesco
+	SSID: iPhoneFrancesco
+	SSID: MOVISTAR_20A0
+	SSID: iPhoneFrancesco

@@ -1,0 +1,3 @@
+ root@seax1:~# lsusb | grep -i “network” 
+
+Bus 001 Device 002: ID 0b05:17d1 ASUSTek Computer, Inc. AC51 802.11a/b/g/n/ac Wireless Adapter [Mediatek MT7610U]

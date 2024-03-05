@@ -1,0 +1,2 @@
+root@seax1:~# iw dev wlxfc3497286aa3 info | grep  'addr' 
+	addr fc:34:97:28:6a:a3

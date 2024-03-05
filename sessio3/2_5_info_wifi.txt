@@ -1,0 +1,11 @@
+root@seax1:~# iw dev wlxfc3497286aa3 info
+Interface wlxfc3497286aa3
+	ifindex 3
+	wdev 0x100000001
+	addr fc:34:97:28:6a:a3
+	type managed
+	wiphy 1
+	txpower 19.00 dBm
+	multicast TXQ:
+		qsz-byt	qsz-pkt	flows	drops	marks	overlmt	hashcol	tx-bytes	tx-packets
+		0	0	0	0	0	0	0	0		0

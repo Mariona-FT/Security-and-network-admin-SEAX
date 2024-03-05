@@ -1,0 +1,4 @@
+  idVendor           0x0b05 ASUSTek Computer, Inc.
+  idVendor           0x1d6b Linux Foundation
+  idVendor           0x80ee VirtualBox
+  idVendor           0x1d6b Linux Foundation

@@ -1,0 +1,2 @@
+root@seax1:~#iw dev wlxfc3497286aa3 info | grep 'txpower'
+	txpower 16.00 dBm

@@ -1,0 +1,9 @@
+--interficie activada utilitzant ip link set up --
+root@seax1:~# ip link show wlxfc3497286aa3 | grep 'state' | awk ‘{print $9}’ 
+UP
+
+---------------------------------------------------------------------------
+
+--interficie desactivada utilitzant ip link set down --
+root@seax1:~# ip link show wlxfc3497286aa3 | grep 'state' | awk ‘{print $9}’ 
+DOWN
