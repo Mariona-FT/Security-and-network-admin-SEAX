@@ -762,7 +762,7 @@ cat >> log_inet_s3.log << EOF
 
 EOF
     #Si hi ha CONNEXIO A LA XARXA
-        if [ ! $con_xarxa_w -eq "No associat" ]; then
+        if [ "$con_xarxa_w" != "No associat" ]; then
             echo "WIFI AMB CONNEXIO A UNA XARXA"
             echo "Trobant la ssid de la xarxa.."
                 ssid_w=$(ssidxarxa_wifi $interficie)
