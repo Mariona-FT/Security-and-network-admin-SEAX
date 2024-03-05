@@ -954,12 +954,12 @@ cat << EOF > log_inet_s3_capc.log
 ╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 EOF
 
-cat log_inet_s3_capc.log log_inet_s3.log >> log_inet_s3_final.log
+cat log_inet_s3_capc.log log_inet_s3.log >> log_inet.log
     # Overwrite the final log file with the capc log content
-cat log_inet_s3_capc.log > log_inet_s3_final.log
+cat log_inet_s3_capc.log > log_inet.log
 
 # Append the other log to the final log file
-cat log_inet_s3.log >> log_inet_s3_final.log
+cat log_inet_s3.log >> log_inet.log
 
 
     echo #separacio de les interficies trobades per terminal
