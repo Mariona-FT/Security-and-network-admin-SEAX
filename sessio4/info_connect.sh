@@ -108,22 +108,31 @@ EOF
     versio_SO=$(funcio_SO)
     data_compilacio=$(funcio_data_compilacio)
     versio_script=2.08
+
     hf=$(date +'%H:%M:%S')
     si=$(date -d "$hi" +%s)
     sf=$(date -d "$hf" +%s)
     s=$((sf - si))
 
 cat << EOF > log_inet_s4_capc.log
-╔══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
-                                                                                                                        
-    ------------------------------------------------------------------------------------------------------------------------         
-        Analisi de les interficies del sistema realitzada per l'usuari root de l'equip $usuari.     
-        Sistema operatiu $versio_SO.                                                                      
-        Versio del script $versio_script compilada el $data_compilacio.                                                              
-        Analisi iniciada en data $(date +'%Y-%m-%d') a les $hi i finalitzada en data $(date +'%Y-%m-%d') a les $hf [$s s].               
-    ------------------------------------------------------------------------------------------------------------------------         
-                                                                                                                        
-╚══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+ ╔════════════════════════════════════════════════════════╗
+ ║                                                                         ║
+ ║  ---------------------------------------------------------------------  ║
+ ║   Anàlisi de connectivitat a l'equip $s1 en el port $num/$protocol.          ║
+ ║  ---------------------------------------------------------------------  ║
+ ║  Equip:                  $usuari [127.0.1.1]                            ║
+ ║  Usuari:                 uid=0(root) gid=0(root) grups=0(root)          ║
+ ║  Sistema operatiu:       $versio_SO                                     ║
+ ║  Versió:                 info_connect.sh $versio_script ($data_compilacio)                 ║
+ ║                          info_funcions.sh $versio_script2 ($data_compilacio2)          ║
+ ║  Data d'inici:           $(date +'%Y-%m-%d') a les $hi                      ║
+ ║  Data de finalització:   $(date +'%Y-%m-%d') a les $hf                      ║
+ ║  Durada de les tasques:  $s s                                            ║
+ ║  ---------------------------------------------------------------------  ║
+ ║                                                                         ║
+ ╚════════════════════════════════════════════════════════╝  
+
 EOF
 
 cat log_inet_s4_capc.log log_inet_s4.log >> log_inet.log
