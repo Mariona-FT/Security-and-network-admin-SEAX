@@ -1,7 +1,8 @@
 #!/bin/bash
 
 function show_help() {
-  echo "Aquest script ens dona informació de totes les interfícies ethernet i wifi on s'està executant."
+  echo "Aquest script ens dona informació sobre la connectivitat en un equip destí donat amb"
+  echo  "una ip de l'equip,  amb un port i un protocol ."
   echo "Genera el seu resultat en el fitxer: log_inet.log"
   echo "Genera 3 fitxers auxiliars anomenats: log_inet_s4_capc.log, log_inet_s4.log i log_scan.log"
   echo "Es necessita donar el permís d'execució de script:"
@@ -23,7 +24,13 @@ function show_help() {
   echo ""
   echo "Opcions:"
   echo "  -h                Mostra aquesta ajuda i surt"
-  echo " ./info_inet.sh     per executar el script"
+  echo ""
+  echo "EXECUCIÓ: "
+  echo " ./info_inet.sh adreca_ip  num_port/nom_protocol "
+  echo "      num_port: ha de ser un número entre el 0-65535  "
+  echo "      nom_protocol: ha de ser tcp o udp i en minúscules (no es contemplen més opcions en xarxes IP) "
+  echo "            en el mateix format de ser dividits per una barra(/) i sense espais entre ells  "
+
 }
 
 while getopts "h" opt; do
@@ -40,14 +47,20 @@ while getopts "h" opt; do
   esac
 done
 
+    # Processar els arguments- si no hi ha ip ni port/protcol error
+if [ "$#" -ne 2 ]; then
+    echo "Error: Número incorrecte d'arguments."
+    show_help
+    exit 1
+fi
+
 #Hora inicial
 hi=$(date +'%H:%M:%S')
 #Borrar el .log de antics resultats  
 > log_inet_s4.log
 > log_inet_s4_capc.log 
 > log_inet.log
-
-
+´
 echo "COMPROVACIONS INICIALS"
 
 echo "Veure si es compleixen les comprovacions inicials.."
@@ -69,6 +82,45 @@ echo "Veure si es compleixen les comprovacions inicials.."
         echo "Sistema Operatiu Correcte : $SO"
     fi
 
+
+    # Funció per validar l'adreça IP
+    validar_ip() {
+        echo $2
+    if ! [[ $1 =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
+        echo "Error: L'adreça IP proporcionada no és vàlida"
+        exit 1
+    fi
+    }
+
+    # Funció per validar el port
+    validar_port() {
+    if ! [[ $1 =~ ^[0-9]+$ ]] || [ $1 -lt 0 ] || [ $1 -gt 65535 ]; then
+        echo "Error: El número de port ha de ser un valor entre 0 i 65535"
+        exit 1
+    fi
+    }
+
+    # Funció per validar el protocol
+    validar_protocol() {
+    if ! [[ $1 =~ ^(tcp|udp)$ ]]; then
+        echo "Error: El protocol ha de ser 'tcp' o 'udp'"
+        exit 1
+    fi
+    }
+
+    #lectura paràmetres
+    ADDR_IP=$1
+    entrada=$2
+    IFS='/' read -r PORT PROTO <<<$entrada
+
+    echo "entrada ip $1"
+    echo "entrada port $PORT"
+    echo "entrada protocol $PROTO"
+
+    validar_ip $ADDR_IP
+    validar_port $PORT
+    validar_protocol $PROTO
+
     #ABANS Mirar si paquets per execucio instalats
     funcio_verifica_paquets() {
         if ! command -v $1 &> /dev/null; then
@@ -76,14 +128,11 @@ echo "Veure si es compleixen les comprovacions inicials.."
             exit 1
         fi
     }
-    funcio_verifica_paquets curl
     funcio_verifica_paquets whois
-    funcio_verifica_paquets bc
-    funcio_verifica_paquets dig
-    funcio_verifica_paquets whois
-    funcio_verifica_paquets traceroute
 
 
+
+   
 echo "Comencar a veure la configuracio del sistema.."
 
     # Sistema Operatiu - $SO
