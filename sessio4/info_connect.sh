@@ -135,7 +135,40 @@ echo "Veure si es compleixen les comprovacions inicials.."
    
 echo "Comencar a veure la configuracio del sistema.."
 
+#****RECURSOS PER DEFECTE ***
+cat >> log_inet_s4.log << EOF    
+┌─────────────────────────────────────────────────────────┐
+                                                                                         
+  ---------------------------------------------------------------------------            
+                       Estat dels recursos per defecte.                                  
+  ---------------------------------------------------------------------------            
+    Intefície per defefcte definida:           [ok]    $inter_def                              
+    Intefície per defefcte adreça MAC:         [ok]    $mac_def                  
+    Intefície per defefcte estat:              [ok]    $estat_def                             
+    Intefície per defefcte adreça IP:          [ok]    $ip_def                     
+    Intefície per defefcte adreça IP respon:   [ok]    rtt $vm_def ms                        
+    Intefície per defefcte adreça de xarxa:    [ok]    $xarxa_def                       
+                                                                                            
+    Router per defecte definit:                [ok]    $router_def                        
+    Router per defecte respon:                 [ok]    rtt $router_vel_def ms                        
+    Router per defecte té accés a Internet:    [ok]    rtt $router_inte_def ms (a $router_acces_def)            
+                                                                                            
+    Servidor DNS per defecte definit:          [ok]    $dns_def             
+    Servidor DNS per defecte respon:           [ok]    $dns_resp_def                            
+  ---------------------------------------------------------------------------            
+                                                                                
+EOF
 
+
+#****RECURSOS DEDICATS ***
+
+
+
+#****RECURSOS DESTÍ ***
+cat >> log_inet_s4.log << EOF    
+
+└─────────────────────────────────────────────────────────┘                                                                                                                             
+EOF
 
     # Sistema Operatiu - $SO
     funcio_SO() {
