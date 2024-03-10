@@ -60,17 +60,17 @@ hi=$(date +'%H:%M:%S')
 > log_inet_s4.log
 > log_inet_s4_capc.log 
 > log_inet.log
-´
+
 echo "COMPROVACIONS INICIALS"
 
 echo "Veure si es compleixen les comprovacions inicials.."
 
     #Verificar suari amb usuari root
     if [ "$(whoami)" != "root" ]; then
-         echo "Usuari no es root, NO es pot executar l'script"
+         echo " Usuari no es root, NO es pot executar l'script"
         exit 1 # Atura l'execucio
     else
-        echo "Usuari es root, SI es pot executar l'script" 
+        echo "  Usuari es root, SI es pot executar l'script" 
     fi
 
     #Verificar Sistema Operatiu
@@ -79,13 +79,21 @@ echo "Veure si es compleixen les comprovacions inicials.."
         echo "Aquest script nomes es pot executar en Debian. El sistema actual és: $SO"
         exit 1 # Atura l'execucio
     else
-        echo "Sistema Operatiu Correcte : $SO"
+        echo "  Sistema Operatiu Correcte : $SO"
     fi
 
+    echo "Comprovar si els paràmetres donats son correctes.."
+    #lectura paràmetres
+    ADDR_IP=$1
+    entrada=$2
+    IFS='/' read -r PORT PROTO <<<$entrada #dividir port i protcol
 
+    echo "  Entrada paràmetre ip:          $1"
+    echo "  Entrada paràmetre port:        $PORT"
+    echo "  Entrada paràmetre protocol:    $PROTO"
+    
     # Funció per validar l'adreça IP
     validar_ip() {
-        echo $2
     if ! [[ $1 =~ ^([0-9]{1,3}\.){3}[0-9]{1,3}$ ]]; then
         echo "Error: L'adreça IP proporcionada no és vàlida"
         exit 1
@@ -108,15 +116,6 @@ echo "Veure si es compleixen les comprovacions inicials.."
     fi
     }
 
-    #lectura paràmetres
-    ADDR_IP=$1
-    entrada=$2
-    IFS='/' read -r PORT PROTO <<<$entrada
-
-    echo "entrada ip $1"
-    echo "entrada port $PORT"
-    echo "entrada protocol $PROTO"
-
     validar_ip $ADDR_IP
     validar_port $PORT
     validar_protocol $PROTO
@@ -124,16 +123,19 @@ echo "Veure si es compleixen les comprovacions inicials.."
     #ABANS Mirar si paquets per execucio instalats
     funcio_verifica_paquets() {
         if ! command -v $1 &> /dev/null; then
-            echo "El paquet $1 no esta instal·lat, shaura d'instalar per fer totes les proves amb exit"
+            echo "  El paquet $1 no esta instal·lat, shaura d'instalar per fer totes les proves amb exit"
             exit 1
         fi
     }
+
     funcio_verifica_paquets whois
 
 
 
    
 echo "Comencar a veure la configuracio del sistema.."
+
+
 
     # Sistema Operatiu - $SO
     funcio_SO() {
