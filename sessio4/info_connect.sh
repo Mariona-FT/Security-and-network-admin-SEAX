@@ -136,7 +136,7 @@ echo "Veure si es compleixen les comprovacions inicials.."
    
 echo "Comencar a veure la configuracio del sistema.."
 
-#****RECURSOS PER DEFECTE ***
+#*** RECURSOS PER DEFECTE ***
 
 #Funcio per obtenir la interfíce per defecte
 get_default_interface() {
@@ -243,10 +243,6 @@ get_dns_response_time() {
 
 echo "Comprovar els recursos per defecte.."
 
-#ADDR_IP
-#PORT
-#PROTO
-
 echo "Interficie per defecte.."
 inter_def=$(get_default_interface)
     if [ "$inter_def" != "-" ]; then
@@ -305,7 +301,7 @@ cat >> log_inet_s4.log << EOF
     Intefície per defecte adreça MAC:          [$mac_dstat]    $mac_def                  
     Intefície per defecte estat:               [$estat_dstat]    $estat_def                             
     Intefície per defecte adreça IP:           [$ip_dstat]    $ip_def                     
-    Intefície per defecte adreça IP respon:    [$ipv_dstat]    rtt $vm_def ms                        
+    Intefície per defecte adreça IP respon:    [$ipv_dstat]      rtt $vm_def ms                        
     Intefície per defecte adreça de xarxa:     [$xarxa_dstat]    $xarxa_def                       
                                     ---                                                      
     Router per defecte definit:                [$router_dstat]    $router_def                        
@@ -319,7 +315,7 @@ cat >> log_inet_s4.log << EOF
 EOF
 
 
-#****RECURSOS DEDICATS ***
+#*** RECURSOS DEDICATS ***
 cat >> log_inet_s4.log << EOF    
  ----------------------------------------------------------------------           
                      Estat dels recursos dedicats.                                
@@ -337,7 +333,7 @@ cat >> log_inet_s4.log << EOF
  ----------------------------------------------------------------------       
 EOF
 
-#****RECURSOS DESTÍ ***
+#*** RECURSOS DESTÍ ***
 cat >> log_inet_s4.log << EOF    
 
  -------------------------------------------------------------------------------  
@@ -353,7 +349,8 @@ cat >> log_inet_s4.log << EOF
  -------------------------------------------------------------------------------
 └─────────────────────────────────────────────────────────┘                                                                                                                             
 EOF
-
+#*** RESULTATS CAPÇALERA ***
+    
     # Sistema Operatiu - $SO
     funcio_SO() {
         versio_SO=$(grep 'PRETTY_NAME' /etc/os-release | cut -d'=' -f2 | tr -d '"')
@@ -366,12 +363,6 @@ EOF
         echo $data_compilacio
     }
 
-cat >> log_inet_s4.log << EOF    
-        hola
-EOF
-
-
-    # RESULTATS CAPÇALERA
     usuari=$(hostname)
     versio_SO=$(funcio_SO)
     data_compilacio=$(funcio_data_compilacio)
@@ -383,11 +374,10 @@ EOF
     s=$((sf - si))
 
 cat << EOF > log_inet_s4_capc.log
-
  ╔════════════════════════════════════════════════════════╗
  ║                                                                         ║
  ║  ---------------------------------------------------------------------  ║
- ║   Anàlisi de connectivitat a l'equip $s1 en el port $num/$protocol.          ║
+ ║   Anàlisi de connectivitat a l'equip $ADDR_IP en el port $PORT/$PROTO.          ║
  ║  ---------------------------------------------------------------------  ║
  ║  Equip:                  $usuari [127.0.1.1]                            ║
  ║  Usuari:                 uid=0(root) gid=0(root) grups=0(root)          ║
