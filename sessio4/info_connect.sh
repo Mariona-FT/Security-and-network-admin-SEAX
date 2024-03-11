@@ -137,6 +137,7 @@ echo "Veure si es compleixen les comprovacions inicials.."
 echo "Comencar a veure la configuracio del sistema.."
 
 #****RECURSOS PER DEFECTE ***
+
 #Funcio per obtenir la interfíce per defecte
 get_default_interface() {
     local inter_def=$(ip route show default  | awk '{print $5}' | head -n 1) #ruta interfices per defectes
@@ -147,11 +148,16 @@ get_default_interface() {
         fi
 }
 
-# Funció per obtenir l'adreça MAC de la interfície per defecte
+#Funció per obtenir l'adreça MAC de la interfície per defecte
+#   DEPEN funcio interfíce per defecte -$1
 get_mac_address() {
     local inter_def=$1
-    local mac_def=$(cat /sys/class/net/${inter_def}/address)
-    echo $mac_def
+    local mac_def=$(cat /sys/class/net/${inter_def}/address) #troba mac interficie donada
+    if [ -z "$mac_def" ]; then  # Si retorna una interficie defecte buida
+        echo "-"
+    else 
+        echo "$mac_def" 
+    fi
 }
 
 # Funció per comprovar l'estat de la interfície per defecte
@@ -221,7 +227,7 @@ echo "Comprovar els recursos per defecte.."
 #PROTO
 
 echo "Interficie per defecte.."
-inter_def=$(get_default_interface $ADDR_IP)
+inter_def=$(get_default_interface)
     if [ "$inter_def" != "-" ]; then
         in_dstat="ok"
     else
@@ -229,7 +235,7 @@ inter_def=$(get_default_interface $ADDR_IP)
     fi
 
 echo "Adreça Mac per defecte.."
-mac_def=$(get_mac_address $ADDR_IP)
+mac_def=$(get_mac_address $inter_def) #passar nom interficie
     if [ "$mac_def" != "-" ]; then
         mac_dstat="ok"
     else
