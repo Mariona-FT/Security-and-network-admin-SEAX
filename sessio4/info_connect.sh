@@ -153,7 +153,7 @@ get_default_interface() {
 get_mac_address() {
     local inter_def=$1
     local mac_def=$(cat /sys/class/net/${inter_def}/address) #troba mac interficie donada
-    if [ -z "$mac_def" ]; then  # Si retorna una interficie defecte buida
+    if [ -z "$mac_def" ]; then  # Si retorna una mac defecte buida
         echo "-"
     else 
         echo "$mac_def" 
@@ -165,7 +165,7 @@ get_mac_address() {
 get_interface_status() {
     local inter_def=$1
     local  inte_est=$(ip addr show "$inter_def" 2>/dev/null | grep -Po 'state \K[^ ]+') #buscar el estat interficie
-        if [ "$inte_est" == "UP" ]; then  # interficie si esta configurada i amb senyal
+        if [ "$inte_est" == "UP" ]; then  # L'estat interfice amunt
             echo "up"
         elif [ "$inte_est" == "DOWN" ]; then # L'estat interficie avall
             echo "down"
@@ -175,10 +175,15 @@ get_interface_status() {
 }
 
 # Funció per obtenir l'adreça IP de la interfície per defecte
+#   DEPEN funcio interfíce per defecte -$1
 get_ip_address() {
     local inter_def=$1
     local ip_def=$(ip addr show ${inter_def} | grep 'inet ' | awk '{print $2}' | cut -d/ -f1)
-    echo $ip_def
+    if [ -z "$ip_def" ]; then  # Si retorna una ip defecte buida
+        echo "-"
+    else 
+        echo "$ip_def" 
+    fi
 }
 
 # Funció per obtenir la latència a l'adreça IP per defecte (ICMP ping)
@@ -258,7 +263,7 @@ if [ "$estat_def" != "-" ] && [ "$estat_def" != "down" ]; then
     fi
 
 echo "Adreça IP per defecte.."
-ip_def=$(get_ip_address $ADDR_IP)
+ip_def=$(get_ip_address $inter_def) #passar nom interficie per defecte
  if [ "$ip_def" != "-" ]; then
         ip_dstat="ok"
     else
