@@ -27,6 +27,7 @@ function show_help() {
   echo ""
   echo "EXECUCIÓ: "
   echo " ./info_inet.sh adreca_ip  num_port/nom_protocol "
+  echo "      adreca_ip: una ip amb els sets de 3 números dividits en punts xxx.xx.xxx.xx "
   echo "      num_port: ha de ser un número entre el 0-65535  "
   echo "      nom_protocol: ha de ser tcp o udp i en minúscules (no es contemplen més opcions en xarxes IP) "
   echo "            en el mateix format de ser dividits per una barra(/) i sense espais entre ells  "
@@ -136,37 +137,193 @@ echo "Veure si es compleixen les comprovacions inicials.."
 echo "Comencar a veure la configuracio del sistema.."
 
 #****RECURSOS PER DEFECTE ***
+#Funcio per obtenir la interfíce per defecte
+get_default_interface() {
+    local inter_def=$(ip route show default  | awk '{print $5}' | head -n 1) #ruta interfices per defectes
+     if [ -z "$inter_def" ]; then  # Si retorna una interficie defecte buida
+            echo "-"
+        else 
+            echo "$inter_def" 
+        fi
+}
+
+# Funció per obtenir l'adreça MAC de la interfície per defecte
+get_mac_address() {
+    local inter_def=$1
+    local mac_def=$(cat /sys/class/net/${inter_def}/address)
+    echo $mac_def
+}
+
+# Funció per comprovar l'estat de la interfície per defecte
+get_interface_status() {
+    local inter_def=$1
+    local estat_def=$(cat /sys/class/net/${inter_def}/operstate)
+    echo $estat_def
+}
+
+# Funció per obtenir l'adreça IP de la interfície per defecte
+get_ip_address() {
+    local inter_def=$1
+    local ip_def=$(ip addr show ${inter_def} | grep 'inet ' | awk '{print $2}' | cut -d/ -f1)
+    echo $ip_def
+}
+
+# Funció per obtenir la latència a l'adreça IP per defecte (ICMP ping)
+get_ip_rtt() {
+    local ip_def=$1
+    local vm_def=$(ping -c 1 ${ip_def} | grep 'time=' | awk -F'time=' '{print $2}' | awk '{print $1}')
+    echo $vm_def
+}
+
+# Funció per obtenir la xarxa de la interfície per defecte
+get_network_address() {
+    local inter_def=$1
+    local xarxa_def=$(ip route show default | grep ${inter_def} | grep -oP 'src \K[^ ]+')
+    echo $xarxa_def
+}
+
+# Funció per obtenir el router per defecte
+get_default_router() {
+    local router_def=$(ip route show default | awk '/default/ {print $3}')
+    echo $router_def
+}
+
+# Funció per comprovar la latència al router per defecte (ICMP ping)
+get_router_response_time() {
+    local router_def=$1
+    local router_vel_def=$(ping -c 1 ${router_def} | grep 'time=' | awk -F'time=' '{print $2}' | awk '{print $1}')
+    echo $router_vel_def
+}
+
+# Funció per comprovar l'accés a Internet (ICMP ping a un servidor conegut, p.ex. 8.8.8.8)
+get_internet_access() {
+    local router_acces_def=$(ping -c 1 8.8.8.8 | grep 'time=' | awk -F'time=' '{print $2}' | awk '{print $1}')
+    echo $router_acces_def
+}
+
+# Funció per obtenir el servidor DNS per defecte
+get_dns_server() {
+    local dns_def=$(grep 'nameserver' /etc/resolv.conf | awk '{print $2}' | head -n 1)
+    echo $dns_def
+}
+
+# Funció per comprovar la latència al servidor DNS per defecte (ICMP ping)
+get_dns_response_time() {
+    local dns_def=$1
+    local dns_resp_def=$(ping -c 1 ${dns_def} | grep 'time=' | awk -F'time=' '{print $2}' | awk '{print $1}')
+    echo $dns_resp_def
+}
+
+echo "Comprovar els recursos per defecte.."
+
+#ADDR_IP
+#PORT
+#PROTO
+
+echo "Interficie per defecte.."
+inter_def=$(get_default_interface $ADDR_IP)
+    if [ "$inter_def" != "-" ]; then
+        in_dstat="ok"
+    else
+        in_dstat="ko"
+    fi
+
+echo "Adreça Mac per defecte.."
+mac_def=$(get_mac_address $ADDR_IP)
+    if [ "$mac_def" != "-" ]; then
+        mac_dstat="ok"
+    else
+        mac_dstat="ko"
+    fi
+
+echo "Estat interfície per defecte.."
+estat_def=$(get_interface_status $ADDR_IP)
+ if [ "$estat_def" != "-" ]; then
+        estat_dstat="ok"
+    else
+        estat_dstat="ko"
+    fi
+
+echo "Adreça IP per defecte.."
+ip_def=$(get_ip_address $ADDR_IP)
+ if [ "$ip_def" != "-" ]; then
+        ip_dstat="ok"
+    else
+        ip_dstat="ko"
+    fi
+
+echo "Adreça ip interfíce velocitat per defecte.."
+#vm_def=$(get_ip_rtt $ADDR_IP)
+ if [ "$vm_def" != "-" ]; then
+        ip_dstat="ok"
+    else
+        ip_dstat="ko"
+    fi
+
+echo "Xarxa interfície per defecte.."
+xarxa_def=$(get_network_address $ADDR_IP)
+ if [ "$xarxa_def" != "-" ]; then
+        xarxa_dstat="ok"
+    else
+        xarxa_dstat="ko"
+    fi
+
 cat >> log_inet_s4.log << EOF    
 ┌─────────────────────────────────────────────────────────┐
                                                                                          
   ---------------------------------------------------------------------------            
                        Estat dels recursos per defecte.                                  
   ---------------------------------------------------------------------------            
-    Intefície per defefcte definida:           [ok]    $inter_def                              
-    Intefície per defefcte adreça MAC:         [ok]    $mac_def                  
-    Intefície per defefcte estat:              [ok]    $estat_def                             
-    Intefície per defefcte adreça IP:          [ok]    $ip_def                     
-    Intefície per defefcte adreça IP respon:   [ok]    rtt $vm_def ms                        
-    Intefície per defefcte adreça de xarxa:    [ok]    $xarxa_def                       
+    Intefície per defecte definida:            [$in_dstat]    $inter_def                              
+    Intefície per defecte adreça MAC:          [$mac_dstat]    $mac_def                  
+    Intefície per defecte estat:               [$estat_dstat]    $estat_def                             
+    Intefície per defecte adreça IP:           [$ip_dstat]    $ip_def                     
+    Intefície per defecte adreça IP respon:    [$ipv_dstat]    rtt $vm_def ms                        
+    Intefície per defecte adreça de xarxa:     [$xarxa_dstat]    $xarxa_def                       
+                                    ---                                                      
+    Router per defecte definit:                [$router_dstat]    $router_def                        
+    Router per defecte respon:                 [$router_rtt_dstat]    rtt $router_vel_def ms                        
+    Router per defecte té accés a Internet:    [$router_inte_dstat]    rtt $router_inte_def ms (a $router_acces_def)            
                                                                                             
-    Router per defecte definit:                [ok]    $router_def                        
-    Router per defecte respon:                 [ok]    rtt $router_vel_def ms                        
-    Router per defecte té accés a Internet:    [ok]    rtt $router_inte_def ms (a $router_acces_def)            
-                                                                                            
-    Servidor DNS per defecte definit:          [ok]    $dns_def             
-    Servidor DNS per defecte respon:           [ok]    $dns_resp_def                            
+    Servidor DNS per defecte definit:          [$dns_dstat]    $dns_def             
+    Servidor DNS per defecte respon:           [$dns_resp_dstat]    $dns_resp_def                            
   ---------------------------------------------------------------------------            
                                                                                 
 EOF
 
 
 #****RECURSOS DEDICATS ***
-
-
+cat >> log_inet_s4.log << EOF    
+ ----------------------------------------------------------------------           
+                     Estat dels recursos dedicats.                                
+ ----------------------------------------------------------------------           
+    Interfície de sortida cap al destí:        [ok]    enp0s3                        
+    Interfície de sortida adreça MAC:          [ok]    08:00:27:1d:97:61             
+    Interfície de sortida estat:               [ok]    up                            
+    Interfície de sortida adreça IP:           [ok]    10.1.1.143                    
+    Interfície de sortida adreça IP respon:    [ok]    rtt 0.013 ms                  
+    Interfície de sortida adreça de xarxa:     [ok]    10.1.1.0/24                   
+                                                                                    
+    Router de sortida cap al destí:            [ok]    << Mateixa xarxa >>           
+    Router de sortida cap al destí respon:     [ko]    << Omès >>                    
+    Router de sortida té accés a Internet:     [ko]    << Omès >>                    
+ ----------------------------------------------------------------------       
+EOF
 
 #****RECURSOS DESTÍ ***
 cat >> log_inet_s4.log << EOF    
 
+ -------------------------------------------------------------------------------  
+                             Estat de l'equip destí.                              
+ -------------------------------------------------------------------------------  
+    Destí nom DNS:                             [ok]    -                             
+    Destí adreça IP:                           [ok]    10.1.1.222                    
+    Destí port servei:                         [ok]    80/tcp http                   
+                                                                                    
+    Destí abastable:                           [ko]    << L'equip no respon >>       
+    Destí respon al servei:                    [ko]    << El port no respon >>       
+    Destí versió del servei:                   [ko]    << Versió no identificada >>  
+ -------------------------------------------------------------------------------
 └─────────────────────────────────────────────────────────┘                                                                                                                             
 EOF
 
