@@ -194,10 +194,19 @@ get_ip_rtt() {
 }
 
 # Funció per obtenir la xarxa de la interfície per defecte
+#   DEPEN funcio interfíce per defecte -$1
 get_network_address() {
     local inter_def=$1
-    local xarxa_def=$(ip route show default | grep ${inter_def} | grep -oP 'src \K[^ ]+')
-    echo $xarxa_def
+
+    # Verificar si hi ha l'adreça IP amb mascara de l'interfície
+    #si es defecte la segona fila sera la ip de la xarxa+mascara
+    local xarxa_def=$(ip route show | grep "$inter_def" | awk 'NR==2 {print $1}') 
+    if [ -z "$xarxa_def" ]; then
+        echo "-"
+    else 
+        echo $xarxa_def
+    fi
+
 }
 
 # Funció per obtenir el router per defecte
@@ -279,7 +288,7 @@ echo "Adreça ip interfíce velocitat per defecte.."
     fi
 
 echo "Xarxa interfície per defecte.."
-xarxa_def=$(get_network_address $ADDR_IP)
+xarxa_def=$(get_network_address $inter_def) #passar nom interficie per defecte
  if [ "$xarxa_def" != "-" ]; then
         xarxa_dstat="ok"
     else
