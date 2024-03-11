@@ -276,11 +276,11 @@ ip_def=$(get_ip_address $inter_def) #passar nom interficie per defecte
     fi
 
 echo "Adreça ip interfíce velocitat per defecte.."
-#vm_def=$(get_ip_rtt $ADDR_IP)
+vm_def=$(get_ip_rtt $ip_def)
  if [ "$vm_def" != "-" ]; then
-        ip_dstat="ok"
+        ipv_dstat="ok"
     else
-        ip_dstat="ko"
+        ipv_dstat="ko"
     fi
 
 echo "Xarxa interfície per defecte.."
@@ -301,7 +301,7 @@ cat >> log_inet_s4.log << EOF
     Intefície per defecte adreça MAC:          [$mac_dstat]    $mac_def                  
     Intefície per defecte estat:               [$estat_dstat]    $estat_def                             
     Intefície per defecte adreça IP:           [$ip_dstat]    $ip_def                     
-    Intefície per defecte adreça IP respon:    [$ipv_dstat]      rtt $vm_def ms                        
+    Intefície per defecte adreça IP respon:    [$ipv_dstat]    rtt $vm_def ms                        
     Intefície per defecte adreça de xarxa:     [$xarxa_dstat]    $xarxa_def                       
                                     ---                                                      
     Router per defecte definit:                [$router_dstat]    $router_def                        
