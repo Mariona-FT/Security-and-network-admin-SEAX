@@ -161,10 +161,17 @@ get_mac_address() {
 }
 
 # Funció per comprovar l'estat de la interfície per defecte
+#   DEPEN funcio interfíce per defecte -$1
 get_interface_status() {
     local inter_def=$1
-    local estat_def=$(cat /sys/class/net/${inter_def}/operstate)
-    echo $estat_def
+    local  inte_est=$(ip addr show "$inter_def" 2>/dev/null | grep -Po 'state \K[^ ]+') #buscar el estat interficie
+        if [ "$inte_est" == "UP" ]; then  # interficie si esta configurada i amb senyal
+            echo "up"
+        elif [ "$inte_est" == "DOWN" ]; then # L'estat interficie avall
+            echo "down"
+        else
+            echo "-"
+        fi
 }
 
 # Funció per obtenir l'adreça IP de la interfície per defecte
@@ -235,7 +242,7 @@ inter_def=$(get_default_interface)
     fi
 
 echo "Adreça Mac per defecte.."
-mac_def=$(get_mac_address $inter_def) #passar nom interficie
+mac_def=$(get_mac_address $inter_def) #passar nom interficie per defecte
     if [ "$mac_def" != "-" ]; then
         mac_dstat="ok"
     else
@@ -243,8 +250,8 @@ mac_def=$(get_mac_address $inter_def) #passar nom interficie
     fi
 
 echo "Estat interfície per defecte.."
-estat_def=$(get_interface_status $ADDR_IP)
- if [ "$estat_def" != "-" ]; then
+estat_def=$(get_interface_status $inter_def) #passar nom interficie per defecte
+if [ "$estat_def" != "-" ] && [ "$estat_def" != "down" ]; then
         estat_dstat="ok"
     else
         estat_dstat="ko"
