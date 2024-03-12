@@ -281,11 +281,22 @@ get_associated_service() {
     fi
 }
 
+
+get_attainable_destiny() {
+    local latencia_desti=$(ping -c 4 $ip_addr | tail -1 | awk -F '/' '{print $5}')
+    if [ -z "$latencia_desti" ]; then
+        echo "<< L'equip no respon >>"
+    else
+        echo "latència ${latencia_desti} ms"
+    fi
+}
+
 get_service_version() {
-    local versio_servei=$(nmap -sV -p $PORT $ADDR_IP | awk '/SERVICE/{getline; print $4}')
+    # Això suposa que $PORT i $ADDR_IP estan definits fora d'aquesta funció
+    local versio_servei=$(nmap -sV -p $PORT $ADDR_IP | awk '/open/ {print $3}')
     if [ -z "$versio_servei" ]; then
         echo "<< Versió no identificada >>"
-    else
+    else 
         echo $versio_servei
     fi
 }
@@ -459,9 +470,17 @@ servei_associat=$(get_associated_service) #passar nom interficie per defecte
         port_servei_desti_estat="ko"
     fi
 
+echo "Latència del destí.."
+latencia_desti=$(get_attainable_destiny) #passar nom interficie per defecte
+ if [ "$latencia_desti" != "<< L'equip no respon >>" ]; then
+        latencia_desti_estat="ok"
+    else
+        latencia_desti_estat="ko"
+    fi
+
 echo "Versió del servei destí.."
 versio_servei=$(get_service_version) #passar nom interficie per defecte
- if [ "$vm_versio_serveidef" != "<< Versió no identificada >>" ]; then
+ if [ "$versio_servei" != "<< Versió no identificada >>" ]; then
         versio_desti_estat="ok"
     else
         versio_desti_estat="ko"
@@ -476,7 +495,7 @@ cat >> log_inet_s4.log << EOF
     Destí adreça IP:                           []    $ADDR_IP                    
     Destí port servei:                         [$port_servei_desti_estat]    $PORT/$PROTO $servei_associat                   
               
-    Destí abastable:                           []    << L'equip no respon >>       
+    Destí abastable:                           [$latencia_desti_estat]    $latencia_desti      
     Destí respon al servei:                    []    << El port no respon >>       
     Destí versió del servei:                   [$versio_desti_estat]    $versio_servei  
  -------------------------------------------------------------------------------  
