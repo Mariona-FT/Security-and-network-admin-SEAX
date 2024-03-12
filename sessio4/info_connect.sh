@@ -132,6 +132,7 @@ echo "Veure si es compleixen les comprovacions inicials.."
     funcio_verifica_paquets whois
     funcio_verifica_paquets bc
     funcio_verifica_paquets nmap
+    funcio_verifica_paquets nslookup
 
 
 #***FUNCIONS RECURSOS PER DEFECTE ***
@@ -272,6 +273,15 @@ get_util_interface(){
 
 #***FUNCIONS RECURSOS DESTÍ ***
 
+get_DNS_name() {
+    local nom_DNS=$(nslookup $ADDR_IP | awk '/name/ {print $4}')
+    if [ -z "$nom_DNS" ]; then
+        echo "-"
+    else 
+        echo $nom_DNS
+    fi
+}
+
 get_associated_service() {
     local servei_associat=$(nmap -sV -p $PORT $ADDR_IP | awk '/SERVICE/{getline; print $3}')
     if [ -z "$servei_associat" ]; then
@@ -291,6 +301,15 @@ get_attainable_destiny() {
     fi
 }
 
+get_service_response() {
+    local resposta_servei=$(curl -o /dev/null -s -w '%{time_starttransfer}\n' http://$ADD_IP:$PORT)
+    if [ -z "$resposta_servei" ]; then
+        echo "<< El port no respon >>"
+    else 
+        echo $resposta_servei
+    fi
+}
+
 get_service_version() {
     # Això suposa que $PORT i $ADDR_IP estan definits fora d'aquesta funció
     local versio_servei=$(nmap -sV -p $PORT $ADDR_IP | awk '/open/ {print $3}')
@@ -300,8 +319,6 @@ get_service_version() {
         echo $versio_servei
     fi
 }
-
-
 
    
 echo "ANALITZANT ELS RECURSOS PER DEFECTE"
@@ -462,6 +479,14 @@ EOF
 
 echo "ANALITZANT ELS RECURSOS DESTÍ"
 
+echo "Nom DNS destí.."
+nom_DNS=$(get_DNS_name)
+ if [ "$nom_DNS" != "-" ]; then
+        nom_DNS_estat="ok"
+    else
+        nom_DNS_estat="ko"
+    fi
+
 echo "Port i destins.."
 servei_associat=$(get_associated_service) #passar nom interficie per defecte
  if [ "$servei_associat" != "-" ]; then
@@ -478,6 +503,14 @@ latencia_desti=$(get_attainable_destiny) #passar nom interficie per defecte
         latencia_desti_estat="ko"
     fi
 
+echo "Resposta al servei destí.."
+resposta_servei=$(get_service_response)
+ if [ "$resposta_servei" != "<< El port no respon >>" ]; then
+        latencia_respon_estat="ok"
+    else
+        latencia_respon_estat="ko"
+    fi
+
 echo "Versió del servei destí.."
 versio_servei=$(get_service_version) #passar nom interficie per defecte
  if [ "$versio_servei" != "<< Versió no identificada >>" ]; then
@@ -491,12 +524,12 @@ cat >> log_inet_s4.log << EOF
  -------------------------------------------------------------------------------  
                             Estat de l'equip destí.                              
  -------------------------------------------------------------------------------  
-    Destí nom DNS:                             []    -                             
-    Destí adreça IP:                           []    $ADDR_IP                    
+    Destí nom DNS:                             [$nom_DNS_estat]    $nom_DNS                             
+    Destí adreça IP:                           [ok]    $ADDR_IP                    
     Destí port servei:                         [$port_servei_desti_estat]    $PORT/$PROTO $servei_associat                   
               
     Destí abastable:                           [$latencia_desti_estat]    $latencia_desti      
-    Destí respon al servei:                    []    << El port no respon >>       
+    Destí respon al servei:                    [$latencia_respon_estat]    $resposta_servei       
     Destí versió del servei:                   [$versio_desti_estat]    $versio_servei  
  -------------------------------------------------------------------------------  
 └─────────────────────────────────────────────────────────┘                                                                                                                             
