@@ -133,6 +133,7 @@ echo "Veure si es compleixen les comprovacions inicials.."
     funcio_verifica_paquets bc
     funcio_verifica_paquets nmap
     funcio_verifica_paquets nslookup
+    funcio_verifica_paquets curl
 
 
 #***FUNCIONS RECURSOS PER DEFECTE ***
