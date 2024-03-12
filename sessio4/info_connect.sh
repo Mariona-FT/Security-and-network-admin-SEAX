@@ -5,7 +5,7 @@ function show_help() {
   echo  "una ip de l'equip,  amb un port i un protocol ."
   echo "Genera el seu resultat en el fitxer: log_inet.log"
   echo "Genera 2 fitxers auxiliars anomenats: log_inet_s4_capc.log, log_inet_s4.log "
-  echo "    pero son esborrats al final de l'execució"
+  echo "   pero son esborrats al final de l'execució."
   echo "Es necessita donar el permís d'execució de script:"
   echo "    chmod +x info_inet.sh"
   echo "" 
@@ -25,7 +25,7 @@ function show_help() {
   echo ""
   echo "EXECUCIÓ: "
   echo " ./info_inet.sh adreca_ip  num_port/nom_protocol "
-  echo "      adreca_ip: una ip amb els sets de 3 números dividits en punts xxx.xx.xxx.xx "
+  echo "      adreca_ip: una ip amb els sets de 3 números dividits en punts xxx.xxx.xxx.xxx "
   echo "      num_port: ha de ser un número entre el 0-65535  "
   echo "      nom_protocol: ha de ser tcp o udp i en minúscules (no es contemplen més opcions en xarxes IP) "
   echo "            en el mateix format de ser dividits per una barra(/) i sense espais entre ells  "
@@ -120,6 +120,8 @@ echo "Veure si es compleixen les comprovacions inicials.."
     validar_protocol $PROTO
 
     #ABANS Mirar si paquets per execucio instalats
+    echo "Comprovar si hi han els paquets necessaris instal·lats.."
+
     funcio_verifica_paquets() {
         if ! command -v $1 &> /dev/null; then
             echo "  El paquet $1 no esta instal·lat, shaura d'instalar per fer totes les proves amb exit"
@@ -130,12 +132,7 @@ echo "Veure si es compleixen les comprovacions inicials.."
     funcio_verifica_paquets whois
     funcio_verifica_paquets bc
 
-
-
-   
-echo "Comencar a veure la configuracio del sistema.."
-
-#*** RECURSOS PER DEFECTE ***
+#***FUNCIONS RECURSOS PER DEFECTE ***
 
 #Funcio per obtenir la interfíce per defecte
 get_default_interface() {
@@ -222,7 +219,7 @@ get_default_router() {
 get_router_internet() {
     local target_ip=$1
     local temps_total=0
-    local num_packets=5
+    local num_packets=10
 
     for ((i = 1; i <= $num_packets; i++)); do
          local response=$(ping -c 1 $target_ip | grep 'time=' | awk -F'time=' '{print $2}' | awk '{print $1}') #agafar el temps dels pings
@@ -257,6 +254,10 @@ get_dns_default() {
     fi
 }
 
+#***FUNCIONS RECURSOS UTILITZATS ***
+
+#***FUNCIONS RECURSOS DESTÍ ***
+
 get_associated_service() {
     local servei_associat=$(nmap -sV -p $PORT $ADDR_IP | awk '/SERVICE/{getline; print $3}')
     if [ -z "$servei_associat" ]; then
@@ -275,7 +276,12 @@ get_service_version() {
     fi
 }
 
-echo "Comprovar els recursos per defecte.."
+
+
+   
+echo "ANALITZANT ELS RECURSOS PER DEFECTE"
+
+#*** RECURSOS PER DEFECTE ***
 
 echo "Interficie per defecte.."
 inter_def=$(get_default_interface)
@@ -366,6 +372,71 @@ dns_resp_def=$(get_dns_default )
         dns_resp_dstat="ko"
     fi
 
+cat >> log_inet_s4.log << EOF    
+┌─────────────────────────────────────────────────────────┐
+                                                                                         
+ -------------------------------------------------------------------------------  
+                        Estat dels recursos per defecte.                                  
+ -------------------------------------------------------------------------------  
+    Intefície per defecte definida:            [$in_dstat]    $inter_def                              
+    Intefície per defecte adreça MAC:          [$mac_dstat]    $mac_def                  
+    Intefície per defecte estat:               [$estat_dstat]    $estat_def                             
+    Intefície per defecte adreça IP:           [$ip_dstat]    $ip_def                     
+    Intefície per defecte adreça IP respon:    [$ipv_dstat]    rtt $vm_def ms                        
+    Intefície per defecte adreça de xarxa:     [$xarxa_dstat]    $xarxa_def                       
+
+    Router per defecte definit:                [$router_dstat]    $router_def                        
+    Router per defecte respon:                 [$router_rtt_dstat]    rtt $router_vel_def ms                        
+    Router per defecte té accés a Internet:    [$router_inte_dstat]    rtt $router_inte_def ms (a $ad_internet)            
+                                                                                            
+    Servidor DNS per defecte definit:          [$dns_dstat]    $dns_def             
+    Servidor DNS per defecte respon:           [$dns_resp_dstat]    $dns_resp_def                            
+ -------------------------------------------------------------------------------  
+                                                                                
+EOF
+
+#*** RECURSOS DEDICATS ***
+
+echo "ANALITZANT ELS RECURSOS DEDICATS"
+
+echo "Interficie per defecte.."
+inter_def=$(get_default_interface)
+    if [ "$inter_def" != "-" ]; then
+        in_dstat="ok"
+    else
+        in_dstat="ko"
+    fi
+
+echo "Adreça Mac per defecte.."
+mac_def=$(get_mac_address $inter_def) #passar nom interficie per defecte
+    if [ "$mac_def" != "-" ]; then
+        mac_dstat="ok"
+    else
+        mac_dstat="ko"
+    fi
+
+
+
+cat >> log_inet_s4.log << EOF    
+ -------------------------------------------------------------------------------  
+                            Estat dels recursos dedicats.                                
+ -------------------------------------------------------------------------------  
+    Interfície de sortida cap al destí:        [ok]    enp0s3                        
+    Interfície de sortida adreça MAC:          [ok]    08:00:27:1d:97:61             
+    Interfície de sortida estat:               [ok]    up                            
+    Interfície de sortida adreça IP:           [ok]    10.1.1.143                    
+    Interfície de sortida adreça IP respon:    [ok]    rtt 0.013 ms                  
+    Interfície de sortida adreça de xarxa:     [ok]    10.1.1.0/24                   
+                                                                                    
+    Router de sortida cap al destí:            [ok]    << Mateixa xarxa >>           
+    Router de sortida cap al destí respon:     [ko]    << Omès >>                    
+    Router de sortida té accés a Internet:     [ko]    << Omès >>                    
+ -------------------------------------------------------------------------------  
+EOF
+
+#*** RECURSOS DESTÍ ***
+
+echo "ANALITZANT ELS RECURSOS DESTÍ"
 
 echo "Port i destins.."
 servei_associat=$(get_associated_service) #passar nom interficie per defecte
@@ -384,65 +455,23 @@ versio_servei=$(get_service_version) #passar nom interficie per defecte
     fi
 
 cat >> log_inet_s4.log << EOF    
-┌─────────────────────────────────────────────────────────┐
-                                                                                         
-  ---------------------------------------------------------------------------            
-                       Estat dels recursos per defecte.                                  
-  ---------------------------------------------------------------------------            
-    Intefície per defecte definida:            [$in_dstat]    $inter_def                              
-    Intefície per defecte adreça MAC:          [$mac_dstat]    $mac_def                  
-    Intefície per defecte estat:               [$estat_dstat]    $estat_def                             
-    Intefície per defecte adreça IP:           [$ip_dstat]    $ip_def                     
-    Intefície per defecte adreça IP respon:    [$ipv_dstat]    rtt $vm_def ms                        
-    Intefície per defecte adreça de xarxa:     [$xarxa_dstat]    $xarxa_def                       
-
-    Router per defecte definit:                [$router_dstat]    $router_def                        
-    Router per defecte respon:                 [$router_rtt_dstat]    rtt $router_vel_def ms                        
-    Router per defecte té accés a Internet:    [$router_inte_dstat]    rtt $router_inte_def ms (a $ad_internet)            
-                                                                                            
-    Servidor DNS per defecte definit:          [$dns_dstat]    $dns_def             
-    Servidor DNS per defecte respon:           [$dns_resp_dstat]    $dns_resp_def                            
-  ---------------------------------------------------------------------------            
-                                                                                
-EOF
-
-
-#*** RECURSOS DEDICATS ***
-cat >> log_inet_s4.log << EOF    
- ----------------------------------------------------------------------           
-                     Estat dels recursos dedicats.                                
- ----------------------------------------------------------------------           
-    Interfície de sortida cap al destí:        [ok]    enp0s3                        
-    Interfície de sortida adreça MAC:          [ok]    08:00:27:1d:97:61             
-    Interfície de sortida estat:               [ok]    up                            
-    Interfície de sortida adreça IP:           [ok]    10.1.1.143                    
-    Interfície de sortida adreça IP respon:    [ok]    rtt 0.013 ms                  
-    Interfície de sortida adreça de xarxa:     [ok]    10.1.1.0/24                   
-                                                                                    
-    Router de sortida cap al destí:            [ok]    << Mateixa xarxa >>           
-    Router de sortida cap al destí respon:     [ko]    << Omès >>                    
-    Router de sortida té accés a Internet:     [ko]    << Omès >>                    
- ----------------------------------------------------------------------       
-EOF
-
-#*** RECURSOS DESTÍ ***
-cat >> log_inet_s4.log << EOF    
 
  -------------------------------------------------------------------------------  
-                             Estat de l'equip destí.                              
+                            Estat de l'equip destí.                              
  -------------------------------------------------------------------------------  
     Destí nom DNS:                             []    -                             
     Destí adreça IP:                           []    $ADDR_IP                    
     Destí port servei:                         [$port_servei_desti_estat]    $PORT/$PROTO $servei_associat                   
-                                                                                    
+              
     Destí abastable:                           []    << L'equip no respon >>       
     Destí respon al servei:                    []    << El port no respon >>       
     Destí versió del servei:                   [$versio_desti_estat]    $versio_servei  
- -------------------------------------------------------------------------------
+ -------------------------------------------------------------------------------  
 └─────────────────────────────────────────────────────────┘                                                                                                                             
 EOF
 #*** RESULTATS CAPÇALERA ***
     
+
     # Sistema Operatiu - $SO
     funcio_SO() {
         versio_SO=$(grep 'PRETTY_NAME' /etc/os-release | cut -d'=' -f2 | tr -d '"')
@@ -467,20 +496,20 @@ EOF
 
 cat << EOF > log_inet_s4_capc.log
  ╔════════════════════════════════════════════════════════╗
- ║                                                                         ║
- ║  ---------------------------------------------------------------------  ║
- ║   Anàlisi de connectivitat a l'equip $ADDR_IP en el port $PORT/$PROTO.          ║
- ║  ---------------------------------------------------------------------  ║
- ║  Equip:                  $usuari [127.0.1.1]                            ║
- ║  Usuari:                 uid=0(root) gid=0(root) grups=0(root)          ║
- ║  Sistema operatiu:       $versio_SO                                     ║
- ║  Versió:                 info_connect.sh $versio_script ($data_compilacio)                 ║
- ║                          info_funcions.sh $versio_script2 ($data_compilacio2)          ║
- ║  Data d'inici:           $(date +'%Y-%m-%d') a les $hi                      ║
- ║  Data de finalització:   $(date +'%Y-%m-%d') a les $hf                      ║
- ║  Durada de les tasques:  $s s                                            ║
- ║  ---------------------------------------------------------------------  ║
- ║                                                                         ║
+                                                                          
+   ---------------------------------------------------------------------  
+    Anàlisi de connectivitat a l'equip $ADDR_IP en el port $PORT/$PROTO.          
+   ---------------------------------------------------------------------  
+   Equip:                  $usuari [127.0.1.1]                            
+   Usuari:                 uid=0(root) gid=0(root) grups=0(root)          
+   Sistema operatiu:       $versio_SO                                     
+   Versió:                 info_connect.sh $versio_script ($data_compilacio)                 
+                                
+   Data d'inici:           $(date +'%Y-%m-%d') a les $hi                      
+   Data de finalització:   $(date +'%Y-%m-%d') a les $hf                      
+   Durada de les tasques:  $s s                                            
+   ---------------------------------------------------------------------  
+                                                                          
  ╚════════════════════════════════════════════════════════╝  
 
 EOF
