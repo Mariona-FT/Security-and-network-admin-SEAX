@@ -16,7 +16,10 @@ function show_help() {
   echo "Paquets necessaris a tenir instal·lats:"
   echo "whois"
   echo "bc"
-  echo "traceroute"
+  echo "nmap"
+  echo "nslookup"
+  echo "curl"
+  echo "hping3"
   echo "Per instal·lar-los utilitza la comanda:"
   echo "apt install <paquet>"
   echo ""
@@ -134,11 +137,13 @@ echo "Veure si es compleixen les comprovacions inicials.."
     funcio_verifica_paquets nmap
     funcio_verifica_paquets nslookup
     funcio_verifica_paquets curl
+    funcio_verifica_paquets hping3
 
 
 #***FUNCIONS RECURSOS PER DEFECTE ***
 
 #Funcio per obtenir la interfíce per defecte
+#   DEPEN  interfíce donada  -$1
 get_default_interface() {
     local inter_def=$(ip route show default  | awk '{print $5}' | head -n 1) #ruta interfices per defectes
      if [ -z "$inter_def" ]; then  # Si retorna una interficie defecte buida
@@ -160,8 +165,8 @@ get_mac_address() {
     fi
 }
 
-# Funció per comprovar l'estat de la interfície per defecte
-#   DEPEN funcio interfíce per defecte -$1
+# Funció per comprovar l'estat de la interfície 
+#   DEPEN  interfíce donada  -$1
 get_interface_status() {
     local inter_def=$1
     local  inte_est=$(ip addr show "$inter_def" 2>/dev/null | grep -Po 'state \K[^ ]+') #buscar el estat interficie
@@ -174,8 +179,8 @@ get_interface_status() {
         fi
 }
 
-# Funció per obtenir l'adreça IP de la interfície per defecte
-#   DEPEN funcio interfíce per defecte -$1
+# Funció per obtenir l'adreça IP de la interfície
+#   DEPEN  interfíce donada  -$1
 get_ip_address() {
     local inter_def=$1
     local ip_def=$(ip addr show ${inter_def} | grep 'inet ' | awk '{print $2}' | cut -d/ -f1) #buscar dins ip addr la ip
@@ -186,7 +191,8 @@ get_ip_address() {
     fi
 }
 
-# Funció per obtenir la latència a l'adreça IP per defecte (ICMP ping)
+# Funció per obtenir la latència a l'adreça IP (ping)
+# DEPEN ip donada - $1
 get_ip_rtt() {
     local ip_def=$1
     local vm_def=$(ping -c 1 ${ip_def} | grep 'time=' | awk -F'time=' '{print $2}' | awk '{print $1}')
@@ -194,8 +200,8 @@ get_ip_rtt() {
 }
 
 # Funció per obtenir la xarxa de la interfície per defecte
-#   DEPEN funcio interfíce per defecte -$1
-get_network_address() {
+#   DEPEN  interfíce donada per defecte  -$1
+get_network_address_default() {
     local inter_def=$1
     # Verificar si hi ha l'adreça IP amb mascara de l'interfície
     #si es defecte la segona fila sera la ip de la xarxa+mascara
@@ -205,7 +211,6 @@ get_network_address() {
     else 
         echo $xarxa_def
     fi
-
 }
 
 # Funció per obtenir el router per defecte
@@ -259,7 +264,7 @@ get_dns_default() {
 }
 
 #***FUNCIONS RECURSOS UTILITZATS ***
-# Funció per obtenir la interfície utilitzada
+# Funció per obtenir la interfície donada 
 # DEPEN de la ip destí donada -$1
 get_util_interface(){
     local target_ip=$1
@@ -269,6 +274,31 @@ get_util_interface(){
         echo "-"
     else
         echo $interface
+    fi
+}
+
+# Funció per obtenir la xarxa de la interfície donada 
+#   DEPEN  interfíce donada  -$1
+get_network_address() {
+    local inter_def=$1
+    # Verificar si hi ha l'adreça IP amb mascara de l'interfície
+    local xarxa_rec=$(ip route show | grep "$inter_def" | awk '{print $1}') #dins ip route show buscar la interficie de sortida  
+    if [ -z "$xarxa_rec" ]; then # Si retorna xarxa per defecte buit
+        echo "-"
+    else 
+        echo $xarxa_rec
+    fi
+}
+
+# Funció per obtenir el router de sortida 
+#   DEPEN  interfíce donada  -$1
+get_router_desti() {
+    local inter_def=$1
+    local router_rec=$(ip route show dev "$inter_def" | awk '/src/ {print $NF}') #Troba el router de la interfíce de sortida 
+    if [ -z "$router_rec" ]; then  # Si retorna un router per defecte buit
+        echo "-"
+    else 
+        echo $router_rec
     fi
 }
 
@@ -283,7 +313,6 @@ get_DNS_name() {
         echo $nom_DNS
     fi
 }
-
 # Utilitza nmap per identificar el servei que s'executa en el port obert de l'adreça IP especificada.
 get_associated_service() {
     local servei_associat=$(nmap -sV -p $PORT $ADDR_IP | awk '/SERVICE/{getline; print $3}')
@@ -296,21 +325,24 @@ get_associated_service() {
 
 # Fa ping a l'adreça IP i retorna la latència mitjana de quatre intents.
 get_attainable_destiny() {
-    local latencia_desti=$(ping -c 4 $ip_addr | tail -1 | awk -F '/' '{print $5}')
+
+    local latencia_desti=$(ping -c 4 $ADDR_IP | tail -1 | awk -F '/' '{print $5}')
     if [ -z "$latencia_desti" ]; then
         echo "<< L'equip no respon >>"
     else
-        echo "latència ${latencia_desti} ms"
+        echo $latencia_desti
     fi
 }
 
 # Mesura el temps de resposta d'inici del servei utilitzant curl per a una petició HTTP al port especificat.
 get_service_response() {
-    local resposta_servei=$(curl -o /dev/null -s -w '%{time_starttransfer}\n' http://$ADD_IP:$PORT)
-    if [ -z "$resposta_servei" ]; then
+    resposta_servei=$(hping3 -S -p $PORT -c 2 $ADDR_IP 2>&1)
+    round_trip_avg=$(echo "$resposta_servei" | awk -F'/' '/round-trip min\/avg\/max/ {print $4}')
+
+    if [ -z "$round_trip_avg" ]; then
         echo "<< El port no respon >>"
     else 
-        echo $resposta_servei
+        echo $round_trip_avg
     fi
 }
 
@@ -319,15 +351,13 @@ get_service_version() {
     local versio_servei=$(nmap -sV -p $PORT $ADDR_IP | awk '/open/ {for (i=3; i<=NF; i++) printf $i " "; print ""}')
     if [ -z "$versio_servei" ]; then
         echo "<< Versió no identificada >>"
-    else 
+    else
         echo $versio_servei
     fi
-}
-
-   
-echo "ANALITZANT ELS RECURSOS PER DEFECTE"
+}   
 
 #*** RECURSOS PER DEFECTE ***
+echo "ANALITZANT ELS RECURSOS PER DEFECTE"
 echo "Interficie per defecte.."
     inter_def=$(get_default_interface)
         if [ "$inter_def" != "-" ]; then
@@ -369,7 +399,7 @@ echo "Adreça ip per defecte respon.."
         fi
 
 echo "Xarxa interfície per defecte.."
-    xarxa_def=$(get_network_address $inter_def) #passar nom interficie per defecte
+    xarxa_def=$(get_network_address_default $inter_def) #passar nom interficie per defecte
     if [ "$xarxa_def" != "-" ]; then
             xarxa_dstat="ok"
         else
@@ -444,23 +474,90 @@ EOF
 
 echo "ANALITZANT ELS RECURSOS DEDICATS"
 
-echo "Interficie utilitzada.."
-inter_rec=$(get_util_interface $ADDR_IP) #passar ip per trobar interfície q utilitza
-    if [ "$inter_rec" != "-" ]; then
-        in_rstat="ok"
+echo "Interfície de sortida.."
+    inter_rec=$(get_util_interface $ADDR_IP) #passar ip per trobar interfície q utilitza
+        if [ "$inter_rec" != "-" ]; then
+            in_rstat="ok"
+        else
+            in_rstat="ko"
+        fi
+
+echo "Interfície de sortida adreça Mac.."
+    mac_rec=$(get_mac_address $inter_rec) #passar nom interficie de sortida 
+        if [ "$mac_rec" != "-" ]; then
+            mac_rstat="ok"
+        else
+            mac_rstat="ko"
+        fi
+
+echo "Estat interfície de sortida.."
+    estat_rec=$(get_interface_status $inter_rec) #passar nom interficie de sortida
+    if [ "$estat_rec" != "-" ] && [ "$estat_rec" != "down" ]; then
+            estat_rstat="ok"
+        else
+            estat_rstat="ko"
+        fi
+
+echo "Interfície de sortida adreça ip.."
+    ip_rec=$(get_ip_address $inter_rec) #passar nom interficie de sortida 
+    if [ "$ip_rec" != "-" ]; then
+        ip_rstat="ok"
     else
-        in_rstat="ko"
+        ip_rstat="ko"
     fi
 
-echo "Adreça Mac interfície utilitzada.."
-mac_rec=$(get_mac_address $inter_rec) #passar nom interficie UTILITZADA
-    if [ "$mac_rec" != "-" ]; then
-        mac_rstat="ok"
-    else
-        mac_rstat="ko"
+
+echo "Interfície de sortida respon.."
+    vm_rec=$(get_ip_rtt $ip_rec) #passar la ip interfície sortida 
+    if [ "$vm_rec" != "-" ]; then
+            vm_rstat="ok"
+        else
+            vm_rstat="ko"
+        fi
+
+echo "Interfície de sortida xarxa.."
+    xarxa_rec=$(get_network_address $inter_rec) #passar nom interficie de sortida 
+    if [ "$xarxa_rec" != "-" ]; then
+            xarxa_rstat="ok"
+        else
+            xarxa_rstat="ko"
+        fi
+
+echo "Router sortida destí.."
+    router_rec=$(get_router_desti $inter_rec) #passar nom interfície de sortida
+    if [ "$router_rec" = "$router_def" ]; then 
+        #Mateixes xarxes - no cal refer mateixos resultats router per defecte
+        echo " Mateixa xarxa router sortida i router per defecte " 
+        $router_rec="<< Mateixa xarxa >> "
+        $router_rstat="ok"
+        $router_rec_respon="<< Omès >>"
+        $router_rtt_rstat="ko"
+        $router_rec_internet="<< Omès >>"
+        $router_inte_rstat="ko"
+        else
+            if [ "$router_rec" != "-" ]; then
+                router_rstat="ok"
+            else
+                router_rstat="ko"
+            fi
+
+            echo "Router sortida respon.."
+                router_rec_respon=$(get_ip_rtt $router_rec) #passar ip router 
+                if [ "$router_rec_respon" != "-" ]; then
+                        router_rtt_rstat="ok"
+                    else
+                        router_rtt_rstat="ko"
+                    fi
+
+            echo "Router sortida a internet.."
+                ads_internet="1.1.1.1"
+                router_rec_internet=$(get_router_internet $ad_internet )
+                if [ "$router_rec_internet" != "-" ]; then
+                        router_inte_rstat="ok"
+                    else
+                        router_inte_rstat="ko"
+                    fi
     fi
-
-
 
 cat >> log_inet_s4.log << EOF    
  -------------------------------------------------------------------------------  
@@ -468,14 +565,14 @@ cat >> log_inet_s4.log << EOF
  -------------------------------------------------------------------------------  
     Interfície de sortida cap al destí:        [$in_rstat]    $inter_rec                        
     Interfície de sortida adreça MAC:          [$mac_rstat]    $mac_rec            
-    Interfície de sortida estat:               [ok]    up                            
-    Interfície de sortida adreça IP:           [ok]    10.1.1.143                    
-    Interfície de sortida adreça IP respon:    [ok]    rtt 0.013 ms                  
-    Interfície de sortida adreça de xarxa:     [ok]    10.1.1.0/24                   
+    Interfície de sortida estat:               [$estat_rstat]    $estat_rec    
+    Interfície de sortida adreça IP:           [$ip_rstat]    $ip_rec                  
+    Interfície de sortida adreça IP respon:    [$vm_rstat]    rtt $vm_rec ms                  
+    Interfície de sortida adreça de xarxa:     [$xarxa_rstat]    $xarxa_rec                   
                                                                                     
-    Router de sortida cap al destí:            [ok]    << Mateixa xarxa >>           
-    Router de sortida cap al destí respon:     [ko]    << Omès >>                    
-    Router de sortida té accés a Internet:     [ko]    << Omès >>                    
+    Router de sortida cap al destí:            [$router_rstat]    $router_rec           
+    Router de sortida cap al destí respon:     [$router_rtt_rstat]    rtt $router_rec_respon ms                   
+    Router de sortida té accés a Internet:     [$router_inte_rstat]    rtt $router_rec_internet ms (a $ads_internet)                    
  -------------------------------------------------------------------------------  
 EOF
 
@@ -500,8 +597,9 @@ servei_associat=$(get_associated_service) #passar nom interficie per defecte
     fi
 
 echo "Latència del destí.."
-latencia_desti=$(get_attainable_destiny) #passar nom interficie per defecte
+latencia_desti=$(get_attainable_destiny) 
  if [ "$latencia_desti" != "<< L'equip no respon >>" ]; then
+        latencia_desti="latència $latencia_desti us "
         latencia_desti_estat="ok"
     else
         latencia_desti_estat="ko"
@@ -510,13 +608,14 @@ latencia_desti=$(get_attainable_destiny) #passar nom interficie per defecte
 echo "Resposta al servei destí.."
 resposta_servei=$(get_service_response)
  if [ "$resposta_servei" != "<< El port no respon >>" ]; then
+        resposta_servei="latència $resposta_servei us"
         latencia_respon_estat="ok"
     else
         latencia_respon_estat="ko"
     fi
 
 echo "Versió del servei destí.."
-versio_servei=$(get_service_version) #passar nom interficie per defecte
+versio_servei=$(get_service_version) 
  if [ "$versio_servei" != "<< Versió no identificada >>" ]; then
         versio_desti_estat="ok"
     else
@@ -538,6 +637,7 @@ cat >> log_inet_s4.log << EOF
  -------------------------------------------------------------------------------  
 └─────────────────────────────────────────────────────────┘                                                                                                                             
 EOF
+
 #*** RESULTATS CAPÇALERA ***
     
 
@@ -554,9 +654,11 @@ EOF
     }
 
     usuari=$(hostname)
+    usuari_ip=$(ip addr show | awk '/inet / && !/127.0.0.1/ {print $2}' | cut -d/ -f1 | head -n 1)
+    usuari_info=$(id)
     versio_SO=$(funcio_SO)
     data_compilacio=$(funcio_data_compilacio)
-    versio_script=2.08
+    versio_script=4.12
 
     hf=$(date +'%H:%M:%S')
     si=$(date -d "$hi" +%s)
@@ -569,8 +671,8 @@ cat << EOF > log_inet_s4_capc.log
    ---------------------------------------------------------------------  
     Anàlisi de connectivitat a l'equip $ADDR_IP en el port $PORT/$PROTO.          
    ---------------------------------------------------------------------  
-   Equip:                  $usuari [127.0.1.1]                            
-   Usuari:                 uid=0(root) gid=0(root) grups=0(root)          
+   Equip:                  $usuari [$usuari_ip]                            
+   Usuari:                 $usuari_info         
    Sistema operatiu:       $versio_SO                                     
    Versió:                 info_connect.sh $versio_script ($data_compilacio)                 
                                 
