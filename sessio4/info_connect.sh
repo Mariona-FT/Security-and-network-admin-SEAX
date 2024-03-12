@@ -274,7 +274,7 @@ get_util_interface(){
 #***FUNCIONS RECURSOS DESTÍ ***
 
 get_DNS_name() {
-    local nom_DNS=$(nslookup $ADDR_IP | awk '/name/ {print $4}')
+    local nom_DNS=$(nslookup $ADDR_IP | awk '/name =/ {gsub(/.$/, "", $4); print $4}')
     if [ -z "$nom_DNS" ]; then
         echo "-"
     else 
@@ -312,7 +312,7 @@ get_service_response() {
 
 get_service_version() {
     # Això suposa que $PORT i $ADDR_IP estan definits fora d'aquesta funció
-    local versio_servei=$(nmap -sV -p $PORT $ADDR_IP | awk '/open/ {print $3}')
+    local versio_servei=$(nmap -sV -p $PORT $ADDR_IP | awk '/open/ {for (i=3; i<=NF; i++) printf $i " "; print ""}')
     if [ -z "$versio_servei" ]; then
         echo "<< Versió no identificada >>"
     else 
