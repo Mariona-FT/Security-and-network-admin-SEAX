@@ -1,0 +1,14 @@
+Starting Nmap 7.93 ( https://nmap.org ) at 2024-03-10 20:08 CET
+Nmap scan report for 10.0.2.15
+Host is up (0.000054s latency).
+Not shown: 999 closed tcp ports (reset)
+PORT   STATE SERVICE
+22/tcp open  ssh
+Device type: general purpose
+Running: Linux 2.6.X
+OS CPE: cpe:/o:linux:linux_kernel:2.6.32
+OS details: Linux 2.6.32
+Network Distance: 0 hops
+
+OS detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 1.52 seconds

@@ -1,0 +1,87 @@
+23:08:50.621737 enp0s8 B   ARP, Request who-has 192.168.1.158 tell 192.168.1.174, length 46
+23:08:51.136080 enp0s8 B   IP 192.168.1.108.55223 > 192.168.1.255.20002: UDP, length 267
+23:08:52.671720 enp0s8 B   ARP, Request who-has 192.168.1.151 tell 192.168.1.174, length 46
+23:08:53.125550 enp0s8 B   IP francesco-GL75-Leopard-10SEK.57621 > 192.168.1.255.57621: UDP, length 44
+23:08:53.990959 enp0s8 B   IP francesco-GL75-Leopard-10SEK.57621 > 192.168.1.255.57621: UDP, length 44
+23:08:55.640569 enp0s8 B   ARP, Request who-has 192.168.1.157 tell 192.168.1.174, length 46
+23:08:55.640571 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:08:55.642168 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:08:56.770475 enp0s8 B   IP _gateway.netbios-dgm > 192.168.1.255.netbios-dgm: UDP, length 213
+23:08:56.770475 enp0s8 B   IP _gateway.netbios-dgm > 192.168.1.255.netbios-dgm: UDP, length 209
+23:08:56.999651 enp0s8 B   IP francesco-GL75-Leopard-10SEK.57621 > 192.168.1.255.57621: UDP, length 44
+23:08:57.585100 enp0s8 B   ARP, Request who-has 192.168.1.154 tell 192.168.1.174, length 46
+23:08:58.610240 enp0s8 B   ARP, Request who-has 192.168.1.154 tell 192.168.1.174, length 46
+23:08:58.610241 enp0s8 B   ARP, Request who-has 192.168.1.165 tell 192.168.1.174, length 46
+23:08:59.634760 enp0s8 B   ARP, Request who-has 192.168.1.154 tell 192.168.1.174, length 46
+23:09:00.148652 enp0s8 B   IP 192.168.1.108.58211 > 192.168.1.255.20002: UDP, length 267
+23:09:01.578555 enp0s8 B   ARP, Request who-has 192.168.1.150 tell 192.168.1.174, length 46
+23:09:02.603865 enp0s8 B   ARP, Request who-has 192.168.1.158 tell 192.168.1.174, length 46
+23:09:04.652635 enp0s8 B   ARP, Request who-has 192.168.1.151 tell 192.168.1.174, length 46
+23:09:06.187052 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell _gateway, length 46
+23:09:07.622177 enp0s8 B   ARP, Request who-has 192.168.1.157 tell 192.168.1.174, length 46
+23:09:07.622177 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:09:07.623870 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:09:09.172543 enp0s8 B   IP _gateway.bootps > 255.255.255.255.bootpc: BOOTP/DHCP, Reply, length 548
+23:09:09.175779 enp0s8 B   IP 192.168.1.108.34133 > 192.168.1.255.20002: UDP, length 267
+23:09:10.589757 enp0s8 B   ARP, Request who-has 192.168.1.165 tell 192.168.1.174, length 46
+23:09:11.613968 enp0s8 B   ARP, Request who-has 192.168.1.165 tell 192.168.1.174, length 46
+23:09:13.663773 enp0s8 B   ARP, Request who-has 192.168.1.150 tell 192.168.1.174, length 46
+23:09:16.631514 enp0s8 B   ARP, Request who-has 192.168.1.151 tell 192.168.1.174, length 46
+23:09:18.273105 enp0s8 B   IP 192.168.1.108.41427 > 192.168.1.255.20002: UDP, length 267
+23:09:19.605435 enp0s8 B   ARP, Request who-has 192.168.1.157 tell 192.168.1.174, length 46
+23:09:19.605437 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:09:19.607127 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:09:23.594482 enp0s8 B   ARP, Request who-has 192.168.1.165 tell 192.168.1.174, length 46
+23:09:24.618715 enp0s8 B   ARP, Request who-has 192.168.1.165 tell 192.168.1.174, length 46
+23:09:25.643858 enp0s8 B   ARP, Request who-has 192.168.1.150 tell 192.168.1.174, length 46
+23:09:25.643859 enp0s8 B   ARP, Request who-has 192.168.1.165 tell 192.168.1.174, length 46
+23:09:27.036831 enp0s8 B   IP francesco-GL75-Leopard-10SEK.57621 > 192.168.1.255.57621: UDP, length 44
+23:09:28.612213 enp0s8 B   ARP, Request who-has 192.168.1.151 tell 192.168.1.174, length 46
+23:09:30.256271 enp0s8 B   IP _gateway.bootps > 255.255.255.255.bootpc: BOOTP/DHCP, Reply, length 548
+23:09:31.685361 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:09:31.687220 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:09:36.296391 enp0s8 B   IP 192.168.1.108.40817 > 192.168.1.255.20002: UDP, length 267
+23:09:37.623443 enp0s8 B   ARP, Request who-has 192.168.1.150 tell 192.168.1.174, length 46
+23:09:38.647415 enp0s8 B   ARP, Request who-has 192.168.1.158 tell 192.168.1.174, length 46
+23:09:40.593003 enp0s8 B   ARP, Request who-has 192.168.1.151 tell 192.168.1.174, length 46
+23:09:41.618594 enp0s8 B   ARP, Request who-has _gateway tell 192.168.1.174, length 46
+23:09:43.667313 enp0s8 B   ARP, Request who-has 192.168.1.157 tell 192.168.1.174, length 46
+23:09:43.667314 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:09:43.667314 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:09:45.305556 enp0s8 B   IP 192.168.1.108.57906 > 192.168.1.255.20002: UDP, length 267
+23:09:49.604084 enp0s8 B   ARP, Request who-has 192.168.1.150 tell 192.168.1.174, length 46
+23:09:50.628219 enp0s8 B   ARP, Request who-has 192.168.1.158 tell 192.168.1.174, length 46
+23:09:52.688892 enp0s8 B   ARP, Request who-has 192.168.1.151 tell 192.168.1.174, length 46
+23:09:52.688893 enp0s8 B   IP _gateway.bootps > 255.255.255.255.bootpc: BOOTP/DHCP, Reply, length 548
+23:09:55.647142 enp0s8 B   ARP, Request who-has 192.168.1.157 tell 192.168.1.174, length 46
+23:09:55.647144 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:09:55.649008 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:09:57.051205 enp0s8 B   IP francesco-GL75-Leopard-10SEK.57621 > 192.168.1.255.57621: UDP, length 44
+23:10:02.608775 enp0s8 B   ARP, Request who-has 192.168.1.158 tell 192.168.1.174, length 46
+23:10:03.430010 enp0s8 B   IP 192.168.1.108.58205 > 192.168.1.255.20002: UDP, length 267
+23:10:07.627587 enp0s8 B   ARP, Request who-has 192.168.1.157 tell 192.168.1.174, length 46
+23:10:07.627588 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:10:07.629242 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:10:10.124325 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell _gateway, length 46
+23:10:13.877319 enp0s8 B   IP _gateway.bootps > 255.255.255.255.bootpc: BOOTP/DHCP, Reply, length 548
+23:10:14.589596 enp0s8 B   ARP, Request who-has 192.168.1.158 tell 192.168.1.174, length 46
+23:10:16.637604 enp0s8 B   ARP, Request who-has 192.168.1.151 tell 192.168.1.174, length 46
+23:10:19.609619 enp0s8 B   ARP, Request who-has 192.168.1.157 tell 192.168.1.174, length 46
+23:10:19.609621 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:10:19.609621 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:10:21.452642 enp0s8 B   IP 192.168.1.108.50529 > 192.168.1.255.20002: UDP, length 267
+23:10:23.089225 enp0s8 B   ARP, Request who-has 192.168.1.22 tell _gateway, length 46
+23:10:24.112875 enp0s8 B   ARP, Request who-has 192.168.1.22 tell _gateway, length 46
+23:10:25.034617 enp0s8 B   ARP, Request who-has 192.168.1.22 tell _gateway, length 46
+23:10:25.649979 enp0s8 B   ARP, Request who-has 192.168.1.150 tell 192.168.1.174, length 46
+23:10:26.060382 enp0s8 B   ARP, Request who-has 192.168.1.22 tell _gateway, length 46
+23:10:26.672798 enp0s8 B   ARP, Request who-has 192.168.1.158 tell 192.168.1.174, length 46
+23:10:27.082675 enp0s8 B   ARP, Request who-has 192.168.1.22 tell _gateway, length 46
+23:10:27.111713 enp0s8 B   IP francesco-GL75-Leopard-10SEK.57621 > 192.168.1.255.57621: UDP, length 44
+23:10:28.106590 enp0s8 B   ARP, Request who-has 192.168.1.22 tell _gateway, length 46
+23:10:28.618494 enp0s8 B   ARP, Request who-has 192.168.1.151 tell 192.168.1.174, length 46
+23:10:30.466822 enp0s8 B   IP 192.168.1.108.52339 > 192.168.1.255.20002: UDP, length 267
+23:10:31.691582 enp0s8 B   ARP, Request who-has 192.168.1.157 tell 192.168.1.174, length 46
+23:10:31.692690 enp0s8 B   ARP, Request who-has francesco-GL75-Leopard-10SEK tell 192.168.1.174, length 46
+23:10:32.613292 enp0s8 B   ARP, Request who-has 192.168.1.108 tell 192.168.1.174, length 46
+23:10:34.971571 enp0s8 B   IP _gateway.bootps > 255.255.255.255.bootpc: BOOTP/DHCP, Reply, length 548

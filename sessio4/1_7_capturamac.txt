@@ -1,0 +1,54 @@
+ root@seax1:~# ip addr
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:55:d8:4d brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
+       valid_lft 82915sec preferred_lft 82915sec
+    inet6 fe80::a00:27ff:fe55:d84d/64 scope link 
+       valid_lft forever preferred_lft forever
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:44:55:66 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.15/24 brd 192.168.1.255 scope global dynamic enp0s8
+       valid_lft 82921sec preferred_lft 82921sec
+    inet6 fe80::a00:27ff:fe44:5566/64 scope link 
+       valid_lft forever preferred_lft forever
+---------------------------------------------------------------------------
+root@seax1:~# tcpdump  ether host 08:00:27:44:55:66 -w capturamac.pcap
+
+root@seax1:~# ls -la
+total 1665
+drwxrwxrwx  1 root root   12288 10 de març   2024 .
+drwxr-xr-x 19 root root    4096 19 de febr. 17:53 ..
+-rwxrwxrwx  1 root root     420  9 de març  19:10 1_1_interficies_monitoritzar.txt
+-rwxrwxrwx  1 root root     850  9 de març  19:10 1_2_captures60s.txt
+-rwxrwxrwx  1 root root    1040  9 de març  19:13 1_3_captures10Mb.txt
+-rwxrwxrwx  1 root root    1112  9 de març  19:16 1_4_captures255paquets.txt
+-rwxrwxrwx  1 root root    1251  9 de març  19:22 1_5_capturestotsb.txt
+-rwxrwxrwx  1 root root    2011  9 de març  19:57 1_6_capturaenp0s8.txt
+-rw-rw-rw-  1 root root       0 10 de març   2024 1_7_capturamac.txt
+-rwxrwxrwx  1 root root    8724  9 de març  19:13 captura10M.pcap
+-rwxrwxrwx  1 root root    4870  9 de març  19:16 captura255paquets.pcap
+-rwxrwxrwx  1 root root    4862  9 de març  19:07 captura60s.pcap
+-rwxrwxrwx  1 root root     849  9 de març  19:07 captura60s.tar
+-rwxrwxrwx  1 root root 1577190  9 de març  19:54 capturaenp0s8.pcap
+-rwxrwxrwx  1 root root      24  9 de març  20:05 capturamac.pcap
+-rwxrwxrwx  1 root root    5344  9 de març  19:21 capturatotsb.pcap
+-rwxrwxrwx  1 root root    4939  7 de març  10:36 info_connect.sh
+-rwxrwxrwx  1 root root    1065  9 de març  19:58 ips.txt
+-rwxrwxrwx  1 root root    1499  7 de març  10:36 log_inet.log
+-rwxrwxrwx  1 root root    1486  7 de març  10:36 log_inet_s4_capc.log
+-rwxrwxrwx  1 root root      13  7 de març  10:36 log_inet_s4.log
+drwxrwxrwx  1 root root    4096  3 de març  10:58 practica1
+drwxrwxrwx  1 root root   12288 29 de febr. 10:18 practica2
+drwxrwxrwx  1 root root    4096  7 de març  10:02 practica3
+
+---------------------------------------------------------------------------
+
+root@seax1:~# tcpdump -r capturamac.pcap 
+21:03:45.284861 IP6 fe80::a00:27ff:fe55:d84d > ip6-allrouters: ICMP6, router solicitation, length 16
+

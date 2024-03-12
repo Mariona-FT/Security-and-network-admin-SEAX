@@ -1,0 +1,144 @@
+root@seax1:~# ls -la
+total 89
+drwxrwxrwx  1 root root 12288  9 de març  19:11 .
+drwxr-xr-x 19 root root  4096 19 de febr. 17:53 ..
+-rwxrwxrwx  1 root root   420  9 de març  19:10 1_1_interficies_monitoritzar.txt
+-rwxrwxrwx  1 root root   850  9 de març  19:10 1_2_captures60s.txt
+-rwxrwxrwx  1 root root     0  9 de març  19:13 1_3_captures10Mb.txt
+-rwxrwxrwx  1 root root   305  7 de març  11:59 1_4_captures255paquets.txt
+-rwxrwxrwx  1 root root  8724  9 de març  19:13 captura10M.pcap
+-rwxrwxrwx  1 root root  4862  9 de març  19:07 captura60s.pcap
+-rwxrwxrwx  1 root root   849  9 de març  19:07 captura60s.tar
+-rwxrwxrwx  1 root root  4939  7 de març  10:36 info_connect.sh
+-rwxrwxrwx  1 root root  1499  7 de març  10:36 log_inet.log
+-rwxrwxrwx  1 root root  1486  7 de març  10:36 log_inet_s4_capc.log
+-rwxrwxrwx  1 root root    13  7 de març  10:36 log_inet_s4.log
+drwxrwxrwx  1 root root  4096  3 de març  10:58 practica1
+drwxrwxrwx  1 root root 12288 29 de febr. 10:18 practica2
+drwxrwxrwx  1 root root  4096  7 de març  10:02 practica3
+---------------------------------------------------------------------------
+
+root@seax1:~# tcpdump -r captura10M.pcap
+19:11:42.605381 enp0s8 B   ifindex 3 30:d3:2d:86:b5:c4 (oui Unknown) ethertype Unknown (0x8912), length 66: 
+	0x0000:  0170 a000 0000 1f84 01a3 97a2 5553 bef1  .p..........US..
+	0x0010:  fcf9 796b 5214 13e9 e200 0000 0000 0000  ..ykR...........
+	0x0020:  0000 0000 0000 0000 0000 0000 0000       ..............
+19:11:46.489333 enp0s8 B   ARP, Request who-has 192.168.1.15 tell Livebox, length 46
+19:11:46.489346 enp0s8 Out ARP, Reply 192.168.1.15 is-at 08:00:27:44:55:66 (oui Unknown), length 28
+19:11:46.599445 enp0s8 B   ARP, Request who-has 192.168.1.21 tell Livebox, length 46
+19:11:46.599448 enp0s8 B   ARP, Request who-has 192.168.1.22 tell Livebox, length 46
+19:11:46.599448 enp0s8 B   ARP, Request who-has 192.168.1.17 tell Livebox, length 46
+19:11:46.599449 enp0s8 B   ARP, Request who-has 169.254.5.207 tell Livebox, length 46
+19:11:46.599449 enp0s8 B   ARP, Request who-has 192.168.1.18 tell Livebox, length 46
+19:11:47.978430 enp0s8 B   IP 192.168.1.20.57621 > 192.168.1.255.57621: UDP, length 44
+19:11:49.021559 enp0s8 M   IP Livebox > all-systems.mcast.net: igmp query v2 [max resp time 10]
+19:11:53.858464 enp0s8 B   ARP, Request who-has 192.168.1.15 tell Livebox, length 46
+19:11:53.858479 enp0s8 Out ARP, Reply 192.168.1.15 is-at 08:00:27:44:55:66 (oui Unknown), length 28
+19:11:53.972596 enp0s8 B   ARP, Request who-has 192.168.1.21 tell Livebox, length 46
+19:11:53.972598 enp0s8 B   ARP, Request who-has 192.168.1.22 tell Livebox, length 46
+19:11:53.972598 enp0s8 B   ARP, Request who-has 192.168.1.17 tell Livebox, length 46
+19:11:53.972598 enp0s8 B   ARP, Request who-has 169.254.5.207 tell Livebox, length 46
+19:11:53.972598 enp0s8 B   ARP, Request who-has 192.168.1.18 tell Livebox, length 46
+19:12:01.207931 enp0s8 B   ARP, Request who-has 192.168.1.15 tell Livebox, length 46
+19:12:01.207944 enp0s8 Out ARP, Reply 192.168.1.15 is-at 08:00:27:44:55:66 (oui Unknown), length 28
+19:12:01.217789 enp0s8 B   ARP, Request who-has 192.168.1.20 tell Livebox, length 46
+19:12:01.242256 enp0s8 B   ARP, Request who-has 192.168.1.21 tell Livebox, length 46
+19:12:01.242258 enp0s8 B   ARP, Request who-has 192.168.1.22 tell Livebox, length 46
+19:12:01.345370 enp0s8 B   ARP, Request who-has 192.168.1.17 tell Livebox, length 46
+19:12:01.345372 enp0s8 B   ARP, Request who-has 169.254.5.207 tell Livebox, length 46
+19:12:01.345372 enp0s8 B   ARP, Request who-has 192.168.1.18 tell Livebox, length 46
+19:12:02.573653 enp0s8 B   ifindex 3 30:d3:2d:86:b5:c4 (oui Unknown) ethertype Unknown (0x8912), length 66: 
+	0x0000:  0170 a000 0000 1f84 01a3 97a2 5553 bef1  .p..........US..
+	0x0010:  fcf9 796b 5214 13e9 e200 0000 0000 0000  ..ykR...........
+	0x0020:  0000 0000 0000 0000 0000 0000 0000       ..............
+19:12:08.618766 enp0s8 B   ARP, Request who-has 192.168.1.15 tell Livebox, length 46
+19:12:08.618782 enp0s8 Out ARP, Reply 192.168.1.15 is-at 08:00:27:44:55:66 (oui Unknown), length 28
+19:12:08.717075 enp0s8 B   ARP, Request who-has 192.168.1.21 tell Livebox, length 46
+19:12:08.717077 enp0s8 B   ARP, Request who-has 192.168.1.22 tell Livebox, length 46
+19:12:08.717077 enp0s8 B   ARP, Request who-has 192.168.1.17 tell Livebox, length 46
+19:12:08.717668 enp0s8 B   ARP, Request who-has 169.254.5.207 tell Livebox, length 46
+19:12:08.717669 enp0s8 B   ARP, Request who-has 192.168.1.18 tell Livebox, length 46
+19:12:15.968120 enp0s8 B   ARP, Request who-has 192.168.1.15 tell Livebox, length 46
+19:12:15.968130 enp0s8 Out ARP, Reply 192.168.1.15 is-at 08:00:27:44:55:66 (oui Unknown), length 28
+19:12:15.987671 enp0s8 B   ARP, Request who-has 192.168.1.21 tell Livebox, length 46
+19:12:16.090306 enp0s8 B   ARP, Request who-has 192.168.1.22 tell Livebox, length 46
+19:12:16.090307 enp0s8 B   ARP, Request who-has 192.168.1.17 tell Livebox, length 46
+19:12:16.090308 enp0s8 B   ARP, Request who-has 169.254.5.207 tell Livebox, length 46
+19:12:16.090308 enp0s8 B   ARP, Request who-has 192.168.1.18 tell Livebox, length 46
+19:12:17.978980 enp0s8 B   IP 192.168.1.20.57621 > 192.168.1.255.57621: UDP, length 44
+19:12:22.541528 enp0s8 B   ifindex 3 30:d3:2d:86:b5:c4 (oui Unknown) ethertype Unknown (0x8912), length 66: 
+	0x0000:  0170 a000 0000 1f84 01a3 97a2 5553 bef1  .p..........US..
+	0x0010:  fcf9 796b 5214 13e9 e200 0000 0000 0000  ..ykR...........
+	0x0020:  0000 0000 0000 0000 0000 0000 0000       ..............
+19:12:23.318381 enp0s8 B   ARP, Request who-has 192.168.1.15 tell Livebox, length 46
+19:12:23.318397 enp0s8 Out ARP, Reply 192.168.1.15 is-at 08:00:27:44:55:66 (oui Unknown), length 28
+19:12:23.328438 enp0s8 B   ARP, Request who-has 192.168.1.20 tell Livebox, length 46
+19:12:23.360964 enp0s8 B   ARP, Request who-has 192.168.1.21 tell Livebox, length 46
+19:12:23.360966 enp0s8 B   ARP, Request who-has 192.168.1.22 tell Livebox, length 46
+19:12:23.463278 enp0s8 B   ARP, Request who-has 192.168.1.17 tell Livebox, length 46
+19:12:23.463280 enp0s8 B   ARP, Request who-has 169.254.5.207 tell Livebox, length 46
+19:12:23.463280 enp0s8 B   ARP, Request who-has 192.168.1.18 tell Livebox, length 46
+19:12:29.030145 enp0s8 M   IP Livebox > all-systems.mcast.net: igmp query v2 [max resp time 10]
+19:12:30.628918 enp0s8 B   ARP, Request who-has 192.168.1.15 tell Livebox, length 46
+19:12:30.628934 enp0s8 Out ARP, Reply 192.168.1.15 is-at 08:00:27:44:55:66 (oui Unknown), length 28
+19:12:30.733370 enp0s8 B   ARP, Request who-has 192.168.1.21 tell Livebox, length 46
+19:12:30.733372 enp0s8 B   ARP, Request who-has 192.168.1.22 tell Livebox, length 46
+19:12:30.733372 enp0s8 B   ARP, Request who-has 192.168.1.17 tell Livebox, length 46
+19:12:30.733372 enp0s8 B   ARP, Request who-has 169.254.5.207 tell Livebox, length 46
+19:12:30.733372 enp0s8 B   ARP, Request who-has 192.168.1.18 tell Livebox, length 46
+19:12:37.998480 enp0s8 B   ARP, Request who-has 192.168.1.15 tell Livebox, length 46
+19:12:37.998496 enp0s8 Out ARP, Reply 192.168.1.15 is-at 08:00:27:44:55:66 (oui Unknown), length 28
+19:12:38.008407 enp0s8 B   ARP, Request who-has 192.168.1.20 tell Livebox, length 46
+19:12:38.107513 enp0s8 B   ARP, Request who-has 192.168.1.21 tell Livebox, length 46
+19:12:38.107516 enp0s8 B   ARP, Request who-has 192.168.1.22 tell Livebox, length 46
+19:12:38.107517 enp0s8 B   ARP, Request who-has 192.168.1.17 tell Livebox, length 46
+19:12:38.107517 enp0s8 B   ARP, Request who-has 169.254.5.207 tell Livebox, length 46
+19:12:38.107517 enp0s8 B   ARP, Request who-has 192.168.1.18 tell Livebox, length 46
+19:12:42.612492 enp0s8 B   ifindex 3 30:d3:2d:86:b5:c4 (oui Unknown) ethertype Unknown (0x8912), length 66: 
+	0x0000:  0170 a000 0000 1f84 01a3 97a2 5553 bef1  .p..........US..
+	0x0010:  fcf9 796b 5214 13e9 e200 0000 0000 0000  ..ykR...........
+	0x0020:  0000 0000 0000 0000 0000 0000 0000       ..............
+19:12:45.387561 enp0s8 B   ARP, Request who-has 192.168.1.15 tell Livebox, length 46
+19:12:45.387577 enp0s8 Out ARP, Reply 192.168.1.15 is-at 08:00:27:44:55:66 (oui Unknown), length 28
+19:12:45.478540 enp0s8 B   ARP, Request who-has 192.168.1.21 tell Livebox, length 46
+19:12:45.478542 enp0s8 B   ARP, Request who-has 192.168.1.22 tell Livebox, length 46
+19:12:45.478542 enp0s8 B   ARP, Request who-has 192.168.1.17 tell Livebox, length 46
+19:12:45.479252 enp0s8 B   ARP, Request who-has 169.254.5.207 tell Livebox, length 46
+19:12:45.479253 enp0s8 B   ARP, Request who-has 192.168.1.18 tell Livebox, length 46
+19:12:47.980014 enp0s8 B   IP 192.168.1.20.57621 > 192.168.1.255.57621: UDP, length 44
+19:12:52.678360 enp0s8 B   ARP, Request who-has 192.168.1.15 tell Livebox, length 46
+19:12:52.678379 enp0s8 Out ARP, Reply 192.168.1.15 is-at 08:00:27:44:55:66 (oui Unknown), length 28
+19:12:52.688199 enp0s8 B   ARP, Request who-has 192.168.1.20 tell Livebox, length 46
+19:12:52.750634 enp0s8 B   ARP, Request who-has 192.168.1.21 tell Livebox, length 46
+19:12:52.750636 enp0s8 B   ARP, Request who-has 192.168.1.22 tell Livebox, length 46
+19:12:52.750637 enp0s8 B   ARP, Request who-has 192.168.1.17 tell Livebox, length 46
+19:12:52.750637 enp0s8 B   ARP, Request who-has 169.254.5.207 tell Livebox, length 46
+19:12:52.750638 enp0s8 B   ARP, Request who-has 192.168.1.18 tell Livebox, length 46
+19:13:00.019735 enp0s8 B   ARP, Request who-has 192.168.1.15 tell Livebox, length 46
+19:13:00.019749 enp0s8 Out ARP, Reply 192.168.1.15 is-at 08:00:27:44:55:66 (oui Unknown), length 28
+19:13:00.028758 enp0s8 B   ARP, Request who-has 192.168.1.20 tell Livebox, length 46
+19:13:00.123052 enp0s8 B   ARP, Request who-has 192.168.1.21 tell Livebox, length 46
+19:13:00.123055 enp0s8 B   ARP, Request who-has 192.168.1.22 tell Livebox, length 46
+19:13:00.123055 enp0s8 B   ARP, Request who-has 192.168.1.17 tell Livebox, length 46
+19:13:00.123055 enp0s8 B   ARP, Request who-has 169.254.5.207 tell Livebox, length 46
+19:13:00.123056 enp0s8 B   ARP, Request who-has 192.168.1.18 tell Livebox, length 46
+19:13:02.579851 enp0s8 B   ifindex 3 30:d3:2d:86:b5:c4 (oui Unknown) ethertype Unknown (0x8912), length 66: 
+	0x0000:  0170 a000 0000 1f84 01a3 97a2 5553 bef1  .p..........US..
+	0x0010:  fcf9 796b 5214 13e9 e200 0000 0000 0000  ..ykR...........
+	0x0020:  0000 0000 0000 0000 0000 0000 0000       ..............
+19:13:07.427407 enp0s8 B   ARP, Request who-has 192.168.1.15 tell Livebox, length 46
+19:13:07.427421 enp0s8 Out ARP, Reply 192.168.1.15 is-at 08:00:27:44:55:66 (oui Unknown), length 28
+19:13:07.437544 enp0s8 B   ARP, Request who-has 192.168.1.20 tell Livebox, length 46
+19:13:07.495945 enp0s8 B   ARP, Request who-has 192.168.1.21 tell Livebox, length 46
+19:13:07.495947 enp0s8 B   ARP, Request who-has 192.168.1.22 tell Livebox, length 46
+19:13:07.495947 enp0s8 B   ARP, Request who-has 192.168.1.17 tell Livebox, length 46
+19:13:07.597013 enp0s8 B   ARP, Request who-has 169.254.5.207 tell Livebox, length 46
+19:13:07.597015 enp0s8 B   ARP, Request who-has 192.168.1.18 tell Livebox, length 46
+19:13:09.049008 enp0s8 M   IP Livebox > all-systems.mcast.net: igmp query v2 [max resp time 10]
+19:13:14.858221 enp0s8 B   ARP, Request who-has 192.168.1.15 tell Livebox, length 46
+19:13:14.858233 enp0s8 Out ARP, Reply 192.168.1.15 is-at 08:00:27:44:55:66 (oui Unknown), length 28
+19:13:14.970354 enp0s8 B   ARP, Request who-has 192.168.1.21 tell Livebox, length 46
+19:13:14.970355 enp0s8 B   ARP, Request who-has 192.168.1.22 tell Livebox, length 46
+19:13:14.970356 enp0s8 B   ARP, Request who-has 192.168.1.17 tell Livebox, length 46
+19:13:14.970356 enp0s8 B   ARP, Request who-has 169.254.5.207 tell Livebox, length 46
+19:13:14.970356 enp0s8 B   ARP, Request who-has 192.168.1.18 tell Livebox, length 46

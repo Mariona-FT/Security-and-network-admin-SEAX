@@ -1,0 +1,8 @@
+# Nmap 7.93 scan initiated Sun Mar 10 19:18:51 2024 as: nmap -oN 2_10_resultat_escaneig.txt 192.168.1.160
+Nmap scan report for 192.168.1.160
+Host is up (0.000013s latency).
+Not shown: 999 closed tcp ports (reset)
+PORT   STATE SERVICE
+22/tcp open  ssh
+
+# Nmap done at Sun Mar 10 19:18:51 2024 -- 1 IP address (1 host up) scanned in 0.22 seconds

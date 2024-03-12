@@ -1,0 +1,27 @@
+Starting Nmap 7.93 ( https://nmap.org ) at 2024-03-10 18:42 CET
+Nmap scan report for Livebox (192.168.1.1)
+Host is up (0.0034s latency).
+Not shown: 65516 filtered tcp ports (no-response)
+PORT      STATE  SERVICE
+23/tcp    closed telnet
+53/tcp    open   domain
+80/tcp    open   http
+137/tcp   closed netbios-ns
+138/tcp   closed netbios-dgm
+139/tcp   closed netbios-ssn
+443/tcp   open   https
+445/tcp   closed microsoft-ds
+2006/tcp  closed invokator
+2007/tcp  closed dectalk
+2323/tcp  closed 3d-nfsd
+6969/tcp  open   acmsoda
+8000/tcp  closed http-alt
+8200/tcp  closed trivnet1
+8443/tcp  closed https-alt
+18081/tcp open   unknown
+18443/tcp closed unknown
+55661/tcp open   unknown
+59926/tcp open   unknown
+MAC Address: 60:8D:26:F0:B4:B5 (Arcadyan)
+
+Nmap done: 1 IP address (1 host up) scanned in 105.29 seconds

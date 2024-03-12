@@ -1,0 +1,102 @@
+root@seax1:~# nmap 192.168.1.1-20
+Starting Nmap 7.93 ( https://nmap.org ) at 2024-03-10 11:06 CET
+Nmap scan report for Livebox (192.168.1.1)
+Host is up (0.0042s latency).
+Not shown: 987 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+23/tcp   closed telnet
+53/tcp   open   domain
+80/tcp   open   http
+139/tcp  closed netbios-ssn
+443/tcp  open   https
+445/tcp  closed microsoft-ds
+2006/tcp closed invokator
+2007/tcp closed dectalk
+2323/tcp closed 3d-nfsd
+6969/tcp open   acmsoda
+8000/tcp closed http-alt
+8200/tcp closed trivnet1
+8443/tcp closed https-alt
+MAC Address: 60:8D:26:F0:B4:B5 (Arcadyan)
+
+Nmap scan report for 192.168.1.10
+Host is up (0.0094s latency).
+Not shown: 993 filtered tcp ports (no-response)
+PORT      STATE  SERVICE
+80/tcp    open   http
+5001/tcp  closed commplex-link
+49152/tcp closed unknown
+49153/tcp closed unknown
+49154/tcp closed unknown
+49155/tcp closed unknown
+49156/tcp closed unknown
+MAC Address: 30:D3:2D:86:B5:C4 (devolo AG)
+
+Nmap scan report for 192.168.1.11
+Host is up (0.0094s latency).
+Not shown: 995 closed tcp ports (reset)
+PORT      STATE SERVICE
+8008/tcp  open  http
+8009/tcp  open  ajp13
+8443/tcp  open  https-alt
+9000/tcp  open  cslistener
+10001/tcp open  scp-config
+MAC Address: 26:7E:96:C4:7A:46 (Unknown)
+
+Nmap scan report for 192.168.1.13
+Host is up (0.017s latency).
+All 1000 scanned ports on 192.168.1.13 are in ignored states.
+Not shown: 1000 closed tcp ports (reset)
+MAC Address: 12:19:6F:F8:E0:F3 (Unknown)
+
+Nmap scan report for 192.168.1.14
+Host is up (0.020s latency).
+Not shown: 998 closed tcp ports (reset)
+PORT      STATE SERVICE
+49152/tcp open  unknown
+62078/tcp open  iphone-sync
+MAC Address: 52:DF:8E:C6:77:9C (Unknown)
+
+Nmap scan report for 192.168.1.20
+Host is up (0.00020s latency).
+All 1000 scanned ports on 192.168.1.20 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: 40:1A:58:0E:92:1E (Wistron Neweb)
+
+Nmap scan report for 192.168.1.15
+Host is up (0.0000020s latency).
+All 1000 scanned ports on 192.168.1.15 are in ignored states.
+Not shown: 1000 closed tcp ports (reset)
+
+Nmap done: 20 IP addresses (7 hosts up) scanned in 8.64 seconds
+---------------------------------------------------------------------------
+
+root@seax1:~# nmap 192.168.1.1 192.168.1.7 192.168.1.20
+Starting Nmap 7.93 ( https://nmap.org ) at 2024-03-10 11:07 CET
+Nmap scan report for Livebox (192.168.1.1)
+Host is up (0.0038s latency).
+Not shown: 987 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+23/tcp   closed telnet
+53/tcp   open   domain
+80/tcp   open   http
+139/tcp  closed netbios-ssn
+443/tcp  open   https
+445/tcp  closed microsoft-ds
+2006/tcp closed invokator
+2007/tcp closed dectalk
+2323/tcp closed 3d-nfsd
+6969/tcp open   acmsoda
+8000/tcp closed http-alt
+8200/tcp closed trivnet1
+8443/tcp closed https-alt
+MAC Address: 60:8D:26:F0:B4:B5 (Arcadyan)
+
+Nmap scan report for 192.168.1.20
+Host is up (0.00013s latency).
+All 1000 scanned ports on 192.168.1.20 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: 40:1A:58:0E:92:1E (Wistron Neweb)
+
+Nmap done: 3 IP addresses (2 hosts up) scanned in 8.45 seconds
+

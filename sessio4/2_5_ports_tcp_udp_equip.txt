@@ -1,0 +1,19 @@
+Starting Nmap 7.93 ( https://nmap.org ) at 2024-03-10 18:27 CET
+Nmap scan report for Livebox (192.168.1.1)
+Host is up (0.0034s latency).
+
+PORT     STATE         SERVICE
+21/tcp   filtered      ftp
+22/tcp   filtered      ssh
+23/tcp   closed        telnet
+24/tcp   filtered      priv-mail
+25/tcp   filtered      smtp
+80/tcp   open          http
+443/tcp  open          https
+8080/tcp filtered      http-proxy
+53/udp   open          domain
+111/udp  open|filtered rpcbind
+137/udp  open          netbios-ns
+MAC Address: 60:8D:26:F0:B4:B5 (Arcadyan)
+
+Nmap done: 1 IP address (1 host up) scanned in 2.55 seconds

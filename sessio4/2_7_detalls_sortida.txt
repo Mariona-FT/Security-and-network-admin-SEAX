@@ -1,0 +1,49 @@
+root@seax1:~# nmap -v -oN resultats.txt 192.168.1.1 
+# Nmap 7.93 scan initiated Sun Mar 10 20:03:01 2024 as: nmap -v -oN resultats.txt 192.168.1.1
+Nmap scan report for Livebox (192.168.1.1)
+Host is up (0.0057s latency).
+Not shown: 987 filtered tcp ports (no-response)
+PORT     STATE  SERVICE
+23/tcp   closed telnet
+53/tcp   open   domain
+80/tcp   open   http
+139/tcp  closed netbios-ssn
+443/tcp  open   https
+445/tcp  closed microsoft-ds
+2006/tcp closed invokator
+2007/tcp closed dectalk
+2323/tcp closed 3d-nfsd
+6969/tcp open   acmsoda
+8000/tcp closed http-alt
+8200/tcp closed trivnet1
+8443/tcp closed https-alt
+MAC Address: 60:8D:26:F0:B4:B5 (Arcadyan)
+
+Read data files from: /usr/bin/../share/nmap
+# Nmap done at Sun Mar 10 20:03:06 2024 -- 1 IP address (1 host up) scanned in 4.74 seconds
+
+---------------------------------------------------------------------------
+root@seax1:~# nmap -vv -oN resultats2.txt 192.168.1.1 
+# Nmap 7.93 scan initiated Sun Mar 10 20:04:03 2024 as: nmap -vv -oN resultats2.txt 192.168.1.1
+Nmap scan report for Livebox (192.168.1.1)
+Host is up, received arp-response (0.0033s latency).
+Scanned at 2024-03-10 20:04:03 CET for 5s
+Not shown: 987 filtered tcp ports (no-response)
+PORT     STATE  SERVICE      REASON
+23/tcp   closed telnet       reset ttl 64
+53/tcp   open   domain       syn-ack ttl 64
+80/tcp   open   http         syn-ack ttl 64
+139/tcp  closed netbios-ssn  reset ttl 64
+443/tcp  open   https        syn-ack ttl 64
+445/tcp  closed microsoft-ds reset ttl 64
+2006/tcp closed invokator    reset ttl 64
+2007/tcp closed dectalk      reset ttl 64
+2323/tcp closed 3d-nfsd      reset ttl 64
+6969/tcp open   acmsoda      syn-ack ttl 64
+8000/tcp closed http-alt     reset ttl 64
+8200/tcp closed trivnet1     reset ttl 64
+8443/tcp closed https-alt    reset ttl 64
+MAC Address: 60:8D:26:F0:B4:B5 (Arcadyan)
+
+Read data files from: /usr/bin/../share/nmap
+# Nmap done at Sun Mar 10 20:04:08 2024 -- 1 IP address (1 host up) scanned in 4.92 seconds

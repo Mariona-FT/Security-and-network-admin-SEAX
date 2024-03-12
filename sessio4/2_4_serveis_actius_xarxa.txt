@@ -1,0 +1,127 @@
+Starting Nmap 7.93 ( https://nmap.org ) at 2024-03-10 18:04 CET
+Nmap scan report for Livebox (192.168.1.1)
+Host is up (0.0063s latency).
+Not shown: 987 filtered tcp ports (no-response)
+PORT     STATE  SERVICE      VERSION
+23/tcp   closed telnet
+53/tcp   open   domain       Cloudflare public DNS
+80/tcp   open   http         Arcadyan httpd 1.0
+139/tcp  closed netbios-ssn
+443/tcp  open   ssl/https    Arcadyan httpd 1.0
+445/tcp  closed microsoft-ds
+2006/tcp closed invokator
+2007/tcp closed dectalk
+2323/tcp closed 3d-nfsd
+6969/tcp open   tcpwrapped
+8000/tcp closed http-alt
+8200/tcp closed trivnet1
+8443/tcp closed https-alt
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port80-TCP:V=7.93%I=7%D=3/10%Time=65EDE841%P=x86_64-pc-linux-gnu%r(GetR
+SF:equest,109,"HTTP/1\.1\x20302\x20Found\r\nServer:\x20Arcadyan\x20httpd\x
+SF:201\.0\r\nPragma:\x20no-cache\r\nCache-Control:\x20no-cache,\x20must-re
+SF:validate\r\nContent-length:\x200\r\nLocation:\x20/login\.htm\r\nX-Conte
+SF:nt-Type-Options:\x20nosniff\r\nX-XSS-Protection:\x201;\x20mode=block\r\
+SF:nX-Frame-Options:\x20SAMEORIGIN\r\nConnection:\x20close\r\n\r\n")%r(HTT
+SF:POptions,109,"HTTP/1\.1\x20302\x20Found\r\nServer:\x20Arcadyan\x20httpd
+SF:\x201\.0\r\nPragma:\x20no-cache\r\nCache-Control:\x20no-cache,\x20must-
+SF:revalidate\r\nContent-length:\x200\r\nLocation:\x20/login\.htm\r\nX-Con
+SF:tent-Type-Options:\x20nosniff\r\nX-XSS-Protection:\x201;\x20mode=block\
+SF:r\nX-Frame-Options:\x20SAMEORIGIN\r\nConnection:\x20close\r\n\r\n")%r(F
+SF:ourOhFourRequest,109,"HTTP/1\.1\x20302\x20Found\r\nServer:\x20Arcadyan\
+SF:x20httpd\x201\.0\r\nPragma:\x20no-cache\r\nCache-Control:\x20no-cache,\
+SF:x20must-revalidate\r\nContent-length:\x200\r\nLocation:\x20/login\.htm\
+SF:r\nX-Content-Type-Options:\x20nosniff\r\nX-XSS-Protection:\x201;\x20mod
+SF:e=block\r\nX-Frame-Options:\x20SAMEORIGIN\r\nConnection:\x20close\r\n\r
+SF:\n");
+MAC Address: 60:8D:26:F0:B4:B5 (Arcadyan)
+
+Nmap scan report for 192.168.1.10
+Host is up (0.0064s latency).
+Not shown: 993 filtered tcp ports (no-response)
+PORT      STATE  SERVICE       VERSION
+80/tcp    open   rtsp
+5001/tcp  closed commplex-link
+49152/tcp closed unknown
+49153/tcp closed unknown
+49154/tcp closed unknown
+49155/tcp closed unknown
+49156/tcp closed unknown
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port80-TCP:V=7.93%I=7%D=3/10%Time=65EDE841%P=x86_64-pc-linux-gnu%r(GetR
+SF:equest,423,"HTTP/1\.0\x20200\x20OK\r\nServer:\x20\r\nContent-Type:\x20t
+SF:ext/html;\x20charset=iso-8859-1\r\nDate:\x20Sun,\x2010\x20Mar\x202024\x
+SF:2017:05:05\x20GMT\r\nLast-Modified:\x20Fri,\x2010\x20Feb\x202017\x2012:
+SF:52:57\x20GMT\r\nAccept-Ranges:\x20bytes\r\nConnection:\x20close\r\nCont
+SF:ent-Length:\x20770\r\nCache-Control:\x20max-age=86400\r\nExpires:\x20Mo
+SF:n,\x2011\x20Mar\x202024\x2017:05:05\x20GMT\r\n\r\n<\?xml\x20version=\"1
+SF:\.0\"\x20encoding=\"UTF-8\"\?>\n<!DOCTYPE\x20html\x20PUBLIC\x20\"-//W3C
+SF://DTD\x20XHTML\x201\.0\x20Transitional//EN\"\x20\"http://www\.w3\.org/T
+SF:R/xhtml1/DTD/xhtml1-transitional\.dtd\">\n\n<html\x20xmlns=\"http://www
+SF:\.w3\.org/1999/xhtml\">\n<!--\x20__DVLAPP__\x20-->\n\n<head>\n<title></
+SF:title>\n<meta\x20http-equiv=\"content-type\"\x20content=\"text/html;\x2
+SF:0charset=utf-8\"\x20/>\n<meta\x20http-equiv=\"expires\"\x20content=\"0\
+SF:"\x20/>\n<meta\x20http-equiv=\"pragma\"\x20content=\"no-cache\"\x20/>\n
+SF:<!--\[if\x20lt\x20IE\x207\]>\n<meta\x20http-equiv=\"refresh\"\x20conten
+SF:t=\"0;\x20URL=\./cgi-bin/htmlmgr\?_file=ie6\"\x20/>\n<!\[endif\]-->\n<!
+SF:--\[if\x20gte\x20IE\x207\]>\n<meta\x20http-equiv=\"refresh\"\x20content
+SF:=\"0;\x20URL=\./cgi-bin/htmlmgr\?_file=fs\"\x20/>\n<!")%r(HTTPOptions,2
+SF:50,"HTTP/1\.0\x20501\x20Not\x20Implemented\r\nServer:\x20\r\nContent-Ty
+SF:pe:\x20text/html;\x20charset=iso-8859-1\r\nDate:\x20Sun,\x2010\x20Mar\x
+SF:202024\x2017:05:05\x20GMT\r\nLast-Modified:\x20Sun,\x2010\x20Mar\x20202
+SF:4\x2017:05:05\x20GMT\r\nAccept-Ranges:\x20bytes\r\nConnection:\x20close
+SF:\r\nCache-Control:\x20no-cache,no-store\r\nCache-Control:\x20max-age=86
+SF:400\r\nExpires:\x20Mon,\x2011\x20Mar\x202024\x2017:05:05\x20GMT\r\n\r\n
+SF:<HTML>\n<HEAD><TITLE>501\x20Not\x20Implemented</TITLE></HEAD>\n<BODY\x2
+SF:0BGCOLOR=\"#ffffff\"\x20TEXT=\"#000000\"\x20LINK=\"#808080\"\x20VLINK=\
+SF:"#808080\">\n<H2>501\x20Not\x20Implemented</H2>\nThe\x20requested\x20me
+SF:thod\x20'OPTIONS'\x20is\x20not\x20implemented\x20by\x20this\x20server\.
+SF:\n<HR>\n<ADDRESS><A\x20HREF=\"\"></A></ADDRESS>\n</BODY>\n</HTML>\n")%r
+SF:(RTSPRequest,250,"RTSP/1\.0\x20501\x20Not\x20Implemented\r\nServer:\x20
+SF:\r\nContent-Type:\x20text/html;\x20charset=iso-8859-1\r\nDate:\x20Sun,\
+SF:x2010\x20Mar\x202024\x2017:05:05\x20GMT\r\nLast-Modified:\x20Sun,\x2010
+SF:\x20Mar\x202024\x2017:05:05\x20GMT\r\nAccept-Ranges:\x20bytes\r\nConnec
+SF:tion:\x20close\r\nCache-Control:\x20no-cache,no-store\r\nCache-Control:
+SF:\x20max-age=86400\r\nExpires:\x20Mon,\x2011\x20Mar\x202024\x2017:05:05\
+SF:x20GMT\r\n\r\n<HTML>\n<HEAD><TITLE>501\x20Not\x20Implemented</TITLE></H
+SF:EAD>\n<BODY\x20BGCOLOR=\"#ffffff\"\x20TEXT=\"#000000\"\x20LINK=\"#80808
+SF:0\"\x20VLINK=\"#808080\">\n<H2>501\x20Not\x20Implemented</H2>\nThe\x20r
+SF:equested\x20method\x20'OPTIONS'\x20is\x20not\x20implemented\x20by\x20th
+SF:is\x20server\.\n<HR>\n<ADDRESS><A\x20HREF=\"\"></A></ADDRESS>\n</BODY>\
+SF:n</HTML>\n");
+MAC Address: 30:D3:2D:86:B5:C4 (devolo AG)
+
+Nmap scan report for 192.168.1.11
+Host is up (0.016s latency).
+Not shown: 994 closed tcp ports (reset)
+PORT      STATE SERVICE         VERSION
+8008/tcp  open  http?
+8009/tcp  open  ssl/ajp13?
+8443/tcp  open  ssl/https-alt?
+9000/tcp  open  ssl/cslistener?
+9080/tcp  open  glrpc?
+10001/tcp open  ssl/scp-config?
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port9080-TCP:V=7.93%I=7%D=3/10%Time=65EDE842%P=x86_64-pc-linux-gnu%r(Ge
+SF:tRequest,99,"HTTP/1\.0\x20200\x20OK\r\nDate:\x20Sun,\x2010\x20Mar\x2020
+SF:24\x2018:05:04\x20CET\r\nServer:\x20NRDP/2023\.2\.7\.0\r\nConnection:\x
+SF:20close\r\nCache-Control:\x20no-cache\r\nContent-Length:\x209\r\n\r\nst
+SF:atus=ok")%r(FourOhFourRequest,99,"HTTP/1\.0\x20200\x20OK\r\nDate:\x20Su
+SF:n,\x2010\x20Mar\x202024\x2018:05:50\x20CET\r\nServer:\x20NRDP/2023\.2\.
+SF:7\.0\r\nConnection:\x20close\r\nCache-Control:\x20no-cache\r\nContent-L
+SF:ength:\x209\r\n\r\nstatus=ok");
+MAC Address: 26:7E:96:C4:7A:46 (Unknown)
+
+Nmap scan report for 192.168.1.20
+Host is up (0.00019s latency).
+All 1000 scanned ports on 192.168.1.20 are in ignored states.
+Not shown: 1000 filtered tcp ports (no-response)
+MAC Address: 40:1A:58:0E:92:1E (Wistron Neweb)
+
+Nmap scan report for 192.168.1.15
+Host is up (0.0000010s latency).
+All 1000 scanned ports on 192.168.1.15 are in ignored states.
+Not shown: 1000 closed tcp ports (reset)
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 256 IP addresses (5 hosts up) scanned in 177.15 seconds

@@ -1,0 +1,22 @@
+Starting Nmap 7.93 ( https://nmap.org ) at 2024-03-10 17:49 CET
+Nmap scan report for Livebox (192.168.1.1)
+Host is up (0.0063s latency).
+MAC Address: 60:8D:26:F0:B4:B5 (Arcadyan)
+Nmap scan report for 192.168.1.10
+Host is up (0.011s latency).
+MAC Address: 30:D3:2D:86:B5:C4 (devolo AG)
+Nmap scan report for 192.168.1.11
+Host is up (0.079s latency).
+MAC Address: 26:7E:96:C4:7A:46 (Unknown)
+Nmap scan report for 192.168.1.13
+Host is up (0.10s latency).
+MAC Address: 12:19:6F:F8:E0:F3 (Unknown)
+Nmap scan report for 192.168.1.14
+Host is up (0.099s latency).
+MAC Address: 52:DF:8E:C6:77:9C (Unknown)
+Nmap scan report for 192.168.1.20
+Host is up (0.00018s latency).
+MAC Address: 40:1A:58:0E:92:1E (Wistron Neweb)
+Nmap scan report for 192.168.1.15
+Host is up.
+Nmap done: 256 IP addresses (7 hosts up) scanned in 2.86 seconds

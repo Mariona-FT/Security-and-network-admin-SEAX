@@ -1,0 +1,2 @@
+23:20:04.768057 enp0s8 Out IP6 fe80::a00:27ff:fe11:2233 > ip6-allrouters: ICMP6, router solicitation, length 16
+23:20:04.768123 enp0s9 Out IP6 fe80::a00:27ff:fed6:1813 > ip6-allrouters: ICMP6, router solicitation, length 16

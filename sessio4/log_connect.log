@@ -1,0 +1,64 @@
+ ╔════════════════════════════════════════════════════════╗
+                                                                          
+   ---------------------------------------------------------------------  
+    Anàlisi de connectivitat a l'equip 1.1.1.1 en el port 88/tcp.          
+   ---------------------------------------------------------------------  
+   Equip:                  seax1 [10.0.2.15]                            
+   Usuari:                 uid=0(root) gid=0(root) grups=0(root)         
+   Sistema operatiu:       Debian GNU/Linux 12 (bookworm)                                     
+   Versió:                 info_connect.sh 4.12 (2024-03-12)                 
+                                
+   Data d'inici:           2024-03-12 a les 20:47:07                      
+   Data de finalització:   2024-03-12 a les 20:47:14                      
+   Durada de les tasques:  7 s                                            
+   ---------------------------------------------------------------------  
+                                                                          
+ ╚════════════════════════════════════════════════════════╝  
+
+┌─────────────────────────────────────────────────────────┐
+                                                                                         
+ -------------------------------------------------------------------------------  
+                        Estat dels recursos per defecte.                                  
+ -------------------------------------------------------------------------------  
+    Intefície per defecte definida:            [ok]    enp0s3                              
+    Intefície per defecte adreça MAC:          [ok]    08:00:27:55:d8:4d                  
+    Intefície per defecte estat:               [ok]    up                             
+    Intefície per defecte adreça IP:           [ok]    10.0.2.15                     
+    Intefície per defecte adreça IP respon:    [ok]    rtt 0.025 ms                        
+    Intefície per defecte adreça de xarxa:     [ok]    10.0.2.0/24                       
+
+    Router per defecte definit:                [ok]    10.0.2.2                        
+    Router per defecte respon:                 [ok]    rtt 0.585 ms                        
+    Router per defecte té accés a Internet:    [ok]    rtt 10.204 ms (a 1.1.1.1)            
+                                                                                            
+    Servidor DNS per defecte definit:          [ok]    192.168.1.1 192.168.1.1             
+    Servidor DNS per defecte respon:           [ok]    192.168.1.1                            
+ -------------------------------------------------------------------------------  
+                                                                                
+ -------------------------------------------------------------------------------  
+                            Estat dels recursos dedicats.                                
+ -------------------------------------------------------------------------------  
+    Interfície de sortida cap al destí:        [ok]    enp0s3                        
+    Interfície de sortida adreça MAC:          [ok]    08:00:27:55:d8:4d            
+    Interfície de sortida estat:               [ok]    up    
+    Interfície de sortida adreça IP:           [ok]    10.0.2.15                  
+    Interfície de sortida adreça IP respon:    [ok]    rtt 0.012 ms                  
+    Interfície de sortida adreça de xarxa:     [ok]    default 10.0.2.0/24 169.254.0.0/16                   
+                                                                                    
+    Router de sortida cap al destí:            [ok]    10.0.2.15           
+    Router de sortida cap al destí respon:     [ok]    rtt 0.011 ms                   
+    Router de sortida té accés a Internet:     [ok]    rtt 12.860 ms (a 1.1.1.1)                    
+ -------------------------------------------------------------------------------  
+
+ -------------------------------------------------------------------------------  
+                            Estat de l'equip destí.                              
+ -------------------------------------------------------------------------------  
+    Destí nom DNS:                             [ok]    one.one.one.one                             
+    Destí adreça IP:                           [ok]    1.1.1.1                    
+    Destí port servei:                         [ok]    88/tcp kerberos-sec                   
+              
+    Destí abastable:                           [ok]    latència 8.588 us       
+    Destí respon al servei:                    [ok]    latència 0.0 us       
+    Destí versió del servei:                   [ko]    << Versió no identificada >>  
+ -------------------------------------------------------------------------------  
+└─────────────────────────────────────────────────────────┘                                                                                                                             
