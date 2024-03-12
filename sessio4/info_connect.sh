@@ -4,7 +4,8 @@ function show_help() {
   echo "Aquest script ens dona informació sobre la connectivitat en un equip destí donat amb"
   echo  "una ip de l'equip,  amb un port i un protocol ."
   echo "Genera el seu resultat en el fitxer: log_inet.log"
-  echo "Genera 3 fitxers auxiliars anomenats: log_inet_s4_capc.log, log_inet_s4.log i log_scan.log"
+  echo "Genera 2 fitxers auxiliars anomenats: log_inet_s4_capc.log, log_inet_s4.log "
+  echo "    pero son esborrats al final de l'execució"
   echo "Es necessita donar el permís d'execució de script:"
   echo "    chmod +x info_inet.sh"
   echo "" 
@@ -142,7 +143,7 @@ get_default_interface() {
      if [ -z "$inter_def" ]; then  # Si retorna una interficie defecte buida
             echo "-"
         else 
-            echo "$inter_def" 
+            echo $inter_def 
         fi
 }
 
@@ -154,7 +155,7 @@ get_mac_address() {
     if [ -z "$mac_def" ]; then  # Si retorna una mac defecte buida
         echo "-"
     else 
-        echo "$mac_def" 
+        echo $mac_def 
     fi
 }
 
@@ -176,7 +177,7 @@ get_interface_status() {
 #   DEPEN funcio interfíce per defecte -$1
 get_ip_address() {
     local inter_def=$1
-    local ip_def=$(ip addr show ${inter_def} | grep 'inet ' | awk '{print $2}' | cut -d/ -f1)
+    local ip_def=$(ip addr show ${inter_def} | grep 'inet ' | awk '{print $2}' | cut -d/ -f1) #buscar dins ip addr la ip
     if [ -z "$ip_def" ]; then  # Si retorna una ip defecte buida
         echo "-"
     else 
@@ -197,8 +198,8 @@ get_network_address() {
     local inter_def=$1
     # Verificar si hi ha l'adreça IP amb mascara de l'interfície
     #si es defecte la segona fila sera la ip de la xarxa+mascara
-    local xarxa_def=$(ip route show | grep "$inter_def" | awk 'NR==2 {print $1}') 
-    if [ -z "$xarxa_def" ]; then
+    local xarxa_def=$(ip route show | grep "$inter_def" | awk 'NR==2 {print $1}') #dins ip route show buscar la interficie per defecte
+    if [ -z "$xarxa_def" ]; then # Si retorna xarxa per defecte buit
         echo "-"
     else 
         echo $xarxa_def
@@ -209,7 +210,7 @@ get_network_address() {
 # Funció per obtenir el router per defecte
 get_default_router() {
     local router_def=$(ip route show default | awk '/default/ {print $3}') # adreça ip del router per defecte
-    if [ -z "$router_def" ]; then
+    if [ -z "$router_def" ]; then  # Si retorna un router per defecte buit
         echo "-"
     else 
         echo $router_def
@@ -235,17 +236,25 @@ get_router_internet() {
     echo $mitjana_t
 }
 
-# Funció per obtenir el servidor DNS per defecte
-get_dns_server() {
-    local dns_def=$(grep 'nameserver' /etc/resolv.conf | awk '{print $2}' | head -n 1)
-    echo $dns_def
+# Funció per obtenir la llista dels servidor DNS per defecte
+get_dns_servers() {
+    local dns_servers=$(grep 'nameserver' /etc/resolv.conf | awk '{print $2}') #retornar llista de nameserver -dns
+    if [ -z "$dns_servers" ]; then  # Si retorna una llista dns buida
+        echo "-"
+    else 
+        echo $dns_servers
+    fi
 }
 
-# Funció per comprovar la latència al servidor DNS per defecte (ICMP ping)
-get_dns_response_time() {
-    local dns_def=$1
-    local dns_resp_def=$(ping -c 1 ${dns_def} | grep 'time=' | awk -F'time=' '{print $2}' | awk '{print $1}')
-    echo $dns_resp_def
+# Funció per obtenir el DNS per defecte
+get_dns_default() {
+    # per defecte sera el primer de la llista del resolv.conf
+    local dns_servers=$(grep 'nameserver' /etc/resolv.conf | awk '{print $2}'| head -n 1)
+    if [ -z "$dns_servers" ]; then  # Si retorna un dns per defecte buit
+        echo "-"
+    else 
+        echo $dns_servers
+    fi
 }
 
 echo "Comprovar els recursos per defecte.."
@@ -323,6 +332,21 @@ router_inte_def=$(get_router_internet $ad_internet )
         router_inte_dstat="ko"
     fi
 
+echo "Dns per defecte definit.."
+dns_def=$(get_dns_servers )
+ if [ "$dns_def" != "-" ]; then
+        dns_dstat="ok"
+    else
+        dns_dstat="ko"
+    fi
+
+echo "Dns per defecte definit respon.."
+dns_resp_def=$(get_dns_default )
+ if [ "$dns_resp_def" != "-" ]; then
+        dns_resp_dstat="ok"
+    else
+        dns_resp_dstat="ko"
+    fi
 
 cat >> log_inet_s4.log << EOF    
 ┌─────────────────────────────────────────────────────────┐
@@ -433,4 +457,26 @@ cat log_inet_s4_capc.log > log_inet.log
 # Append the other log to the final log file
 cat log_inet_s4.log >> log_inet.log
 
+#BORRAR FITXERS COMPLEMENTARIS
+cami="$(dirname "$0")"
+fitxer1="$cami/log_inet_s4.log"
+fitxer2="$cami/log_inet_s4_capc.log"
 
+# Comprovar i esborrar el primer fitxer
+if [ -f "$fitxer1" ]; then
+    rm "$fitxer1"
+    echo "Fitxer esborrat: $fitxer1"
+else
+    echo "El fitxer no existeix: $fitxer1"
+fi
+
+# Comprovar i esborrar el segon fitxer
+if [ -f "$fitxer2" ]; then
+    rm "$fitxer2"
+    echo "Fitxer esborrat: $fitxer2"
+else
+    echo "El fitxer no existeix: $fitxer2"
+fi
+
+echo " ** Anàlisi completat! **"
+echo "Les taules resultants estan guardades en el fitxer: log_inet.log"
