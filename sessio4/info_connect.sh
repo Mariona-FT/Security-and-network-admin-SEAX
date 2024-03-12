@@ -257,6 +257,24 @@ get_dns_default() {
     fi
 }
 
+get_associated_service() {
+    local servei_associat=$(nmap -sV -p $PORT $ADDR_IP | awk '/SERVICE/{getline; print $3}')
+    if [ -z "$servei_associat" ]; then
+        echo "-"
+    else 
+        echo $servei_associat
+    fi
+}
+
+get_service_version() {
+    local versio_servei=$(nmap -sV -p $PORT $ADDR_IP | awk '/SERVICE/{getline; print $4}')
+    if [ -z "$versio_servei" ]; then
+        echo "<< Versió no identificada >>"
+    else
+        echo $versio_servei
+    fi
+}
+
 echo "Comprovar els recursos per defecte.."
 
 echo "Interficie per defecte.."
@@ -348,6 +366,23 @@ dns_resp_def=$(get_dns_default )
         dns_resp_dstat="ko"
     fi
 
+
+echo "Port i destins.."
+servei_associat=$(get_associated_service) #passar nom interficie per defecte
+ if [ "$servei_associat" != "-" ]; then
+        port_servei_desti_estat="ok"
+    else
+        port_servei_desti_estat="ko"
+    fi
+
+echo "Versió del servei destí.."
+versio_servei=$(get_service_version) #passar nom interficie per defecte
+ if [ "$vm_versio_serveidef" != "<< Versió no identificada >>" ]; then
+        versio_desti_estat="ok"
+    else
+        versio_desti_estat="ko"
+    fi
+
 cat >> log_inet_s4.log << EOF    
 ┌─────────────────────────────────────────────────────────┐
                                                                                          
@@ -396,13 +431,13 @@ cat >> log_inet_s4.log << EOF
  -------------------------------------------------------------------------------  
                              Estat de l'equip destí.                              
  -------------------------------------------------------------------------------  
-    Destí nom DNS:                             [ok]    -                             
-    Destí adreça IP:                           [ok]    10.1.1.222                    
-    Destí port servei:                         [ok]    80/tcp http                   
+    Destí nom DNS:                             []    -                             
+    Destí adreça IP:                           []    $ADDR_IP                    
+    Destí port servei:                         [$port_servei_desti_estat]    $PORT/$PROTO $servei_associat                   
                                                                                     
-    Destí abastable:                           [ko]    << L'equip no respon >>       
-    Destí respon al servei:                    [ko]    << El port no respon >>       
-    Destí versió del servei:                   [ko]    << Versió no identificada >>  
+    Destí abastable:                           []    << L'equip no respon >>       
+    Destí respon al servei:                    []    << El port no respon >>       
+    Destí versió del servei:                   [$versio_desti_estat]    $versio_servei  
  -------------------------------------------------------------------------------
 └─────────────────────────────────────────────────────────┘                                                                                                                             
 EOF
