@@ -131,6 +131,8 @@ echo "Veure si es compleixen les comprovacions inicials.."
 
     funcio_verifica_paquets whois
     funcio_verifica_paquets bc
+    funcio_verifica_paquets nmap
+
 
 #***FUNCIONS RECURSOS PER DEFECTE ***
 
@@ -144,8 +146,8 @@ get_default_interface() {
         fi
 }
 
-#Funció per obtenir l'adreça MAC de la interfície per defecte
-#   DEPEN funcio interfíce per defecte -$1
+#Funció per obtenir l'adreça MAC de la interfície 
+#   DEPEN funcio interfíce PER PARÀMETRE
 get_mac_address() {
     local inter_def=$1
     local mac_def=$(cat /sys/class/net/${inter_def}/address) #troba mac interficie donada
@@ -255,6 +257,18 @@ get_dns_default() {
 }
 
 #***FUNCIONS RECURSOS UTILITZATS ***
+# Funció per obtenir la interfície utilitzada
+# DEPEN de la ip destí donada -$1
+get_util_interface(){
+    local target_ip=$1
+    #Trobar interfíce utilitzada per arribar ip
+    local interface=$(ip route get "$target_ip" | awk '{for (i=1; i<=NF; i++) if ($i=="dev") {print $(i+1); exit}}')
+    if [ -z "$interface" ]; then #Si retorna interfície buida 
+        echo "-"
+    else
+        echo $interface
+    fi
+}
 
 #***FUNCIONS RECURSOS DESTÍ ***
 
@@ -282,95 +296,94 @@ get_service_version() {
 echo "ANALITZANT ELS RECURSOS PER DEFECTE"
 
 #*** RECURSOS PER DEFECTE ***
-
 echo "Interficie per defecte.."
-inter_def=$(get_default_interface)
-    if [ "$inter_def" != "-" ]; then
-        in_dstat="ok"
-    else
-        in_dstat="ko"
-    fi
+    inter_def=$(get_default_interface)
+        if [ "$inter_def" != "-" ]; then
+            in_dstat="ok"
+        else
+            in_dstat="ko"
+        fi
 
 echo "Adreça Mac per defecte.."
-mac_def=$(get_mac_address $inter_def) #passar nom interficie per defecte
-    if [ "$mac_def" != "-" ]; then
-        mac_dstat="ok"
-    else
-        mac_dstat="ko"
-    fi
+    mac_def=$(get_mac_address $inter_def) #passar nom interficie per defecte
+        if [ "$mac_def" != "-" ]; then
+            mac_dstat="ok"
+        else
+            mac_dstat="ko"
+        fi
 
 echo "Estat interfície per defecte.."
-estat_def=$(get_interface_status $inter_def) #passar nom interficie per defecte
-if [ "$estat_def" != "-" ] && [ "$estat_def" != "down" ]; then
-        estat_dstat="ok"
-    else
-        estat_dstat="ko"
-    fi
+    estat_def=$(get_interface_status $inter_def) #passar nom interficie per defecte
+    if [ "$estat_def" != "-" ] && [ "$estat_def" != "down" ]; then
+            estat_dstat="ok"
+        else
+            estat_dstat="ko"
+        fi
 
 echo "Adreça IP per defecte.."
-ip_def=$(get_ip_address $inter_def) #passar nom interficie per defecte
- if [ "$ip_def" != "-" ]; then
-        ip_dstat="ok"
-    else
-        ip_dstat="ko"
-    fi
+    ip_def=$(get_ip_address $inter_def) #passar nom interficie per defecte
+    if [ "$ip_def" != "-" ]; then
+            ip_dstat="ok"
+        else
+            ip_dstat="ko"
+        fi
 
 echo "Adreça ip per defecte respon.."
-vm_def=$(get_ip_rtt $ip_def)
- if [ "$vm_def" != "-" ]; then
-        ipv_dstat="ok"
-    else
-        ipv_dstat="ko"
-    fi
+    vm_def=$(get_ip_rtt $ip_def)
+    if [ "$vm_def" != "-" ]; then
+            ipv_dstat="ok"
+        else
+            ipv_dstat="ko"
+        fi
 
 echo "Xarxa interfície per defecte.."
-xarxa_def=$(get_network_address $inter_def) #passar nom interficie per defecte
- if [ "$xarxa_def" != "-" ]; then
-        xarxa_dstat="ok"
-    else
-        xarxa_dstat="ko"
-    fi
+    xarxa_def=$(get_network_address $inter_def) #passar nom interficie per defecte
+    if [ "$xarxa_def" != "-" ]; then
+            xarxa_dstat="ok"
+        else
+            xarxa_dstat="ko"
+        fi
 
 echo "Router per defecte.."
-router_def=$(get_default_router)
- if [ "$router_def" != "-" ]; then
-        router_dstat="ok"
-    else
-        router_dstat="ko"
-    fi
+    router_def=$(get_default_router)
+    if [ "$router_def" != "-" ]; then
+            router_dstat="ok"
+        else
+            router_dstat="ko"
+        fi
 
 echo "Adreça router per defecte respon.."
-router_vel_def=$(get_ip_rtt $router_def) #passar ip router per defecte
- if [ "$router_vel_def" != "-" ]; then
-        router_rtt_dstat="ok"
-    else
-        router_rtt_dstat="ko"
-    fi
+    router_vel_def=$(get_ip_rtt $router_def) #passar ip router per defecte
+    if [ "$router_vel_def" != "-" ]; then
+            router_rtt_dstat="ok"
+        else
+            router_rtt_dstat="ko"
+        fi
 
 echo "Adreça router per defecte a internet.."
-ad_internet="1.1.1.1"
-router_inte_def=$(get_router_internet $ad_internet )
- if [ "$router_vel_def" != "-" ]; then
-        router_inte_dstat="ok"
-    else
-        router_inte_dstat="ko"
-    fi
+    ad_internet="1.1.1.1"
+    router_inte_def=$(get_router_internet $ad_internet )
+    if [ "$router_vel_def" != "-" ]; then
+            router_inte_dstat="ok"
+        else
+            router_inte_dstat="ko"
+        fi
 
 echo "Dns per defecte definit.."
-dns_def=$(get_dns_servers )
- if [ "$dns_def" != "-" ]; then
-        dns_dstat="ok"
-    else
-        dns_dstat="ko"
-    fi
+    dns_def=$(get_dns_servers )
+    if [ "$dns_def" != "-" ]; then
+            dns_dstat="ok"
+        else
+            dns_dstat="ko"
+        fi
 
 echo "Dns per defecte definit respon.."
-dns_resp_def=$(get_dns_default )
- if [ "$dns_resp_def" != "-" ]; then
-        dns_resp_dstat="ok"
-    else
-        dns_resp_dstat="ko"
-    fi
+    dns_resp_def=$(get_dns_default )
+    if [ "$dns_resp_def" != "-" ]; then
+            dns_resp_dstat="ok"
+        else
+            dns_resp_dstat="ko"
+        fi
 
 cat >> log_inet_s4.log << EOF    
 ┌─────────────────────────────────────────────────────────┐
@@ -399,20 +412,20 @@ EOF
 
 echo "ANALITZANT ELS RECURSOS DEDICATS"
 
-echo "Interficie per defecte.."
-inter_def=$(get_default_interface)
-    if [ "$inter_def" != "-" ]; then
-        in_dstat="ok"
+echo "Interficie utilitzada.."
+inter_rec=$(get_util_interface $ADDR_IP) #passar ip per trobar interfície q utilitza
+    if [ "$inter_rec" != "-" ]; then
+        in_rstat="ok"
     else
-        in_dstat="ko"
+        in_rstat="ko"
     fi
 
-echo "Adreça Mac per defecte.."
-mac_def=$(get_mac_address $inter_def) #passar nom interficie per defecte
-    if [ "$mac_def" != "-" ]; then
-        mac_dstat="ok"
+echo "Adreça Mac interfície utilitzada.."
+mac_rec=$(get_mac_address $inter_rec) #passar nom interficie UTILITZADA
+    if [ "$mac_rec" != "-" ]; then
+        mac_rstat="ok"
     else
-        mac_dstat="ko"
+        mac_rstat="ko"
     fi
 
 
@@ -421,8 +434,8 @@ cat >> log_inet_s4.log << EOF
  -------------------------------------------------------------------------------  
                             Estat dels recursos dedicats.                                
  -------------------------------------------------------------------------------  
-    Interfície de sortida cap al destí:        [ok]    enp0s3                        
-    Interfície de sortida adreça MAC:          [ok]    08:00:27:1d:97:61             
+    Interfície de sortida cap al destí:        [$in_rstat]    $inter_rec                        
+    Interfície de sortida adreça MAC:          [$mac_rstat]    $mac_rec            
     Interfície de sortida estat:               [ok]    up                            
     Interfície de sortida adreça IP:           [ok]    10.1.1.143                    
     Interfície de sortida adreça IP respon:    [ok]    rtt 0.013 ms                  
