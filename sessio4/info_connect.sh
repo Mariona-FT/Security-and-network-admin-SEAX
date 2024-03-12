@@ -273,6 +273,7 @@ get_util_interface(){
 
 #***FUNCIONS RECURSOS DESTÍ ***
 
+# Obté el nom DNS fent una cerca inversa de l'adreça IP proporcionada.
 get_DNS_name() {
     local nom_DNS=$(nslookup $ADDR_IP | awk '/name =/ {gsub(/.$/, "", $4); print $4}')
     if [ -z "$nom_DNS" ]; then
@@ -282,6 +283,7 @@ get_DNS_name() {
     fi
 }
 
+# Utilitza nmap per identificar el servei que s'executa en el port obert de l'adreça IP especificada.
 get_associated_service() {
     local servei_associat=$(nmap -sV -p $PORT $ADDR_IP | awk '/SERVICE/{getline; print $3}')
     if [ -z "$servei_associat" ]; then
@@ -291,7 +293,7 @@ get_associated_service() {
     fi
 }
 
-
+# Fa ping a l'adreça IP i retorna la latència mitjana de quatre intents.
 get_attainable_destiny() {
     local latencia_desti=$(ping -c 4 $ip_addr | tail -1 | awk -F '/' '{print $5}')
     if [ -z "$latencia_desti" ]; then
@@ -301,6 +303,7 @@ get_attainable_destiny() {
     fi
 }
 
+# Mesura el temps de resposta d'inici del servei utilitzant curl per a una petició HTTP al port especificat.
 get_service_response() {
     local resposta_servei=$(curl -o /dev/null -s -w '%{time_starttransfer}\n' http://$ADD_IP:$PORT)
     if [ -z "$resposta_servei" ]; then
