@@ -13,12 +13,9 @@ function show_help() {
   echo "            És necessari que el sistema operatiu sigui Debian"
   echo ""
   echo "Paquets necessaris a tenir instal·lats:"
-  echo "curl"
   echo "whois"
   echo "bc"
-  echo "dnsutils (dig)"
   echo "traceroute"
-  echo "iw"
   echo "Per instal·lar-los utilitza la comanda:"
   echo "apt install <paquet>"
   echo ""
@@ -130,6 +127,7 @@ echo "Veure si es compleixen les comprovacions inicials.."
     }
 
     funcio_verifica_paquets whois
+    funcio_verifica_paquets bc
 
 
 
@@ -197,7 +195,6 @@ get_ip_rtt() {
 #   DEPEN funcio interfíce per defecte -$1
 get_network_address() {
     local inter_def=$1
-
     # Verificar si hi ha l'adreça IP amb mascara de l'interfície
     #si es defecte la segona fila sera la ip de la xarxa+mascara
     local xarxa_def=$(ip route show | grep "$inter_def" | awk 'NR==2 {print $1}') 
@@ -211,21 +208,31 @@ get_network_address() {
 
 # Funció per obtenir el router per defecte
 get_default_router() {
-    local router_def=$(ip route show default | awk '/default/ {print $3}')
-    echo $router_def
+    local router_def=$(ip route show default | awk '/default/ {print $3}') # adreça ip del router per defecte
+    if [ -z "$router_def" ]; then
+        echo "-"
+    else 
+        echo $router_def
+    fi
 }
 
-# Funció per comprovar la latència al router per defecte (ICMP ping)
-get_router_response_time() {
-    local router_def=$1
-    local router_vel_def=$(ping -c 1 ${router_def} | grep 'time=' | awk -F'time=' '{print $2}' | awk '{print $1}')
-    echo $router_vel_def
-}
+# Funció per comprovar l'accés a Internet pel router per defecte
+#   ping a un servidor conegut- 1.1.1.1
+get_router_internet() {
+    local target_ip=$1
+    local temps_total=0
+    local num_packets=5
 
-# Funció per comprovar l'accés a Internet (ICMP ping a un servidor conegut, p.ex. 8.8.8.8)
-get_internet_access() {
-    local router_acces_def=$(ping -c 1 8.8.8.8 | grep 'time=' | awk -F'time=' '{print $2}' | awk '{print $1}')
-    echo $router_acces_def
+    for ((i = 1; i <= $num_packets; i++)); do
+         local response=$(ping -c 1 $target_ip | grep 'time=' | awk -F'time=' '{print $2}' | awk '{print $1}') #agafar el temps dels pings
+        # Afegir el temps de resposta (en segons) al total
+        temps_total=$(echo "$temps_total + $response" | bc)
+    done
+
+    # Calcular la mitjana en decimals
+    local mitjana_t=$(echo "scale=3; $temps_total / $num_packets" | bc)
+
+    echo $mitjana_t
 }
 
 # Funció per obtenir el servidor DNS per defecte
@@ -275,7 +282,7 @@ ip_def=$(get_ip_address $inter_def) #passar nom interficie per defecte
         ip_dstat="ko"
     fi
 
-echo "Adreça ip interfíce velocitat per defecte.."
+echo "Adreça ip per defecte respon.."
 vm_def=$(get_ip_rtt $ip_def)
  if [ "$vm_def" != "-" ]; then
         ipv_dstat="ok"
@@ -291,6 +298,32 @@ xarxa_def=$(get_network_address $inter_def) #passar nom interficie per defecte
         xarxa_dstat="ko"
     fi
 
+echo "Router per defecte.."
+router_def=$(get_default_router)
+ if [ "$router_def" != "-" ]; then
+        router_dstat="ok"
+    else
+        router_dstat="ko"
+    fi
+
+echo "Adreça router per defecte respon.."
+router_vel_def=$(get_ip_rtt $router_def) #passar ip router per defecte
+ if [ "$router_vel_def" != "-" ]; then
+        router_rtt_dstat="ok"
+    else
+        router_rtt_dstat="ko"
+    fi
+
+echo "Adreça router per defecte a internet.."
+ad_internet="1.1.1.1"
+router_inte_def=$(get_router_internet $ad_internet )
+ if [ "$router_vel_def" != "-" ]; then
+        router_inte_dstat="ok"
+    else
+        router_inte_dstat="ko"
+    fi
+
+
 cat >> log_inet_s4.log << EOF    
 ┌─────────────────────────────────────────────────────────┐
                                                                                          
@@ -303,10 +336,10 @@ cat >> log_inet_s4.log << EOF
     Intefície per defecte adreça IP:           [$ip_dstat]    $ip_def                     
     Intefície per defecte adreça IP respon:    [$ipv_dstat]    rtt $vm_def ms                        
     Intefície per defecte adreça de xarxa:     [$xarxa_dstat]    $xarxa_def                       
-                                    ---                                                      
+
     Router per defecte definit:                [$router_dstat]    $router_def                        
     Router per defecte respon:                 [$router_rtt_dstat]    rtt $router_vel_def ms                        
-    Router per defecte té accés a Internet:    [$router_inte_dstat]    rtt $router_inte_def ms (a $router_acces_def)            
+    Router per defecte té accés a Internet:    [$router_inte_dstat]    rtt $router_inte_def ms (a $ad_internet)            
                                                                                             
     Servidor DNS per defecte definit:          [$dns_dstat]    $dns_def             
     Servidor DNS per defecte respon:           [$dns_resp_dstat]    $dns_resp_def                            
