@@ -313,8 +313,8 @@ get_service_response() {
     fi
 }
 
+# Aquesta funció utilitza nmap per identificar la versió del servei que s'executa en el port especificat de l'adreça IP donada.
 get_service_version() {
-    # Això suposa que $PORT i $ADDR_IP estan definits fora d'aquesta funció
     local versio_servei=$(nmap -sV -p $PORT $ADDR_IP | awk '/open/ {for (i=3; i<=NF; i++) printf $i " "; print ""}')
     if [ -z "$versio_servei" ]; then
         echo "<< Versió no identificada >>"
