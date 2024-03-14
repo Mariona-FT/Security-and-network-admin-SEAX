@@ -1,0 +1,11 @@
+
+====================
+Fecha y hora: 2024-03-14 10:35:03
+Prompt: root@seax1
+Comando ejecutado: john --format=crypt --wordlist=/usr/share/john/password.lst combined.txt
+====================
+Loaded 2 password hashes with 2 different salts (crypt, generic crypt(3) [?/64])
+No password hashes left to crack (see FAQ)
+
+Fin de la ejecución
+====================
