@@ -1,0 +1,135 @@
+--CLIENT--
+====================
+Fecha y hora: 2024-03-18 20:50:33
+Prompt: root@seax2
+Comando ejecutado:  sftp -P 2222 root@10.0.3.7
+====================
+root@10.0.3.7's password:
+Connected to 10.0.3.7.
+sftp> pwd
+Remote working directory: /root
+sftp> cd /home
+home/	home_seax1/
+sftp> ls
+dins_seax1.txt
+sftp>
+bye     exit    get     help    lcd     lchdir  lls     lmkdir  ln      lpwd    ls
+lumask  mkdir   mget    mput    progress put     pwd     quit    reget   rename
+rmdir   symlink version !
+sftp> cd /home/chroot/
+sftp> ls
+holachroot.txt
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-18 20:53:05
+Prompt: root@seax2
+Comando ejecutado: ls
+====================
+3-3.pcap
+combined.txt
+ev.sh
+p1
+p2
+sftp.pcap
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-18 20:55:22
+Prompt: root@seax2
+Comando ejecutado: ls -l
+====================
+total 57
+-rwxrwxrwx 1 root root  9134 mar 17 13:05 3-3.pcap
+-rwxrwxrwx 1 root root 14650 mar 18 20:55 clientsftp.pcap
+-rwxrwxrwx 1 root root  1466 mar 14 10:07 combined.txt
+-rwxrwxrwx 1 root root  1119 mar  4 19:40 ev.sh
+-rwxrwxrwx 1 root root    26 mar 18 20:54 hola.txt
+drwxrwxrwx 1 root root  4096 mar 14 09:36 p1
+drwxrwxrwx 1 root root     0 mar 14 09:35 p2
+-rwxrwxrwx 1 root root 12686 mar 14 11:51 sftp.pcap
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-18 20:56:33
+Prompt: root@seax1
+Comando ejecutado: tcpdump -r clientsftp.pcap
+====================
+20:54:49.668913 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [S], seq 3779051225, win 64240, options [mss 1460,sackOK,TS val 1200922958 ecr 0,nop,wscale 7], length 0
+20:54:49.668942 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [S.], seq 721074756, ack 3779051226, win 65160, options [mss 1460,sackOK,TS val 713380307 ecr 1200922958,nop,wscale 7], length 0
+20:54:49.669146 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 1, win 502, options [nop,nop,TS val 1200922958 ecr 713380307], length 0
+20:54:49.669299 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 1:41, ack 1, win 502, options [nop,nop,TS val 1200922958 ecr 713380307], length 40: SSH: SSH-2.0-OpenSSH_9.2p1 Debian-2+deb12u2
+20:54:49.669311 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [.], ack 41, win 509, options [nop,nop,TS val 713380307 ecr 1200922958], length 0
+20:54:49.678256 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 1:41, ack 41, win 509, options [nop,nop,TS val 713380316 ecr 1200922958], length 40: SSH: SSH-2.0-OpenSSH_9.2p1 Debian-2+deb12u2
+20:54:49.678577 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 41, win 502, options [nop,nop,TS val 1200922967 ecr 713380316], length 0
+20:54:49.679050 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 41:1577, ack 41, win 502, options [nop,nop,TS val 1200922968 ecr 713380316], length 1536
+20:54:49.679702 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 41:1153, ack 1577, win 500, options [nop,nop,TS val 713380317 ecr 1200922968], length 1112
+20:54:49.727483 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 1153, win 501, options [nop,nop,TS val 1200923016 ecr 713380317], length 0
+20:54:49.731648 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 1577:2785, ack 1153, win 501, options [nop,nop,TS val 1200923021 ecr 713380317], length 1208
+20:54:49.740592 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 1153:2717, ack 2785, win 501, options [nop,nop,TS val 713380378 ecr 1200923021], length 1564
+20:54:49.740850 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 2717, win 500, options [nop,nop,TS val 1200923030 ecr 713380378], length 0
+20:54:49.759923 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 2785:2801, ack 2717, win 501, options [nop,nop,TS val 1200923049 ecr 713380378], length 16
+20:54:49.802982 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [.], ack 2801, win 501, options [nop,nop,TS val 713380441 ecr 1200923049], length 0
+20:54:49.803221 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 2801:2845, ack 2717, win 501, options [nop,nop,TS val 1200923092 ecr 713380441], length 44
+20:54:49.803239 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [.], ack 2845, win 501, options [nop,nop,TS val 713380441 ecr 1200923092], length 0
+20:54:49.803342 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 2717:2761, ack 2845, win 501, options [nop,nop,TS val 713380441 ecr 1200923092], length 44
+20:54:49.803628 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 2845:2913, ack 2761, win 501, options [nop,nop,TS val 1200923093 ecr 713380441], length 68
+20:54:49.813293 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 2761:2813, ack 2913, win 501, options [nop,nop,TS val 713380451 ecr 1200923093], length 52
+20:54:49.813664 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 2913:3413, ack 2813, win 501, options [nop,nop,TS val 1200923103 ecr 713380451], length 500
+20:54:49.823200 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 2813:2865, ack 3413, win 501, options [nop,nop,TS val 713380461 ecr 1200923103], length 52
+20:54:49.866970 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 2865, win 501, options [nop,nop,TS val 1200923156 ecr 713380461], length 0
+20:54:52.877432 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 3413:3497, ack 2865, win 501, options [nop,nop,TS val 1200926168 ecr 713380461], length 84
+20:54:52.915070 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 2865:2893, ack 3497, win 501, options [nop,nop,TS val 713383553 ecr 1200926168], length 28
+20:54:52.915271 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 2893, win 501, options [nop,nop,TS val 1200926206 ecr 713383553], length 0
+20:54:52.915421 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 3497:3609, ack 2893, win 501, options [nop,nop,TS val 1200926206 ecr 713383553], length 112
+20:54:52.959243 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [.], ack 3609, win 501, options [nop,nop,TS val 713383597 ecr 1200926206], length 0
+20:54:53.071817 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 2893:3521, ack 3609, win 501, options [nop,nop,TS val 713383710 ecr 1200926206], length 628
+20:54:53.113153 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 3521, win 501, options [nop,nop,TS val 1200926404 ecr 713383710], length 0
+20:54:53.113175 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 3521:3565, ack 3609, win 501, options [nop,nop,TS val 713383751 ecr 1200926404], length 44
+20:54:53.113316 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 3565, win 501, options [nop,nop,TS val 1200926404 ecr 713383751], length 0
+20:54:53.113529 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 3609:3729, ack 3565, win 501, options [nop,nop,TS val 1200926404 ecr 713383751], length 120
+20:54:53.113553 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [.], ack 3729, win 501, options [nop,nop,TS val 713383751 ecr 1200926404], length 0
+20:54:53.114405 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 3565:3637, ack 3729, win 501, options [nop,nop,TS val 713383752 ecr 1200926404], length 72
+20:54:53.114741 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 3729:3773, ack 3637, win 501, options [nop,nop,TS val 1200926405 ecr 713383752], length 44
+20:54:53.116969 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 3637:3993, ack 3773, win 501, options [nop,nop,TS val 713383755 ecr 1200926405], length 356
+20:54:53.117345 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 3773:3841, ack 3993, win 501, options [nop,nop,TS val 1200926408 ecr 713383755], length 68
+20:54:53.117455 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 3993:4069, ack 3841, win 501, options [nop,nop,TS val 713383755 ecr 1200926408], length 76
+20:54:53.118218 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 3841:3893, ack 4069, win 501, options [nop,nop,TS val 1200926409 ecr 713383755], length 52
+20:54:53.118364 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 4069:4153, ack 3893, win 501, options [nop,nop,TS val 713383756 ecr 1200926409], length 84
+20:54:53.160910 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 4153, win 501, options [nop,nop,TS val 1200926452 ecr 713383756], length 0
+20:54:58.859214 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 3893:3961, ack 4153, win 501, options [nop,nop,TS val 1200932153 ecr 713383756], length 68
+20:54:58.859370 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 4153:4229, ack 3961, win 501, options [nop,nop,TS val 713389497 ecr 1200932153], length 76
+20:54:58.859604 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 4229, win 501, options [nop,nop,TS val 1200932153 ecr 713389497], length 0
+20:54:58.860151 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 3961:4029, ack 4229, win 501, options [nop,nop,TS val 1200932154 ecr 713389497], length 68
+20:54:58.860255 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 4229:4305, ack 4029, win 501, options [nop,nop,TS val 713389498 ecr 1200932154], length 76
+20:54:58.860497 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 4029:4105, ack 4305, win 501, options [nop,nop,TS val 1200932154 ecr 713389498], length 76
+20:54:58.860575 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 4305:4357, ack 4105, win 501, options [nop,nop,TS val 713389498 ecr 1200932154], length 52
+20:54:58.861517 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 4105:4173, ack 4357, win 501, options [nop,nop,TS val 1200932155 ecr 713389498], length 68
+20:54:58.861831 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 4357:4433, ack 4173, win 501, options [nop,nop,TS val 713389500 ecr 1200932155], length 76
+20:54:58.863025 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 4173:4241, ack 4433, win 501, options [nop,nop,TS val 1200932156 ecr 713389500], length 68
+20:54:58.863265 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 4433:4501, ack 4241, win 501, options [nop,nop,TS val 713389501 ecr 1200932156], length 68
+20:54:58.863862 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 4241:4293, ack 4501, win 501, options [nop,nop,TS val 1200932157 ecr 713389501], length 52
+20:54:58.863924 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 4501:4569, ack 4293, win 501, options [nop,nop,TS val 713389502 ecr 1200932157], length 68
+20:54:58.906206 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 4569, win 501, options [nop,nop,TS val 1200932200 ecr 713389502], length 0
+20:55:02.397589 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 4293:4329, ack 4569, win 501, options [nop,nop,TS val 1200935693 ecr 713389502], length 36
+20:55:02.397837 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 4569:4605, ack 4329, win 501, options [nop,nop,TS val 713393036 ecr 1200935693], length 36
+20:55:02.397934 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [P.], seq 4605:4693, ack 4329, win 501, options [nop,nop,TS val 713393036 ecr 1200935693], length 88
+20:55:02.398083 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 4605, win 501, options [nop,nop,TS val 1200935693 ecr 713393036], length 0
+20:55:02.398083 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 4693, win 501, options [nop,nop,TS val 1200935693 ecr 713393036], length 0
+20:55:02.398173 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 4329:4365, ack 4693, win 501, options [nop,nop,TS val 1200935694 ecr 713393036], length 36
+20:55:02.398173 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [P.], seq 4365:4425, ack 4693, win 501, options [nop,nop,TS val 1200935694 ecr 713393036], length 60
+20:55:02.398216 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [F.], seq 4425, ack 4693, win 501, options [nop,nop,TS val 1200935694 ecr 713393036], length 0
+20:55:02.398227 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [.], ack 4426, win 501, options [nop,nop,TS val 713393036 ecr 1200935694], length 0
+20:55:02.400724 IP 10.0.3.9.ssh > 10.0.3.7.42750: Flags [F.], seq 4693, ack 4426, win 501, options [nop,nop,TS val 713393038 ecr 1200935694], length 0
+20:55:02.400953 IP 10.0.3.7.42750 > 10.0.3.9.ssh: Flags [.], ack 4694, win 501, options [nop,nop,TS val 1200935696 ecr 713393038], length 0
+
+Fin de la ejecución
+====================
+
+

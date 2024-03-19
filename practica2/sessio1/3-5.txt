@@ -1,0 +1,239 @@
+
+====================
+Fecha y hora: 2024-03-19 19:39:53
+Prompt: root@seax1
+Comando ejecutado: useradd chmood
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-19 19:44:50
+Prompt: root@seax1
+Comando ejecutado: groupadd sftpgrup
+====================
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-03-19 19:42:16
+Prompt: root@seax1
+Comando ejecutado: usermod -aG sftpgrup chroot
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-19 19:45:37
+Prompt: root@seax1
+Comando ejecutado: getent group sftpgrup
+====================
+sftpgrup:x:1004:chroot
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-19 19:49:47
+Prompt: root@seax1
+Comando ejecutado: mkdir -p /home/chroot/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-19 19:49:59
+Prompt: root@seax1
+Comando ejecutado: chmod 755 /home/chroot/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-19 20:07:00
+Prompt: root@seax1
+Comando ejecutado: cat /etc/ssh/sshd_config
+====================
+
+# This is the sshd server system-wide configuration file.  See
+# sshd_config(5) for more information.
+
+# This sshd was compiled with PATH=/usr/local/bin:/usr/bin:/bin:/usr/games
+
+# The strategy used for options in the default sshd_config shipped with
+# OpenSSH is to specify options with their default value where
+# possible, but leave them commented.  Uncommented options override the
+# default value.
+
+Include /etc/ssh/sshd_config.d/*.conf
+
+Port 2222
+#AddressFamily any
+#ListenAddress 0.0.0.0
+#ListenAddress ::
+
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/ssh_host_ed25519_key
+
+# Ciphers and keying
+#RekeyLimit default none
+
+# Logging
+#SyslogFacility AUTH
+#LogLevel INFO
+
+# Authentication:
+
+#LoginGraceTime 2m
+PermitRootLogin yes
+#StrictModes yes
+MaxAuthTries 3
+MaxSessions 10
+
+#PubkeyAuthentication yes
+
+# Expect .ssh/authorized_keys2 to be disregarded by default in future.
+#AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2
+
+#AuthorizedPrincipalsFile none
+
+#AuthorizedKeysCommand none
+#AuthorizedKeysCommandUser nobody
+
+# For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
+#HostbasedAuthentication no
+# Change to yes if you don't trust ~/.ssh/known_hosts for
+# HostbasedAuthentication
+#IgnoreUserKnownHosts no
+# Don't read the user's ~/.rhosts and ~/.shosts files
+#IgnoreRhosts yes
+
+# To disable tunneled clear text passwords, change to no here!
+PasswordAuthentication yes
+#PermitEmptyPasswords no
+
+# Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+KbdInteractiveAuthentication no
+
+# Kerberos options
+#KerberosAuthentication no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+#KerberosGetAFSToken no
+
+# GSSAPI options
+#GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes
+#GSSAPIStrictAcceptorCheck yes
+#GSSAPIKeyExchange no
+
+# Set this to 'yes' to enable PAM authentication, account processing,
+# and session processing. If this is enabled, PAM authentication will
+# be allowed through the KbdInteractiveAuthentication and
+# PasswordAuthentication.  Depending on your PAM configuration,
+# PAM authentication via KbdInteractiveAuthentication may bypass
+# the setting of "PermitRootLogin prohibit-password".
+# If you just want the PAM account and session checks to run without
+# PAM authentication, then enable this but set PasswordAuthentication
+# and KbdInteractiveAuthentication to 'no'.
+UsePAM yes
+
+#AllowAgentForwarding yes
+#AllowTcpForwarding yes
+#GatewayPorts no
+#X11Forwarding yes
+#X11DisplayOffset 10
+#X11UseLocalhost yes
+#PermitTTY yes
+#PrintMotd no
+#PrintLastLog yes
+#TCPKeepAlive yes
+#PermitUserEnvironment no
+#Compression delayed
+ClientAliveInterval 300
+ClientAliveCountMax 0
+#UseDNS no
+#PidFile /run/sshd.pid
+#MaxStartups 10:30:100
+#PermitTunnel no
+#ChrootDirectory none
+#VersionAddendum none
+
+# no default banner path
+#Banner none
+
+# Allow client to pass locale environment variables
+AcceptEnv LANG LC_*
+
+# override default of no subsystems
+Subsystem	sftp	/usr/lib/openssh/sftp-server
+
+# Example of overriding settings on a per-user basis
+#Match User anoncvs
+#	X11Forwarding no
+#	AllowTcpForwarding no
+#	PermitTTY no
+#	ForceCommand cvs server
+Match User entel
+	ChrootDirectory /root/directori_sftpcomp
+	ForceCommand internal-sftp
+	AllowTcpForwarding no
+	X11Forwarding no
+Match Group sftpgrup
+	ChrootDirectory /home/chroot
+	ForceCommand internal-sftp
+	AllowTcpForwarding no
+	X11Forwarding no
+
+Fin de la ejecución
+====================
+
+--SERVIDOR--
+====================
+Fecha y hora: 2024-03-19 19:56:50
+Prompt: root@seax1
+Comando ejecutado: ls -la /home/chroot/
+====================
+total 12
+drwxr-xr-x 2 root root 4096 19 de març  19:56 .
+drwxr-xr-x 5 root root 4096 19 de març  19:49 ..
+-rw-r--r-- 1 root root    3 19 de març  19:56 holachroot.txt
+
+Fin de la ejecución
+====================
+
+--CLIENT--
+====================
+Fecha y hora: 2024-03-19 19:59:55
+Prompt: root@seax2
+Comando ejecutado:  sftp -P 2222 chroot@192.168.1.26
+====================
+chroot@192.168.1.26's password:
+Connected to 192.168.1.26.
+sftp> pwd
+Remote working directory: /
+sftp> ls
+holachroot.txt
+sftp> cd /holachroot.txt
+Can't change directory: "/holachroot.txt" is not a directory
+sftp> cd /home_seax1/remote readdir("/home_seax1/"):
+No such file or directory
+realpath /home_seax1/: No such file
+sftp> cd /home_seax1
+stat remote: No such file or directory
+sftp> cd /root
+stat remote: No such file or directory
+sftp> cd /scripts
+stat remote: No such file or directory
+sftp>
+
+Fin de la ejecución
+====================

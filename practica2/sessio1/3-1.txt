@@ -1,0 +1,233 @@
+
+====================
+Fecha y hora: 2024-03-14 11:35:45
+Prompt: root@seax2
+Comando ejecutado: cat /etc/ssh/sshd_config
+====================
+
+# This is the sshd server system-wide configuration file.  See
+# sshd_config(5) for more information.
+
+# This sshd was compiled with PATH=/usr/local/bin:/usr/bin:/bin:/usr/games
+
+# The strategy used for options in the default sshd_config shipped with
+# OpenSSH is to specify options with their default value where
+# possible, but leave them commented.  Uncommented options override the
+# default value.
+
+Include /etc/ssh/sshd_config.d/*.conf
+
+#Port 22
+#AddressFamily any
+#ListenAddress 0.0.0.0
+#ListenAddress ::
+
+#HostKey /etc/ssh/ssh_host_rsa_key
+#HostKey /etc/ssh/ssh_host_ecdsa_key
+#HostKey /etc/ssh/ssh_host_ed25519_key
+
+# Ciphers and keying
+#RekeyLimit default none
+
+# Logging
+#SyslogFacility AUTH
+#LogLevel INFO
+
+# Authentication:
+
+#LoginGraceTime 2m
+#PermitRootLogin prohibit-password
+#StrictModes yes
+#MaxAuthTries 6
+#MaxSessions 10
+
+#PubkeyAuthentication yes
+
+# Expect .ssh/authorized_keys2 to be disregarded by default in future.
+#AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2
+
+#AuthorizedPrincipalsFile none
+
+#AuthorizedKeysCommand none
+#AuthorizedKeysCommandUser nobody
+
+# For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
+#HostbasedAuthentication no
+# Change to yes if you don't trust ~/.ssh/known_hosts for
+# HostbasedAuthentication
+#IgnoreUserKnownHosts no
+# Don't read the user's ~/.rhosts and ~/.shosts files
+#IgnoreRhosts yes
+
+# To disable tunneled clear text passwords, change to no here!
+#PasswordAuthentication yes
+#PermitEmptyPasswords no
+
+# Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+KbdInteractiveAuthentication no
+
+# Kerberos options
+#KerberosAuthentication no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+#KerberosGetAFSToken no
+
+# GSSAPI options
+#GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes
+#GSSAPIStrictAcceptorCheck yes
+#GSSAPIKeyExchange no
+
+# Set this to 'yes' to enable PAM authentication, account processing,
+# and session processing. If this is enabled, PAM authentication will
+# be allowed through the KbdInteractiveAuthentication and
+# PasswordAuthentication.  Depending on your PAM configuration,
+# PAM authentication via KbdInteractiveAuthentication may bypass
+# the setting of "PermitRootLogin prohibit-password".
+# If you just want the PAM account and session checks to run without
+# PAM authentication, then enable this but set PasswordAuthentication
+# and KbdInteractiveAuthentication to 'no'.
+UsePAM yes
+
+#AllowAgentForwarding yes
+#AllowTcpForwarding yes
+#GatewayPorts no
+X11Forwarding yes
+#X11DisplayOffset 10
+#X11UseLocalhost yes
+#PermitTTY yes
+PrintMotd no
+#PrintLastLog yes
+#TCPKeepAlive yes
+#PermitUserEnvironment no
+#Compression delayed
+#ClientAliveInterval 0
+#ClientAliveCountMax 3
+#UseDNS no
+#PidFile /run/sshd.pid
+#MaxStartups 10:30:100
+#PermitTunnel no
+#ChrootDirectory none
+#VersionAddendum none
+
+# no default banner path
+#Banner none
+
+# Allow client to pass locale environment variables
+AcceptEnv LANG LC_*
+
+# override default of no subsystems
+Subsystem	sftp	/usr/lib/openssh/sftp-server
+
+# Example of overriding settings on a per-user basis
+#Match User anoncvs
+#	X11Forwarding no
+#	AllowTcpForwarding no
+#	PermitTTY no
+#	ForceCommand cvs server
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-14 11:51:28
+Prompt: root@seax1
+Comando ejecutado: tcpdump -i enp0s8 -w sftp.pcap
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-14 11:52:01
+Prompt: root@seax1
+Comando ejecutado: tcpdump -r sftp.pcap
+====================
+11:51:36.777437 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [S], seq 3163023297, win 64240, options [mss 1460,sackOK,TS val 1571628952 ecr 0,nop,wscale 7], length 0
+11:51:36.777470 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [S.], seq 868944576, ack 3163023298, win 65160, options [mss 1460,sackOK,TS val 3077652947 ecr 1571628952,nop,wscale 7], length 0
+11:51:36.777724 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [.], ack 1, win 502, options [nop,nop,TS val 1571628952 ecr 3077652947], length 0
+11:51:36.778049 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 1:41, ack 1, win 502, options [nop,nop,TS val 1571628953 ecr 3077652947], length 40: SSH: SSH-2.0-OpenSSH_9.2p1 Debian-2+deb12u2
+11:51:36.778060 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [.], ack 41, win 509, options [nop,nop,TS val 3077652948 ecr 1571628953], length 0
+11:51:36.786319 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 1:41, ack 41, win 509, options [nop,nop,TS val 3077652956 ecr 1571628953], length 40: SSH: SSH-2.0-OpenSSH_9.2p1 Debian-2+deb12u2
+11:51:36.786635 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [.], ack 41, win 502, options [nop,nop,TS val 1571628961 ecr 3077652956], length 0
+11:51:36.787033 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 41:1577, ack 41, win 502, options [nop,nop,TS val 1571628962 ecr 3077652956], length 1536
+11:51:36.787393 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 41:1153, ack 1577, win 500, options [nop,nop,TS val 3077652957 ecr 1571628962], length 1112
+11:51:36.835011 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [.], ack 1153, win 501, options [nop,nop,TS val 1571629009 ecr 3077652957], length 0
+11:51:36.838472 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 1577:2785, ack 1153, win 501, options [nop,nop,TS val 1571629013 ecr 3077652957], length 1208
+11:51:36.847260 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 1153:2717, ack 2785, win 501, options [nop,nop,TS val 3077653017 ecr 1571629013], length 1564
+11:51:36.847574 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [.], ack 2717, win 500, options [nop,nop,TS val 1571629022 ecr 3077653017], length 0
+11:51:36.866612 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 2785:2801, ack 2717, win 501, options [nop,nop,TS val 1571629041 ecr 3077653017], length 16
+11:51:36.907727 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [.], ack 2801, win 501, options [nop,nop,TS val 3077653078 ecr 1571629041], length 0
+11:51:36.908068 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 2801:2845, ack 2717, win 501, options [nop,nop,TS val 1571629083 ecr 3077653078], length 44
+11:51:36.908094 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [.], ack 2845, win 501, options [nop,nop,TS val 3077653078 ecr 1571629083], length 0
+11:51:36.908213 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 2717:2761, ack 2845, win 501, options [nop,nop,TS val 3077653078 ecr 1571629083], length 44
+11:51:36.908609 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 2845:2913, ack 2761, win 501, options [nop,nop,TS val 1571629083 ecr 3077653078], length 68
+11:51:36.918010 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 2761:2813, ack 2913, win 501, options [nop,nop,TS val 3077653088 ecr 1571629083], length 52
+11:51:36.918664 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 2913:3413, ack 2813, win 501, options [nop,nop,TS val 1571629093 ecr 3077653088], length 500
+11:51:36.928278 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 2813:2865, ack 3413, win 501, options [nop,nop,TS val 3077653098 ecr 1571629093], length 52
+11:51:36.970450 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [.], ack 2865, win 501, options [nop,nop,TS val 1571629145 ecr 3077653098], length 0
+11:51:39.095841 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 3413:3497, ack 2865, win 501, options [nop,nop,TS val 1571631270 ecr 3077653098], length 84
+11:51:39.133452 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 2865:2893, ack 3497, win 501, options [nop,nop,TS val 3077655303 ecr 1571631270], length 28
+11:51:39.133820 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [.], ack 2893, win 501, options [nop,nop,TS val 1571631308 ecr 3077655303], length 0
+11:51:39.134037 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 3497:3609, ack 2893, win 501, options [nop,nop,TS val 1571631309 ecr 3077655303], length 112
+11:51:39.175502 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [.], ack 3609, win 501, options [nop,nop,TS val 3077655346 ecr 1571631309], length 0
+11:51:39.279631 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 2893:3521, ack 3609, win 501, options [nop,nop,TS val 3077655450 ecr 1571631309], length 628
+11:51:39.322608 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [.], ack 3521, win 501, options [nop,nop,TS val 1571631497 ecr 3077655450], length 0
+11:51:39.322636 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 3521:3565, ack 3609, win 501, options [nop,nop,TS val 3077655493 ecr 1571631497], length 44
+11:51:39.322812 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [.], ack 3565, win 501, options [nop,nop,TS val 1571631497 ecr 3077655493], length 0
+11:51:39.323165 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 3609:3729, ack 3565, win 501, options [nop,nop,TS val 1571631498 ecr 3077655493], length 120
+11:51:39.323195 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [.], ack 3729, win 501, options [nop,nop,TS val 3077655493 ecr 1571631498], length 0
+11:51:39.324292 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 3565:3637, ack 3729, win 501, options [nop,nop,TS val 3077655494 ecr 1571631498], length 72
+11:51:39.324599 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 3729:3773, ack 3637, win 501, options [nop,nop,TS val 1571631499 ecr 3077655494], length 44
+11:51:39.326473 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 3637:3993, ack 3773, win 501, options [nop,nop,TS val 3077655496 ecr 1571631499], length 356
+11:51:39.326894 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 3773:3841, ack 3993, win 501, options [nop,nop,TS val 1571631501 ecr 3077655496], length 68
+11:51:39.327034 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 3993:4069, ack 3841, win 501, options [nop,nop,TS val 3077655497 ecr 1571631501], length 76
+11:51:39.327781 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 3841:3893, ack 4069, win 501, options [nop,nop,TS val 1571631502 ecr 3077655497], length 52
+11:51:39.327936 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 4069:4153, ack 3893, win 501, options [nop,nop,TS val 3077655498 ecr 1571631502], length 84
+11:51:39.370467 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [.], ack 4153, win 501, options [nop,nop,TS val 1571631545 ecr 3077655498], length 0
+11:51:41.583818 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 3893:3929, ack 4153, win 501, options [nop,nop,TS val 1571633758 ecr 3077655498], length 36
+11:51:41.584083 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 4153:4189, ack 3929, win 501, options [nop,nop,TS val 3077657754 ecr 1571633758], length 36
+11:51:41.584198 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [P.], seq 4189:4277, ack 3929, win 501, options [nop,nop,TS val 3077657754 ecr 1571633758], length 88
+11:51:41.584305 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [.], ack 4189, win 501, options [nop,nop,TS val 1571633759 ecr 3077657754], length 0
+11:51:41.584305 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [.], ack 4277, win 501, options [nop,nop,TS val 1571633759 ecr 3077657754], length 0
+11:51:41.584444 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 3929:3965, ack 4277, win 501, options [nop,nop,TS val 1571633759 ecr 3077657754], length 36
+11:51:41.584445 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [P.], seq 3965:4025, ack 4277, win 501, options [nop,nop,TS val 1571633759 ecr 3077657754], length 60
+11:51:41.584445 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [F.], seq 4025, ack 4277, win 501, options [nop,nop,TS val 1571633759 ecr 3077657754], length 0
+11:51:41.584492 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [.], ack 4026, win 501, options [nop,nop,TS val 3077657755 ecr 1571633759], length 0
+11:51:41.586909 IP 10.0.3.4.ssh > 10.0.3.7.53470: Flags [F.], seq 4277, ack 4026, win 501, options [nop,nop,TS val 3077657757 ecr 1571633759], length 0
+11:51:41.587197 IP 10.0.3.7.53470 > 10.0.3.4.ssh: Flags [.], ack 4278, win 501, options [nop,nop,TS val 1571633762 ecr 3077657757], length 0
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-03-14 11:53:14
+Prompt: root@seax1
+Comando ejecutado: ip addr show enp0s8
+====================
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:02:01 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.3.4/24 brd 10.0.3.255 scope global dynamic enp0s8
+       valid_lft 364sec preferred_lft 364sec
+    inet6 fe80::a00:27ff:fe01:201/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-14 11:54:28
+Prompt: root@seax2
+Comando ejecutado: ip addr show enp0s8
+====================
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:02:02 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.3.7/24 brd 10.0.3.255 scope global dynamic enp0s8
+       valid_lft 355sec preferred_lft 355sec
+    inet6 fe80::a00:27ff:fe01:202/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================

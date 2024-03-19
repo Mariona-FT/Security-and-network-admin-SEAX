@@ -1,0 +1,125 @@
+
+====================
+Fecha y hora: 2024-03-18 19:10:38
+Prompt: root@seax2
+Comando ejecutado: ssh entel@192.168.1.26
+====================
+Linux seax1 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Mon Mar 18 19:07:58 2024 from 192.168.1.25
+[?2004hentel@seax1:~$ cd /home 
+home/       home_seax1/ 
+entel@seax1:~$ cd /home
+home/       home_seax1/ 
+entel@seax1:~$ cd /home7[K/s[Kentel/
+[?2004l
+[?2004hentel@seax1:~$ cd
+[?2004l
+[?2004hentel@seax1:~$ cd /home 
+home/       home_seax1/ 
+entel@seax1:~$ cd /home/ts[Kest/
+[?2004l
+-bash: cd: /home/test/: S’ha denegat el permís
+[?2004hentel@seax1:~$ exit
+[?2004l
+desconnectat
+
+Fin de la ejecución
+====================
+====================
+Fecha y hora: 2024-03-18 19:18:38
+Prompt: root@seax1
+Comando ejecutado: getent passwd
+====================
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/run/ircd:/usr/sbin/nologin
+_apt:x:42:65534::/nonexistent:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-network:x:998:998:systemd Network Management:/:/usr/sbin/nologin
+messagebus:x:100:107::/nonexistent:/usr/sbin/nologin
+avahi-autoipd:x:101:108:Avahi autoip daemon,,,:/var/lib/avahi-autoipd:/usr/sbin/nologin
+entel:x:1000:1000:entel,,,:/home/entel:/bin/bash
+vboxadd:x:999:1::/var/run/vboxadd:/bin/false
+sshd:x:102:65534::/run/sshd:/usr/sbin/nologin
+tcpdump:x:103:111::/nonexistent:/usr/sbin/nologin
+test:x:1001:1001:,,,:/home/test:/bin/bash
+
+Fin de la ejecución
+====================
+
+-- Prova user root--
+
+====================
+Fecha y hora: 2024-03-18 19:29:34
+Prompt: root@seax1
+Comando ejecutado: ssh-copy-id root@192.168.1.25
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-18 19:50:16
+Prompt: root@seax2
+Comando ejecutado: ssh root@192.168.1.26
+====================
+root@s192.168.1.26's password:
+Linux seax1 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Mon Mar 18 18:13:11 2024 from 192.168.1.25
+test@seax1:~$ exit
+desconnectat
+
+Fin de la ejecución
+====================
+
+
+-- Prova user no root--
+
+====================
+Fecha y hora: 2024-03-18 19:39:25
+Prompt: root@seax2
+Comando ejecutado: ssh test@192.168.1.26
+====================
+test@s192.168.1.26's password:
+Linux seax1 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Mon Mar 18 19:26:01 2024 from 192.168.1.25
+test@seax1:~$ exit
+desconnectat
+
+Fin de la ejecución
+====================
+

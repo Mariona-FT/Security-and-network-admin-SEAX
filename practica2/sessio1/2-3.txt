@@ -1,0 +1,106 @@
+
+====================
+Fecha y hora: 2024-03-14 10:26:03
+Prompt: root@seax1
+Comando ejecutado: systemctl status ssh
+====================
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; preset: enabled)
+     Active: active (running) since Thu 2024-03-14 10:23:26 CET; 2min 37s ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 2057 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+   Main PID: 2059 (sshd)
+      Tasks: 1 (limit: 1099)
+     Memory: 1.4M
+        CPU: 11ms
+     CGroup: /system.slice/ssh.service
+             └─2059 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+de març 14 10:23:26 seax1 systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+de març 14 10:23:26 seax1 sshd[2059]: Server listening on 0.0.0.0 port 22.
+de març 14 10:23:26 seax1 sshd[2059]: Server listening on :: port 22.
+de març 14 10:23:26 seax1 systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-14 10:28:23
+Prompt: root@seax1
+Comando ejecutado: systemctl stop ssh
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-14 10:28:26
+Prompt: root@seax1
+Comando ejecutado: systemctl status ssh
+====================
+○ ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; preset: enabled)
+     Active: inactive (dead) since Thu 2024-03-14 10:28:23 CET; 2s ago
+   Duration: 4min 57.514s
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 2057 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+    Process: 2059 ExecStart=/usr/sbin/sshd -D $SSHD_OPTS (code=exited, status=0/SUCCESS)
+   Main PID: 2059 (code=exited, status=0/SUCCESS)
+        CPU: 11ms
+
+de març 14 10:23:26 seax1 systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+de març 14 10:23:26 seax1 sshd[2059]: Server listening on 0.0.0.0 port 22.
+de març 14 10:23:26 seax1 sshd[2059]: Server listening on :: port 22.
+de març 14 10:23:26 seax1 systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+de març 14 10:28:23 seax1 systemd[1]: Stopping ssh.service - OpenBSD Secure Shell server...
+de març 14 10:28:23 seax1 systemd[1]: ssh.service: Deactivated successfully.
+de març 14 10:28:23 seax1 systemd[1]: Stopped ssh.service - OpenBSD Secure Shell server.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-14 10:28:42
+Prompt: root@seax1
+Comando ejecutado: systemctl enable ssh
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-14 10:28:55
+Prompt: root@seax1
+Comando ejecutado: systemctl start ssh
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-14 10:28:58
+Prompt: root@seax1
+Comando ejecutado: systemctl status ssh
+====================
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; preset: enabled)
+     Active: active (running) since Thu 2024-03-14 10:28:55 CET; 2s ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+    Process: 2176 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+   Main PID: 2177 (sshd)
+      Tasks: 1 (limit: 1099)
+     Memory: 1.4M
+        CPU: 11ms
+     CGroup: /system.slice/ssh.service
+             └─2177 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+de març 14 10:28:55 seax1 systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+de març 14 10:28:55 seax1 sshd[2177]: Server listening on 0.0.0.0 port 22.
+de març 14 10:28:55 seax1 sshd[2177]: Server listening on :: port 22.
+de març 14 10:28:55 seax1 systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+
+Fin de la ejecución
+====================

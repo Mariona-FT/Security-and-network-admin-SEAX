@@ -1,0 +1,29 @@
+
+====================
+Fecha y hora: 2024-03-14 10:13:46
+Prompt: root@seax2
+Comando ejecutado: apt install openssh-client
+====================
+S'està llegint la llista de paquets…
+S'està construint l'arbre de dependències…
+S'està llegint la informació de l'estat…
+El paquets següents s'han instal·lat automàticament i ja no són necessaris:
+  libwrap0 ncurses-term runit-helper
+Empreu «apt autoremove» per a suprimir-los.
+Paquets suggerits:
+  keychain libpam-ssh monkeysphere ssh-askpass
+S'instal·laran els paquets NOUS següents:
+  openssh-client
+0 actualitzats, 1 nous a instal·lar, 0 a suprimir i 0 no actualitzats.
+S'ha d'obtenir 990 kB d'arxius.
+Després d'aquesta operació s'utilitzaran 5.919 kB d'espai en disc addicional.
+Bai:1 http://deb.debian.org/debian bookworm/main amd64 openssh-client amd64 1:9.2p1-2+deb12u2 [990 kB]
+S'ha baixat 990 kB en 0s (5.256 kB/s)
+S'està seleccionant el paquet openssh-client prèviament no seleccionat.
+(S'està llegint la base de dades… (S'està llegint la base de dades… 5%(S'està llegint la base de dades… 10%(S'està llegint la base de dades… 15%(S'està llegint la base de dades… 20%(S'està llegint la base de dades… 25%(S'està llegint la base de dades… 30%(S'està llegint la base de dades… 35%(S'està llegint la base de dades… 40%(S'està llegint la base de dades… 45%(S'està llegint la base de dades… 50%(S'està llegint la base de dades… 55%(S'està llegint la base de dades… 60%(S'està llegint la base de dades… 65%(S'està llegint la base de dades… 70%(S'està llegint la base de dades… 75%(S'està llegint la base de dades… 80%(S'està llegint la base de dades… 85%(S'està llegint la base de dades… 90%(S'està llegint la base de dades… 95%(S'està llegint la base de dades… 100%(S'està llegint la base de dades… hi ha 47782 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/openssh-client_1%3a9.2p1-2+deb12u2_amd64.deb…
+S'està desempaquetant openssh-client (1:9.2p1-2+deb12u2)…
+S'està configurant openssh-client (1:9.2p1-2+deb12u2)…
+
+Fin de la ejecución
+====================

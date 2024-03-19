@@ -1,0 +1,24 @@
+
+====================
+Fecha y hora: 2024-03-18 20:36:59
+Prompt: root@seax1
+Comando ejecutado: ssh-keyscan 192.168.1.26
+====================
+192.168.1.26 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCgBijUyZBU7P3jNYOuQM845WOM6kY8CbV/B4G/DzRquSWLLRliY15EBJuZyIfRtdPrqboHD5Bm2coeGE7RJ5jxXiysWnC/0lNh53CXVASp5yVQxBg1d+E0BOayIHF5hwSIv/7cnbCq08JwRe7PmkbjaRrGdUrk1ajHCCegL7AN6a8dlKl86zir5RZxmW78xKcLdr6iCp9WyHUqrDoIuoWngIqbRzYRXAlLVDlYDzSXrzr7o8/HZG5AYvFbg3+KgzIzA4HFCpmkvEq+TOb98axXINuO79g2SmCMdgzz0caTz3LECUeNhuaqY4VDwaqFTkxmEaJyp8F+psrIULV90n8DY9pxQfI+ZxK6HqfdKZNOEpkWVREi1vV/jKWMcD4stoQPMz5nz0wkItFlteKxDWAhWEoFGsJSAmY8uxug6ifKhoevyALBN9GSaT/CpM0AQ0p1rfRoz5qsTDkaSuORFFO0/4B6d4j6pSLJl8sOleZaUHahWBz9MbMJyu4YQcKKlUU=
+192.168.1.26 ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBKtDJ9rIgqhQbnSO5n9ksuIsHEVJSciia3CF5sshE2JKxjrZ0DXjAxrQ9i7c1pB+XQOc8/wrPE+2KPeBek45798=
+192.168.1.26 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEJvRFfeOajscwN2JIY95k5dTqGvlfxa61R3jcyu5LyB
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-18 20:37:32
+Prompt: root@seax1
+Comando ejecutado: ssh-keyscan 192.168.1.26 | ssh-keygen -lf - 
+====================
+3072 SHA256:toG63SAXluBjj8gL9uzAA3pUVnFisQq2bwG2feEr3ag 192.168.1.26 (RSA)
+256 SHA256:JSI/vDhNKlntqIxeI9Ab4NOmFYV3xeq8Q05JgkG04UU 192.168.1.26 (ECDSA)
+256 SHA256:1saf0NFcZFF7ZreMqSrgJ9vm7/WWtfecW3dTcaE+GQ4 192.168.1.26 (ED25519)
+
+Fin de la ejecución
+====================

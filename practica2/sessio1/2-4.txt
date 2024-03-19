@@ -1,0 +1,75 @@
+
+====================
+Fecha y hora: 2024-03-14 10:47:35
+Prompt: root@seax1
+Comando ejecutado: ssh-keygen -t rsa -b 4096
+====================
+Generating public/private rsa key pair.
+Enter file in which to save the key (/root/.ssh/id_rsa): /root/.ssh/id_rsa already exists.
+Overwrite (y/n)? Your identification has been saved in /root/.ssh/id_rsa
+Your public key has been saved in /root/.ssh/id_rsa.pub
+The key fingerprint is:
+SHA256:L8/H927hRWWWSWLwJ0KwsDReuT7QaM1SvWHZFPPgOs8 root@seax1
+The key's randomart image is:
++---[RSA 4096]----+
+|       + o+o=Bo.o|
+|      o =oo=+.=o+|
+|       o*.o.o+ =.|
+|       = = .o o .|
+|      . S  o   . |
+|         +  +  ..|
+|        . o. E. o|
+|         +  o ...|
+|          o. . +o|
++----[SHA256]-----+
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-03-14 10:50:03
+Prompt: root@seax1
+Comando ejecutado: cat /root/.ssh/id_rsa.pub
+====================
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCuSECLbd9rPSr2qZxu1PMN11uvY0kOXWrK0jxbmc2dqLVlO6N24G6C+pK6mktcBofbi6+mK4d4JYXokMZNuIwHsZTyUT+abhwUAI2HE0z41yBRG4KA2VKRWCy3kD3xpKsA/BHMBfHRoiMvI20BYWOcylGehd7sbR4MAgvyVDKUjVoNH0yySCu2iLTUx93zNIJnLfxB0+0EWqldc5Np8kiWM+ukf24MUkmLRuywuWdeCk83VJa/OXZvZMq9Qk15TdnrmzCKeo0ypFVXOxpgQph/1V+Ntlk4Hm9QpXao6qOspsvs6U+cef02sidLpxwT8bse43eQR/sxJunTKzuYvpDFa5mWnd1N33Qmv2DLB0w/xnmeocrVJd2MIWMS42AVR1jUqz6uH4wikV/kW+zuF7ZvI5+oUYNWCoyAhZpZLyf0i84ijlA+Iti3RchooqwZyXtdrYgUw8GV5Pc4kQdoE0KXDG8zWBMNLFZo11TQVtvSEk7107gj7upVgpqUI4GQeO/6m0xNeLh05SZUXyKIBE8/VGWGvBWsvWA0J7gTgrTYbfQYZfpftoAJrp5DoKPbFJa/c/ffH6x4Jm/4/UYZ5dv1jFjhlbn3IeQHe0rZmUmbYknDGRsutqNgyAWHIjRMoGf4H+57s4YnVMkraQOXrNCyVUAQE69K9ShtIdhV01lKJQ== root@seax1
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-14 11:12:48
+Prompt: root@seax2
+Comando ejecutado: cat /root/.ssh/id_rsa.pub
+====================
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDApQfRWHBPS0fH9524TxM5+COy3CMzobNtYbbPmy9ZbngHVIm8OJ/jXjoiAjwWNFySku3N4YbrUxy23N1nRrw01SSnr2vXGDCunPgehamuDcg+AUugYEFEGH7KKhtaq0WS9T7KREZaNv4NnzkXa8f/kP71GtZuHUuH/c8LsTt+bzbpfwmCMAOP9Eo4rJTZpFGXNVA4ofTNMbYWcMWQYGhrZQvlB+PY+TYf3fU2oR5hwfz2dor3PA3WvovSMIXO+eWkB+3m4P4BZc21ohqy3tAZbKk0/CDObrABfJN/00Pj2Jbh0VuFPnLrsFVzJdQNT/+bvKrBmK9wxazDc6maL73xeDDs40+ge2e4AMC8uaM0UyXg9LDgyM5rQBwcnwCwbIytohzytfwbAR6t7nJ/dRQc92GiW0T7BN2G1MH9LYajucUMaf09ZCkJmuReO9ugk5v8JWu4v8MgF4DFToeLXRahryxuYytBbxSXglCvWB7C1nPdtQoIRFme0swExxjoJJGQO3egufE2RnRrB8my+PGBUfZ73901Njd1vQQpJ/ILLsTPyInVpBHd1WpcF/MJNKGafsk78qrTeZYC19lufk7428tCFGvn3GX7JLL/n6WM1qI6kT+v8Me004N8mB+APgKASVvGYk/PgHyxznCM1rc7MteV4Y7Uy3I4AhNaOK700w== root@seax2
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-14 11:11:51
+Prompt: root@seax2
+Comando ejecutado: ls /root/.ssh/
+====================
+id_rsa
+id_rsa.pub
+known_hosts
+known_hosts.old
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-14 11:12:08
+Prompt: root@seax1
+Comando ejecutado: ls /root/.ssh/
+====================
+id_rsa
+id_rsa.pub
+known_hosts
+known_hosts.old
+
+Fin de la ejecución
+====================
+

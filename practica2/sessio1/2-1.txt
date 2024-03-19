@@ -1,0 +1,66 @@
+====================
+Fecha y hora: 2024-03-14 09:34:41
+Prompt: root@seax1
+Comando ejecutado: apt update
+====================
+Obj:1 http://deb.debian.org/debian bookworm InRelease
+Obj:2 http://deb.debian.org/debian bookworm-updates InRelease
+Obj:3 http://security.debian.org/debian-security bookworm-security InRelease
+S'està llegint la llista de paquets…
+S'està construint l'arbre de dependències…
+S'està llegint la informació de l'estat…
+Es pot actualitzar 1 paquet. Executeu «apt list --upgradable» per veure'l.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-14 09:35:08
+Prompt: root@seax1
+Comando ejecutado: apt install openssh-server
+====================
+S'està llegint la llista de paquets…
+S'està construint l'arbre de dependències…
+S'està llegint la informació de l'estat…
+Paquets suggerits:
+  molly-guard monkeysphere ssh-askpass ufw
+S'instal·laran els paquets NOUS següents:
+  openssh-server
+0 actualitzats, 1 nous a instal·lar, 0 a suprimir i 1 no actualitzats.
+S'ha d'obtenir 456 kB d'arxius.
+Després d'aquesta operació s'utilitzaran 1.972 kB d'espai en disc addicional.
+Bai:1 http://deb.debian.org/debian bookworm/main amd64 openssh-server amd64 1:9.2p1-2+deb12u2 [456 kB]
+S'estan preconfigurant els paquets...
+S'ha baixat 456 kB en 0s (2.604 kB/s)
+S'està seleccionant el paquet openssh-server prèviament no seleccionat.
+(S'està llegint la base de dades… 
+(S'està llegint la base de dades… 5%
+(S'està llegint la base de dades… 10%
+(S'està llegint la base de dades… 15%
+(S'està llegint la base de dades… 20%
+(S'està llegint la base de dades… 25%
+(S'està llegint la base de dades… 30%
+(S'està llegint la base de dades… 35%
+(S'està llegint la base de dades… 40%
+(S'està llegint la base de dades… 45%
+(S'està llegint la base de dades… 50%
+(S'està llegint la base de dades… 55%
+(S'està llegint la base de dades… 60%
+(S'està llegint la base de dades… 65%
+(S'està llegint la base de dades… 70%
+(S'està llegint la base de dades… 75%
+(S'està llegint la base de dades… 80%
+(S'està llegint la base de dades… 85%
+(S'està llegint la base de dades… 90%
+(S'està llegint la base de dades… 95%
+(S'està llegint la base de dades… 100%
+(S'està llegint la base de dades… hi ha 50478 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/openssh-server_1%3a9.2p1-2+deb12u2_amd64.deb…
+S'està desempaquetant openssh-server (1:9.2p1-2+deb12u2)…
+S'està configurant openssh-server (1:9.2p1-2+deb12u2)…
+rescue-ssh.target is a disabled or a static unit not running, not starting it.
+ssh.socket is a disabled or a static unit not running, not starting it.
+S'estan processant els activadors per a man-db (2.11.2-2)…
+
+Fin de la ejecución
+====================

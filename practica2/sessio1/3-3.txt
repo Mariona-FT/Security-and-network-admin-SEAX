@@ -1,0 +1,25 @@
+====================
+Fecha y hora: 2024-03-19 18:46:03
+Prompt: root@seax2
+Comando ejecutado: sftp -p 2222 entel@192.168.1.26
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-19 18:46:10
+Prompt: root@seax2
+Comando ejecutado: sftp -P 2222 entel@192.168.1.26
+====================
+Connected to 192.168.1.26.
+sftp> ls
+sftp> pwd
+Remote working directory: /home/entel
+sftp> cd /home_seax1/
+sftp> ls 
+dins_seax1.txt
+sftp> exit
+
+Fin de la ejecución
+====================

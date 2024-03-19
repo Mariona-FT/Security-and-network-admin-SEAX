@@ -1,0 +1,122 @@
+
+====================
+Fecha y hora: 2024-03-17 18:09:14
+Prompt: root@seax1
+Comando ejecutado: ip show enp0s9
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-17 18:09:20
+Prompt: root@seax1
+Comando ejecutado: ip addr show enp0s9
+====================
+4: enp0s9: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:88:e2:a5 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.26/24 brd 192.168.1.255 scope global dynamic enp0s9
+       valid_lft 84968sec preferred_lft 84968sec
+    inet6 fe80::a00:27ff:fe88:e2a5/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-17 18:09:53
+Prompt: root@seax2
+Comando ejecutado: ip addr show enp0s9
+====================
+4: enp0s9: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:61:47:18 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.25/24 brd 192.168.1.255 scope global dynamic enp0s9
+       valid_lft 84251sec preferred_lft 84251sec
+    inet6 fe80::a00:27ff:fe61:4718/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-17 18:16:15
+Prompt: root@seax1
+Comando ejecutado: ssh-copy-id entel@192.168.1.25
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-17 18:17:38
+Prompt: root@seax1
+Comando ejecutado: ssh-copy-id entel@192.168.1.25
+====================
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'entel@192.168.1.25'"
+and check to make sure that only the key(s) you wanted were added.
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-17 18:19:25
+Prompt: root@seax1
+Comando ejecutado: ssh entel@192.168.1.25
+====================
+Linux seax2 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sun Mar 17 18:16:43 2024 from 192.168.1.26
+
+entel@seax2:~$cd /home_seax2/
+entel@seax2:/home_seax2$ ls
+dins_seax2.txt
+entel@seax2:/home_seax2$ exit
+desconnectat
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-18 13:55:51
+Prompt: root@seax1
+Comando ejecutado: ssh-copy-id entel@169.254.4.245
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-18 13:56:53
+Prompt: root@seax1
+Comando ejecutado: ssh-copy-id entel@169.254.4.245 -f
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-18 13:57:11
+Prompt: root@seax1
+Comando ejecutado: ssh-copy-id -f entel@169.254.4.245
+====================
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'entel@169.254.4.245'"
+and check to make sure that only the key(s) you wanted were added.
+
+
+Fin de la ejecución
+====================
+
+

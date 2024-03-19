@@ -1,0 +1,56 @@
+
+====================
+Fecha y hora: 2024-03-19 17:56:22
+Prompt: root@seax2
+Comando ejecutado: ssh -vvv test@192.168.1.26
+====================
+Linux seax1 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue Mar 19 17:55:50 2024 from 192.168.1.25
+test@seax1:~$ exit
+desconnectat
+debug2: channel 0: output open -> drain
+debug2: channel 0: obuf empty
+debug2: channel 0: output drain -> closed
+debug3: receive packet: type 96
+debug2: channel 0: rcvd eof
+debug2: channel 0: input open -> drain
+debug2: channel 0: ibuf empty
+debug2: channel 0: send eof
+debug3: send packet: type 96
+debug2: channel 0: input drain -> closed
+debug2: channel 0: send close
+debug3: send packet: type 97
+debug3: channel 0: will not send data after close
+debug3: channel 0: will not send data after close
+debug2: channel 0: almost dead
+debug2: channel 0: gc: notify user
+debug2: channel 0: gc: user detached
+debug3: channel 0: status: The following connections are open:
+  #0 client-session (t4 r0 i3/0 o3/0 e[write]/0 fd -1/-1/6 sock -1 cc -1 io 0x0/0x0)
+debug3: send packet: type 1
+Connection to 192.168.1.26 closed.
+Transferred: sent 4152, received 4516 bytes, in 9.1 seconds
+Bytes per second: sent 458.0, received 493.1
+debug1: Exit status 0
+
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-19 17:57:03
+Prompt: root@seax2
+Comando ejecutado: ssh test@192.168.1.26 whoami
+====================
+test
+
+Fin de la ejecución
+====================
