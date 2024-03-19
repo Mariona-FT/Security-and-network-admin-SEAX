@@ -1,0 +1,937 @@
+﻿Pràctica 1 - Interfícies de xarxa.
+
+
+  Sessió 2 - Configuració de les interfícies de xarxa Ethernet.
+
+
+Alumnes:
+Mariona Farré Tapias,
+Francesco Oncins Spedo
+---------------------------------------------------------------------------------------------------------------------------
+- Respon a cadascuna de les següents preguntes tot seguint aquesta estructura:
+    - Breu raonament de la resposta.
+    - Comanda / menú / opció a utilitzar.
+      Nota: utilitzar la comanda "ip" i evitar comandes obsoletes.
+    - Fitxers de configuració involucrats, si s’escau.
+    - Evidència d'ús.
+    - Bibliografia.
+
+
+
+
+Abans de la pràctica, ens hem instal·lat el manual de debian per tenir informació sobre les instruccions utilitzades.
+ root@seax1:~# apt install man
+ root@seax1:~#  apt install dnsutils
+ root@seax1:~# apt install curl
+ root@seax1:~# apt install bc
+ root@seax1:~# apt install whois
+
+
+
+
+    1 - Dispositius Ethernet.
+* 1.1 Què cal fer per a que una interfície Ethernet USB sigui controlada per la VM?
+Per connectar-lo hem d’entrar als settings de la nostra VM, afegir l’USB i seleccionar el nostre USB (ens hem de fixar el el nom o en la marca de fabricant). 
+En el nostre cas es diu: Realtek 802.11n NIC 
+Un cop connectat el nou usb, entrem a la VM i ja hauriem de tenir disponible la interfície d’ethernet en la nostra màquina.
+Podem mirar les diferents interfícies que té la màquina actualment executant:
+ root@seax1:~#  ip addr
+
+
+Fitxers d’evidència:
+* 1_1_usb_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+
+
+En la nostra màquina apareix com la 4ta interfície
+
+
+Web oracle informació usb: https://docs.oracle.com/en/virtualization/virtualbox/6.0/user/usb-support.html 
+
+
+
+
+* 1.2 Com es verifica que existeix el dispositiu PCI o USB a l'equip des de la línia de comandes?
+Hi han diferents comandes per veure els dispositius pci i usb,
+Des de terminal es poden veure els dispositius pci utilitzant la comanda:
+root@seax1:~#   lspci
+Des de terminal es poden veure els dispositius usb utilitzant la comanda:
+root@seax1:~#   lsusb
+Per veure les dues opcions executar:  root@seax1:~#  lspci | grep -i ‘usb’
+Aixi ens retorna els dispositius pci i després filtra per grep quins son de tipus usb
+
+
+Fitxers d’evidència:
+* 1_2_pci_usb.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+
+
+Web debian lpsci:https://manpages.debian.org/testing/pciutils/lspci.8.en.html 
+
+
+* 1.3 Com s'obté informació del model del dispositiu Ethernet des de la línia de comandes?
+Per veure el model del dispositiu d’ethernet , de la llista donada per el lspci, buscar dintre d’aquesta la informació dels dispositius d’ethernet, ens retorna el nom del model.
+Executar la següent comanda :
+root@seax1:~# lspci  -nn | grep -i ethernet 
+O des de el sistema de fitxers, es pot també trobar el codi del model dins del sistema de fitxers de la network i la interfície concreta, ens retornarà el codi específic del model.
+Executant la següent comanda: 
+ root@seax1:~# cat /sys/class/net/enp0s8/device/modalias
+
+
+Fitxer d’evidència:
+* 1_3_model_ethernet.txt
+Es poden veure els resultats de les execucions de les comandes anteriors.
+
+
+Web debian lpsci:https://manpages.debian.org/testing/pciutils/lspci.8.en.html 
+
+
+
+
+* 1.4 Com s'obté informació del fabricant del dispositiu Ethernet des de la línia de comandes?
+Per trobar la informació concreta del fabricant d’un dispositiu s’ha d'anar als sistema de fitxers de la network i entrar en la interfície concreta i buscar dintre d’aquests el codi del fabricant.
+Per el nostre cas la interfície ethernet és: enp0s8
+Per entrar al sistema de fitxers i trobar la informació del fabricant executar:
+root@seax1:~# cat /sys/class/net/enp0s8/device/subsystem_vendor
+També es pot utilitzar el codi de la interfície , en aquest cas el 00:08.0 i fer un lspci i un filtratge amb grep d’aquesta interfície:
+root@seax1:~# lpsci -- | grep 00:08.0
+
+
+Fitxers d’evidència:
+* 1_fabricant_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+
+
+Web codis de fabricants: https://wiki.xdroop.com/space/Ethernet+Vendor+Codes 
+Segons la web anterior el fabricant és Computer Generation Inc. amb el codi 008086
+
+
+
+
+* 1.5 Com s'obté informació dels missatges del kernel relacionats amb el dispositiu?
+Des de terminal es pot veure els missatges de la màquina: dmesg
+Després si es vol filtrar amb els diferents dispositius fer un grep amb el nom de la interfície donada a través del lspci, en el nostre cas:
+00:08.0  Ethernet controller: Intel Corporation 82540EM Gigabit Ethernet Controller (rev 02)
+Podem veure el filtratge dels missatges per la interfície ethernet: 
+root@seax1:~# dmeg | grep 00:08.0
+
+
+Fitxers d’evidència:
+* 1_5_mesg_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+
+
+Web informació debian/linux hardware: https://lihuen.linti.unlp.edu.ar/index.php/Encontrando_detalles_de_nuestro_Hardware 
+
+
+
+
+2 - Intefícies Ethernet (ip link).
+* 2.1 Com es visualitzen les interfícies Ethernet existents des de la línia de comandes?
+Per visualitzar les interfícies Ethernet existents, podem utilitzar la comanda ip link, i filtrant amb grep podem veure quines interfícies són ethernet.
+La comanda que utilitzem: root@seax1:~# ip link | grep ether
+
+
+Fitxers d’evidència:
+* 2_1_ethernet_interfeces.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+
+
+Web virtualbox network:  https://www.virtualbox.org/manual/ch06.html 
+
+
+* 2.2 Com s'obté informació de l’estat actiu o desactiu d’una interfície Ethernet des de la línia de comandes?
+Per obtenir informació de l’estat d’una interfície Ethernet, ho podem fer amb la següent comanda: root@seax1:~#  ip link show enp0s8
+
+
+Per comprovar que una interfície estigui activa ha d’estar UP, configurada i amb senyal.
+
+
+Fitxers d’evidència:
+* 2_2_ethernet_interfece_state.txt
+Sabem quin és l’estat mirant que hi ha després de state, si fica UP vol dir que l’estat és actiu i si fica DOWN vol dir que és desactiu.
+
+
+Web comanda ip link: https://manpages.debian.org/unstable/iproute2/ip-link.8.en.html
+
+
+* 2.3 Com s’activa o es desactiva manualment una interfície Ethernet des de la línia de comandes?
+Per activar o desactivar manualment des de la terminal una interfície d’ethernet, triar una, per exemple la enp0s8, i amb la comanda ip link set dev triar si activar o desactivar aquesta.
+Activar la interfície (up): root@seax1:~#  ip link set dev enp0s8 up
+Desactivar la interfície (down): root@seax1:~# ip link set  dev enp0s8 down
+
+
+Fitxers d’evidència:
+* 2_3_act_desact_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+Es pot veure l'estat de la interfície si al executar: root@seax1:~#  ip addr show enp0s8
+Activada -         3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP>
+Desactivada-         3: enp0s8: <BROADCAST,MULTICAST> 
+
+
+Web ip link comandes : https://www.ibiblio.org/pub/Linux/docs/LuCaS/Presentaciones/200103hispalinux/eric/html/interfaces.html 
+
+
+* 2.4 Com es reanomena una interfície Ethernet?
+Per anomenar una interfície, ha d’estar desactivada, ja que sinó no ens deixarà canviar el nom, després haurem de canviar el nom i després d'activar la interfície, nosaltres passarem la interficie enp0s8 a anomenar-se ether.
+Després per posar els canvis permanents, s’ha de modificar el fitxer d'interfícies de la màquina
+Per desactivar la interfície executar:root@seax1:~#  ip link set dev enp0s8 down
+Canviar el nom: root@seax1:~# ip link set dev enp0s8 name ethseax
+Activar la interfice reanomenada: root@seax1:~# ip link set dev ethseax
+
+
+Fitxers involucrats:
+* modificar /etc/network/interfaces
+canviar el nom de la interfície que es vol reanomenar i modificar-ho perquè quedi així:
+auto ethseax
+iface ethseaxinet dhcp
+
+
+Fitxer d’evidència:
+* 2_4_canvi_nom_ethernet.txt
+
+
+Web noms interficies: https://wiki.debian.org/NetworkInterfaceNames 
+
+
+
+
+* 2.5 Com s'obté informació del nom original d’una interfície Ethernet des de la línia de comandes?
+Per veure el nom original de una interfície amb el nom canviat o no, consultar-ho des de terminal, en el nostre cas la interfície ethseax creada en l’apartat anterior que utilitzava la interfície enp0s8.
+ root@seax1:~# ip addr show ethseax |grep altname
+
+
+Podem veure només el nom original de la interfície
+
+
+Fitxer d’evidència: 
+* 2_5_nom_og_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+
+
+Web noms interficies: https://wiki.debian.org/NetworkInterfaceNames 
+
+
+
+
+* 2.6 Com s'obté informació del mode promiscu d’una interfície Ethernet des de la línia de comandes?
+Per veure el mode promiscu d’una interfície es pot fer de dues maneres, des del ip link i busant en la informació que ens dona, o fent un grep d’aquesta, en el nostre cas ho provarem en la interfície enp0s8.
+Executant: root@seax1:~# ip link show enp0s8 
+Podem veure la informació de la interfície, si té PROMISC a la informació, vol dir que te el mode activat, sino el té no sortirà.
+També es pot fer executant: root@seax1:~# ip link show enp0s8 |grep -o ‘PROMISC’
+Soritrà en la terminal PROMISC si està activada, o res si està el mode desactivat.
+
+
+Fitxer d’evidència:
+* 2_6_info_promisc_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+Es pot veure l'estat de la interfície si al executar ip addr posa:
+Activada -         3: enp0s8: <BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP>
+Desactivada-         3: enp0s8: <BROADCAST,MULTICAST>
+
+
+Web configuració ubuntu mode promiscu: https://askubuntu.com/questions/430355/configure-a-network-interface-into-promiscuous-mode 
+
+
+* 2.7 Com es configura el mode promiscu d’una interfície Ethernet des de la línia de comandes?
+Utilitzant la comanda ip addr , triant un dels dispositius de ethernet, i després dient si es vol activar o desactivar el mode promisc  podem fer-ho manualment des de la terminal.
+Tenint la interfície de ethernet de enp0s8
+Activar la interfície (up): root@seax1:~# ip link set dev  enp0s8 promisc on
+Desactivar la interfície (down):root@seax1:~#  ip link set dev  dev enp0s8 promisc off
+
+
+Fitxer d’evidència:
+* 2_7_promisc_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+Es pot veure l'estat de la interfície si al executar ip addr posa:
+Activada -         3: enp0s8: <BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP>
+Desactivada-         3: enp0s8: <BROADCAST,MULTICAST>
+
+
+Web configuració ubuntu mode promiscu: https://askubuntu.com/questions/430355/configure-a-network-interface-into-promiscuous-mode  
+
+
+* 2.8 Com es pot conèixer la MTU del camí que porta a una certa adreça IP des de la línia de comandes?
+Des de terminal, no es pot saber directament quina és la MTU d’un camí sense fer un parell de proves amb ping i veure com aquests es comporten a la xarxa.
+Si el paquet és molt gran, s’haurà de truncar, però ens donarà la mida màxima del camí, en comptes si posem una mida molt petita no sabrem la mida màxima ja que només transportarà els paquets amb la mida que necessiti.
+Nosaltres ho provem amb el ping en el servidor DNS de google amb la ip: 8.8.8.8
+Executarem: root@seax1:~#  ping -M do -s x 8.8.8.8
+Sent x les mides a canviar: [500,100,70,69,68,65,50]
+Fitxers d’evidència:
+* 2_8_mtu_ping.txt
+Es veuen les proves dels pings amb els diferents canvis de mida quan encara
+Trunquen els paquets (massa grans): ..500, 100,70,69.
+Mtu serà:  68 (96) bytes de dades
+Es transporten per sota del màxim: 65, 50..
+
+
+Web informació del mtu ping: https://www.comparitech.com/net-admin/determine-mtu-size-using-ping/  
+
+
+* 2.9 Com es configura estàticament la MTU d'una interfície Ethernet des de la línia de comandes?
+Des de la terminal, es pot configurar que la MTU sigui estàtica per tots els camins de les ips,  utilitzant la interfície enp0s8, s’ha d'executar la següent comanda:
+Exectuar: root@seax1:~# ip link show enp0s8 mtu 1300
+Ara la mida estàtica de la mtu serà de 1300
+Es pot trobar la mida de la mtu executant:  ip addr show enp0s8 | grep mtu | cut -d ' ' -f5
+
+
+Fitxer d’evidència:
+* 2_9_mtu_estatica.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+Web debian configuració mtu: https://www.debian.org/doc/manuals/debian-reference/ch05.es.html 
+
+
+
+
+* 2.10 Com es pot canviar l'adreça MAC de la interfície Ethernet des de la línia de comandes?
+Per canviar l'adreça mac d’una interfície, s’ha de desactivar aquella interfície en el nostre cas la enp0s8, canviar l’adreça MAC per la que es vulgui, només canviarem els 6 últims números per no borrar la informació del dispositiu que ens dona els primers  6 números, i després si l’activem podrem veure la MAC canviada.
+Desactivar la interfície: root@seax1:~# ip link set dev enp0s8 down
+Canviar la MAC: root@seax1:~# ip link set dev enp0s8 address 08:00:27:44:55:66
+Activar la interfície: root@seax1:~# ip link set dev enp0s8 up
+
+
+Fitxer d’evidència:
+* 2_10_canvi_mac.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+Es pot veure l'estat de la interfície si al executar: root@seax1:~#  ip addr show enp0s8
+
+
+Web forum virtualbox configuració mac: https://forums.virtualbox.org/viewtopic.php?t=98353 
+
+
+    3 - Adreçament IP (ip address).
+* 3.1 Com s'obté informació de l'adreça IP d'una interfície Ethernet des de la línia de comandes?
+Per aconseguir la informació de una interfície en concret i utilitzant la comanda ip address, el que podem fer és especificar la interfície que vulguem amb l'opció show, en el nostre cas volem saber la ip de la interfície enp0s8
+Executem:root@seax1:~# ip address show enp0s8
+
+
+Fitxer d’evidència:
+* 3_1_ip_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+
+
+Web virtualbox xarxes: https://www.virtualbox.org/manual/ch06.html 
+
+
+* 3.2 Com es configura dinàmicament una interfície Ethernet mitjançant fitxers de configuració?
+La configuració dinàmica d’una interfície d’ethernet es refereix a tenir un servei dhcp enllaçat en aquella interfície, fent que sigui automàtica la seva configuració.
+Per fer-ho s’ha de configurar el fitxer de networks del sistema debian, nosaltres volem modificar la interfície enp0s8
+Per a fer-ho entrar al sistema de fitxers i fer un nano per modificar-lo i posar la nostra configuració dinàmica:
+root@seax1:~# nano /etc/network/interfaces
+auto enp0s8
+iface enp0s8 inet dhcp
+
+
+Guardar el fitxer i fer un reboot de la màquina o el sistema network per guardar els canvis:
+root@seax1:~#  systemctl reboot networking
+
+
+Fitxers involucrats:
+* modificar el /etc/network/interfaces
+Posar que la configuració de la interfície enp0s8 sigui:
+auto enp0s8
+iface enp0s8 inet dhcp
+
+
+Fitxer d’evidència:
+* 3_2_dinamic_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+
+
+Web debian networks: https://wiki.debian.org/NetworkConfiguration 
+
+
+* 3.3 Com es configura estàticament una interfície Ethernet mitjançant fitxers de configuració?
+La configuració estàtica d’una interfície d’ethernet es refereix a tenir una configuració preconfigurada per una interfície.
+Per fer-ho s’ha de configurar el fitxer de networks del sistema debian, nosaltres volem modificar la interfície enp0s8
+Per a fer-ho entrar al sistema de fitxers i fer un nano per modificar-lo i posar la nostra configuració dinàmica:
+root@seax1:~# nano /etc/network/interfaces
+auto enp0s8
+iface enp0s8 inet static
+    address 10.0.2.3
+    netmask 255.255.255.0
+    gateway 10.0.2.1
+
+
+Guardar el fitxer i fer un reboot de la màquina o el sistema network per guardar els canvis:
+root@seax1:~#  systemctl reboot networking
+
+
+Fitxers involucrats:
+* modificar el /etc/network/interfaces
+Posar que la configuració de la interfície enp0s8 sigui:
+auto enp0s8
+iface enp0s8 inet static
+    address 10.0.2.3
+    netmask 255.255.255.0
+    gateway 10.0.2.1
+
+
+Fitxer d’evidència:
+* 3_3_estatic_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+
+
+Web debian networks: https://wiki.debian.org/NetworkConfiguration 
+
+
+* 3.4 Com s'activa la interfície Ethernet i configuren els paràmetres IP (o desactiva i desconfiguren) amb fitxers de configuració? 
+Per configurar o desconfigurar la interfície d’ethernet,es pot fer reiniciant la interfície en si, en el nostre cas la enp0s8.
+Per reiniciar la interfície: root@seax1:~# ip link set dev enp0s8 down
+Seguit per: root@seax1:~# ip link set dev enp0s8 up
+
+
+Fitxer d’evidència:
+* 3_4_reconfig_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+Es veuen els canvis de la ip estàtica a una ip dinàmica
+
+
+Web virtualbox networks: https://www.virtualbox.org/manual/ch06.html 
+
+
+* 3.5 Com es configura dinàmicament (DHCP) una interfície Ethernet des de la línia de comandes?
+Per configurar manualment des de la terminal una interfície s’ha de utlilitzar la comanda de dhclient i  configurar-ho amb la interfície que es vulgui, en el nostre cas la enp0s8
+Executar: dhclient enp0s8
+
+
+Fitxer d’evidència:
+* 3_5_dhcp_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+
+
+Web virtualbox networks: https://www.virtualbox.org/manual/ch06.html 
+
+
+* 3.6 Com s'allibera l'adreça IP dinàmica i la reserva del DHCP des de la línia de comandes?
+Per configurar manualment des de la terminal una interfície s’ha de utlilitzar la comanda de dhclient i  configurar-ho amb la interfície que es vulgui, en el nostre cas la enp0s8 i posar el paràmetre -r per fer una eliminació d’aquella interfície en el dhcp
+Executar:: root@seax1:~#  dhclient -r enp0s8
+
+
+Fitxer d’evidència:
+* 3_6 no_dhcp_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+
+
+Web virtualbox networks: https://www.virtualbox.org/manual/ch06.html 
+
+
+
+
+* 3.7 Com es configura estàticament una interfície Ethernet des de la línia de comandes?
+Per configurar estàticament una interfície hem d’executar un parell de comandes per anar especificant les diferents adreces ip i les rutes d’una interfície, en el nostre cas la enp0s8.
+Executant: root@seax1:~# ip addr add 10.0.5.5/24 dev enp0s8
+root@seax1:~# ip route add default via 10.0.5.1 dev enp0s8
+També es pot eliminar la ip original executant: 
+root@seax1:~# ip addr del 10.0.2.4/24 dev enp0s8
+
+
+Fitxer d’evidència:
+* 3_7_estatica_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+
+
+Web virtualbox networks: https://www.virtualbox.org/manual/ch06.html 
+
+
+* 3.8 Com s'elimina estàticament una adreça IP, o totes, des de la línia de comandes?
+Per eliminar una ip original o una altre ip com explicat breument en l’anterior apartat, s’ha de triar la interfície a qui eliminar la adreça ip i executar la comanda següent, en aquest cas borrarem la ip posada en l’apartat anterior junt amb la ruta creada en la interfície enp0s8.
+Eliminar ip:  root@seax1:~# ip addr del 10.0.5.5/24 dev enp0s8
+
+
+Fitxer d’evidència:
+* 3_8_eliminar_ethernet.txt
+Es poden veure els resultats de l’execució de les comandes anteriors.
+
+
+ Web debian ip estàtica: https://servidordebian.org/es/squeeze/config/network/static_ip 
+
+
+   4 - Encaminament (ip route).
+* 4.1 Com es visualitzen les taules de rutes?
+Per visualitzar les taules de rutes en una màquina Debian, ho podem fer amb la següent comanda: root@seax2:~# ip route show
+
+
+Fitxer d’evidència:
+* 4_1_taules_de_rutes.txt 
+Llista totes les rutes actualment configurades en el sistema.
+
+
+Web ip route: https://manpages.debian.org/unstable/iproute2/ip-route.8.en.html
+
+
+* 4.2 Com es configura el gateway per defecte des de la línia de comandes?
+Per configurar el gateway per defecte, és a dir, afegir-ne un si no en tenim cap, utilitzem la següent comanda: root@seax2:~# ip route add default via 10.0.2.15
+Si la ruta existeix veurem la següent línia escrita: RTNETLINK answers: File exists
+
+
+Per l’evidència hem utilitzat la comanda ip route show.
+Fitxer d’evidència:
+* 4_2_config_gateway.txt
+
+
+Web ip route: https://manpages.debian.org/unstable/iproute2/ip-route.8.en.html
+
+
+* 4.3 Com es configura una ruta des de la línia de comandes?
+Per afegir una nova ruta a una xarxa específica, necessitarem especificar la xarxa amb la seva màscara i el gateway nou pel que volem que passi la ruta.
+La comanda és la següent: root@seax2:~# ip route add 192.168.1.0/24 via 192.168.1.160 dev enp0s8
+
+
+Per l’evidència hem utilitzat la comanda ip route show.
+Fitxer d’evidència:
+* 4_3_config_ruta.txt
+
+
+Web ip route: https://manpages.debian.org/unstable/iproute2/ip-route.8.en.html
+
+
+* 4.4 Com es pot obtenir la ruta utilitzada per arribar a una certa adreça IP des de la línia de comandes?
+Per obtenir la ruta utilitzada per arribar a una adreça IP, ho fem amb la comanda: root@seax2:~# ip route get 142.250.184.164
+L’adreça utilitzada és la que s’ha utilitzat per connectar-se amb el ping a www.google.com 
+
+
+Fitxer d’evidència:
+* 4_4_ruta_adreca.txt
+Això mostrarà la ruta específica que el sistema utilitzarà per arribar a l'adreça IP.
+
+
+Web ip route: https://manpages.debian.org/unstable/iproute2/ip-route.8.en.html
+
+
+* 4.5 Com es canvia una ruta des de la línia de comandes?
+Per canviar una ruta existent, utilitzarem la paraula change: root@seax2:~# ip route change 10.0.2.0/24 via 10.0.2.16
+Estem canviant la ruta existent de 10.0.2.0/24 (que era 10.0.2.15) per 10.0.2.16
+
+
+Per l’evidència hem utilitzat la comanda ip route show.
+Fitxer d’evidència:
+* 4_5_canvi_ruta.txt
+
+
+Web ip route: https://manpages.debian.org/unstable/iproute2/ip-route.8.en.html
+
+
+* 4.6 Com s'elimina una ruta des de la línia de comandes? 
+Per eliminar una ruta específica, ho farem amb la comanda: root@seax2:~# ip route del 10.0.2.0/24 via 10.0.2.16
+
+
+Per l’evidència hem utilitzat la comanda ip route show.
+Fitxer d’evidència:
+* 4_6_eliminar_ruta.txt
+
+
+Web ip route: https://manpages.debian.org/unstable/iproute2/ip-route.8.en.html
+
+
+
+
+    5 - Connectivitat.
+* 5.1 De quin fitxer s'obté el protocol i port que utilitza cada servei d'Internet des de la línia de comandes?
+Si volem obtenir el protocol i port utilitzat a cada servei haurem d’escriure la següent comanda: root@seax2:~# /etc/services ssh
+
+
+Fitxer d’evidència:
+* 5_1_protocol_servei_Internet.txt
+Obtindrem primer de tot el servei, després el port/protocol i per últim un comentari del protocol.
+
+
+Web /etc/services: https://manpages.debian.org/bullseye/manpages/services.5.en.html
+
+
+* 5.2 De quin fitxer s'obté el nom del protocol especificat en les capçaleres IP des de la línia de comandes?
+Per obtenir el nom de protocol especificat en les capçaleres IP mirem el fitxer /etc/protocols
+Podem veure’l amb la comanda: root@seax2:~# cat /etc/protocols
+
+
+Fitxer d’evidència:
+* 5_2_protocol_capceleres_IP.txt
+
+
+Web /etc/protocols: https://manpages.debian.org/bookworm/manpages/protocols.5.en.html
+
+
+* 5.3 Com s'obté informació i/o s'inicia/atura el servei de xarxa?
+La comanda que s’utilitza és el systemctl, i en funció de la opció que escrivim podrem fer una cosa o altra.
+Per iniciar el servei: root@seax2:~# systemctl start ssh
+Per aturar el servei: root@seax2:~# systemctl stop ssh
+Per reiniciar el servei: root@seax2:~# systemctl restart ssh
+Per verificar l’estat del servei: root@seax2:~# systemctl status ssh
+
+
+Fitxer d’evidència:
+* 5_3_info_servei_xarxa.txt
+L’evidència mostra l’estat de ssh actiu.
+
+
+Web systemctl: https://wiki.debian.org/systemd
+
+
+* 5.4 Com es verifica la connectivitat cap a la xarxa local i cap a Internet d’una interfície Ethernet des de la línia de comandes?
+Per a la xarxa local: root@seax2:~# ping -c 4 10.0.2.2
+Per a Internet: root@seax2:~# ping -c 4 google.com
+Amb la opció -I podem especificar quina interfície volem utilitzar. I amb la opció -c 4 diem que només enviï 4 paquets.
+
+
+Fitxer d’evidència:
+* 5_4_connectivitat_interficie_Ethernet.txt
+
+
+Web ping: https://manpages.debian.org/testing/iputils-ping/ping.8.en.html
+* 5.5 Com es verifica la connectivitat al DNS des de la línia de comandes?
+Amb la comanda: root@seax2:~# dig google.com
+
+
+Fitxer d’evidència:
+* 5_5_connectivitat_DNS_.txt
+L’status ens diu si hi ha connectivitat o no. Si diu NOERROR significa que hi ha conenctivitat.
+
+
+Web dig: https://manpages.debian.org/testing/bind9-dnsutils/dig.1.en.html
+
+
+* 5.6 Com s'obté l’adreça IP externa d’una interfície Ethernet des de la línia de comandes?
+Hem hagut d’instal·lar curl, amb la comanda: root@seax2:~# apt install curl
+Amb la comanda: root@seax2:~# curl ifconfig.me
+
+
+Fitxer d’evidència:
+* 5_6_adrecaIP_ext_Ethernet.txt
+
+
+Web curl: https://manpages.debian.org/bullseye-backports/curl/curl.1.en.html
+ 
+  6 - Gestió de Noms.
+* 6.1 Com es configura el nom l’equip?
+Per configurar el nom de l’equip ho podem fer amb la comanda: root@seax1:~# hostname exemple_6_1. Aquesta ens permetrà canviar el nom de manera temporal.
+Si volem canviar-lo permanentment haurem de modificar els fitxers /etc/hostname i /etc/hosts amb les comandes: root@seax1:~# nano /etc/hosts
+i root@seax1:~# nano /etc/hostname
+
+
+Fitxer d’evidència:
+* 6_1_config_nom_equip.txt
+
+
+Web /etc/hostname: https://manpages.debian.org/testing/manpages-es/hostname.1.es.html
+Web /etc/hosts: https://manpages.debian.org/stretch/manpages/hosts.5.en.html
+
+
+* 6.2 Com es configuren les correspondències locals @IP / nom / àlies dels equips de xarxa?
+Aquestes correspondències es troben a la segona fila del fitxer /etc/hosts. I per accedir-hi farem: root@seax1:~# nano /etc/hosts
+
+
+Fitxer d’evidència:
+* 6_2_config_equips_de_xarxa.txt
+Al principi de la segona fila es troba la @IP, després hi ha el nom, i per últim l’àlies.
+
+
+Web /etc/hosts: https://manpages.debian.org/stretch/manpages/hosts.5.en.html
+
+
+* 6.3 Com es configuren les correspondències locals @IP / nom / àlies de les xarxes?
+
+
+
+
+* 6.4 Com es configuren els servidors de Noms de Domini?
+Per modificar/configurar els servidors de Noms de Domini, haurem d’entrar al fitxer /etc/resolv.conf amb la comanda: root@seax1:~# /etc/resolv.conf
+
+
+Fitxer d’evidència:
+* 6_4_config_DNS.txt
+Per utilitzar els servidors de DNS afegim el següent al fitxer: nameserver 8.8.8.8
+nameserver 8.8.4.4
+
+
+Web /etc/resolv.conf: https://manpages.debian.org/jessie/manpages-es/resolv.conf.5.es.html
+
+
+* 6.5 Com s'obtenen les correspondències @IP / nom / àlies del DNS?
+Per obtenir les diferents correspondències del DNS, hem instal·lat dnsutils (amb la comanda apt-get install dnsutils) i així poder utilitzar la comanda dig.
+Utilitzarem la següent comanda: root@seax1:~# dig www.debian.es | grep -A 2 ‘ANSWER SECTION’
+
+
+Amb la comanda grep diem que només ens mostri la línia on hi hagi escrit ANSWER SECTION.
+I si afegim la opció -A 2 vol dir que també mostri les 2 línies successives.
+Fitxer d’evidència:
+* 6_5_corresp_DNS.txt
+L’adreça és la única que apareix. L’àlies és el que apareix després de CNAME. I el nom és el primer resultat que apareix just després de ANSWER SECTION: 
+
+
+Web dig: https://manpages.debian.org/bullseye/bind9-dnsutils/dig.1.en.html
+________________
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+
+Per l’script abans hem de donar-li permisos d'edició i modificació, així que al descarregar-se
+el document executar: chmod +x info_inet.sh
+També hem hagut instalar abans els paquets:
+        curl- executant: apt get curl
+        dig - executant: apt get dnsutils
+
+
+---------------------------------------------------------------------------------------------------------------------------
+- Programa un script "info_inet.sh" que proporcioni informació de les interfícies Ethernet de l'equip
+    - Cal utilitzar el llenguatge bash.
+    - Cal que generi un fitxer de sortida anomenat "log_inet.log".
+    - Cal que proporcioni la mateixa informació de l'equip on s'executi, com a l'exemple aportat.
+    - Cal que contempli la possibilitat d'existència de múltiples interfícies Ethernet.
+    - Cal que diferenciï un valor nul de no obtenir el valor.
+    - Cal utilitzar les comandes de les preguntes anteriors.
+    - Cal que maqueti la informació com a l'exemple aportat.
+    
+- Aspectes a tenir en compte.
+    - Robustesa
+        - Verificar programari necessari (paquets, rutes, etc).
+        - Verificar condicions de contorn (usuari, sistema operatiu, etc).
+        - Verificar paràmetres d’entrada (interfície, protocol, número de port, etc).
+    - Usabilitat
+        - Interacció de l’usuari amb el programari.
+        - Informació cap a l’usuari.
+        - Seguiment de l’evolució de les accions.
+        - Maquetació dels resultats.
+    - Fiabilitat
+        - Interacció amb el sistema operatiu.
+        - Coherència dels resultats.
+        - Implementació en bash (shellcheck).   
+---------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+- Lliura els resultats mitjançant Atenea (2 fitxers).
+    - Fitxer 1: Redactar l'informe de la pràctica p1_s2_cognom1_nom.txt.
+    - Fitxer 2: Realitzar les proves necessàries per justificar els resultats i
+      encapsular els fitxers necessaris en el fitxer p1_s2_cognom1_nom.zip.
+---------------------------------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------------------------------
+- Recomanació de comandes més utilitzades.
+    - awk case cat column curl dhclient dig echo for grep hostname if ifdown ifup ip ls lspci lsusb mktemp nano paste ping printf reboot sed service sort udevadm uniq
+EXTRES:
+
+
+Provar script a una màquina sense res.
+
+
+Per crear log posar a dalt de to: exec > test.log 2>&1
+
+
+nmap
+ip a
+
+
+grep
+set
+awk
+column
+sort
+
+
+resultat com la dels exemples
+
+
+anar ficant versions
+
+
+en el help ficar el que fa falta instal·lar
+
+
+requeriments de robustesa (que passa si fico un paràmetre que no hi és)?
+comentar codi
+
+
+encadenar comandes (intentar no fer bucles)
+
+
+no utilitzar comandes que no venen instal·lades (instal·lar manual i veurem si és obsoleta o no) (ifconfig no, rotue no) mirar amb la comanda man (man ip, man link,...)
+utilitzar moolt comandes de filtrat
+if up/ ip down no usar
+
+
+which o where is o who is
+
+
+que l’usuari entri el nom de l’interfície (enp0s3, enp0s8,...)
+
+
+quan demanen comanda concreta, fiquem comanda concreta, noo ficar aqui nom interficie, … fiquem enp0s3, o el que sigui
+
+
+dintre configuració xarxa a VBox activar promiscuous mode.
+
+
+
+
+INSTRUCCIONS:
+awk: A versatile text processing tool that typically operates on a line-by-line basis. It's useful for pattern scanning and processing.
+Example: awk '{print $1}' file.txt - prints the first column of each line in file.txt.
+case: A shell construct used for conditional branching in scripting languages like Bash.
+Example:
+case "$variable" in
+ pattern1)
+ command1
+ ;;
+ pattern2)
+ command2
+ ;;
+ *)
+ default_command
+ ;;
+esac
+
+
+cat: Concatenates and displays the content of files. It's also commonly used to create new files.
+Example: cat file1.txt file2.txt - outputs the content of file1.txt followed by file2.txt.
+column: Formats its input into multiple columns for easier reading.
+Example: column -t file.txt - formats the contents of file.txt into aligned columns.
+curl: Command-line tool for transferring data using various protocols (HTTP, FTP, etc.).
+Example: curl https://example.com - fetches the content of https://example.com.
+dhclient: Dynamic Host Configuration Protocol (DHCP) client that automatically configures network interfaces.
+Example: dhclient eth0 - attempts to obtain an IP address for the eth0 interface via DHCP.
+dig: DNS lookup utility used to query DNS servers and retrieve DNS records.
+Example: dig example.com A - queries the DNS server for the A record of example.com.
+echo: Outputs text to the terminal or a file.
+Example: echo "Hello, world!" - prints "Hello, world!" to the terminal.
+for: Looping construct used in shell scripting and programming languages like Bash.
+for i in {1..5}; do
+ echo $i
+done
+
+
+grep: Searches for patterns in text data and outputs matching lines.
+Example: grep "pattern" file.txt - displays lines from file.txt containing "pattern".
+hostname: Prints or sets the system's hostname.
+Example: hostname - prints the current hostname.
+if: Conditional branching construct used in shell scripting.
+if [ condition ]; then
+ command1
+else
+ command2
+fi
+ifdown: Utility to bring down a network interface.
+Example: ifdown eth0 - deactivates the eth0 network interface.
+ifup: Utility to bring up a network interface.
+Example: ifup eth0 - activates the eth0 network interface.
+ip: Command-line tool for network configuration and routing.
+Example: ip addr show - displays network interface information.
+ls: Lists directory contents.
+Example: ls -l - lists files in long format.
+lspci: Lists PCI devices connected to the system.
+Example: lspci - displays PCI devices information.
+lsusb: Lists USB devices connected to the system.
+Example: lsusb - displays USB devices information.
+mktemp: Creates a temporary file or directory.
+Example: mktemp - creates a temporary file.
+nano: A simple command-line text editor.
+Example: nano filename.txt - opens filename.txt for editing.
+paste: Merges lines from multiple files.
+Example: paste file1.txt file2.txt - merges lines from file1.txt and file2.txt.
+ping: Sends ICMP echo requests to a host to test connectivity.
+Example: ping google.com - sends ICMP echo requests to google.com.
+printf: Formats and prints data to the terminal.
+Example: printf "%s\n" "Hello" - prints "Hello" followed by a newline.
+reboot: Restarts the system.
+Example: reboot - restarts the system.
+sed: Stream editor for filtering and transforming text.
+Example: sed 's/pattern/replacement/' file.txt - replaces "pattern" with "replacement" in file.txt.
+service: Command-line tool for managing system services.
+Example: service apache2 restart - restarts the Apache web server.
+sort: Sorts lines of text files.
+Example: sort file.txt - sorts the contents of file.txt.
+udevadm: Utility for managing device nodes in the udev device manager.
+Example: udevadm info /dev/sda - displays information about /dev/sda.
+uniq: Filters out adjacent duplicate lines from sorted data.
+Example: uniq file.txt - removes duplicate lines from file.txt.
+
+
+
+
+
+
+restart les interfícies utilitzen dhcp: dhclient enp0s3
+important reboot networking: systemctl restart networking
+networkcorrecte amb xarxa nat:
+ 1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:55:d8:4d brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
+       valid_lft 86362sec preferred_lft 86362sec
+    inet6 fe80::a00:27ff:fe55:d84d/64 scope link 
+       valid_lft forever preferred_lft forever
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.4/24 brd 10.0.2.255 scope global dynamic enp0s8
+       valid_lft 562sec preferred_lft 562sec
+    inet6 fe80::a00:27ff:fe11:2233/64 scope link 
+       valid_lft forever preferred_lft forever
+
+
+
+
+NAT : enp0s3
+Bridge: enp0s8  → ETHERNET
+Host Only: enp0s9
+
+
+
+
+*
+
+
+*
+*
+*
+*
+*
+*
+*
+Per pantalla anar posant per on esta anant
+Resultat final en .log
+ 
+*  Configuració de la interfície enp0s10.                 
+titol si fet                       
+*    Interfície:                enp0s10 [enp0s10] FET                                                                       
+*    Fabricant:                 Oracle VirtualBox virtual NIC   
+més     o menys treu info rara           
+INFO ARA INCORRECTE- TOTS DESCONEGUTS                                      
+*    Adreça MAC:                08:00:27:cf:7f:6a                                                                       
+*    Estat de la interfície:    DOWN (no responent...)        
+es poden mirar més estat interficie- ara només up or down - lo q sha de fer.. crec                                                          
+*    Mode de la interfície:     normal, amb mtu 1500                                                                    
+no lo normal SI MTU
+
+
+                                                                                                              
+*    Adreçament:                no configurat                                                                           
+*    Adreça IP / màscara:       -                                                                                       
+*    Adreça de xarxa:           -                                                                                       
+*    Adreça broadcast:          -                                                                                       
+*    Gateway per defecte:       -                                                                                       
+*    Nom DNS:                   -                                                                                       
+
+
+DEPENDRA SI ES O NO LOCALHOST-  adreçament loopback   → no ensenyar aquestes dades      
+                                                                                                      
+*    Adreça IP pública:         188.79.181.180 [180.181.79.188.dynamic.jazztel.es.]                                     
+*    Detecció de NAT:           NAT detectat, 3 router involucrat [188.79.181.1 (180.181.79.188.dynamic.jazztel.es)]  
+*    Nom del domini:            181.79.188.dynamic.jazztel.es.                                                          
+*    Xarxes de l'entitat:       JAZZTEL-TRIPLEPLAY 188.79.0.0/16 [188.79.0.0 - 188.79.255.255]                          
+*    Entitat propietària:       Jazztel triple play services [ES]                                                       
+                           
+DEPENDRA SI TE RUTA                                                                  
+*    Ruta involucrada
+
+* Tràfic rebut:              0 bytes [0 paquets] (0 errors, 0 descartats i 0 perduts)                                
+*    Tràfic transmès:           0 bytes [0 paquets] (0 errors, 0 descartats i 0 colisions)                              
+*    Velocitat de Recepció:     0 bytes/s [0 paquets/s]                                                                 
+*    Velocitat de Transmissió:  0 bytes/s [0 paquets/s]
