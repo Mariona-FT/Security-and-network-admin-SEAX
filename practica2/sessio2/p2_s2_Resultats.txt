@@ -1,0 +1,465 @@
+﻿Pràctica 2 – Accés als recursos de xarxa
+  Sessió 2 - Accés al servidor mitjançant SAMBA i backups
+
+
+Alumnes:
+Mariona Farré Tapias,
+Adrian Garcia Campillo
+---------------------------------------------------------------------------------------------------------------------------
+- Respon a cadascuna de les següents preguntes tot seguint aquesta estructura:
+    - Breu raonament de la resposta.
+    - Comanda / menú / opció a utilitzar.
+    - Fitxers de configuració involucrats, si s’escau.
+    - Evidència d'ús.
+    - Bibliografia.
+
+
+    1- Servei SAMBA
+        - Accions i requeriments
+            - Implementa un servidor i un client SAMBA.
+            - Defineix les accions tant pel servidor com pel client.
+            - Comparteix dues carpetes, la home de l'usuari i una anomenada "samba".
+            - Defineix les taules IP adient per a aquest servei.
+            - Fes proves mitjançant captures de xarxa amb un servidor i un client.- tcpdump
+
+
+        - Qüestions  a respondre
+- 1. 1 Com s'instal·la un servidor de fitxers amb SMB?
+Per instal·lar el servidor de fitxers samba, primer s’ha de actualitzar el sistema debian per instal·lar correctament paquets més actualitzats de samba.
+→ Nosaltres tindrem:
+*  la màquina seax1 com a servidor
+*  la màquina seax2 com a client
+ Per fer això executar:
+ root@seax1:~# apt update
+ root@seax1:~# apt upgrade
+Ara instal·lar els paquets de samba:   root@seax1:~# apt install samba
+Per poder confirmar que s’han instal·lat correctament ho podem fer mirant la versió de samba, si aquest està correctament instal·lat retornarà el número de la versió:
+ root@seax1:~#  samba -V
+
+
+Evidència d'ús: 1-1.txt
+Es pot veure l’execució de les comandes anteriors.
+
+
+Bibliografia: Web debian samba inici: https://wiki.debian.org/Samba/ServerSimple 
+Bibliografia:  man samba
+
+
+- 1. 2 Com es configura un servidor de fitxers amb SMB?
+Per configurar correctament un servidor de Samba s’ha de configurar principalment en el fitxer de configuració de samba:/etc/samba/smb.conf on es poden definir les comparticions, els usuaris, i altres opcions de configuració.
+Per provar la configuració inicial, podem posar diferents paràmetres al global com:
+ workgroup = WORKGROUP
+   server string = Samba Server %v
+   security = user
+   map to guest = bad user
+   dns proxy = no
+
+
+I fer un recurs compartit en específic que es digui shared amb:
+[shared]
+        path = /home/shared
+        writable = yes
+        guest ok = yes
+        guest only = yes
+        create mask = 0777
+        directory mask = 0777
+
+
+Fitxers involucrats: :/etc/samba/smb.conf
+Per configurar manualment la configuració del programa samba amb la configuració: 
+
+
+[global]
+## Browsing/Identification ###
+ workgroup = WORKGROUP
+ security = user
+ map to guest = bad user
+ dns proxy = no
+
+
+[shared]
+        path = /home/shared
+        writable = yes
+        guest ok = yes
+        guest only = yes
+        create mask = 0777
+        directory mask = 0777
+
+
+Evidència d'ús: 1-2.txt
+Es pot veure l’execució de les comandes anteriors.
+Per provar que es fa una correcte configuració, des de una màquina client instalar els paquets de samba client:    root@seax2:~#  apt install  smbclient
+I comprovar amb la ip de la màquina servidor (seax1 amb ip: 192.168.1.26) que es pot connectar a la carpeta de samba-segur executant:   root@seax2:~# smbclient //192.168.1.26/shared
+Entra sense errors a la carpeta que vol dir que s’ha configurat correctament.
+
+
+Bibliografia: Web debian samba inici: https://wiki.debian.org/Samba/ServerSimple 
+
+
+- 1. 3 Com es verifica un servidor de fitxers amb SMB?
+Per verificar que la configuració del servidor samba s'està executant correctament, podem executar la comanda: root@seax1:~#   testparm
+Que ens retornarà la informació del fitxer de configuració smb.conf i els possibles errors que pugui tenir.
+També es pot verificar que funciona correctament utilitzant la comanda: root@seax1:~#    systemctl status smbd
+Per comprovar l’estat del servei, si esta actiu i el seu estat actual.
+
+
+Evidència d'ús: 1-3.txt
+Es pot veure l’execució de les comandes anteriors.
+Surt que la configuració feta en l’apartat 1-2 és correcte posant la informació sense cap  missatge error: 
+[samba]
+        guest ok = Yes
+        path = /home/samba
+        read only = No
+        valid users = test
+També es pot veure que la seva activitat esta en:: active (running) since Tue 2024-03-26 10:44:42 CET; 9min ago, assegurant que s’esta executant correctament.
+
+
+Bibliografia: man samba
+
+
+- 1. 4 Com es pot compartir un directori amb SMB?
+Per configurar correctament un servidor de Samba s’ha de configurar principalment en el fitxer de configuració de samba:/etc/samba/smb.conf on es poden definir les comparticions, els usuaris, i altres opcions de configuració.
+Nosaltres seguirem l’enunciat i  configuarem la carpeta home de l'usuari test amb una carpeta anomenada samba, i el servei dins de samba es dirà: samba.
+
+
+Primer tenir un usuari anomenat test en la màquina servidor, sino crearlo i posar una contrasenya (per facilitar les proves la contrasenya sera test) :  root@seax1:~#adduser test
+Després posar l’usuari al servidor samba executant:  root@seax1:~# smbpasswd -a test
+
+
+Crear la carpeta per la compartició executant:  root@seax1:~# mkdir -p /home/samba
+ I donant els permisos del usuari propietari:  root@seax1:~# chown test:test /home/samba/
+I propietats de la carpeta:   root@seax1:~#  chmod 770 /home/samba/
+Una vegada fet tot això, configurar el fitxer de samba enllaçant les dues coses: 
+[samba]
+        path = /home/samba
+        available = yes
+        valid users = test
+        read only = no
+        browsable = yes
+        public = yes
+        writable = yes
+(amb només el user vàlid a connectar-se sigui el usuari test i amb el camí de la carpeta creada) 
+Guardar els canvis fent un restart del servidors:
+root@seax1:~#   systemctl restart smbd
+root@seax1:~#   systemctl restart nmbd
+
+
+Fitxers involucrats: :/etc/samba/smb.conf
+Per configurar manualment la configuració del programa samba amb la configuració: 
+[samba]
+        path = /home/samba
+        available = yes
+        valid users = test
+        read only = no
+        browsable = yes
+        public = yes
+        writable = yes
+
+
+Evidència d'ús: 1-4.txt
+Es pot veure l’execució de les comandes anteriors.
+Podem verificar que s’ha compartit correctament la carpeta utilitzant el samba clients des de una màquina client: root@seax2:~#  apt install  smbclient
+I comprovar amb la ip de la màquina servidor (seax1 amb ip: 192.168.1.26) que es pot connectar a la carpeta de samba-segur executant:   root@seax2:~# smbclient //192.168.1.26/samba  -U test
+Al fer un:  smb: \> pwd, podem veure que estem a la carpeta del servidor que hem especificat:  Current directory is \\192.168.1.26\samba\
+
+
+Bibliografia: Web debian samba inici: https://wiki.debian.org/Samba/ServerSimple 
+
+
+- 1. 5 Com es securitza un servidor de fitxers SMB?
+Per securitzar un servidor de fitxer samba, és important configurar correctament el fitxer de configuració del protocol.
+Ho podem fer especificat que les comparticions son amb l'opció de read only = yes per defecte i només donar permisos d'escriptura a usuaris específics.
+També es pot fer que que la contrasenya estigui gestionada amb smbpassword.
+I Es pot xifrar les dades del servidor.
+Activar el xifrat de dades en trànsit mitjançant l'opció smb encrypt.
+
+
+Per provar això, ho farem amb una carpeta nova anomenada samba-segur i un nou servei dins de samba anomenat: samba-segur: 
+ root@seax1:~#  mkdir -p /home/samba-segur
+I Donar permisos:  root@seax1:~#   chown test:test /home/samba-segur
+ root@seax1:~# chmod 770 /home/samba-segur
+  root@seax1:~# chmod 770 /home/samba-segur/
+Posar l’usuari al samba: smbpasswd -a test
+Modificar el fitxer de configuració del samba: 
+[samba-segur]
+        path = /home/samba-segur
+        valid users = test
+        write list = test
+        read only = yes
+        browsable = yes
+        smb encrypt = required
+(Amb la encriptació requerida i només pugui tenir permís d’escriptura el usuari test )
+Reiniciar samba:  root@seax1:~# systemctl restart smbd i   root@seax1:~#systemctl restart nmbd
+Comprovar que s’ha guardat correctament executant:   root@seax1:~#  testparm
+Que retorna correctament la configuració de samba segura:
+[samba-segur]
+        path = /home/samba-segur
+        valid users = test
+        write list = test
+        read only = yes
+        browsable = yes
+        smb encrypt = required
+
+
+Fitxers involucrats: 
+Per configurar manualment la configuració del programa samba
+[samba-segur]
+        path = /home/samba-segur
+        valid users = test
+        write list = test
+        read only = yes
+        browsable = yes
+        smb encrypt = required
+
+
+Evidència d'ús: 1-5.txt
+Es pot veure l’execució de les comandes anteriors.
+Amb l’execució de   root@seax1:~#testparm, podem veure que no hi ha cap error en la configuració.
+Per provar que es fa una correcte configuració, des de una màquina client instalar els paquets de samba client:    root@seax2:~#  apt install  smbclient
+I comprovar amb la ip de la màquina servidor (seax1 amb ip: 192.168.1.26) que es pot connectar a la carpeta de samba-segur executant:   root@seax2:~# smbclient //192.168.1.26/samba-segur -U test
+Entra sense errors a la carpeta que vol dir que s’ha configurat correctament.
+Hem fet una petita prova amb la exportació d'un fitxer anomenat textfile.txt del servidor a la carpeta del client, que s’ha pogut realitzar correctament.
+
+
+Bibliografia: Web debian connectar samba: https://www.server-world.info/en/note?os=Debian_11&p=samba&f=3 
+
+
+
+
+- 1. 6 Com s'instal·la un client de fitxers Linux amb SMB?
+Per instal·lar un client de Linux amb samba, és molt similar al sistema debian.
+Nosaltres com hem pogut fer amb una altre màquina virtual on el seu sistema operatiu és Linux.
+Així aconseguir que es connectessin sense cap tipus de problema, ja que la màquina servidor té una connexió bridge on les altres màquines es poden connectar.
+
+
+Per comprovar que les màquines es poden connectar, es pot fer una simple comprovació d’un ping des de linux a la màquina servidor: root@marionaF (Tue Mar 26):<~># ping 192.168.1.26, on podem verificar que es poden conectar.
+Després instal·lar els paquets de samba client: 
+ root@marionaF (Tue Mar 26):<~># sudo apt install smbclient 
+(En aquest cas només utilitzarem sambaclient sense cap muntatge)
+Una vegada instal·lat, crear un fitxer local a linux anomenat: fitxer_linux.txt per després poder fer una verificació que té els permisos de lectura i escriptura.
+
+
+Ara des de linux connectarse a samba client:  root@marionaF (Tue Mar 26):<~># smbclient //192.168.1.26/samba -U test
+On amb ls podem veure els continguts de la carpeta compartida de samba i !ls els continguts de la carpeta local.
+Per comprovar que hi ha privilegis d’escriptura copiant un fitxer local a la carpeta de samba: smb: \> put fitxer_linux.txt fitxer_linux_remot.txt
+
+
+Evidència d'ús: 1-6.txt
+Es pot veure l’execució de les comandes anteriors.
+Es pot comprovar que es fa correctament des del client de samba en debian que el fitxer, fitxer_linux_remot.txt s’ha creat correctament.
+
+
+Bibliografia: Web redhat samba en linux: https://access.redhat.com/documentation/es-es/red_hat_enterprise_linux/8/html/deploying_different_types_of_servers/assembly_using-samba-as-a-server_deploying-different-types-of-servers 
+Web Serverspace configurar samba linux: https://serverspace.io/es/support/help/configuring-samba/ 
+
+
+- 1. 7 Com s'instal·la un client de fitxers Windows amb SMB?
+Windows soporta nativament samba, es a dir no cal descarregar-se cap aplicació ni paquets per poder  tenir una connexió en un servei samba.
+Nosaltres tenim windows 11, així que per fer-ho anar al l'Explorador de Fitxers i trobar l’element de: Aquest ordinador , clicar el botó dret, clicar mostrar més opcions, en el llistat d’opcions clicar: Assignar una unitat de xarxa.
+S’obrirà una pestanya nova de : Conectar a unidad de red.
+En el nostre cas deixem la unitat original: Z:
+I especifiquem la carpeta posant: \\192.168.1.26\samba   
+i Acceptem
+Es torna a obrir una nova pestanya de: Seguretat de Windows
+On es vol escriure les credencials de la red 192.168.1.26
+En el nostre cas en usuari posem: test
+i en contrasenya posem: test 
+i  posem D’acord
+Una vegada fet tot això s’ens obrirà des del  'Explorador de Fitxers les carpetes i els fitxers que estan  al servidor samba.
+En el nostre cas podem veure les carpetes: hola, hola2 i el fitxer testfile_remot
+
+
+Per desconnectar-se simplement, des de  l'Explorador de Fitxers i trobar l’element de: samba (\\192.168.1.26) (Z:), clicar el botó dret i , clicar mostrar més opcions, en el llistat d’opcions clicar: Desconnecta’t
+
+
+Evidència d'ús: 1-7.txt
+Una vegada ja tenim la connexió ven configurada, podem obrir en la terminal de windows Powershell per fer les evidències dins d’aquesta carpeta nova de samba:
+Podem veure que el directori és Z:\ , la unitat on hem posat el samba.
+I amb un ls, els fitxers dins d’aquesta carpeta i els seus recursos.
+També per poder verificar que esta correctament configurat podem crear un fitxer .txt des de windows, executant: 
+PS Z:\> New-Item -ItemType File -Path .\fitxer_windows.txt 
+Ara aquest nou fitxer surt en el següent ls dels fitxers de la carpeta, sinó que també es pot veure des del Client de Samba de la Màquina virtual, connectant-se amb:   root@seax2:~#smbclient //192.168.1.26/samba -U test 
+i mirant amb un ls que el fitxer:  fitxer_windows.txt  esta creat correctament.
+
+
+Bibliografia: Web server world connectar-se des de windows: https://www.server-world.info/en/note?os=Debian_11&p=samba&f=3 
+
+
+- 1. 8 Com es configura un client de fitxers amb SMB?
+Primer de tot s’ha d'instal·lar els paquets de client executant: 
+root@seax2:~#  apt install smbclient
+Comprovem la conexió amb el client amb la següent comanda “smbclient //servidor/recurs -U usuari” , en el nostre cas sera:
+ root@seax2:~#  smbclient  //110.0.3.4/samba  -U test
+
+
+Per muntar el sistema de fitxers hem d'instal·lar cifs-utils.
+root@seax2:~#  apt install cifs-utils
+Creem el punt de muntatge “mkdir -p /mnt/smb”
+Muntem el sistema “mount -t cifs //servidor/recurs /mnt/smb -o user=usuari”
+En el nostre cas fent:  root@seax2:~# mount -t cifs //10.0.3.4/samba /mnt/smb -o user=test 
+Evidència d'ús: 1-8.txt
+Es pot veure l’execució de les comandes anteriors.
+Tcpdump de les connexions 
+
+
+Bibliografia: Web debian samba inici: https://wiki.debian.org/Samba/ServerSimple 
+
+
+- 1. 9 Com es verifica un client de fitxers amb SMB?
+Per verificar la connexió d'un client a una compartició SMB des de Linux, pots utilitzar el comando smbclient. Aquesta eina permet explorar comparticions SMB/CIFS des de la línia de comandes utilitzant l’esquema “smbclient //servidor/comparticio -U usuari”
+Ens connectem al servidor:  root@seax2:~#  smbclient  //110.0.3.4/samba  -U test
+Una vegada connectats al servidor provarem de crear una carpeta per veure que tenim permisos de lectura i escritura.
+També podem penjar un fitxer testfile.txt del client al sistema de compartició del servidor, que ara el fitxer s’anomenarà tesfile_remot.txt, utilitzant la comanda des de samba: 
+smb: \> put testfile.txt testfile_remot.txt 
+
+
+Evidència d'ús: 1-9.txt
+Creació i edició de la carpeta  de compartició del servidor des del client, verificant la seva correcta configuració.
+Tcpdump de les connexions.
+
+
+Bibliografia: Web debian samba inici: https://wiki.debian.org/Samba/ServerSimple 
+
+
+- 1. 10 Com es pot muntar automàticament (fstab) un recurs compartit amb SMB?
+Per muntar automàticament una compartició SMB en el moment de l'arrencada del sistema, pots fer-ho afegint una entrada al fitxer /etc/fstab. Així es manté el muntatge persistent entre reinicis.
+El primer que farem serà crear el punt de muntatge.  root@seax2:~#   mkdir /mnt/smbfstab
+Crearem un fitxer /etc/smb_credentials per guardar la informació de l’usuari i la contrasenya.
+        username=test
+password=test
+Canviarem els permisos del fitxer per a que només el pugui llegir l’usuari root.
+“chmod 600 /etc/smb_credentials”
+Seguidament editem el fstab, “nano /etc/fstab”, i afegim la següent línia.
+“//nom_del_servidor/nom_del_recurs /mnt/nom_del_recurs cifs credentials=/etc/smb_credentials,iocharset=utf8,file_mode=0777,dir_mode=0777 0 0”
+En el nostre cas seria: 
+//10.0.3.4/samba        /mnt/smbfstab        cifs        credentials=/etc/smb_credentials,iocharset=utf8,file_mode=0777,dir_mode=0777        0        0
+
+
+Muntem el fstab o reiniciem la maquina per finalitzar.
+
+
+Fitxers involucrats:  
+*  /etc/smb_credentials
+On guardar l’usuari i la seva contrasenya, el nostre cas usuari test amb contrasenya test:
+username=test
+password=test
+
+
+*  /etc/fstab 
+On guardar permanentment el canvi del fstab :
+//10.0.3.4/samba        /mnt/smbfstab        cifs        credentials=/etc/smb_credentials,iocharset=utf8,file_mode=0777,dir_mode=0777        0        0
+
+
+Evidència d'ús: 1-10.txt
+Es pot veure l’execució de les comandes anteriors.
+Tcpdump de les connexions.
+
+
+Bibliografia: Web debian samba inici: https://wiki.debian.org/Samba/ServerSimple 
+
+
+- 1. 11 Com es pot muntar manualment un recurs compartit amb SMB?
+Igual que a la pregunta 1.8 per muntar manualment un recurs compartit amb SMB hem d’utilitzar la següent comanda.
+“mount -t cifs //servidor/recurs /mnt/smb -o user=usuari”
+En el nostre cas serà: root@seax2:~#  mount -t cifs //10.0.3.4/samba /mnt/smb/ -o user=test 
+Si pel contrari volguesim desmuntar-la hem de fer.
+“umount /mnt/punt_de_muntatge”
+root@seax2:~# umount /mnt/smb/
+
+
+Evidència d'ús: 1-11.txt
+Es pot veure l’execució de les comandes anteriors, amb l’execució de:root@seax2:~#  ls /mnt/smb/ per veure els canvis que es fan al fer un mount o dismount, que es pot veure si es crea fa un mount correcte amb els fitxers del client apareixent (carpetes hola i hola2) i un unmount correcte si es borra tots els continguts del fitxer.
+Tcpdump de les connexions.
+
+
+Bibliografia: Web  server world samba mounts: https://www.server-world.info/en/note?os=Debian_12&p=samba&f=3 
+
+
+    2- Servei de backups
+        - Accions i requeriments
+            - Implementa un servei de backup.
+            - Defineix les accions per realitzar una còpia de seguretat dels fitxers amb rsync.
+            - Defineix les accions per realitzar una còpia de seguretat dels fitxers amb 
+borgbackup.
+            - Defineix les accions per automatitzar les còpies de seguretat dels fitxers amb cron.
+            - Fes proves i comparar resultats.
+        - Qüestions a respondre
+
+
+-2.1 Com s'implementa una còpia de seguretat dels fitxers amb rsync?
+Rsync és una eina de sincronització de fitxers que optimitza la transferència de fitxers entre dos llocs (pot ser entre dues carpetes en el mateix dispositiu, entre dispositiu i servidor, o entre dos servidors). La seva principal fortalesa rau en la seva eficiència, ja que només envia els canvis entre els fitxers font i destí, en lloc de copiar tots els fitxers sencers cada vegada.
+Primer de tot instal·lem rsync amb la comanda: root@seax1:~# apt install rsync
+Seguidament utiltzem la següent comanda per fer la còpia de seguretat. “rsync -avz /directori/origen/ /directori/destí/”.
+En el nostre cas serà :  root@seax1:~# rsync -avz /etc/ /backuprsync/ 
+Nosaltres farem una copia de /etc a una carpeta creada que s’anomena /backuprsync/.
+
+
+Evidència d'ús: 2-1.txt
+Es pot veure l’execució de les comandes anteriors.
+Utilitzant la comanda :  root@seax1:~# ls /backuprsync/ , podem veure com s’han copiat correctament tots els fitxers.
+
+
+Bibliografia: man rsync
+Web Server world: https://www.server-world.info/en/note?os=Debian_11&p=rsync#google_vignette 
+
+
+-2.2 Com s'implementa una còpia de seguretat dels fitxers amb borgbackup?
+Borgbackup és una eina de còpies de seguretat que ofereix deduplicació, comprimint i xifrant les dades de manera eficient. A diferència d'rsync, que es centra en la sincronització de fitxers, borgbackup està dissenyat específicament per a còpies de seguretat, proporcionant una gestió robusta i segura de les dades emmagatzemades.
+Primer de tot instal·lem borgbackup amb la comanda:
+root@seax1:~# apt install borgbackup
+Inicialitzem el repositori: root@seax1:~# borg init --encryption=none /cami/repositori_borg”
+En el nostre cas: root@seax1:~# borg init --encryption=none /backupborg/
+Finalment creem la còpia “borg create /cami/repositori_borg::nom_còpia /directori/origen”.
+En el nostre cas: root@seax1:~# borg create /backupborg::copiaetc /etc 
+Per listar les copies que tenim creades fem “borg list /cami/repositori_borg”
+En el nostre cas: root@seax1:~#  borg list /backupborg/ 
+Nosaltres farem una copia de /etc a una carpeta creada que s’anomena /backupborg.
+
+
+Evidència d'ús: 2-2.txt
+Es pot veure l’execució de les comandes anteriors.
+
+
+Bibliografia: man borg.
+Web debian borg: https://manpages.debian.org/testing/borgbackup/borg.1.en.html 
+
+
+-2.3 Com s'implementa una automatització de la còpia de seguretat dels fitxers amb cron?
+La eina de cron ja esta descarregada en la distribució de Debian, llavors no cal descarregar-se cap paquet addicional.
+Per configurar el cron, ediitem la taula de cron executant: root@seax1:~# crontab -e 
+Afegim una entrada per a la comanda de backup desitjada, especificant la freqüència. 
+Per exemple:
+0 2 * * * rsync -avz /directori/origen/ /directori/destí/ per a rsync
+0 2 * * * borg create /cami/repositori_borg::date +%Y-%m-%d /directori/origen per a borgbackup. 
+En el nostre cas seria: 
+0 2 * * * rsync -avz /etc /backuprsync
+0 2 * * * borg create /backupborg::$(date +%Y-%m-%d) /etc
+ 
+Copiar recursivament (rsync) el directori /etc al directori /backuprsync cada dia a les 2:00 a. m de la matinada.
+
+
+Crear una còpia de seguretat (borg create) del directori /etc amb una data dinàmica al directori /backupborg cada dia a les 2:00 de la matinada.
+
+
+Fitxers involucrats:  / crontab -e afegint al final: 
+0 2 * * * rsync -avz /etc /backuprsync
+0 2 * * * borg create /backupborg::$(date +%Y-%m-%d) /etc
+ 
+Evidència d'ús: 2-3.txt
+Es pot veure l’execució de les comandes anteriors.
+Es pot veure les còpies de el rsync i el borg s’han fet correctament  a les 02:00 amb amb la comanda: root@seax1:~# borg list /backupborg/  i root@seax1:~#  stat /backuprsync/, on es pot veure la última vegada que ha estat creat o modificat és la hora correcte.
+
+
+Bibliografia: man crontab
+Web transformar freqüència del crontab: https://crontab.guru/ 
+
+
+---------------------------------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------------------------------
+- Lliura els resultats mitjançant Atenea (2 fitxers).
+    - Fitxer 1: Redactar l'informe de la pràctica p2_s2_cognom1_nom.txt.
+    - Fitxer 2: Realitzar les proves necessàries per justificar els resultats i
+      encapsular els fitxers necessaris en el fitxer p2_s2_cognom1_nom.zip.
+---------------------------------------------------------------------------------------------------------------------------

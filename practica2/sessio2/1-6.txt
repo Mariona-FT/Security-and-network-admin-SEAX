@@ -1,0 +1,204 @@
+--LINUX--
+root@marionaF (Tue Mar 26):<~># ping 192.168.1.26
+PING 192.168.1.26 (192.168.1.26) 56(84) bytes of data.
+64 bytes from 192.168.1.26: icmp_seq=1 ttl=63 time=1.47 ms
+64 bytes from 192.168.1.26: icmp_seq=2 ttl=63 time=2.68 ms
+64 bytes from 192.168.1.26: icmp_seq=3 ttl=63 time=2.86 ms
+^C
+--- 192.168.1.26 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2004ms
+rtt min/avg/max/mdev = 1.470/2.338/2.864/0.618 ms
+
+root@marionaF (Tue Mar 26):<~># sudo apt install smbclient 
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  bsdmainutils libcupsfilters1 libcupsimage2 libflac8 libgs9-common libicu63
+  libilmbase23 libldap-2.4-2 libmpdec2 libnetpbm10 libopenexr23 libperl5.28
+  libpython3.7-minimal libpython3.7-stdlib libreadline7 libruby2.5 libtiff5
+  libwebp6 libwmf-0.2-7 libwmf0.2-7 libx265-165 ncal perl-modules-5.28 pigz
+  python3.7-minimal ruby-did-you-mean ruby-minitest ruby-power-assert
+  ruby-test-unit
+Use 'sudo apt autoremove' to remove them.
+The following additional packages will be installed:
+  libarchive13 libldb2 liblmdb0 libpython3.11 libsmbclient libtalloc2
+  libtevent0 libwbclient0 python3-gpg python3-ldb python3-samba python3-talloc
+  python3-tdb samba-common samba-common-bin samba-dsdb-modules samba-libs
+Suggested packages:
+  lrzip heimdal-clients python3-markdown python3-dnspython cifs-utils
+The following NEW packages will be installed:
+  libarchive13 libldb2 liblmdb0 libpython3.11 libsmbclient libtalloc2
+  libtevent0 libwbclient0 python3-gpg python3-ldb python3-samba python3-talloc
+  python3-tdb samba-common samba-common-bin samba-dsdb-modules samba-libs
+  smbclient
+0 upgraded, 18 newly installed, 0 to remove and 61 not upgraded.
+Need to get 13.7 MB of archives.
+After this operation, 67.9 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+Get:1 http://deb.debian.org/debian stable/main amd64 libarchive13 amd64 3.6.2-1 [343 kB]
+Get:2 http://deb.debian.org/debian stable/main amd64 liblmdb0 amd64 0.9.24-1 [45.0 kB]
+Get:3 http://deb.debian.org/debian stable/main amd64 libtalloc2 amd64 2.4.0-f2 [25.6 kB]
+Get:4 http://deb.debian.org/debian stable/main amd64 libtevent0 amd64 0.14.1-1 [37.9 kB]
+Get:5 http://deb.debian.org/debian stable/main amd64 libldb2 amd64 2:2.6.2+samba4.17.12+dfsg-0+deb12u1 [162 kB]
+Get:6 http://deb.debian.org/debian stable/main amd64 libpython3.11 amd64 3.11.2-6 [1988 kB]
+Get:7 http://deb.debian.org/debian stable/main amd64 libwbclient0 amd64 2:4.17.12+dfsg-0+deb12u1 [53.9 kB]
+Get:8 http://deb.debian.org/debian stable/main amd64 samba-libs amd64 2:4.17.12+dfsg-0+deb12u1 [5658 kB]
+Get:9 http://deb.debian.org/debian stable/main amd64 libsmbclient amd64 2:4.17.12+dfsg-0+deb12u1 [82.9 kB]
+Get:10 http://deb.debian.org/debian stable/main amd64 python3-gpg amd64 1.18.0-3+b1 [363 kB]
+Get:11 http://deb.debian.org/debian stable/main amd64 python3-ldb amd64 2:2.6.2+samba4.17.12+dfsg-0+deb12u1 [60.7 kB]
+Get:12 http://deb.debian.org/debian stable/main amd64 python3-tdb amd64 1.4.8-2 [16.5 kB]
+Get:13 http://deb.debian.org/debian stable/main amd64 python3-talloc amd64 2.4.0-f2 [14.5 kB]
+Get:14 http://deb.debian.org/debian stable/main amd64 python3-samba amd64 2:4.17.12+dfsg-0+deb12u1 [2828 kB]
+Get:15 http://deb.debian.org/debian stable/main amd64 samba-common all 2:4.17.12+dfsg-0+deb12u1 [87.9 kB]
+Get:16 http://deb.debian.org/debian stable/main amd64 samba-common-bin amd64 2:4.17.12+dfsg-0+deb12u1 [1179 kB]
+Get:17 http://deb.debian.org/debian stable/main amd64 samba-dsdb-modules amd64 2:4.17.12+dfsg-0+deb12u1 [317 kB]
+Get:18 http://deb.debian.org/debian stable/main amd64 smbclient amd64 2:4.17.12+dfsg-0+deb12u1 [442 kB]
+Fetched 13.7 MB in 1s (24.5 MB/s)  
+Preconfiguring packages ...
+Selecting previously unselected package libarchive13:amd64.
+(Reading database ... 89577 files and directories currently installed.)
+Preparing to unpack .../00-libarchive13_3.6.2-1_amd64.deb ...
+Unpacking libarchive13:amd64 (3.6.2-1) ...
+Selecting previously unselected package liblmdb0:amd64.
+Preparing to unpack .../01-liblmdb0_0.9.24-1_amd64.deb ...
+Unpacking liblmdb0:amd64 (0.9.24-1) ...
+Selecting previously unselected package libtalloc2:amd64.
+Preparing to unpack .../02-libtalloc2_2.4.0-f2_amd64.deb ...
+Unpacking libtalloc2:amd64 (2.4.0-f2) ...
+Selecting previously unselected package libtevent0:amd64.
+Preparing to unpack .../03-libtevent0_0.14.1-1_amd64.deb ...
+Unpacking libtevent0:amd64 (0.14.1-1) ...
+Selecting previously unselected package libldb2:amd64.
+Preparing to unpack .../04-libldb2_2%3a2.6.2+samba4.17.12+dfsg-0+deb12u1_amd64.d
+eb ...
+Unpacking libldb2:amd64 (2:2.6.2+samba4.17.12+dfsg-0+deb12u1) ...
+Selecting previously unselected package libpython3.11:amd64.
+Preparing to unpack .../05-libpython3.11_3.11.2-6_amd64.deb ...
+Unpacking libpython3.11:amd64 (3.11.2-6) ...
+Selecting previously unselected package libwbclient0:amd64.
+Preparing to unpack .../06-libwbclient0_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb ...
+Unpacking libwbclient0:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Selecting previously unselected package samba-libs:amd64.
+Preparing to unpack .../07-samba-libs_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb ...
+Unpacking samba-libs:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Selecting previously unselected package libsmbclient:amd64.
+Preparing to unpack .../08-libsmbclient_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb ...
+Unpacking libsmbclient:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Selecting previously unselected package python3-gpg.
+Preparing to unpack .../09-python3-gpg_1.18.0-3+b1_amd64.deb ...
+Unpacking python3-gpg (1.18.0-3+b1) ...
+Selecting previously unselected package python3-ldb.
+Preparing to unpack .../10-python3-ldb_2%3a2.6.2+samba4.17.12+dfsg-0+deb12u1_amd
+64.deb ...
+Unpacking python3-ldb (2:2.6.2+samba4.17.12+dfsg-0+deb12u1) ...
+Selecting previously unselected package python3-tdb.
+Preparing to unpack .../11-python3-tdb_1.4.8-2_amd64.deb ...
+Unpacking python3-tdb (1.4.8-2) ...
+Selecting previously unselected package python3-talloc:amd64.
+Preparing to unpack .../12-python3-talloc_2.4.0-f2_amd64.deb ...
+Unpacking python3-talloc:amd64 (2.4.0-f2) ...
+Selecting previously unselected package python3-samba.
+Preparing to unpack .../13-python3-samba_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb ..
+.
+Unpacking python3-samba (2:4.17.12+dfsg-0+deb12u1) ...
+Selecting previously unselected package samba-common.
+Preparing to unpack .../14-samba-common_2%3a4.17.12+dfsg-0+deb12u1_all.deb ...
+Unpacking samba-common (2:4.17.12+dfsg-0+deb12u1) ...
+Selecting previously unselected package samba-common-bin.
+Preparing to unpack .../15-samba-common-bin_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb
+ ...
+Unpacking samba-common-bin (2:4.17.12+dfsg-0+deb12u1) ...
+Selecting previously unselected package samba-dsdb-modules:amd64.
+Preparing to unpack .../16-samba-dsdb-modules_2%3a4.17.12+dfsg-0+deb12u1_amd64.d
+eb ...
+Unpacking samba-dsdb-modules:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Selecting previously unselected package smbclient.
+Preparing to unpack .../17-smbclient_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb ...
+Unpacking smbclient (2:4.17.12+dfsg-0+deb12u1) ...
+Setting up liblmdb0:amd64 (0.9.24-1) ...
+Setting up libpython3.11:amd64 (3.11.2-6) ...
+Setting up libarchive13:amd64 (3.6.2-1) ...
+Setting up samba-common (2:4.17.12+dfsg-0+deb12u1) ...
+
+Creating config file /etc/samba/smb.conf with new version
+Setting up libwbclient0:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Setting up libtalloc2:amd64 (2.4.0-f2) ...
+Setting up python3-tdb (1.4.8-2) ...
+Setting up libtevent0:amd64 (0.14.1-1) ...
+Setting up python3-gpg (1.18.0-3+b1) ...
+Setting up libldb2:amd64 (2:2.6.2+samba4.17.12+dfsg-0+deb12u1) ...
+Setting up python3-talloc:amd64 (2.4.0-f2) ...
+Setting up samba-libs:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Setting up python3-ldb (2:2.6.2+samba4.17.12+dfsg-0+deb12u1) ...
+Setting up libsmbclient:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Setting up smbclient (2:4.17.12+dfsg-0+deb12u1) ...
+Setting up samba-dsdb-modules:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Setting up python3-samba (2:4.17.12+dfsg-0+deb12u1) ...
+Setting up samba-common-bin (2:4.17.12+dfsg-0+deb12u1) ...
+Processing triggers for man-db (2.11.2-2) ...
+Processing triggers for libc-bin (2.36-9+deb12u2) ...
+root@marionaF (Tue Mar 26):<~># 
+
+--CREAR FITXER LOCAL LINUX--
+root@marionaF (Tue Mar 26):<~># touch fitxer_linux.txt
+root@marionaF (Tue Mar 26):<~># ls
+Pictures   ascii2binary_install  private.key
+Public   Desktop    Templates    backup   Documents  Videos   backups   
+Downloads  fitxer_linux.txt  arxiu_nou.txt  hola.txt
+
+--CONNECTAR-SE AL SAMBA--
+root@marionaF (Tue Mar 26):<~># smbclient //192.168.1.26/samba -U test
+Password for [WORKGROUP\test]:
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Tue Mar 26 12:17:39 2024
+  ..                                  D        0  Mon Mar 25 12:19:52 2024
+  testfile_remot.txt                  A       18  Tue Mar 26 10:40:23 2024
+  hola2                               D        0  Tue Mar 26 10:12:22 2024
+  hola                                D        0  Tue Mar 26 12:08:45 2024
+  fitxer_windows.txt                  A        0  Tue Mar 26 12:17:39 2024
+
+    3067812 blocks of size 1024. 656216 blocks available
+
+smb: \> !ls
+Pictures   ascii2binary_install  private.key
+Public   Desktop    Templates    backup   Documents  Videos   backups   
+Downloads  fitxer_linux.txt  arxiu_nou.txt  hola.txt
+smb: \> put fitxer_linux.txt fitxer_linux_remot.txt
+putting file fitxer_linux.txt as \fitxer_linux_remot.txt (0.0 kb/s) (average 0.0 kb/s)
+smb: \> ls
+  .                                   D        0  Tue Mar 26 14:03:39 2024
+  ..                                  D        0  Mon Mar 25 12:19:52 2024
+  testfile_remot.txt                  A       18  Tue Mar 26 10:40:23 2024
+  hola2                               D        0  Tue Mar 26 10:12:22 2024
+  hola                                D        0  Tue Mar 26 12:08:45 2024
+  fitxer_windows.txt                  A        0  Tue Mar 26 12:17:39 2024
+  fitxer_linux_remot.txt              A        0  Tue Mar 26 14:03:39 2024
+
+    3067812 blocks of size 1024. 656216 blocks available
+smb: \> 
+
+
+--CLIENT SAMBA MV-- 
+====================
+Fecha y hora: 2024-03-26 15:08:33
+Prompt: root@seax2
+Comando ejecutado: smbclient //192.168.1.26/samba -U test
+====================
+Password for [WORKGROUP\test]:
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Tue Mar 26 15:03:39 2024
+  ..                                  D        0  Mon Mar 25 13:19:52 2024
+  testfile_remot.txt                  A       18  Tue Mar 26 11:40:23 2024
+  hola2                               D        0  Tue Mar 26 11:12:22 2024
+  hola                                D        0  Tue Mar 26 13:08:45 2024
+  fitxer_windows.txt                  A        0  Tue Mar 26 13:17:39 2024
+  fitxer_linux_remot.txt              A        0  Tue Mar 26 15:03:39 2024
+
+		3067812 blocks of size 1024. 656216 blocks available
+smb: \> exit
+
+Fin de la ejecución
+====================

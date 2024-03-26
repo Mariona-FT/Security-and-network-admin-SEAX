@@ -1,0 +1,226 @@
+====================
+Fecha y hora: 2024-03-24 10:58:33
+Prompt: root@seax2
+Comando ejecutado: apt install smbclient
+====================
+S'està llegint la llista de paquets…
+S'està construint l'arbre de dependències…
+S'està llegint la informació de l'estat…
+S'instal·laran els següents paquets extres:
+  libarchive13 libsmbclient
+Paquets suggerits:
+  lrzip cifs-utils heimdal-clients
+S'instal·laran els paquets NOUS següents:
+  libarchive13 libsmbclient smbclient
+0 actualitzats, 3 nous a instal·lar, 0 a suprimir i 0 no actualitzats.
+S'ha d'obtenir 868 kB d'arxius.
+Després d'aquesta operació s'utilitzaran 3.152 kB d'espai en disc addicional.
+Voleu continuar? [S/n] Bai:1 http://deb.debian.org/debian bookworm/main amd64 libarchive13 amd64 3.6.2-1 [343 kB]
+Bai:2 http://deb.debian.org/debian bookworm/main amd64 libsmbclient amd64 2:4.17.12+dfsg-0+deb12u1 [82,9 kB]
+Bai:3 http://deb.debian.org/debian bookworm/main amd64 smbclient amd64 2:4.17.12+dfsg-0+deb12u1 [442 kB]
+S'ha baixat 868 kB en 0s (5.500 kB/s)
+S'està seleccionant el paquet libarchive13:amd64 prèviament no seleccionat.
+(S'està llegint la base de dades… 
+(S'està llegint la base de dades… 5%
+(S'està llegint la base de dades… 10%
+(S'està llegint la base de dades… 15%
+(S'està llegint la base de dades… 20%
+(S'està llegint la base de dades… 25%
+(S'està llegint la base de dades… 30%
+(S'està llegint la base de dades… 35%
+(S'està llegint la base de dades… 40%
+(S'està llegint la base de dades… 45%
+(S'està llegint la base de dades… 50%
+(S'està llegint la base de dades… 55%
+(S'està llegint la base de dades… 60%
+(S'està llegint la base de dades… 65%
+(S'està llegint la base de dades… 70%
+(S'està llegint la base de dades… 75%
+(S'està llegint la base de dades… 80%
+(S'està llegint la base de dades… 85%
+(S'està llegint la base de dades… 90%
+(S'està llegint la base de dades… 95%
+(S'està llegint la base de dades… 100%
+(S'està llegint la base de dades… hi ha 52162 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/libarchive13_3.6.2-1_amd64.deb…
+S'està desempaquetant libarchive13:amd64 (3.6.2-1)…
+S'està seleccionant el paquet libsmbclient:amd64 prèviament no seleccionat.
+S'està preparant per a desempaquetar …/libsmbclient_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb…
+S'està desempaquetant libsmbclient:amd64 (2:4.17.12+dfsg-0+deb12u1)…
+S'està seleccionant el paquet smbclient prèviament no seleccionat.
+S'està preparant per a desempaquetar …/smbclient_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb…
+S'està desempaquetant smbclient (2:4.17.12+dfsg-0+deb12u1)…
+S'està configurant libarchive13:amd64 (3.6.2-1)…
+S'està configurant libsmbclient:amd64 (2:4.17.12+dfsg-0+deb12u1)…
+S'està configurant smbclient (2:4.17.12+dfsg-0+deb12u1)…
+S'estan processant els activadors per a libc-bin (2.36-9+deb12u4)…
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-25 11:00:26
+Prompt: root@seax2
+Comando ejecutado: tcpdump -i enp0s8 -w smb.pcap
+====================
+
+====================
+Fecha y hora: 2024-03-25 11:03:29
+Prompt: root@seax2
+Comando ejecutado: smbclient //10.0.3.4/samba -U test
+====================
+Password for [WORKGROUP\test]:
+Try "help" to get a list of possible commands.
+[?2004hsmb: \> p[Kls
+[?2004l
+  .                                   D        0  Sun Mar 24 21:03:34 2024
+  ..                                  D        0  Mon Mar 25 13:19:52 2024
+
+		3067812 blocks of size 1024. 656240 blocks available
+[?2004hsmb: \> exit
+[?2004l
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-25 11:04:07
+Prompt: root@seax2
+Comando ejecutado: apt install cifs-utils
+====================
+S'està llegint la llista de paquets…
+S'està construint l'arbre de dependències…
+S'està llegint la informació de l'estat…
+S'instal·laran els següents paquets extres:
+  keyutils
+Paquets suggerits:
+  winbind bash-completion
+S'instal·laran els paquets NOUS següents:
+  cifs-utils keyutils
+0 actualitzats, 2 nous a instal·lar, 0 a suprimir i 0 no actualitzats.
+S'ha d'obtenir 149 kB d'arxius.
+Després d'aquesta operació s'utilitzaran 489 kB d'espai en disc addicional.
+Voleu continuar? [S/n] Bai:1 http://deb.debian.org/debian bookworm/main amd64 cifs-utils amd64 2:7.0-2 [94,9 kB]
+Bai:2 http://deb.debian.org/debian bookworm/main amd64 keyutils amd64 1.6.3-2 [54,5 kB]
+S'ha baixat 149 kB en 0s (1.026 kB/s)
+S'està seleccionant el paquet cifs-utils prèviament no seleccionat.
+(S'està llegint la base de dades… 
+(S'està llegint la base de dades… 5%
+(S'està llegint la base de dades… 10%
+(S'està llegint la base de dades… 15%
+(S'està llegint la base de dades… 20%
+(S'està llegint la base de dades… 25%
+(S'està llegint la base de dades… 30%
+(S'està llegint la base de dades… 35%
+(S'està llegint la base de dades… 40%
+(S'està llegint la base de dades… 45%
+(S'està llegint la base de dades… 50%
+(S'està llegint la base de dades… 55%
+(S'està llegint la base de dades… 60%
+(S'està llegint la base de dades… 65%
+(S'està llegint la base de dades… 70%
+(S'està llegint la base de dades… 75%
+(S'està llegint la base de dades… 80%
+(S'està llegint la base de dades… 85%
+(S'està llegint la base de dades… 90%
+(S'està llegint la base de dades… 95%
+(S'està llegint la base de dades… 100%
+(S'està llegint la base de dades… hi ha 52206 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/cifs-utils_2%3a7.0-2_amd64.deb…
+S'està desempaquetant cifs-utils (2:7.0-2)…
+S'està seleccionant el paquet keyutils prèviament no seleccionat.
+S'està preparant per a desempaquetar …/keyutils_1.6.3-2_amd64.deb…
+S'està desempaquetant keyutils (1.6.3-2)…
+S'està configurant cifs-utils (2:7.0-2)…
+update-alternatives: s'està emprant /usr/lib/x86_64-linux-gnu/cifs-utils/idmapwb.so per a proveir /etc/cifs-utils/idmap-plugin (idmap-plugin) en mode automàtic
+S'està configurant keyutils (1.6.3-2)…
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-25 11:05:15
+Prompt: root@seax2
+Comando ejecutado: mdkdir -p /mnt/smb
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-25 11:05:23
+Prompt: root@seax2
+Comando ejecutado: mount -t cifs //10.0.3.4/samba /mnt/smb -o user=test
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-25 11:41:21
+Prompt: root@seax1
+Comando ejecutado: tcpdump -r smb.pcap
+====================
+11:39:43.838529 IP6 fe80::a00:27ff:fe01:201 > ip6-allrouters: ICMP6, router solicitation, length 16
+11:39:44.255792 IP 10.0.3.4.netbios-dgm > 10.0.3.255.netbios-dgm: UDP, length 221
+11:39:44.255825 IP 10.0.3.4.netbios-dgm > 10.0.3.255.netbios-dgm: UDP, length 206
+11:40:47.666951 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [S], seq 667025564, win 64240, options [mss 1460,sackOK,TS val 2346650238 ecr 0,nop,wscale 7], length 0
+11:40:47.666986 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [S.], seq 1510724031, ack 667025565, win 65160, options [mss 1460,sackOK,TS val 2108839513 ecr 2346650238,nop,wscale 7], length 0
+11:40:47.667180 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [.], ack 1, win 502, options [nop,nop,TS val 2346650238 ecr 2108839513], length 0
+11:40:47.667407 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1:229, ack 1, win 502, options [nop,nop,TS val 2346650238 ecr 2108839513], length 228
+11:40:47.667420 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [.], ack 229, win 508, options [nop,nop,TS val 2108839513 ecr 2346650238], length 0
+11:40:47.679084 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 1:273, ack 229, win 508, options [nop,nop,TS val 2108839525 ecr 2346650238], length 272
+11:40:47.679334 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [.], ack 273, win 501, options [nop,nop,TS val 2346650250 ecr 2108839525], length 0
+11:40:47.681152 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 229:365, ack 273, win 501, options [nop,nop,TS val 2346650252 ecr 2108839525], length 136
+11:40:47.681392 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 273:535, ack 365, win 507, options [nop,nop,TS val 2108839527 ecr 2346650252], length 262
+11:40:47.685820 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 365:719, ack 535, win 501, options [nop,nop,TS val 2346650257 ecr 2108839527], length 354
+11:40:47.690632 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 535:611, ack 719, win 505, options [nop,nop,TS val 2108839537 ecr 2346650257], length 76
+11:40:47.690989 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 719:827, ack 611, win 501, options [nop,nop,TS val 2346650262 ecr 2108839537], length 108
+11:40:47.691202 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 611:695, ack 827, win 505, options [nop,nop,TS val 2108839537 ecr 2346650262], length 84
+11:40:47.691509 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 827:937, ack 695, win 501, options [nop,nop,TS val 2346650262 ecr 2108839537], length 110
+11:40:47.691844 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 695:779, ack 937, win 505, options [nop,nop,TS val 2108839538 ecr 2346650262], length 84
+11:40:47.692063 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 937:1093, ack 779, win 501, options [nop,nop,TS val 2346650263 ecr 2108839538], length 156
+11:40:47.692241 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 779:991, ack 1093, win 504, options [nop,nop,TS val 2108839538 ecr 2346650263], length 212
+11:40:47.692420 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1093:1218, ack 991, win 501, options [nop,nop,TS val 2346650263 ecr 2108839538], length 125
+11:40:47.692518 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 991:1411, ack 1218, win 504, options [nop,nop,TS val 2108839539 ecr 2346650263], length 420
+11:40:47.692691 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1218:1327, ack 1411, win 501, options [nop,nop,TS val 2346650264 ecr 2108839539], length 109
+11:40:47.692747 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 1411:1507, ack 1327, win 504, options [nop,nop,TS val 2108839539 ecr 2346650264], length 96
+11:40:47.692987 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1327:1436, ack 1507, win 501, options [nop,nop,TS val 2346650264 ecr 2108839539], length 109
+11:40:47.693024 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 1507:1591, ack 1436, win 504, options [nop,nop,TS val 2108839539 ecr 2346650264], length 84
+11:40:47.693136 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1436:1545, ack 1591, win 501, options [nop,nop,TS val 2346650264 ecr 2108839539], length 109
+11:40:47.693176 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 1591:1695, ack 1545, win 504, options [nop,nop,TS val 2108839539 ecr 2346650264], length 104
+11:40:47.693287 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1545:1654, ack 1695, win 501, options [nop,nop,TS val 2346650264 ecr 2108839539], length 109
+11:40:47.693316 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 1695:1799, ack 1654, win 504, options [nop,nop,TS val 2108839539 ecr 2346650264], length 104
+11:40:47.693426 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1654:1746, ack 1799, win 501, options [nop,nop,TS val 2346650264 ecr 2108839539], length 92
+11:40:47.693495 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 1799:1927, ack 1746, win 504, options [nop,nop,TS val 2108839539 ecr 2346650264], length 128
+11:40:47.693601 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1746:1904, ack 1927, win 501, options [nop,nop,TS val 2346650265 ecr 2108839539], length 158
+11:40:47.693663 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 1927:2004, ack 1904, win 503, options [nop,nop,TS val 2108839540 ecr 2346650265], length 77
+11:40:47.693793 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1904:2060, ack 2004, win 501, options [nop,nop,TS val 2346650265 ecr 2108839540], length 156
+11:40:47.693935 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 2004:2216, ack 2060, win 502, options [nop,nop,TS val 2108839540 ecr 2346650265], length 212
+11:40:47.694085 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 2060:2152, ack 2216, win 501, options [nop,nop,TS val 2346650265 ecr 2108839540], length 92
+11:40:47.694150 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 2216:2344, ack 2152, win 502, options [nop,nop,TS val 2108839540 ecr 2346650265], length 128
+11:40:47.694274 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 2152:2308, ack 2344, win 501, options [nop,nop,TS val 2346650265 ecr 2108839540], length 156
+11:40:47.694398 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 2344:2556, ack 2308, win 501, options [nop,nop,TS val 2108839540 ecr 2346650265], length 212
+11:40:47.694559 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 2308:2400, ack 2556, win 501, options [nop,nop,TS val 2346650265 ecr 2108839540], length 92
+11:40:47.694611 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 2556:2684, ack 2400, win 501, options [nop,nop,TS val 2108839541 ecr 2346650265], length 128
+11:40:47.694832 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 2400:2748, ack 2684, win 501, options [nop,nop,TS val 2346650266 ecr 2108839541], length 348
+11:40:47.694992 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 2684:3200, ack 2748, win 501, options [nop,nop,TS val 2108839541 ecr 2346650266], length 516
+11:40:47.735680 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [.], ack 3200, win 501, options [nop,nop,TS val 2346650307 ecr 2108839541], length 0
+11:40:52.703021 ARP, Request who-has 10.0.3.7 tell 10.0.3.4, length 28
+11:40:52.703464 ARP, Reply 10.0.3.7 is-at 08:00:27:01:02:02 (oui Unknown), length 46
+11:40:52.909533 ARP, Request who-has 10.0.3.4 tell 10.0.3.7, length 46
+11:40:52.909548 ARP, Reply 10.0.3.4 is-at 08:00:27:01:02:01 (oui Unknown), length 28
+11:40:54.272586 IP 10.0.3.7.netbios-dgm > 10.0.3.255.netbios-dgm: UDP, length 221
+11:40:58.203389 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 2748:3096, ack 3200, win 501, options [nop,nop,TS val 2346660779 ecr 2108839541], length 348
+11:40:58.203757 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 3200:3716, ack 3096, win 501, options [nop,nop,TS val 2108850050 ecr 2346660779], length 516
+11:40:58.204074 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [.], ack 3716, win 501, options [nop,nop,TS val 2346660780 ecr 2108850050], length 0
+11:40:58.603337 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 3096:3350, ack 3716, win 501, options [nop,nop,TS val 2346661180 ecr 2108850050], length 254
+11:40:58.603735 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 3716:4176, ack 3350, win 501, options [nop,nop,TS val 2108850450 ecr 2346661180], length 460
+11:40:58.603968 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [.], ack 4176, win 501, options [nop,nop,TS val 2346661180 ecr 2108850450], length 0
+11:40:58.604077 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 3350:3452, ack 4176, win 501, options [nop,nop,TS val 2346661180 ecr 2108850450], length 102
+11:40:58.604224 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 4176:4253, ack 3452, win 501, options [nop,nop,TS val 2108850450 ecr 2346661180], length 77
+11:40:58.604510 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 3452:3544, ack 4253, win 501, options [nop,nop,TS val 2346661181 ecr 2108850450], length 92
+11:40:58.604628 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 4253:4381, ack 3544, win 501, options [nop,nop,TS val 2108850451 ecr 2346661181], length 128
+11:40:58.646785 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [.], ack 4381, win 501, options [nop,nop,TS val 2346661223 ecr 2108850451], length 0
+
+Fin de la ejecución
+====================

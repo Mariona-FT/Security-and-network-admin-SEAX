@@ -1,0 +1,71 @@
+--WINDOWS--
+Windows PowerShell
+Copyright (C) Microsoft Corporation. Todos los derechos reservados.
+
+Instale la versión más reciente de PowerShell para obtener nuevas características y mejoras. https://aka.ms/PSWindows
+
+PS Z:\> pwd
+
+Path
+----
+Z:\
+
+PS Z:\> ls
+    Directory: Z:\
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         26/3/2024     13:08                hola
+d-----         26/3/2024     11:12                hola2
+-a----         26/3/2024     11:40             18 testfile_remot.txt
+
+PS Z:\> Get-ChildItem -Recurse | Select-Object Name, Length, LastWriteTime, Attributes
+
+Name               Length LastWriteTime      Attributes
+----               ------ -------------      ----------
+hola                      26/3/2024 13:08:45  Directory
+hola2                     26/3/2024 11:12:22  Directory
+testfile_remot.txt 18     26/3/2024 11:40:23    Archive
+
+--CREAR FITXER DINS DE WINDOWS--
+
+PS Z:\> New-Item -ItemType File -Path .\fitxer_windows.txt
+    Directory: Z:\
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+-a----         26/3/2024     13:17              0 fitxer_windows.txt
+
+PS Z:\> ls
+    Directory: Z:\
+
+
+Mode                 LastWriteTime         Length Name
+----                 -------------         ------ ----
+d-----         26/3/2024     13:08                hola
+d-----         26/3/2024     11:12                hola2
+-a----         26/3/2024     13:17              0 fitxer_windows.txt
+-a----         26/3/2024     11:40             18 testfile_remot.txt
+
+
+--CLIENT SAMBA MV-- 
+====================
+Fecha y hora: 2024-03-26 13:18:43
+Prompt: root@seax2
+Comando ejecutado: smbclient //192.168.1.26/samba -U test
+====================
+Password for [WORKGROUP\test]:
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Tue Mar 26 13:17:39 2024
+  ..                                  D        0  Mon Mar 25 13:19:52 2024
+  testfile_remot.txt                  A       18  Tue Mar 26 11:40:23 2024
+  hola2                               D        0  Tue Mar 26 11:12:22 2024
+  hola                                D        0  Tue Mar 26 13:08:45 2024
+  fitxer_windows.txt                  A        0  Tue Mar 26 13:17:39 2024
+
+		3067812 blocks of size 1024. 656220 blocks available
+smb: \> exit
+Fin de la ejecución
+====================

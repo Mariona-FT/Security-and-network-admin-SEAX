@@ -1,0 +1,37 @@
+
+====================
+Fecha y hora: 2024-03-25 10:52:25
+Prompt: root@seax1
+Comando ejecutado: ls /backupborg/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-25 10:53:46
+Prompt: root@seax1
+Comando ejecutado: borg init --encryption=none /backupborg/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-25 10:54:25
+Prompt: root@seax1
+Comando ejecutado: borg create /backupborg::copiaetc /etc
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-25 10:59:13
+Prompt: root@seax1
+Comando ejecutado: borg list /backupborg/
+====================
+copiaetc                             Mon, 2024-03-25 10:54:25 [75029c110c4f792008a4638b82922dd2593f0ce0f05ee9a2bf66c331bb97e685]
+
+Fin de la ejecución
+====================

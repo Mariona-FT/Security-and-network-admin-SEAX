@@ -1,0 +1,81 @@
+
+====================
+Fecha y hora: 2024-03-25 00:18:59
+Prompt: root@seax1
+Comando ejecutado: testparm
+====================
+# Global parameters
+[global]
+	log file = /var/log/samba/log.%m
+	logging = file
+	map to guest = Bad User
+	max log size = 1000
+	obey pam restrictions = Yes
+	pam password change = Yes
+	panic action = /usr/share/samba/panic-action %d
+	passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
+	passwd program = /usr/bin/passwd %u
+	server role = standalone server
+	unix password sync = Yes
+	usershare allow guests = Yes
+	idmap config * : backend = tdb
+
+
+[homes]
+	browseable = No
+	comment = Home Directories
+	create mask = 0700
+	directory mask = 0700
+	valid users = %S
+
+
+[printers]
+	browseable = No
+	comment = All Printers
+	create mask = 0700
+	path = /var/tmp
+	printable = Yes
+
+
+[print$]
+	comment = Printer Drivers
+	path = /var/lib/samba/printers
+
+
+[samba]
+	guest ok = Yes
+	path = /home/samba
+	read only = No
+	valid users = test
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-26 10:54:18
+Prompt: root@seax1
+Comando ejecutado: systemctl status smbd
+====================
+● smbd.service - Samba SMB Daemon
+     Loaded: loaded (/lib/systemd/system/smbd.service; enabled; preset: enabled)
+     Active: active (running) since Tue 2024-03-26 10:44:42 CET; 9min ago
+       Docs: man:smbd(8)
+             man:samba(7)
+             man:smb.conf(5)
+    Process: 712 ExecCondition=/usr/share/samba/is-configured smb (code=exited, status=0/SUCCESS)
+    Process: 714 ExecStartPre=/usr/share/samba/update-apparmor-samba-profile (code=exited, status=0/SUCCESS)
+   Main PID: 718 (smbd)
+     Status: "smbd: ready to serve connections..."
+      Tasks: 3 (limit: 1099)
+     Memory: 10.6M
+        CPU: 133ms
+     CGroup: /system.slice/smbd.service
+             ├─718 /usr/sbin/smbd --foreground --no-process-group
+             ├─720 /usr/sbin/smbd --foreground --no-process-group
+             └─721 /usr/sbin/smbd --foreground --no-process-group
+
+de març 26 10:44:42 seax1 systemd[1]: Starting smbd.service - Samba SMB Daemon...
+de març 26 10:44:42 seax1 systemd[1]: Started smbd.service - Samba SMB Daemon.
+
+Fin de la ejecución
+====================

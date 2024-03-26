@@ -1,0 +1,136 @@
+
+====================
+Fecha y hora: 2024-03-25 11:46:50
+Prompt: root@seax1
+Comando ejecutado: tcpdump -i enp0s8 -w smb.pcap
+====================
+
+ --CLIENT--
+====================
+Fecha y hora: 2024-03-25 11:47:10
+Prompt: root@seax2
+Comando ejecutado: smbclient //10.0.3.4/samba -U test
+====================
+Password for [WORKGROUP\test]:
+Try "help" to get a list of possible commands.
+smb: \> ls
+  .                                   D        0  Mon Mar 25 11:43:56 2024
+  ..                                  D        0  Mon Mar 25 11:17:01 2024
+  hola                                D        0  Mon Mar 25 11:43:56 2024
+
+		3067812 blocks of size 1024. 395092 blocks available
+smb: \> mkdir hola2
+smb: \> ls
+  .                                   D        0  Mon Mar 25 11:43:56 2024
+  ..                                  D        0  Mon Mar 25 11:17:01 2024
+  hola                                D        0  Mon Mar 25 11:43:56 2024
+  hola2                               D        0  Mon Mar 25 11:47:23 2024
+
+		3067812 blocks of size 1024. 395092 blocks available
+smb: \> put testfile.txt testfile_remot.txt 
+putting file testfile.txt as \testfile_remot.txt (117,6 kb/s) (average 117,6 kb/s)
+smb: \> ls
+  .                                   D        0  Mon Mar 25 11:43:56 2024
+  ..                                  D        0  Mon Mar 25 11:17:01 2024
+  hola                                D        0  Mon Mar 25 11:43:56 2024
+  hola2                               D        0  Mon Mar 25 11:47:23 2024
+  testfile_remot.txt                  A       18  Mon Mar 25 11:52:18 2024
+
+		3067812 blocks of size 1024. 395092 blocks available
+smb: \> exit
+Fin de la ejecución
+====================
+
+-- CARPETA DEL SERVIDOR --
+====================
+Fecha y hora: 2024-03-25 12:40:51
+Prompt: root@seax1
+Comando ejecutado: ls -la /home/samba
+====================
+total 16
+drwxrwx--- 3 test test 4096 25 de març  11:40 .
+drwxr-xr-x 7 root root 4096 25 de març  13:19 ..
+drwxr-xr-x 2 test test 4096 25 de març  11:43 hola
+drwxr-xr-x 2 test test 4096 25 de març  11:47 hola2
+-rwxr--r-- 1 test test   18 25 de març  11:52 testfile_remot.txt
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-03-25 11:47:41
+Prompt: root@seax1
+Comando ejecutado: tcpdump -r smb.pcap
+====================
+11:46:55.480237 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [P.], seq 667029396:667029468, ack 1510728700, win 501, options [nop,nop,TS val 2347018235 ecr 2109145917], length 72
+11:46:55.480399 IP 10.0.3.4.microsoft-ds > 10.0.3.7.58590: Flags [P.], seq 1:73, ack 72, win 501, options [nop,nop,TS val 2109207326 ecr 2347018235], length 72
+11:46:55.480755 IP 10.0.3.7.58590 > 10.0.3.4.microsoft-ds: Flags [.], ack 73, win 501, options [nop,nop,TS val 2347018235 ecr 2109207326], length 0
+11:46:59.434634 IP 10.0.3.4.bootpc > 10.0.3.3.bootps: BOOTP/DHCP, Request from 08:00:27:01:02:01 (oui Unknown), length 300
+11:46:59.437922 IP 10.0.3.3.bootps > 10.0.3.4.bootpc: BOOTP/DHCP, Reply, length 548
+11:47:00.574532 ARP, Request who-has 10.0.3.7 tell 10.0.3.4, length 28
+11:47:00.574807 ARP, Reply 10.0.3.7 is-at 08:00:27:01:02:02 (oui Unknown), length 46
+11:47:00.597206 ARP, Request who-has 10.0.3.4 tell 10.0.3.7, length 46
+11:47:00.597219 ARP, Reply 10.0.3.4 is-at 08:00:27:01:02:01 (oui Unknown), length 28
+11:47:04.670816 ARP, Request who-has 10.0.3.3 tell 10.0.3.4, length 28
+11:47:04.670987 ARP, Reply 10.0.3.3 is-at 08:00:27:ce:94:b0 (oui Unknown), length 46
+11:47:12.879259 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [S], seq 3443434234, win 64240, options [mss 1460,sackOK,TS val 2347035643 ecr 0,nop,wscale 7], length 0
+11:47:12.879292 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [S.], seq 3556241471, ack 3443434235, win 65160, options [mss 1460,sackOK,TS val 2109224725 ecr 2347035643,nop,wscale 7], length 0
+11:47:12.879576 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [.], ack 1, win 502, options [nop,nop,TS val 2347035643 ecr 2109224725], length 0
+11:47:12.879915 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1:229, ack 1, win 502, options [nop,nop,TS val 2347035643 ecr 2109224725], length 228
+11:47:12.879927 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [.], ack 229, win 508, options [nop,nop,TS val 2109224726 ecr 2347035643], length 0
+11:47:12.883027 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 1:289, ack 229, win 508, options [nop,nop,TS val 2109224729 ecr 2347035643], length 288
+11:47:12.883391 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [.], ack 289, win 501, options [nop,nop,TS val 2347035647 ecr 2109224729], length 0
+11:47:12.885390 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 229:395, ack 289, win 501, options [nop,nop,TS val 2347035649 ecr 2109224729], length 166
+11:47:12.885727 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 289:582, ack 395, win 507, options [nop,nop,TS val 2109224732 ecr 2347035649], length 293
+11:47:12.886074 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 395:961, ack 582, win 501, options [nop,nop,TS val 2347035650 ecr 2109224732], length 566
+11:47:12.890598 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 582:687, ack 961, win 503, options [nop,nop,TS val 2109224737 ecr 2347035650], length 105
+11:47:12.891148 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 961:1067, ack 687, win 501, options [nop,nop,TS val 2347035655 ecr 2109224737], length 106
+11:47:12.891359 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 687:771, ack 1067, win 503, options [nop,nop,TS val 2109224737 ecr 2347035655], length 84
+11:47:12.891784 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1067:1225, ack 771, win 501, options [nop,nop,TS val 2347035655 ecr 2109224737], length 158
+11:47:12.891845 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 771:848, ack 1225, win 502, options [nop,nop,TS val 2109224738 ecr 2347035655], length 77
+11:47:12.892278 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1225:1297, ack 848, win 501, options [nop,nop,TS val 2347035656 ecr 2109224738], length 72
+11:47:12.892370 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 848:920, ack 1297, win 502, options [nop,nop,TS val 2109224738 ecr 2347035656], length 72
+11:47:12.892635 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1297:1405, ack 920, win 501, options [nop,nop,TS val 2347035656 ecr 2109224738], length 108
+11:47:12.893100 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 920:1004, ack 1405, win 502, options [nop,nop,TS val 2109224739 ecr 2347035656], length 84
+11:47:12.935419 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [.], ack 1004, win 501, options [nop,nop,TS val 2347035699 ecr 2109224739], length 0
+11:47:12.994984 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1405:1477, ack 1004, win 501, options [nop,nop,TS val 2347035758 ecr 2109224739], length 72
+11:47:12.995101 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 1004:1076, ack 1477, win 502, options [nop,nop,TS val 2109224841 ecr 2347035758], length 72
+11:47:12.995429 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [.], ack 1076, win 501, options [nop,nop,TS val 2347035759 ecr 2109224841], length 0
+11:47:15.950121 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1477:1602, ack 1076, win 501, options [nop,nop,TS val 2347038715 ecr 2109224841], length 125
+11:47:15.950586 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 1076:1232, ack 1602, win 502, options [nop,nop,TS val 2109227797 ecr 2347038715], length 156
+11:47:15.950778 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [.], ack 1232, win 501, options [nop,nop,TS val 2347038716 ecr 2109227797], length 0
+11:47:15.950858 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1602:1704, ack 1232, win 501, options [nop,nop,TS val 2347038716 ecr 2109227797], length 102
+11:47:15.951468 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 1232:1644, ack 1704, win 502, options [nop,nop,TS val 2109227797 ecr 2347038716], length 412
+11:47:15.951738 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1704:1806, ack 1644, win 501, options [nop,nop,TS val 2347038717 ecr 2109227797], length 102
+11:47:15.951841 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 1644:1721, ack 1806, win 502, options [nop,nop,TS val 2109227798 ecr 2347038717], length 77
+11:47:15.952008 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1806:1898, ack 1721, win 501, options [nop,nop,TS val 2347038717 ecr 2109227798], length 92
+11:47:15.952106 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 1721:1849, ack 1898, win 502, options [nop,nop,TS val 2109227798 ecr 2347038717], length 128
+11:47:15.952280 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 1898:2023, ack 1849, win 501, options [nop,nop,TS val 2347038717 ecr 2109227798], length 125
+11:47:15.952396 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 1849:2005, ack 2023, win 502, options [nop,nop,TS val 2109227798 ecr 2347038717], length 156
+11:47:15.952528 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 2023:2132, ack 2005, win 501, options [nop,nop,TS val 2347038718 ecr 2109227798], length 109
+11:47:15.952690 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 2005:2105, ack 2132, win 502, options [nop,nop,TS val 2109227799 ecr 2347038718], length 100
+11:47:15.952879 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 2132:2224, ack 2105, win 501, options [nop,nop,TS val 2347038718 ecr 2109227799], length 92
+11:47:15.952937 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 2105:2233, ack 2224, win 502, options [nop,nop,TS val 2109227799 ecr 2347038718], length 128
+11:47:15.993851 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [.], ack 2233, win 501, options [nop,nop,TS val 2347038759 ecr 2109227799], length 0
+11:47:17.359052 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 2224:2296, ack 2233, win 501, options [nop,nop,TS val 2347040125 ecr 2109227799], length 72
+11:47:17.359260 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 2233:2305, ack 2296, win 502, options [nop,nop,TS val 2109229205 ecr 2347040125], length 72
+11:47:17.359662 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [.], ack 2305, win 501, options [nop,nop,TS val 2347040125 ecr 2109229205], length 0
+11:47:22.180329 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 2296:2368, ack 2305, win 501, options [nop,nop,TS val 2347044948 ecr 2109229205], length 72
+11:47:22.180488 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 2305:2377, ack 2368, win 502, options [nop,nop,TS val 2109234026 ecr 2347044948], length 72
+11:47:22.180776 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [.], ack 2377, win 501, options [nop,nop,TS val 2347044949 ecr 2109234026], length 0
+11:47:23.011931 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 2368:2504, ack 2377, win 501, options [nop,nop,TS val 2347045780 ecr 2109234026], length 136
+11:47:23.012422 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 2377:2533, ack 2504, win 501, options [nop,nop,TS val 2109234858 ecr 2347045780], length 156
+11:47:23.012736 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [.], ack 2533, win 501, options [nop,nop,TS val 2347045781 ecr 2109234858], length 0
+11:47:23.012789 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 2504:2596, ack 2533, win 501, options [nop,nop,TS val 2347045781 ecr 2109234858], length 92
+11:47:23.012850 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 2533:2661, ack 2596, win 501, options [nop,nop,TS val 2109234859 ecr 2347045781], length 128
+11:47:23.054176 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [.], ack 2661, win 501, options [nop,nop,TS val 2347045823 ecr 2109234859], length 0
+11:47:24.614796 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [P.], seq 2596:2668, ack 2661, win 501, options [nop,nop,TS val 2347047384 ecr 2109234859], length 72
+11:47:24.614968 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [P.], seq 2661:2733, ack 2668, win 501, options [nop,nop,TS val 2109236461 ecr 2347047384], length 72
+11:47:24.615209 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [.], ack 2733, win 501, options [nop,nop,TS val 2347047385 ecr 2109236461], length 0
+11:47:24.615325 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [F.], seq 2668, ack 2733, win 501, options [nop,nop,TS val 2347047385 ecr 2109236461], length 0
+11:47:24.615375 IP 10.0.3.4.microsoft-ds > 10.0.3.7.37820: Flags [F.], seq 2733, ack 2669, win 501, options [nop,nop,TS val 2109236461 ecr 2347047385], length 0
+11:47:24.615553 IP 10.0.3.7.37820 > 10.0.3.4.microsoft-ds: Flags [.], ack 2734, win 501, options [nop,nop,TS val 2347047385 ecr 2109236461], length 0
+
+Fin de la ejecución
+====================
+
