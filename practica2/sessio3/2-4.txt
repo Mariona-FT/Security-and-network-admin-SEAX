@@ -1,0 +1,463 @@
+====================
+Fecha y hora: 2024-04-22 01:06:42
+Prompt: root@seax1
+Comando ejecutado: apt update
+====================
+Obj:1 http://deb.debian.org/debian bookworm InRelease
+Bai:2 http://security.debian.org/debian-security bookworm-security InRelease [48,0 kB]
+Bai:3 http://deb.debian.org/debian bookworm-updates InRelease [55,4 kB]
+Bai:4 http://security.debian.org/debian-security bookworm-security/main Sources [90,8 kB]
+Bai:5 http://security.debian.org/debian-security bookworm-security/main amd64 Packages [155 kB]
+Bai:6 http://security.debian.org/debian-security bookworm-security/main Translation-en [94,2 kB]
+S'ha baixat 443 kB en 1s (810 kB/s)
+S'està llegint la llista de paquets…
+S'està construint l'arbre de dependències…
+S'està llegint la informació de l'estat…
+Es poden actualitzar 18 paquets. Executeu «apt list --upgradable» per a veure'ls.
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-04-22 01:09:28
+Prompt: root@seax1
+Comando ejecutado: apt install openvpn
+====================
+S'està llegint la llista de paquets…
+S'està construint l'arbre de dependències…
+S'està llegint la informació de l'estat…
+S'instal·laran els següents paquets extres:
+  easy-rsa libccid liblzo2-2 libpkcs11-helper1 opensc opensc-pkcs11 pcscd
+Paquets suggerits:
+  pcmciautils resolvconf openvpn-dco-dkms openvpn-systemd-resolved
+S'instal·laran els paquets NOUS següents:
+  easy-rsa libccid liblzo2-2 libpkcs11-helper1 opensc opensc-pkcs11 openvpn
+  pcscd
+0 actualitzats, 8 nous a instal·lar, 0 a suprimir i 0 no actualitzats.
+S'ha d'obtenir 2.556 kB d'arxius.
+Després d'aquesta operació s'utilitzaran 7.806 kB d'espai en disc addicional.
+Voleu continuar? [S/n] Bai:1 http://deb.debian.org/debian bookworm/main amd64 libccid amd64 1.5.2-1 [367 kB]
+Bai:2 http://deb.debian.org/debian bookworm/main amd64 pcscd amd64 1.9.9-2 [89,7 kB]
+Bai:3 http://deb.debian.org/debian bookworm/main amd64 easy-rsa all 3.1.0-1 [54,8 kB]
+Bai:4 http://deb.debian.org/debian bookworm/main amd64 liblzo2-2 amd64 2.10-2 [56,9 kB]
+Bai:5 http://deb.debian.org/debian bookworm/main amd64 libpkcs11-helper1 amd64 1.29.0-1 [51,2 kB]
+Bai:6 http://deb.debian.org/debian bookworm/main amd64 opensc-pkcs11 amd64 0.23.0-0.3+deb12u1 [914 kB]
+Bai:7 http://deb.debian.org/debian bookworm/main amd64 opensc amd64 0.23.0-0.3+deb12u1 [371 kB]
+Bai:8 http://deb.debian.org/debian bookworm/main amd64 openvpn amd64 2.6.3-1+deb12u2 [651 kB]
+S'estan preconfigurant els paquets...
+S'ha baixat 2.556 kB en 6s (405 kB/s)
+S'està seleccionant el paquet libccid prèviament no seleccionat.
+(S'està llegint la base de dades… 
+(S'està llegint la base de dades… 5%
+(S'està llegint la base de dades… 10%
+(S'està llegint la base de dades… 15%
+(S'està llegint la base de dades… 20%
+(S'està llegint la base de dades… 25%
+(S'està llegint la base de dades… 30%
+(S'està llegint la base de dades… 35%
+(S'està llegint la base de dades… 40%
+(S'està llegint la base de dades… 45%
+(S'està llegint la base de dades… 50%
+(S'està llegint la base de dades… 55%
+(S'està llegint la base de dades… 60%
+(S'està llegint la base de dades… 65%
+(S'està llegint la base de dades… 70%
+(S'està llegint la base de dades… 75%
+(S'està llegint la base de dades… 80%
+(S'està llegint la base de dades… 85%
+(S'està llegint la base de dades… 90%
+(S'està llegint la base de dades… 95%
+(S'està llegint la base de dades… 100%
+(S'està llegint la base de dades… hi ha 54893 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/0-libccid_1.5.2-1_amd64.deb…
+S'està desempaquetant libccid (1.5.2-1)…
+S'està seleccionant el paquet pcscd prèviament no seleccionat.
+S'està preparant per a desempaquetar …/1-pcscd_1.9.9-2_amd64.deb…
+S'està desempaquetant pcscd (1.9.9-2)…
+S'està seleccionant el paquet easy-rsa prèviament no seleccionat.
+S'està preparant per a desempaquetar …/2-easy-rsa_3.1.0-1_all.deb…
+S'està desempaquetant easy-rsa (3.1.0-1)…
+S'està seleccionant el paquet liblzo2-2:amd64 prèviament no seleccionat.
+S'està preparant per a desempaquetar …/3-liblzo2-2_2.10-2_amd64.deb…
+S'està desempaquetant liblzo2-2:amd64 (2.10-2)…
+S'està seleccionant el paquet libpkcs11-helper1:amd64 prèviament no seleccionat.
+S'està preparant per a desempaquetar …/4-libpkcs11-helper1_1.29.0-1_amd64.deb…
+S'està desempaquetant libpkcs11-helper1:amd64 (1.29.0-1)…
+S'està seleccionant el paquet opensc-pkcs11:amd64 prèviament no seleccionat.
+S'està preparant per a desempaquetar …/5-opensc-pkcs11_0.23.0-0.3+deb12u1_amd64.deb…
+S'està desempaquetant opensc-pkcs11:amd64 (0.23.0-0.3+deb12u1)…
+S'està seleccionant el paquet opensc prèviament no seleccionat.
+S'està preparant per a desempaquetar …/6-opensc_0.23.0-0.3+deb12u1_amd64.deb…
+S'està desempaquetant opensc (0.23.0-0.3+deb12u1)…
+S'està seleccionant el paquet openvpn prèviament no seleccionat.
+S'està preparant per a desempaquetar …/7-openvpn_2.6.3-1+deb12u2_amd64.deb…
+S'està desempaquetant openvpn (2.6.3-1+deb12u2)…
+S'està configurant libccid (1.5.2-1)…
+S'està configurant pcscd (1.9.9-2)…
+Created symlink /etc/systemd/system/sockets.target.wants/pcscd.socket → /lib/systemd/system/pcscd.socket.
+pcscd.service is a disabled or a static unit, not starting it.
+S'està configurant liblzo2-2:amd64 (2.10-2)…
+S'està configurant libpkcs11-helper1:amd64 (1.29.0-1)…
+S'està configurant opensc-pkcs11:amd64 (0.23.0-0.3+deb12u1)…
+S'està configurant easy-rsa (3.1.0-1)…
+S'està configurant openvpn (2.6.3-1+deb12u2)…
+Created symlink /etc/systemd/system/multi-user.target.wants/openvpn.service → /lib/systemd/system/openvpn.service.
+S'està configurant opensc (0.23.0-0.3+deb12u1)…
+S'estan processant els activadors per a man-db (2.11.2-2)…
+S'estan processant els activadors per a libc-bin (2.36-9+deb12u4)…
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:12:08
+Prompt: root@seax1
+Comando ejecutado: ip addr show enp0s8
+====================
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.2.100/24 brd 192.168.2.255 scope global enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe11:2233/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:23:25
+Prompt: root@seax1
+Comando ejecutado: openssl dhparam -out /etc/openvpn/server/dh.pem 2048
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:25:03
+Prompt: root@seax1
+Comando ejecutado: apt install easy-rsa
+====================
+S'està llegint la llista de paquets…
+S'està construint l'arbre de dependències…
+S'està llegint la informació de l'estat…
+easy-rsa ja està en la versió més recent (3.1.0-1).
+S'ha marcat easy-rsa com instal·lat manualment.
+0 actualitzats, 0 nous a instal·lar, 0 a suprimir i 0 no actualitzats.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:29:18
+Prompt: root@seax1
+Comando ejecutado: . ./vars
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:33:21
+Prompt: root@seax1
+Comando ejecutado: /usr/share/easy-rsa/easyrsa init-pki
+====================
+* Notice:
+
+  init-pki complete; you may now create a CA or requests.
+
+  Your newly created PKI dir is:
+  * /scripts/pki
+
+* Notice:
+  IMPORTANT: Easy-RSA 'vars' file has now been moved to your PKI above.
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:33:35
+Prompt: root@seax1
+Comando ejecutado: /usr/share/easy-rsa/easyrsa build-ca nopass
+====================
+* Notice:
+Using Easy-RSA configuration from: /scripts/pki/vars
+
+* Notice:
+Using SSL: openssl OpenSSL 3.0.11 19 Sep 2023 (Library: OpenSSL 3.0.11 19 Sep 2023)
+
+
+* Notice:
+
+CA creation complete and you may now import and sign cert requests.
+Your new CA certificate file for publishing is at:
+/scripts/pki/ca.crt
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:34:01
+Prompt: root@seax1
+Comando ejecutado: /usr/share/easy-rsa/easyrsa build-server-full server nopass
+====================
+* Notice:
+Using Easy-RSA configuration from: /scripts/pki/vars
+
+* Notice:
+Using SSL: openssl OpenSSL 3.0.11 19 Sep 2023 (Library: OpenSSL 3.0.11 19 Sep 2023)
+
+* Notice:
+
+Keypair and certificate request completed. Your files are:
+req: /scripts/pki/reqs/server.req
+key: /scripts/pki/private/server.key
+
+
+You are about to sign the following certificate.
+Please check over the details shown below for accuracy. Note that this request
+has not been cryptographically verified. Please be sure it came from a trusted
+source or that you have verified the request checksum with the sender.
+
+Request subject, to be signed as a server certificate for 825 days:
+
+subject=
+    commonName                = server
+
+
+Type the word 'yes' to continue, or any other input to abort.
+  Confirm request details: 
+
+* Notice:
+Certificate created at: /scripts/pki/issued/server.crt
+
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-04-22 01:34:17
+Prompt: root@seax1
+Comando ejecutado: /usr/share/easy-rsa/easyrsa gen-dh
+====================
+* Notice:
+Using Easy-RSA configuration from: /scripts/pki/vars
+
+* Notice:
+Using SSL: openssl OpenSSL 3.0.11 19 Sep 2023 (Library: OpenSSL 3.0.11 19 Sep 2023)
+
+
+* Notice:
+
+DH parameters of size 2048 created at /scripts/pki/dh.pem
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:35:17
+Prompt: root@seax1
+Comando ejecutado: cp pki/ca.crt /etc/openvpn/server/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:35:33
+Prompt: root@seax1
+Comando ejecutado: cp pki/issued/server.crt /etc/openvpn/server/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:35:50
+Prompt: root@seax1
+Comando ejecutado: cp pki/private/server.key /etc/openvpn/server/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:36:04
+Prompt: root@seax1
+Comando ejecutado: cp pki/dh.pem /etc/openvpn/server/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 23:34:38
+Prompt: root@seax1
+Comando ejecutado: chmod 600 /etc/openvpn/server/server.key
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 18:00:22
+Prompt: root@seax1
+Comando ejecutado: cat /etc/openvpn/server/server.conf
+====================
+local 192.168.2.100
+port 1194
+proto udp
+dev tun
+ca /etc/openvpn/server/ca.crt
+cert /etc/openvpn/server/server.crt
+key /etc/openvpn/server/server.key
+dh /etc/openvpn/server/dh.pem
+server 10.10.10.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-options DNS 8.8.8.8"
+keepalive 10 120
+cipher AES-256-CBC
+user nobody
+group nogroup
+persist-key
+persist-tun
+status openvpn.status.log
+verb 3
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:37:04
+Prompt: root@seax1
+Comando ejecutado: systemctl restart openvpn@server
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:37:27
+Prompt: root@seax1
+Comando ejecutado: systemctl restart openvpn
+====================
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-04-22 16:48:19
+Prompt: root@seax1
+Comando ejecutado: openvpn --config /etc/openvpn/server/server.conf
+====================
+2024-04-22 17:39:19 WARNING: --topology net30 support for server configs with IPv4 pools will be removed in a future release. Please migrate to --topology subnet as soon as possible.
+2024-04-22 17:39:19 DEPRECATED OPTION: --cipher set to 'AES-256-CBC' but missing in --data-ciphers (AES-256-GCM:AES-128-GCM:CHACHA20-POLY1305). OpenVPN ignores --cipher for cipher negotiations. 
+2024-04-22 17:39:19 Note: NOT using '--topology subnet' disables data channel offload.
+2024-04-22 17:39:19 WARNING: file '/etc/openvpn/server/server.key' is group or others accessible
+2024-04-22 17:39:19 OpenVPN 2.6.3 x86_64-pc-linux-gnu [SSL (OpenSSL)] [LZO] [LZ4] [EPOLL] [PKCS11] [MH/PKTINFO] [AEAD] [DCO]
+2024-04-22 17:39:19 library versions: OpenSSL 3.0.11 19 Sep 2023, LZO 2.10
+2024-04-22 17:39:19 DCO version: N/A
+2024-04-22 17:39:19 net_route_v4_best_gw query: dst 0.0.0.0
+2024-04-22 17:39:19 net_route_v4_best_gw result: via 10.0.2.2 dev enp0s3
+2024-04-22 17:39:19 Diffie-Hellman initialized with 2048 bit key
+2024-04-22 17:39:19 net_route_v4_best_gw query: dst 0.0.0.0
+2024-04-22 17:39:19 net_route_v4_best_gw result: via 10.0.2.2 dev enp0s3
+2024-04-22 17:39:19 ROUTE_GATEWAY 10.0.2.2/255.255.255.0 IFACE=enp0s3 HWADDR=08:00:27:55:d8:4d
+2024-04-22 17:39:19 TUN/TAP device tun0 opened
+2024-04-22 17:39:19 net_iface_mtu_set: mtu 1500 for tun0
+2024-04-22 17:39:19 net_iface_up: set tun0 up
+2024-04-22 17:39:19 net_addr_ptp_v4_add: 10.10.10.1 peer 10.10.10.2 dev tun0
+2024-04-22 17:39:19 net_route_v4_add: 10.10.10.0/24 via 10.10.10.2 dev [NULL] table 0 metric -1
+2024-04-22 17:39:19 Could not determine IPv4/IPv6 protocol. Using AF_INET
+2024-04-22 17:39:19 Socket Buffers: R=[212992->212992] S=[212992->212992]
+2024-04-22 17:39:19 UDPv4 link local (bound): [AF_INET]192.168.2.100:1194
+2024-04-22 17:39:19 UDPv4 link remote: [AF_UNSPEC]
+2024-04-22 17:39:19 UID set to nobody
+2024-04-22 17:39:19 GID set to nogroup
+2024-04-22 17:39:19 Capabilities retained: CAP_NET_ADMIN
+2024-04-22 17:39:19 MULTI: multi_init called, r=256 v=256
+2024-04-22 17:39:19 IFCONFIG POOL IPv4: base=10.10.10.4 size=62
+2024-04-22 17:39:19 IFCONFIG POOL LIST
+2024-04-22 17:39:19 Initialization Sequence Completed
+
+====================
+Fecha y hora: 2024-04-22 16:49:21
+Prompt: root@seax1
+Comando ejecutado: systemctl status openvpn
+====================
+● openvpn@server.service - OpenVPN connection to server
+     Loaded: loaded (/lib/systemd/system/openvpn@.service; enabled; preset: enabled)
+     Active: active (running) since Tue 2024-04-22 16:49:21 CEST; 1min 51s ago
+       Docs: man:openvpn(8)
+             https://community.openvpn.net/openvpn/wiki/Openvpn24ManPage
+             https://community.openvpn.net/openvpn/wiki/HOWTO
+   Main PID: 3639 (openvpn)
+     Status: "Initialization Sequence Completed"
+      Tasks: 1 (limit: 10)
+     Memory: 1.4M
+        CPU: 13ms
+     CGroup: /system.slice/system-openvpn.slice/openvpn@server.service
+             └─3639 /usr/sbin/openvpn --daemon ovpn-server --status /run/openvpn/server.status 10 --cd /etc/openvpn --config /etc/openvpn/server.conf --writepid /run/openvpn/server.pid
+
+d’abr. 22 26:49:21 seax1 ovpn-server[3639]: net_iface_up: set tun0 up
+d’abr. 22 16:49:21 seax1 ovpn-server[3639]: net_addr_v4_add: 10.10.10.1/24 dev tun0
+d’abr. 22 16:49:21 seax1 ovpn-server[3639]: Could not determine IPv4/IPv6 protocol. Using AF_INET
+d’abr. 22 16:49:21 seax1 ovpn-server[3639]: Socket Buffers: R=[212992->212992] S=[212992->212992]
+d’abr. 22 16:49:21 seax1 ovpn-server[3639]: UDPv4 link local (bound): [AF_INET]192.168.2.100:1194
+d’abr. 22 16:49:21 seax1 ovpn-server[3639]: UDPv4 link remote: [AF_UNSPEC]
+d’abr. 22 16:49:21 seax1 ovpn-server[3639]: MULTI: multi_init called, r=256 v=256
+d’abr. 22 16:49:21 seax1 ovpn-server[3639]: IFCONFIG POOL IPv4: base=10.10.10.2 size=253
+d’abr. 22 16:49:21 seax1 ovpn-server[3639]: IFCONFIG POOL LIST
+d’abr. 22 16:49:21 seax1 ovpn-server[3639]: Initialization Sequence Completed
+
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-04-22 17:59:52
+Prompt: root@seax1
+Comando ejecutado: ip addr show
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:55:d8:4d brd ff:ff:ff:ff:ff:ff
+    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic enp0s3
+       valid_lft 86130sec preferred_lft 86130sec
+    inet6 fe80::a00:27ff:fe55:d84d/64 scope link 
+       valid_lft forever preferred_lft forever
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.2.100/24 brd 192.168.2.255 scope global enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe11:2233/64 scope link 
+       valid_lft forever preferred_lft forever
+4: enp0s9: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:88:e2:a5 brd ff:ff:ff:ff:ff:ff
+    inet 169.254.11.230/16 brd 169.254.255.255 scope link enp0s9:avahi
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe88:e2a5/64 scope link 
+       valid_lft forever preferred_lft forever
+5: tun0: <POINTOPOINT,MULTICAST,NOARP,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UNKNOWN group default qlen 500
+    link/none 
+    inet 10.10.10.1 peer 10.10.10.2/32 scope global tun0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::5863:4f48:914b:a41c/64 scope link stable-privacy 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+

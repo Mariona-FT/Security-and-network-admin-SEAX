@@ -1,0 +1,173 @@
+
+====================
+Fecha y hora: 2024-04-22 23:01:04
+Prompt: root@seax1
+Comando ejecutado: /usr/share/easy-rsa/easyrsa build-client-full client1 nopass
+====================
+* Notice:
+Using Easy-RSA configuration from: /scripts/pki/vars
+
+* Notice:
+Using SSL: openssl OpenSSL 3.0.11 19 Sep 2023 (Library: OpenSSL 3.0.11 19 Sep 2023)
+
+* Notice:
+
+Keypair and certificate request completed. Your files are:
+req: /scripts/pki/reqs/client1.req
+key: /scripts/pki/private/client1.key
+
+
+You are about to sign the following certificate.
+Please check over the details shown below for accuracy. Note that this request
+has not been cryptographically verified. Please be sure it came from a trusted
+source or that you have verified the request checksum with the sender.
+
+Request subject, to be signed as a client certificate for 825 days:
+
+subject=
+    commonName                = client1
+
+
+Type the word 'yes' to continue, or any other input to abort.
+  Confirm request details: 
+
+* Notice:
+Certificate created at: /scripts/pki/issued/client1.crt
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 23:01:35
+Prompt: root@seax1
+Comando ejecutado: mkdir -p /etc/openvpn/client/client1
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 23:02:44
+Prompt: root@seax1
+Comando ejecutado: cp /etc/openvpn/server/ca.crt /etc/openvpn/client/client1/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 23:06:00
+Prompt: root@seax1
+Comando ejecutado: cp /scripts/pki/issued/client1.crt /etc/openvpn/client/client1/
+====================
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-04-22 23:06:30
+Prompt: root@seax1
+Comando ejecutado: cp /scripts/pki/private/client1.key /etc/openvpn/client/client1/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 23:07:16
+Prompt: root@seax1
+Comando ejecutado: chmod 600 /etc/openvpn/client/client1/client1.key
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 23:08:41
+Prompt: root@seax1
+Comando ejecutado: chown root:root /etc/openvpn/client/client1/client1.key
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 23:13:17
+Prompt: root@seax1
+Comando ejecutado: cat /etc/openvpn/client/client1/client1-mobil.ovpn
+====================
+client
+dev tun
+proto udp
+remote 192.168.2.100 1194
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+ca /etc/openvpn/client/client1/ca.crt
+cert /etc/openvpn/client/client1/client1.crt
+key /etc/openvpn/client/client1/client1.key
+remote-cert-tls server
+data-ciphers AES-256-GCM:AES-128-GCM:CHACHA20-POLY1305 
+verb 3
+redirect-gateway def1
+dhcp-option DNS 8.8.8.8
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 23:19:40
+Prompt: root@seax1
+Comando ejecutado: ls -l /etc/openvpn/client/client1/
+====================
+total 20
+-rwxr-xr-x 1 root root 1176 22 d’abr.   23:02 ca.crt
+-rwxr-xr-x 1 root root 4460 22 d’abr.   23:06 client1.crt
+-rw------- 1 root root 1704 22 d’abr.   23:06 client1.key
+-rw-r--r-- 1 root root  335 22 d’abr.   23:12 client1-mobil.ovpn
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-04-23 17:15:39
+Prompt: root@seax1
+Comando ejecutado: openvpn --config /etc/openvpn/client/client1/client1-mobil.ovpn --daemon
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-23 17:17:41
+Prompt: root@seax1
+Comando ejecutado: ip route
+====================
+0.0.0.0/1 via 10.10.10.1 dev tun0 
+default via 10.0.2.2 dev enp0s3 
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15 
+10.10.10.0/24 dev tun0 proto kernel scope link src 10.10.10.1 
+10.10.10.0/24 dev tun1 proto kernel scope link src 10.10.10.2 
+10.10.10.0/24 dev tun2 proto kernel scope link src 10.10.10.2 
+10.10.10.0/24 dev tun3 proto kernel scope link src 10.10.10.2 
+128.0.0.0/1 via 10.10.10.1 dev tun0 
+169.254.0.0/16 dev enp0s3 scope link metric 1000 
+192.168.1.0/24 dev enp0s9 proto kernel scope link src 192.168.1.26 
+192.168.2.0/24 dev enp0s8 proto kernel scope link src 192.168.2.100 
+192.168.2.100 via 10.0.2.2 dev enp0s3 
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-23 17:17:54
+Prompt: root@seax1
+Comando ejecutado: ping 192.162.2.100
+====================
+
+Fin de la ejecución
+====================

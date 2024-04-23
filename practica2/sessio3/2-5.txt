@@ -1,0 +1,197 @@
+--Clau compartida-- 
+
+====================
+Fecha y hora: 2024-04-23 01:48:21
+Prompt: root@seax1
+Comando ejecutado: openvpn --genkey --secret /etc/openvpn/server/ta.key
+====================
+2024-04-23 01:48:21 DEPRECATED OPTION: The option --secret is deprecated.
+2024-04-23 01:48:21 WARNING: Using --genkey --secret filename is DEPRECATED.  Use --genkey secret filename instead.
+
+Fin de la ejecución
+====================
+
+--SERVER--
+====================
+Fecha y hora: 2024-04-23 01:51:55
+Prompt: root@seax1
+Comando ejecutado: cat /etc/openvpn/server.conf
+====================
+local 192.168.2.100
+port 1194
+proto udp
+dev tun
+topology subnet
+dh /etc/openvpn/server/dh.pem
+tls-auth /etc/openvpn/server/ta.key 0
+server 10.10.10.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-options DNS 8.8.8.8"
+keepalive 10 120
+data-ciphers AES-256-GCM:AES-128-GCM:CHACHA20-POLY1305
+;user nobody
+;group nogroup
+persist-key
+persist-tun
+status openvpn.status.log
+verb 3
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-23 02:04:28
+Prompt: root@seax1
+Comando ejecutado: scp /etc/openvpn/server/ta.key root@192.168.2.100:/etc/openvpn/client/client1/
+====================
+ta.key                                    100% 2048     2.0KB/s   00:00
+
+Fin de la ejecución
+====================
+
+
+--CLIENT--
+====================
+Fecha y hora: 2024-04-23 02:07:54
+Prompt: root@seax1
+Comando ejecutado: cat /etc/openvpn/client/client1/client1-mobil.ovpn
+====================
+client
+dev tun
+proto udp
+remote 192.168.2.100 1194
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+tls-auth /etc/openvpn/client/client1/ta.key 1
+remote-cert-tls server
+cipher AES-256-CBC
+comp-lzo
+verb 3
+redirect-gateway def1
+dhcp-option DNS 8.8.8.8
+
+Fin de la ejecución
+====================
+
+
+--Certificats digitals--
+
+
+--SERVER--
+====================
+Fecha y hora: 2024-04-22 01:35:17
+Prompt: root@seax1
+Comando ejecutado: cp pki/ca.crt /etc/openvpn/server/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:35:33
+Prompt: root@seax1
+Comando ejecutado: cp pki/issued/server.crt /etc/openvpn/server/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:35:50
+Prompt: root@seax1
+Comando ejecutado: cp pki/private/server.key /etc/openvpn/server/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-23 01:40:55
+Prompt: root@seax1
+Comando ejecutado: cat /etc/openvpn/server.conf
+====================
+local 192.168.2.100
+port 1194
+proto udp
+dev tun
+topology subnet
+ca /etc/openvpn/server/ca.crt
+cert /etc/openvpn/server/server.crt
+key /etc/openvpn/server/server.key
+dh /etc/openvpn/server/dh.pem
+server 10.10.10.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
+push "redirect-gateway def1 bypass-dhcp"
+push "dhcp-options DNS 8.8.8.8"
+keepalive 10 120
+data-ciphers AES-256-GCM:AES-128-GCM:CHACHA20-POLY1305
+;user nobody
+;group nogroup
+persist-key
+persist-tun
+status openvpn.status.log
+verb 3
+
+Fin de la ejecución
+====================
+
+
+--CLIENT--
+====================
+Fecha y hora: 2024-04-22 23:02:44
+Prompt: root@seax1
+Comando ejecutado: cp /etc/openvpn/server/ca.crt /etc/openvpn/client/client1/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 23:06:00
+Prompt: root@seax1
+Comando ejecutado: cp /scripts/pki/issued/client1.crt /etc/openvpn/client/client1/
+====================
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-04-22 23:06:30
+Prompt: root@seax1
+Comando ejecutado: cp /scripts/pki/private/client1.key /etc/openvpn/client/client1/
+====================
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-04-23 23:10:23
+Prompt: root@seax1
+Comando ejecutado: cat /etc/openvpn/client/client1/client1-mobil.ovpn
+====================
+client
+dev tun
+proto udp
+remote 192.168.2.100 1194
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+ca /etc/openvpn/client/client1/ca.crt
+cert /etc/openvpn/client/client1/client1.crt
+key /etc/openvpn/client/client1/client1.key
+remote-cert-tls server
+cipher AES-256-CBC
+comp-lzo
+verb 3
+redirect-gateway def1
+dhcp-option DNS 8.8.8.8
+
+Fin de la ejecución
+====================
+

@@ -1,0 +1,654 @@
+
+====================
+Fecha y hora: 2024-04-22 01:06:37
+Prompt: root@seax1
+Comando ejecutado: sudo apt update
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:06:42
+Prompt: root@seax1
+Comando ejecutado: apt update
+====================
+Obj:1 http://deb.debian.org/debian bookworm InRelease
+Bai:2 http://security.debian.org/debian-security bookworm-security InRelease [48,0 kB]
+Bai:3 http://deb.debian.org/debian bookworm-updates InRelease [55,4 kB]
+Bai:4 http://security.debian.org/debian-security bookworm-security/main Sources [90,8 kB]
+Bai:5 http://security.debian.org/debian-security bookworm-security/main amd64 Packages [155 kB]
+Bai:6 http://security.debian.org/debian-security bookworm-security/main Translation-en [94,2 kB]
+S'ha baixat 443 kB en 1s (810 kB/s)
+S'està llegint la llista de paquets…
+S'està construint l'arbre de dependències…
+S'està llegint la informació de l'estat…
+Es poden actualitzar 18 paquets. Executeu «apt list --upgradable» per a veure'ls.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:06:50
+Prompt: root@seax1
+Comando ejecutado: apt upgrade
+====================
+S'està llegint la llista de paquets…
+S'està construint l'arbre de dependències…
+S'està llegint la informació de l'estat…
+S'està calculant l'actualització…
+S'instal·laran els paquets NOUS següents:
+  linux-image-6.1.0-20-amd64
+S'actualitzaran els paquets següents:
+  bsdextrautils bsdutils eject fdisk libblkid1 libfdisk1 libmount1
+  libsmartcols1 libuuid1 linux-compiler-gcc-12-x86 linux-image-amd64
+  linux-kbuild-6.1 linux-libc-dev mount rfkill util-linux util-linux-extra
+  util-linux-locales
+18 actualitzats, 1 nous a instal·lar, 0 a suprimir i 0 no actualitzats.
+S'ha d'obtenir 76,4 MB d'arxius.
+Després d'aquesta operació s'utilitzaran 408 MB d'espai en disc addicional.
+Voleu continuar? [S/n] Bai:1 http://security.debian.org/debian-security bookworm-security/main amd64 bsdutils amd64 1:2.38.1-5+deb12u1 [94,3 kB]
+Bai:2 http://security.debian.org/debian-security bookworm-security/main amd64 libsmartcols1 amd64 2.38.1-5+deb12u1 [107 kB]
+Bai:3 http://security.debian.org/debian-security bookworm-security/main amd64 util-linux-extra amd64 2.38.1-5+deb12u1 [110 kB]
+Bai:4 http://security.debian.org/debian-security bookworm-security/main amd64 util-linux amd64 2.38.1-5+deb12u1 [1.176 kB]
+Bai:5 http://security.debian.org/debian-security bookworm-security/main amd64 mount amd64 2.38.1-5+deb12u1 [134 kB]
+Bai:6 http://security.debian.org/debian-security bookworm-security/main amd64 libblkid1 amd64 2.38.1-5+deb12u1 [147 kB]
+Bai:7 http://security.debian.org/debian-security bookworm-security/main amd64 libmount1 amd64 2.38.1-5+deb12u1 [165 kB]
+Bai:8 http://security.debian.org/debian-security bookworm-security/main amd64 libuuid1 amd64 2.38.1-5+deb12u1 [28,6 kB]
+Bai:9 http://security.debian.org/debian-security bookworm-security/main amd64 libfdisk1 amd64 2.38.1-5+deb12u1 [193 kB]
+Bai:10 http://security.debian.org/debian-security bookworm-security/main amd64 fdisk amd64 2.38.1-5+deb12u1 [141 kB]
+Bai:11 http://security.debian.org/debian-security bookworm-security/main amd64 bsdextrautils amd64 2.38.1-5+deb12u1 [86,8 kB]
+Bai:12 http://security.debian.org/debian-security bookworm-security/main amd64 eject amd64 2.38.1-5+deb12u1 [47,8 kB]
+Bai:13 http://security.debian.org/debian-security bookworm-security/main amd64 linux-compiler-gcc-12-x86 amd64 6.1.85-1 [822 kB]
+Bai:14 http://security.debian.org/debian-security bookworm-security/main amd64 linux-image-6.1.0-20-amd64 amd64 6.1.85-1 [68,8 MB]
+Bai:15 http://security.debian.org/debian-security bookworm-security/main amd64 linux-image-amd64 amd64 6.1.85-1 [1.480 B]
+Bai:16 http://security.debian.org/debian-security bookworm-security/main amd64 linux-kbuild-6.1 amd64 6.1.85-1 [1.079 kB]
+Bai:17 http://security.debian.org/debian-security bookworm-security/main amd64 linux-libc-dev amd64 6.1.85-1 [1.968 kB]
+Bai:18 http://security.debian.org/debian-security bookworm-security/main amd64 rfkill amd64 2.38.1-5+deb12u1 [34,1 kB]
+Bai:19 http://security.debian.org/debian-security bookworm-security/main amd64 util-linux-locales all 2.38.1-5+deb12u1 [1.212 kB]
+S'ha baixat 76,4 MB en 2s (33,1 MB/s)
+(S'està llegint la base de dades… (S'està llegint la base de dades… 5%(S'està llegint la base de dades… 10%(S'està llegint la base de dades… 15%(S'està llegint la base de dades… 20%(S'està llegint la base de dades… 25%(S'està llegint la base de dades… 30%(S'està llegint la base de dades… 35%(S'està llegint la base de dades… 40%(S'està llegint la base de dades… 45%(S'està llegint la base de dades… 50%(S'està llegint la base de dades… 55%(S'està llegint la base de dades… 60%(S'està llegint la base de dades… 65%(S'està llegint la base de dades… 70%(S'està llegint la base de dades… 75%(S'està llegint la base de dades… 80%(S'està llegint la base de dades… 85%(S'està llegint la base de dades… 90%(S'està llegint la base de dades… 95%(S'està llegint la base de dades… 100%(S'està llegint la base de dades… hi ha 54893 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/bsdutils_1%3a2.38.1-5+deb12u1_amd64.deb…
+S'està desempaquetant bsdutils (1:2.38.1-5+deb12u1) sobre (1:2.38.1-5+b1)…
+S'està configurant bsdutils (1:2.38.1-5+deb12u1)…
+(S'està llegint la base de dades… (S'està llegint la base de dades… 5%(S'està llegint la base de dades… 10%(S'està llegint la base de dades… 15%(S'està llegint la base de dades… 20%(S'està llegint la base de dades… 25%(S'està llegint la base de dades… 30%(S'està llegint la base de dades… 35%(S'està llegint la base de dades… 40%(S'està llegint la base de dades… 45%(S'està llegint la base de dades… 50%(S'està llegint la base de dades… 55%(S'està llegint la base de dades… 60%(S'està llegint la base de dades… 65%(S'està llegint la base de dades… 70%(S'està llegint la base de dades… 75%(S'està llegint la base de dades… 80%(S'està llegint la base de dades… 85%(S'està llegint la base de dades… 90%(S'està llegint la base de dades… 95%(S'està llegint la base de dades… 100%(S'està llegint la base de dades… hi ha 54892 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/libsmartcols1_2.38.1-5+deb12u1_amd64.deb…
+S'està desempaquetant libsmartcols1:amd64 (2.38.1-5+deb12u1) sobre (2.38.1-5+b1)…
+S'està configurant libsmartcols1:amd64 (2.38.1-5+deb12u1)…
+(S'està llegint la base de dades… (S'està llegint la base de dades… 5%(S'està llegint la base de dades… 10%(S'està llegint la base de dades… 15%(S'està llegint la base de dades… 20%(S'està llegint la base de dades… 25%(S'està llegint la base de dades… 30%(S'està llegint la base de dades… 35%(S'està llegint la base de dades… 40%(S'està llegint la base de dades… 45%(S'està llegint la base de dades… 50%(S'està llegint la base de dades… 55%(S'està llegint la base de dades… 60%(S'està llegint la base de dades… 65%(S'està llegint la base de dades… 70%(S'està llegint la base de dades… 75%(S'està llegint la base de dades… 80%(S'està llegint la base de dades… 85%(S'està llegint la base de dades… 90%(S'està llegint la base de dades… 95%(S'està llegint la base de dades… 100%(S'està llegint la base de dades… hi ha 54891 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/util-linux-extra_2.38.1-5+deb12u1_amd64.deb…
+S'està desempaquetant util-linux-extra (2.38.1-5+deb12u1) sobre (2.38.1-5+b1)…
+S'està configurant util-linux-extra (2.38.1-5+deb12u1)…
+(S'està llegint la base de dades… (S'està llegint la base de dades… 5%(S'està llegint la base de dades… 10%(S'està llegint la base de dades… 15%(S'està llegint la base de dades… 20%(S'està llegint la base de dades… 25%(S'està llegint la base de dades… 30%(S'està llegint la base de dades… 35%(S'està llegint la base de dades… 40%(S'està llegint la base de dades… 45%(S'està llegint la base de dades… 50%(S'està llegint la base de dades… 55%(S'està llegint la base de dades… 60%(S'està llegint la base de dades… 65%(S'està llegint la base de dades… 70%(S'està llegint la base de dades… 75%(S'està llegint la base de dades… 80%(S'està llegint la base de dades… 85%(S'està llegint la base de dades… 90%(S'està llegint la base de dades… 95%(S'està llegint la base de dades… 100%(S'està llegint la base de dades… hi ha 54890 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/util-linux_2.38.1-5+deb12u1_amd64.deb…
+S'està desempaquetant util-linux (2.38.1-5+deb12u1) sobre (2.38.1-5+b1)…
+S'està configurant util-linux (2.38.1-5+deb12u1)…
+fstrim.service is a disabled or a static unit not running, not starting it.
+(S'està llegint la base de dades… (S'està llegint la base de dades… 5%(S'està llegint la base de dades… 10%(S'està llegint la base de dades… 15%(S'està llegint la base de dades… 20%(S'està llegint la base de dades… 25%(S'està llegint la base de dades… 30%(S'està llegint la base de dades… 35%(S'està llegint la base de dades… 40%(S'està llegint la base de dades… 45%(S'està llegint la base de dades… 50%(S'està llegint la base de dades… 55%(S'està llegint la base de dades… 60%(S'està llegint la base de dades… 65%(S'està llegint la base de dades… 70%(S'està llegint la base de dades… 75%(S'està llegint la base de dades… 80%(S'està llegint la base de dades… 85%(S'està llegint la base de dades… 90%(S'està llegint la base de dades… 95%(S'està llegint la base de dades… 100%(S'està llegint la base de dades… hi ha 54889 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/mount_2.38.1-5+deb12u1_amd64.deb…
+S'està desempaquetant mount (2.38.1-5+deb12u1) sobre (2.38.1-5+b1)…
+S'està preparant per a desempaquetar …/libblkid1_2.38.1-5+deb12u1_amd64.deb…
+S'està desempaquetant libblkid1:amd64 (2.38.1-5+deb12u1) sobre (2.38.1-5+b1)…
+S'està configurant libblkid1:amd64 (2.38.1-5+deb12u1)…
+(S'està llegint la base de dades… (S'està llegint la base de dades… 5%(S'està llegint la base de dades… 10%(S'està llegint la base de dades… 15%(S'està llegint la base de dades… 20%(S'està llegint la base de dades… 25%(S'està llegint la base de dades… 30%(S'està llegint la base de dades… 35%(S'està llegint la base de dades… 40%(S'està llegint la base de dades… 45%(S'està llegint la base de dades… 50%(S'està llegint la base de dades… 55%(S'està llegint la base de dades… 60%(S'està llegint la base de dades… 65%(S'està llegint la base de dades… 70%(S'està llegint la base de dades… 75%(S'està llegint la base de dades… 80%(S'està llegint la base de dades… 85%(S'està llegint la base de dades… 90%(S'està llegint la base de dades… 95%(S'està llegint la base de dades… 100%(S'està llegint la base de dades… hi ha 54887 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/libmount1_2.38.1-5+deb12u1_amd64.deb…
+S'està desempaquetant libmount1:amd64 (2.38.1-5+deb12u1) sobre (2.38.1-5+b1)…
+S'està configurant libmount1:amd64 (2.38.1-5+deb12u1)…
+(S'està llegint la base de dades… (S'està llegint la base de dades… 5%(S'està llegint la base de dades… 10%(S'està llegint la base de dades… 15%(S'està llegint la base de dades… 20%(S'està llegint la base de dades… 25%(S'està llegint la base de dades… 30%(S'està llegint la base de dades… 35%(S'està llegint la base de dades… 40%(S'està llegint la base de dades… 45%(S'està llegint la base de dades… 50%(S'està llegint la base de dades… 55%(S'està llegint la base de dades… 60%(S'està llegint la base de dades… 65%(S'està llegint la base de dades… 70%(S'està llegint la base de dades… 75%(S'està llegint la base de dades… 80%(S'està llegint la base de dades… 85%(S'està llegint la base de dades… 90%(S'està llegint la base de dades… 95%(S'està llegint la base de dades… 100%(S'està llegint la base de dades… hi ha 54886 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/libuuid1_2.38.1-5+deb12u1_amd64.deb…
+S'està desempaquetant libuuid1:amd64 (2.38.1-5+deb12u1) sobre (2.38.1-5+b1)…
+S'està configurant libuuid1:amd64 (2.38.1-5+deb12u1)…
+(S'està llegint la base de dades… (S'està llegint la base de dades… 5%(S'està llegint la base de dades… 10%(S'està llegint la base de dades… 15%(S'està llegint la base de dades… 20%(S'està llegint la base de dades… 25%(S'està llegint la base de dades… 30%(S'està llegint la base de dades… 35%(S'està llegint la base de dades… 40%(S'està llegint la base de dades… 45%(S'està llegint la base de dades… 50%(S'està llegint la base de dades… 55%(S'està llegint la base de dades… 60%(S'està llegint la base de dades… 65%(S'està llegint la base de dades… 70%(S'està llegint la base de dades… 75%(S'està llegint la base de dades… 80%(S'està llegint la base de dades… 85%(S'està llegint la base de dades… 90%(S'està llegint la base de dades… 95%(S'està llegint la base de dades… 100%(S'està llegint la base de dades… hi ha 54885 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/00-libfdisk1_2.38.1-5+deb12u1_amd64.deb…
+S'està desempaquetant libfdisk1:amd64 (2.38.1-5+deb12u1) sobre (2.38.1-5+b1)…
+S'està preparant per a desempaquetar …/01-fdisk_2.38.1-5+deb12u1_amd64.deb…
+S'està desempaquetant fdisk (2.38.1-5+deb12u1) sobre (2.38.1-5+b1)…
+S'està preparant per a desempaquetar …/02-bsdextrautils_2.38.1-5+deb12u1_amd64.deb…
+S'està desempaquetant bsdextrautils (2.38.1-5+deb12u1) sobre (2.38.1-5+b1)…
+S'està preparant per a desempaquetar …/03-eject_2.38.1-5+deb12u1_amd64.deb…
+S'està desempaquetant eject (2.38.1-5+deb12u1) sobre (2.38.1-5+b1)…
+S'està preparant per a desempaquetar …/04-linux-compiler-gcc-12-x86_6.1.85-1_amd64.deb…
+S'està desempaquetant linux-compiler-gcc-12-x86 (6.1.85-1) sobre (6.1.76-1)…
+S'està seleccionant el paquet linux-image-6.1.0-20-amd64 prèviament no seleccionat.
+S'està preparant per a desempaquetar …/05-linux-image-6.1.0-20-amd64_6.1.85-1_amd64.deb…
+S'està desempaquetant linux-image-6.1.0-20-amd64 (6.1.85-1)…
+S'està preparant per a desempaquetar …/06-linux-image-amd64_6.1.85-1_amd64.deb…
+S'està desempaquetant linux-image-amd64 (6.1.85-1) sobre (6.1.76-1)…
+S'està preparant per a desempaquetar …/07-linux-kbuild-6.1_6.1.85-1_amd64.deb…
+S'està desempaquetant linux-kbuild-6.1 (6.1.85-1) sobre (6.1.76-1)…
+S'està preparant per a desempaquetar …/08-linux-libc-dev_6.1.85-1_amd64.deb…
+S'està desempaquetant linux-libc-dev:amd64 (6.1.85-1) sobre (6.1.76-1)…
+S'està preparant per a desempaquetar …/09-rfkill_2.38.1-5+deb12u1_amd64.deb…
+S'està desempaquetant rfkill (2.38.1-5+deb12u1) sobre (2.38.1-5+b1)…
+S'està preparant per a desempaquetar …/10-util-linux-locales_2.38.1-5+deb12u1_all.deb…
+S'està desempaquetant util-linux-locales (2.38.1-5+deb12u1) sobre (2.38.1-5)…
+S'està configurant bsdextrautils (2.38.1-5+deb12u1)…
+S'està configurant linux-image-6.1.0-20-amd64 (6.1.85-1)…
+I: /vmlinuz is now a symlink to boot/vmlinuz-6.1.0-20-amd64
+I: /initrd.img is now a symlink to boot/initrd.img-6.1.0-20-amd64
+/etc/kernel/postinst.d/initramfs-tools:
+update-initramfs: Generating /boot/initrd.img-6.1.0-20-amd64
+zstd: error 70 : Write error : cannot write block : No space left on device 
+E: mkinitramfs failure zstd -q -9 -T0 70
+update-initramfs: failed for /boot/initrd.img-6.1.0-20-amd64 with 1.
+run-parts: /etc/kernel/postinst.d/initramfs-tools exited with return code 1
+dpkg: s'ha produït un error en processar el paquet linux-image-6.1.0-20-amd64 (--configure):
+ el subprocés «s'ha instal·lat el script linux-image-6.1.0-20-amd64 del paquet post-installation» retornà el codi d'eixida d'error 1
+S'està configurant linux-libc-dev:amd64 (6.1.85-1)…
+dpkg: problemes de dependències impedeixen la configuració de linux-image-amd64:
+ linux-image-amd64 depèn de linux-image-6.1.0-20-amd64 (= 6.1.85-1); tot i així:
+  El paquet linux-image-6.1.0-20-amd64 encara no està configurat.
+
+dpkg: s'ha produït un error en processar el paquet linux-image-amd64 (--configure):
+ problemes de dependències - es deixa sense configurar
+S'està configurant linux-compiler-gcc-12-x86 (6.1.85-1)…
+S'està configurant eject (2.38.1-5+deb12u1)…
+S'està configurant rfkill (2.38.1-5+deb12u1)…
+S'està configurant libfdisk1:amd64 (2.38.1-5+deb12u1)…
+S'està configurant mount (2.38.1-5+deb12u1)…
+S'està configurant util-linux-locales (2.38.1-5+deb12u1)…
+S'està configurant linux-kbuild-6.1 (6.1.85-1)…
+S'està configurant fdisk (2.38.1-5+deb12u1)…
+S'estan processant els activadors per a man-db (2.11.2-2)…
+S'estan processant els activadors per a libc-bin (2.36-9+deb12u4)…
+S'han trobat errors en processar:
+ linux-image-6.1.0-20-amd64
+ linux-image-amd64
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:07:38
+Prompt: root@seax1
+Comando ejecutado: apt install openvpn
+====================
+S'està llegint la llista de paquets…
+S'està construint l'arbre de dependències…
+S'està llegint la informació de l'estat…
+S'instal·laran els següents paquets extres:
+  easy-rsa libccid liblzo2-2 libpkcs11-helper1 opensc opensc-pkcs11 pcscd
+Paquets suggerits:
+  pcmciautils resolvconf openvpn-dco-dkms openvpn-systemd-resolved
+S'instal·laran els paquets NOUS següents:
+  easy-rsa libccid liblzo2-2 libpkcs11-helper1 opensc opensc-pkcs11 openvpn
+  pcscd
+0 actualitzats, 8 nous a instal·lar, 0 a suprimir i 0 no actualitzats.
+2 no instal·lats o suprimits completament.
+S'ha d'obtenir 2.556 kB d'arxius.
+Després d'aquesta operació s'utilitzaran 7.806 kB d'espai en disc addicional.
+Voleu continuar? [S/n] Bai:1 http://deb.debian.org/debian bookworm/main amd64 libccid amd64 1.5.2-1 [367 kB]
+Bai:2 http://deb.debian.org/debian bookworm/main amd64 pcscd amd64 1.9.9-2 [89,7 kB]
+Bai:3 http://deb.debian.org/debian bookworm/main amd64 easy-rsa all 3.1.0-1 [54,8 kB]
+Bai:4 http://deb.debian.org/debian bookworm/main amd64 liblzo2-2 amd64 2.10-2 [56,9 kB]
+Bai:5 http://deb.debian.org/debian bookworm/main amd64 libpkcs11-helper1 amd64 1.29.0-1 [51,2 kB]
+Bai:6 http://deb.debian.org/debian bookworm/main amd64 opensc-pkcs11 amd64 0.23.0-0.3+deb12u1 [914 kB]
+Bai:7 http://deb.debian.org/debian bookworm/main amd64 opensc amd64 0.23.0-0.3+deb12u1 [371 kB]
+Bai:8 http://deb.debian.org/debian bookworm/main amd64 openvpn amd64 2.6.3-1+deb12u2 [651 kB]
+S'estan preconfigurant els paquets...
+S'ha baixat 2.556 kB en 0s (11,4 MB/s)
+S'està seleccionant el paquet libccid prèviament no seleccionat.
+(S'està llegint la base de dades… (S'està llegint la base de dades… 5%(S'està llegint la base de dades… 10%(S'està llegint la base de dades… 15%(S'està llegint la base de dades… 20%(S'està llegint la base de dades… 25%(S'està llegint la base de dades… 30%(S'està llegint la base de dades… 35%(S'està llegint la base de dades… 40%(S'està llegint la base de dades… 45%(S'està llegint la base de dades… 50%(S'està llegint la base de dades… 55%(S'està llegint la base de dades… 60%(S'està llegint la base de dades… 65%(S'està llegint la base de dades… 70%(S'està llegint la base de dades… 75%(S'està llegint la base de dades… 80%(S'està llegint la base de dades… 85%(S'està llegint la base de dades… 90%(S'està llegint la base de dades… 95%(S'està llegint la base de dades… 100%(S'està llegint la base de dades… hi ha 59812 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/0-libccid_1.5.2-1_amd64.deb…
+S'està desempaquetant libccid (1.5.2-1)…
+S'està seleccionant el paquet pcscd prèviament no seleccionat.
+S'està preparant per a desempaquetar …/1-pcscd_1.9.9-2_amd64.deb…
+S'està desempaquetant pcscd (1.9.9-2)…
+S'està seleccionant el paquet easy-rsa prèviament no seleccionat.
+S'està preparant per a desempaquetar …/2-easy-rsa_3.1.0-1_all.deb…
+S'està desempaquetant easy-rsa (3.1.0-1)…
+S'està seleccionant el paquet liblzo2-2:amd64 prèviament no seleccionat.
+S'està preparant per a desempaquetar …/3-liblzo2-2_2.10-2_amd64.deb…
+S'està desempaquetant liblzo2-2:amd64 (2.10-2)…
+S'està seleccionant el paquet libpkcs11-helper1:amd64 prèviament no seleccionat.
+S'està preparant per a desempaquetar …/4-libpkcs11-helper1_1.29.0-1_amd64.deb…
+S'està desempaquetant libpkcs11-helper1:amd64 (1.29.0-1)…
+S'està seleccionant el paquet opensc-pkcs11:amd64 prèviament no seleccionat.
+S'està preparant per a desempaquetar …/5-opensc-pkcs11_0.23.0-0.3+deb12u1_amd64.deb…
+S'està desempaquetant opensc-pkcs11:amd64 (0.23.0-0.3+deb12u1)…
+S'està seleccionant el paquet opensc prèviament no seleccionat.
+S'està preparant per a desempaquetar …/6-opensc_0.23.0-0.3+deb12u1_amd64.deb…
+S'està desempaquetant opensc (0.23.0-0.3+deb12u1)…
+S'està seleccionant el paquet openvpn prèviament no seleccionat.
+S'està preparant per a desempaquetar …/7-openvpn_2.6.3-1+deb12u2_amd64.deb…
+S'està desempaquetant openvpn (2.6.3-1+deb12u2)…
+S'està configurant linux-image-6.1.0-20-amd64 (6.1.85-1)…
+/etc/kernel/postinst.d/initramfs-tools:
+update-initramfs: Generating /boot/initrd.img-6.1.0-20-amd64
+zstd: error 70 : Write error : cannot write block : No space left on device 
+E: mkinitramfs failure zstd -q -9 -T0 70
+update-initramfs: failed for /boot/initrd.img-6.1.0-20-amd64 with 1.
+run-parts: /etc/kernel/postinst.d/initramfs-tools exited with return code 1
+dpkg: s'ha produït un error en processar el paquet linux-image-6.1.0-20-amd64 (--configure):
+ el subprocés «s'ha instal·lat el script linux-image-6.1.0-20-amd64 del paquet post-installation» retornà el codi d'eixida d'error 1
+S'està configurant libccid (1.5.2-1)…
+S'està configurant pcscd (1.9.9-2)…
+Created symlink /etc/systemd/system/sockets.target.wants/pcscd.socket → /lib/systemd/system/pcscd.socket.
+pcscd.service is a disabled or a static unit, not starting it.
+S'està configurant liblzo2-2:amd64 (2.10-2)…
+dpkg: problemes de dependències impedeixen la configuració de linux-image-amd64:
+ linux-image-amd64 depèn de linux-image-6.1.0-20-amd64 (= 6.1.85-1); tot i així:
+  El paquet linux-image-6.1.0-20-amd64 encara no està configurat.
+
+dpkg: s'ha produït un error en processar el paquet linux-image-amd64 (--configure):
+ problemes de dependències - es deixa sense configurar
+S'està configurant libpkcs11-helper1:amd64 (1.29.0-1)…
+S'està configurant opensc-pkcs11:amd64 (0.23.0-0.3+deb12u1)…
+S'està configurant easy-rsa (3.1.0-1)…
+S'està configurant openvpn (2.6.3-1+deb12u2)…
+Created symlink /etc/systemd/system/multi-user.target.wants/openvpn.service → /lib/systemd/system/openvpn.service.
+S'està configurant opensc (0.23.0-0.3+deb12u1)…
+S'estan processant els activadors per a man-db (2.11.2-2)…
+S'estan processant els activadors per a libc-bin (2.36-9+deb12u4)…
+S'han trobat errors en processar:
+ linux-image-6.1.0-20-amd64
+ linux-image-amd64
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:09:28
+Prompt: root@seax1
+Comando ejecutado: apt install openvpn
+====================
+S'està llegint la llista de paquets…
+S'està construint l'arbre de dependències…
+S'està llegint la informació de l'estat…
+S'instal·laran els següents paquets extres:
+  easy-rsa libccid liblzo2-2 libpkcs11-helper1 opensc opensc-pkcs11 pcscd
+Paquets suggerits:
+  pcmciautils resolvconf openvpn-dco-dkms openvpn-systemd-resolved
+S'instal·laran els paquets NOUS següents:
+  easy-rsa libccid liblzo2-2 libpkcs11-helper1 opensc opensc-pkcs11 openvpn
+  pcscd
+0 actualitzats, 8 nous a instal·lar, 0 a suprimir i 0 no actualitzats.
+S'ha d'obtenir 2.556 kB d'arxius.
+Després d'aquesta operació s'utilitzaran 7.806 kB d'espai en disc addicional.
+Voleu continuar? [S/n] Bai:1 http://deb.debian.org/debian bookworm/main amd64 libccid amd64 1.5.2-1 [367 kB]
+Bai:2 http://deb.debian.org/debian bookworm/main amd64 pcscd amd64 1.9.9-2 [89,7 kB]
+Bai:3 http://deb.debian.org/debian bookworm/main amd64 easy-rsa all 3.1.0-1 [54,8 kB]
+Bai:4 http://deb.debian.org/debian bookworm/main amd64 liblzo2-2 amd64 2.10-2 [56,9 kB]
+Bai:5 http://deb.debian.org/debian bookworm/main amd64 libpkcs11-helper1 amd64 1.29.0-1 [51,2 kB]
+Bai:6 http://deb.debian.org/debian bookworm/main amd64 opensc-pkcs11 amd64 0.23.0-0.3+deb12u1 [914 kB]
+Bai:7 http://deb.debian.org/debian bookworm/main amd64 opensc amd64 0.23.0-0.3+deb12u1 [371 kB]
+Bai:8 http://deb.debian.org/debian bookworm/main amd64 openvpn amd64 2.6.3-1+deb12u2 [651 kB]
+S'estan preconfigurant els paquets...
+S'ha baixat 2.556 kB en 6s (405 kB/s)
+S'està seleccionant el paquet libccid prèviament no seleccionat.
+(S'està llegint la base de dades… (S'està llegint la base de dades… 5%(S'està llegint la base de dades… 10%(S'està llegint la base de dades… 15%(S'està llegint la base de dades… 20%(S'està llegint la base de dades… 25%(S'està llegint la base de dades… 30%(S'està llegint la base de dades… 35%(S'està llegint la base de dades… 40%(S'està llegint la base de dades… 45%(S'està llegint la base de dades… 50%(S'està llegint la base de dades… 55%(S'està llegint la base de dades… 60%(S'està llegint la base de dades… 65%(S'està llegint la base de dades… 70%(S'està llegint la base de dades… 75%(S'està llegint la base de dades… 80%(S'està llegint la base de dades… 85%(S'està llegint la base de dades… 90%(S'està llegint la base de dades… 95%(S'està llegint la base de dades… 100%(S'està llegint la base de dades… hi ha 54893 fitxers i directoris instal·lats actualment.)
+S'està preparant per a desempaquetar …/0-libccid_1.5.2-1_amd64.deb…
+S'està desempaquetant libccid (1.5.2-1)…
+S'està seleccionant el paquet pcscd prèviament no seleccionat.
+S'està preparant per a desempaquetar …/1-pcscd_1.9.9-2_amd64.deb…
+S'està desempaquetant pcscd (1.9.9-2)…
+S'està seleccionant el paquet easy-rsa prèviament no seleccionat.
+S'està preparant per a desempaquetar …/2-easy-rsa_3.1.0-1_all.deb…
+S'està desempaquetant easy-rsa (3.1.0-1)…
+S'està seleccionant el paquet liblzo2-2:amd64 prèviament no seleccionat.
+S'està preparant per a desempaquetar …/3-liblzo2-2_2.10-2_amd64.deb…
+S'està desempaquetant liblzo2-2:amd64 (2.10-2)…
+S'està seleccionant el paquet libpkcs11-helper1:amd64 prèviament no seleccionat.
+S'està preparant per a desempaquetar …/4-libpkcs11-helper1_1.29.0-1_amd64.deb…
+S'està desempaquetant libpkcs11-helper1:amd64 (1.29.0-1)…
+S'està seleccionant el paquet opensc-pkcs11:amd64 prèviament no seleccionat.
+S'està preparant per a desempaquetar …/5-opensc-pkcs11_0.23.0-0.3+deb12u1_amd64.deb…
+S'està desempaquetant opensc-pkcs11:amd64 (0.23.0-0.3+deb12u1)…
+S'està seleccionant el paquet opensc prèviament no seleccionat.
+S'està preparant per a desempaquetar …/6-opensc_0.23.0-0.3+deb12u1_amd64.deb…
+S'està desempaquetant opensc (0.23.0-0.3+deb12u1)…
+S'està seleccionant el paquet openvpn prèviament no seleccionat.
+S'està preparant per a desempaquetar …/7-openvpn_2.6.3-1+deb12u2_amd64.deb…
+S'està desempaquetant openvpn (2.6.3-1+deb12u2)…
+S'està configurant libccid (1.5.2-1)…
+S'està configurant pcscd (1.9.9-2)…
+Created symlink /etc/systemd/system/sockets.target.wants/pcscd.socket → /lib/systemd/system/pcscd.socket.
+pcscd.service is a disabled or a static unit, not starting it.
+S'està configurant liblzo2-2:amd64 (2.10-2)…
+S'està configurant libpkcs11-helper1:amd64 (1.29.0-1)…
+S'està configurant opensc-pkcs11:amd64 (0.23.0-0.3+deb12u1)…
+S'està configurant easy-rsa (3.1.0-1)…
+S'està configurant openvpn (2.6.3-1+deb12u2)…
+Created symlink /etc/systemd/system/multi-user.target.wants/openvpn.service → /lib/systemd/system/openvpn.service.
+S'està configurant opensc (0.23.0-0.3+deb12u1)…
+S'estan processant els activadors per a man-db (2.11.2-2)…
+S'estan processant els activadors per a libc-bin (2.36-9+deb12u4)…
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:12:08
+Prompt: root@seax1
+Comando ejecutado: ip addr show enp0s8
+====================
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:11:22:33 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.2.100/24 brd 192.168.2.255 scope global enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe11:2233/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:23:25
+Prompt: root@seax1
+Comando ejecutado: openssl dhparam -out /etc/openvpn/server/dh.pem 2048
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:25:03
+Prompt: root@seax1
+Comando ejecutado: apt install easy-rsa
+====================
+S'està llegint la llista de paquets…
+S'està construint l'arbre de dependències…
+S'està llegint la informació de l'estat…
+easy-rsa ja està en la versió més recent (3.1.0-1).
+S'ha marcat easy-rsa com instal·lat manualment.
+0 actualitzats, 0 nous a instal·lar, 0 a suprimir i 0 no actualitzats.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:29:18
+Prompt: root@seax1
+Comando ejecutado: . ./vars
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:33:09
+Prompt: root@seax1
+Comando ejecutado: /usr/share/easy-rsa/ ./easyrsa init-pki
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:33:21
+Prompt: root@seax1
+Comando ejecutado: /usr/share/easy-rsa/easyrsa init-pki
+====================
+* Notice:
+
+  init-pki complete; you may now create a CA or requests.
+
+  Your newly created PKI dir is:
+  * /scripts/pki
+
+* Notice:
+  IMPORTANT: Easy-RSA 'vars' file has now been moved to your PKI above.
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:33:35
+Prompt: root@seax1
+Comando ejecutado: /usr/share/easy-rsa/easyrsa build-ca nopass
+====================
+* Notice:
+Using Easy-RSA configuration from: /scripts/pki/vars
+
+* Notice:
+Using SSL: openssl OpenSSL 3.0.11 19 Sep 2023 (Library: OpenSSL 3.0.11 19 Sep 2023)
+
+
+* Notice:
+
+CA creation complete and you may now import and sign cert requests.
+Your new CA certificate file for publishing is at:
+/scripts/pki/ca.crt
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:34:01
+Prompt: root@seax1
+Comando ejecutado: /usr/share/easy-rsa/easyrsa build-server-full server nopass
+====================
+* Notice:
+Using Easy-RSA configuration from: /scripts/pki/vars
+
+* Notice:
+Using SSL: openssl OpenSSL 3.0.11 19 Sep 2023 (Library: OpenSSL 3.0.11 19 Sep 2023)
+
+* Notice:
+
+Keypair and certificate request completed. Your files are:
+req: /scripts/pki/reqs/server.req
+key: /scripts/pki/private/server.key
+
+
+You are about to sign the following certificate.
+Please check over the details shown below for accuracy. Note that this request
+has not been cryptographically verified. Please be sure it came from a trusted
+source or that you have verified the request checksum with the sender.
+
+Request subject, to be signed as a server certificate for 825 days:
+
+subject=
+    commonName                = server
+
+
+Type the word 'yes' to continue, or any other input to abort.
+  Confirm request details: 
+
+* Notice:
+Certificate created at: /scripts/pki/issued/server.crt
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:34:17
+Prompt: root@seax1
+Comando ejecutado: /usr/share/easy-rsa/easyrsa gen-dh
+====================
+* Notice:
+Using Easy-RSA configuration from: /scripts/pki/vars
+
+* Notice:
+Using SSL: openssl OpenSSL 3.0.11 19 Sep 2023 (Library: OpenSSL 3.0.11 19 Sep 2023)
+
+
+* Notice:
+
+DH parameters of size 2048 created at /scripts/pki/dh.pem
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:35:17
+Prompt: root@seax1
+Comando ejecutado: cp pki/ca.crt /etc/openvpn/server/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:35:33
+Prompt: root@seax1
+Comando ejecutado: cp pki/issued/server.crt /etc/openvpn/server/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:35:50
+Prompt: root@seax1
+Comando ejecutado: cp pki/private/server.key /etc/openvpn/server/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:36:04
+Prompt: root@seax1
+Comando ejecutado: cp pki/dh.pem /etc/openvpn/server/
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:37:04
+Prompt: root@seax1
+Comando ejecutado: systemctl restart openvpn@server
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:37:24
+Prompt: root@seax1
+Comando ejecutado: systemctl restart openvn
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:37:27
+Prompt: root@seax1
+Comando ejecutado: systemctl restart openvpn
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:37:49
+Prompt: root@seax1
+Comando ejecutado: journalctl -u openvpn@server
+====================
+d’abr. 22 01:37:04 seax1 systemd[1]: Starting openvpn@server.service - OpenVPN connection to server...
+d’abr. 22 01:37:04 seax1 ovpn-server[1721]: Options error: In [CMD-LINE]:1: Error opening configuration file: /etc/openvpn/server.conf
+d’abr. 22 01:37:04 seax1 ovpn-server[1721]: Use --help for more information.
+d’abr. 22 01:37:04 seax1 systemd[1]: openvpn@server.service: Main process exited, code=exited, status=1/FAILURE
+d’abr. 22 01:37:04 seax1 systemd[1]: openvpn@server.service: Failed with result 'exit-code'.
+d’abr. 22 01:37:04 seax1 systemd[1]: Failed to start openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:09 seax1 systemd[1]: openvpn@server.service: Scheduled restart job, restart counter is at 1.
+d’abr. 22 01:37:09 seax1 systemd[1]: Stopped openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:09 seax1 systemd[1]: Starting openvpn@server.service - OpenVPN connection to server...
+d’abr. 22 01:37:09 seax1 ovpn-server[1726]: Options error: In [CMD-LINE]:1: Error opening configuration file: /etc/openvpn/server.conf
+d’abr. 22 01:37:09 seax1 ovpn-server[1726]: Use --help for more information.
+d’abr. 22 01:37:09 seax1 systemd[1]: openvpn@server.service: Main process exited, code=exited, status=1/FAILURE
+d’abr. 22 01:37:09 seax1 systemd[1]: openvpn@server.service: Failed with result 'exit-code'.
+d’abr. 22 01:37:09 seax1 systemd[1]: Failed to start openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:14 seax1 systemd[1]: openvpn@server.service: Scheduled restart job, restart counter is at 2.
+d’abr. 22 01:37:14 seax1 systemd[1]: Stopped openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:14 seax1 systemd[1]: Starting openvpn@server.service - OpenVPN connection to server...
+d’abr. 22 01:37:14 seax1 ovpn-server[1729]: Options error: In [CMD-LINE]:1: Error opening configuration file: /etc/openvpn/server.conf
+d’abr. 22 01:37:14 seax1 ovpn-server[1729]: Use --help for more information.
+d’abr. 22 01:37:14 seax1 systemd[1]: openvpn@server.service: Main process exited, code=exited, status=1/FAILURE
+d’abr. 22 01:37:14 seax1 systemd[1]: openvpn@server.service: Failed with result 'exit-code'.
+d’abr. 22 01:37:14 seax1 systemd[1]: Failed to start openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:19 seax1 systemd[1]: openvpn@server.service: Scheduled restart job, restart counter is at 3.
+d’abr. 22 01:37:19 seax1 systemd[1]: Stopped openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:19 seax1 systemd[1]: Starting openvpn@server.service - OpenVPN connection to server...
+d’abr. 22 01:37:19 seax1 ovpn-server[1732]: Options error: In [CMD-LINE]:1: Error opening configuration file: /etc/openvpn/server.conf
+d’abr. 22 01:37:19 seax1 ovpn-server[1732]: Use --help for more information.
+d’abr. 22 01:37:19 seax1 systemd[1]: openvpn@server.service: Main process exited, code=exited, status=1/FAILURE
+d’abr. 22 01:37:19 seax1 systemd[1]: openvpn@server.service: Failed with result 'exit-code'.
+d’abr. 22 01:37:19 seax1 systemd[1]: Failed to start openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:24 seax1 systemd[1]: openvpn@server.service: Scheduled restart job, restart counter is at 4.
+d’abr. 22 01:37:24 seax1 systemd[1]: Stopped openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:24 seax1 systemd[1]: Starting openvpn@server.service - OpenVPN connection to server...
+d’abr. 22 01:37:24 seax1 ovpn-server[1747]: Options error: In [CMD-LINE]:1: Error opening configuration file: /etc/openvpn/server.conf
+d’abr. 22 01:37:24 seax1 ovpn-server[1747]: Use --help for more information.
+d’abr. 22 01:37:24 seax1 systemd[1]: openvpn@server.service: Main process exited, code=exited, status=1/FAILURE
+d’abr. 22 01:37:24 seax1 systemd[1]: openvpn@server.service: Failed with result 'exit-code'.
+d’abr. 22 01:37:24 seax1 systemd[1]: Failed to start openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:27 seax1 systemd[1]: Stopped openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:27 seax1 systemd[1]: Starting openvpn@server.service - OpenVPN connection to server...
+d’abr. 22 01:37:27 seax1 ovpn-server[1761]: Options error: In [CMD-LINE]:1: Error opening configuration file: /etc/openvpn/server.conf
+d’abr. 22 01:37:27 seax1 ovpn-server[1761]: Use --help for more information.
+d’abr. 22 01:37:27 seax1 systemd[1]: openvpn@server.service: Main process exited, code=exited, status=1/FAILURE
+d’abr. 22 01:37:27 seax1 systemd[1]: openvpn@server.service: Failed with result 'exit-code'.
+d’abr. 22 01:37:27 seax1 systemd[1]: Failed to start openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:32 seax1 systemd[1]: openvpn@server.service: Scheduled restart job, restart counter is at 5.
+d’abr. 22 01:37:32 seax1 systemd[1]: Stopped openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:32 seax1 systemd[1]: Starting openvpn@server.service - OpenVPN connection to server...
+d’abr. 22 01:37:32 seax1 ovpn-server[1767]: Options error: In [CMD-LINE]:1: Error opening configuration file: /etc/openvpn/server.conf
+d’abr. 22 01:37:32 seax1 ovpn-server[1767]: Use --help for more information.
+d’abr. 22 01:37:32 seax1 systemd[1]: openvpn@server.service: Main process exited, code=exited, status=1/FAILURE
+d’abr. 22 01:37:32 seax1 systemd[1]: openvpn@server.service: Failed with result 'exit-code'.
+d’abr. 22 01:37:32 seax1 systemd[1]: Failed to start openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:38 seax1 systemd[1]: openvpn@server.service: Scheduled restart job, restart counter is at 6.
+d’abr. 22 01:37:38 seax1 systemd[1]: Stopped openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:38 seax1 systemd[1]: Starting openvpn@server.service - OpenVPN connection to server...
+d’abr. 22 01:37:38 seax1 ovpn-server[1770]: Options error: In [CMD-LINE]:1: Error opening configuration file: /etc/openvpn/server.conf
+d’abr. 22 01:37:38 seax1 ovpn-server[1770]: Use --help for more information.
+d’abr. 22 01:37:38 seax1 systemd[1]: openvpn@server.service: Main process exited, code=exited, status=1/FAILURE
+d’abr. 22 01:37:38 seax1 systemd[1]: openvpn@server.service: Failed with result 'exit-code'.
+d’abr. 22 01:37:38 seax1 systemd[1]: Failed to start openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:43 seax1 systemd[1]: openvpn@server.service: Scheduled restart job, restart counter is at 7.
+d’abr. 22 01:37:43 seax1 systemd[1]: Stopped openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:43 seax1 systemd[1]: Starting openvpn@server.service - OpenVPN connection to server...
+d’abr. 22 01:37:43 seax1 ovpn-server[1773]: Options error: In [CMD-LINE]:1: Error opening configuration file: /etc/openvpn/server.conf
+d’abr. 22 01:37:43 seax1 ovpn-server[1773]: Use --help for more information.
+d’abr. 22 01:37:43 seax1 systemd[1]: openvpn@server.service: Main process exited, code=exited, status=1/FAILURE
+d’abr. 22 01:37:43 seax1 systemd[1]: openvpn@server.service: Failed with result 'exit-code'.
+d’abr. 22 01:37:43 seax1 systemd[1]: Failed to start openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:48 seax1 systemd[1]: openvpn@server.service: Scheduled restart job, restart counter is at 8.
+d’abr. 22 01:37:48 seax1 systemd[1]: Stopped openvpn@server.service - OpenVPN connection to server.
+d’abr. 22 01:37:48 seax1 systemd[1]: Starting openvpn@server.service - OpenVPN connection to server...
+d’abr. 22 01:37:48 seax1 ovpn-server[1776]: Options error: In [CMD-LINE]:1: Error opening configuration file: /etc/openvpn/server.conf
+d’abr. 22 01:37:48 seax1 ovpn-server[1776]: Use --help for more information.
+d’abr. 22 01:37:48 seax1 systemd[1]: openvpn@server.service: Main process exited, code=exited, status=1/FAILURE
+d’abr. 22 01:37:48 seax1 systemd[1]: openvpn@server.service: Failed with result 'exit-code'.
+d’abr. 22 01:37:48 seax1 systemd[1]: Failed to start openvpn@server.service - OpenVPN connection to server.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:38:28
+Prompt: root@seax1
+Comando ejecutado: openvpn --config /etc/openvpn/server/server.
+====================
+Options error: In [CMD-LINE]:1: Error opening configuration file: /etc/openvpn/server/server.
+Use --help for more information.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 01:38:32
+Prompt: root@seax1
+Comando ejecutado: openvpn --config /etc/openvpn/server/server.conf
+====================
+2024-04-22 01:38:32 WARNING: --topology net30 support for server configs with IPv4 pools will be removed in a future release. Please migrate to --topology subnet as soon as possible.
+2024-04-22 01:38:32 DEPRECATED OPTION: --cipher set to 'AES-256-CBC' but missing in --data-ciphers (AES-256-GCM:AES-128-GCM:CHACHA20-POLY1305). OpenVPN ignores --cipher for cipher negotiations. 
+2024-04-22 01:38:32 Note: NOT using '--topology subnet' disables data channel offload.
+Options error: --dh fails with 'dh.pem': No such file or directory (errno=2)
+Options error: --ca fails with 'ca.crt': No such file or directory (errno=2)
+Options error: --cert fails with 'server.crt': No such file or directory (errno=2)
+2024-04-22 01:38:32 WARNING: cannot stat file 'server.key': No such file or directory (errno=2)
+Options error: --key fails with 'server.key': No such file or directory (errno=2)
+Options error: Please correct these errors.
+Use --help for more information.
+
+Fin de la ejecución
+====================

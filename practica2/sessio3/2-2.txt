@@ -1,0 +1,26 @@
+
+====================
+Fecha y hora: 2024-04-22 21:01:53
+Prompt: root@seax1
+Comando ejecutado: tcpdump -i enp0s10 -w ips.pcap
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-04-22 21:06:07
+Prompt: root@seax1
+Comando ejecutado: tcpdump -r ipsping.pcap
+====================
+21:01:55.287172 IP 192.168.1.49 > 192.168.1.229: ICMP echo request, id 347, seq 1, length 64
+21:01:56.285184 IP 192.168.1.49 > 192.168.1.229: ICMP echo request, id 348, seq 1, length 64
+21:01:57.289489 IP 192.168.1.49 > 192.168.1.229: ICMP echo request, id 349, seq 1, length 64
+21:01:57.610893 IP 192.168.1.49.mdns > mdns.mcast.net.mdns: 304 PTR (QM)? _spotify-social-listening._tcp.local. (54)
+21:01:58.287464 IP 192.168.1.49 > 192.168.1.229: ICMP echo request, id 350, seq 1, length 64
+21:01:59.296545 IP 192.168.1.49 > 192.168.1.229: ICMP echo request, id 351, seq 1, length 64
+21:02:00.293565 IP 192.168.1.49 > 192.168.1.229: ICMP echo request, id 352, seq 1, length 64
+21:02:01.295515 IP 192.168.1.49 > 192.168.1.229: ICMP echo request, id 353, seq 1, length 64
+
+Fin de la ejecución
+====================
