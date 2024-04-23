@@ -5,7 +5,6 @@ Dedicada al **Accés als recursos de xarxa**
 En aquest repositori, trobareu tots els fitxers necessaris utilitzats i creats per a la pràctica 2 de SEAX.
 Aquesta pràctica forma part del curs de SEAX (Sistemes d'Administració i Arquitectura de Xarxes).
 
-
 ## Fitxers
 A continuació, es detallen els fitxers importants presents en aquest repositori:
 - Carpeta general: On trobaràs tots els fitxers, proves i evidències creades per la sessió.
@@ -24,10 +23,8 @@ A continuació, es detallen els fitxers importants presents en aquest repositori
 
 ### Sessió 3:  Accés al servidor mitjançant un servei de xarxa privada virtual (VPN).
 - Carpeta general: [carpeta sessió 3](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica2/sessio3)
-- Informe final: [p1_s3_Resultats](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio3/p1_s3_Resultats.txt)
+- Informe final: [p2_s3_Resultats](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica2/sessio3/p2_s3_Resultats.txt)
 - Evidències: En la carpeta de la sessió del fitxer *1-x.txt* al *3-x.txt*
-
-
 
 ## Autors
 
