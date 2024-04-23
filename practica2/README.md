@@ -1,8 +1,10 @@
 
 # Pràctica 2 de SEAX
+Dedicada al **Accés als recursos de xarxa**
+
 En aquest repositori, trobareu tots els fitxers necessaris utilitzats i creats per a la pràctica 2 de SEAX.
 Aquesta pràctica forma part del curs de SEAX (Sistemes d'Administració i Arquitectura de Xarxes).
-Dedicada al **Accés als recursoos de xarxa**
+
 
 ## Fitxers
 A continuació, es detallen els fitxers importants presents en aquest repositori:
@@ -10,20 +12,20 @@ A continuació, es detallen els fitxers importants presents en aquest repositori
 - Informe final: El document final de la pràctica,respon les preguntes proposades, resumeix els resultats i les conclusions.
 - Evidències: Fitxers en format .txt que contenen les evidències per al informe final.
 
-### Sessió 1: Accés al servidor mitjançant SSH i SFTP
+### Sessió 1: Accés al servidor mitjançant SSH i SFTP.
 - Carpeta general: [carpeta sessió 1](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica2/sessio1 )
 - Informe final: [p2_s1_Resultats](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica2/sessio1/p2_s1_Resultats.txt)
-- Evidències: En la carpeta de la sessió del fitxer 1_x al 3_x
+- Evidències: En la carpeta de la sessió del fitxer *1-x.txt* al *3-x.txt*
 
-### Sessió 2: Configuració de les interfícies de xarxa Ethernet.
+### Sessió 2: Accés al servidor mitjançant SAMBA i backups.
 - Carpeta general: [carpeta sessió 2](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica2/sessio2)
-- Informe final: [p1_s2_Resultats](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio2/p1_s2_Resultats.txt)
-- Evidències: En la carpeta de la sessió del fitxer 1_x al 6_x
+- Informe final: [p2_s2_Resultats](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica2/sessio2/p2_s2_Resultats.txt)
+- Evidències: En la carpeta de la sessió del fitxer *1-x.txt* al *2-x.txt*
 
-### Sessió 3: Configuració de les interfícies de xarxa Wi-Fi 
+### Sessió 3:  Accés al servidor mitjançant un servei de xarxa privada virtual (VPN).
 - Carpeta general: [carpeta sessió 3](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica2/sessio3)
 - Informe final: [p1_s3_Resultats](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio3/p1_s3_Resultats.txt)
-- Evidències: En la carpeta de la sessió del fitxer 1_x al 4_x
+- Evidències: En la carpeta de la sessió del fitxer *1-x.txt* al *3-x.txt*
 
 
 
