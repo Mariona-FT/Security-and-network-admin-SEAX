@@ -1,0 +1,113 @@
+
+====================
+Fecha y hora: 2024-05-05 02:46:46
+Prompt: root@routerintern
+Comando ejecutado: ping -c 2 google.com
+====================
+
+====================
+Fecha y hora: 2024-05-03 13:53:18
+Prompt: root@routerintern
+Comando ejecutado: cat /etc/network/interfaces
+====================
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# eth-dmz
+allow-hotplug eth-dmz
+iface eth-dmz inet static
+	address 10.1.10.2
+	netmask 255.255.255.240		
+	gateway 10.1.10.1
+
+# eth-clients
+allow-hotplug eth-clients
+iface eth-clients inet static
+	address 10.1.20.1
+	netmask 255.255.255.0
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-03 13:53:20
+Prompt: root@routerintern
+Comando ejecutado: ip route show
+====================
+default via 10.1.10.1 dev eth-dmz onlink 
+10.1.10.0/28 dev eth-dmz proto kernel scope link src 10.1.10.2 
+10.1.20.0/24 dev eth-clients proto kernel scope link src 10.1.20.1 
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 11:54:37
+Prompt: root@routerintern
+Comando ejecutado: cat /etc/resolv.conf
+====================
+nameserver 10.1.10.1
+nameserver 192.168.1.1
+nameserver 212.166.132.192
+nameserver 212.166.132.96
+
+Fin de la ejecución
+====================
+
+VERIFICACIONS:
+
+====================
+Fecha y hora: 2024-05-05 11:54:49
+Prompt: root@routerintern
+Comando ejecutado: ping -c 2 google.com
+====================
+PING google.com (142.250.201.78) 56(84) bytes of data.
+64 bytes from mad07s25-in-f14.1e100.net (142.250.201.78): icmp_seq=1 ttl=114 time=13.3 ms
+64 bytes from mad07s25-in-f14.1e100.net (142.250.201.78): icmp_seq=2 ttl=114 time=14.5 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 13.298/13.885/14.472/0.587 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 11:54:56
+Prompt: root@routerintern
+Comando ejecutado: ping -c 2 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+64 bytes from 10.1.10.1: icmp_seq=1 ttl=64 time=1.16 ms
+64 bytes from 10.1.10.1: icmp_seq=2 ttl=64 time=1.64 ms
+
+--- 10.1.10.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1003ms
+rtt min/avg/max/mdev = 1.160/1.402/1.644/0.242 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 11:55:19
+Prompt: root@routerintern
+Comando ejecutado: ping -c 2 192.168.1.26
+====================
+PING 192.168.1.26 (192.168.1.26) 56(84) bytes of data.
+64 bytes from 192.168.1.26: icmp_seq=1 ttl=64 time=0.775 ms
+64 bytes from 192.168.1.26: icmp_seq=2 ttl=64 time=2.32 ms
+
+--- 192.168.1.26 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 0.775/1.547/2.319/0.772 ms
+
+Fin de la ejecución
+====================
+
+

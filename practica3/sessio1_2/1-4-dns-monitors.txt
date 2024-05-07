@@ -1,0 +1,292 @@
+
+DIG GOOGLE: 
+
+====================
+Fecha y hora: 2024-05-06 21:34:19
+Prompt: root@monitoradmin
+Comando ejecutado: apt install dnsutils
+====================
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Leyendo lista de paquetes...
+Creando árbol de dependencias...
+Leyendo la información de estado...
+Se instalarán los siguientes paquetes adicionales:
+  bind9-dnsutils bind9-host bind9-libs libfstrm0 libicu72 libjemalloc2
+  liblmdb0 libmaxminddb0 libnghttp2-14 libprotobuf-c1 libuv1 libxml2
+Paquetes sugeridos:
+  mmdb-bin
+Se instalarán los siguientes paquetes NUEVOS:
+  bind9-dnsutils bind9-host bind9-libs dnsutils libfstrm0 libicu72
+  libjemalloc2 liblmdb0 libmaxminddb0 libnghttp2-14 libprotobuf-c1 libuv1
+  libxml2
+0 actualizados, 13 nuevos se instalarán, 0 para eliminar y 18 no actualizados.
+Se necesita descargar 13,1 MB de archivos.
+Se utilizarán 45,9 MB de espacio de disco adicional después de esta operación.
+¿Desea continuar? [S/n] Des:1 http://deb.debian.org/debian bookworm/main amd64 libfstrm0 amd64 0.6.1-1 [21,6 kB]
+Des:2 http://security.debian.org/debian-security bookworm-security/main amd64 libuv1 amd64 1.44.2-1+deb12u1 [136 kB]
+Des:3 http://deb.debian.org/debian bookworm/main amd64 libjemalloc2 amd64 5.3.0-1 [275 kB]
+Des:4 http://security.debian.org/debian-security bookworm-security/main amd64 bind9-libs amd64 1:9.18.24-1 [1.413 kB]
+Des:5 http://deb.debian.org/debian bookworm/main amd64 liblmdb0 amd64 0.9.24-1 [45,0 kB]
+Des:6 http://deb.debian.org/debian bookworm/main amd64 libmaxminddb0 amd64 1.7.1-1 [29,8 kB]
+Des:7 http://deb.debian.org/debian bookworm/main amd64 libnghttp2-14 amd64 1.52.0-1+deb12u1 [72,4 kB]
+Des:8 http://deb.debian.org/debian bookworm/main amd64 libprotobuf-c1 amd64 1.4.1-1+b1 [27,5 kB]
+Des:9 http://deb.debian.org/debian bookworm/main amd64 libicu72 amd64 72.1-3 [9.376 kB]
+Des:10 http://security.debian.org/debian-security bookworm-security/main amd64 bind9-host amd64 1:9.18.24-1 [305 kB]
+Des:11 http://security.debian.org/debian-security bookworm-security/main amd64 bind9-dnsutils amd64 1:9.18.24-1 [403 kB]
+Des:12 http://security.debian.org/debian-security bookworm-security/main amd64 dnsutils all 1:9.18.24-1 [261 kB]
+Des:13 http://deb.debian.org/debian bookworm/main amd64 libxml2 amd64 2.9.14+dfsg-1.3~deb12u1 [687 kB]
+Descargados 13,1 MB en 0s (28,6 MB/s)
+Seleccionando el paquete libuv1:amd64 previamente no seleccionado.
+(Leyendo la base de datos ... 
+(Leyendo la base de datos ... 5%
+(Leyendo la base de datos ... 10%
+(Leyendo la base de datos ... 15%
+(Leyendo la base de datos ... 20%
+(Leyendo la base de datos ... 25%
+(Leyendo la base de datos ... 30%
+(Leyendo la base de datos ... 35%
+(Leyendo la base de datos ... 40%
+(Leyendo la base de datos ... 45%
+(Leyendo la base de datos ... 50%
+(Leyendo la base de datos ... 55%
+(Leyendo la base de datos ... 60%
+(Leyendo la base de datos ... 65%
+(Leyendo la base de datos ... 70%
+(Leyendo la base de datos ... 75%
+(Leyendo la base de datos ... 80%
+(Leyendo la base de datos ... 85%
+(Leyendo la base de datos ... 90%
+(Leyendo la base de datos ... 95%
+(Leyendo la base de datos ... 100%
+(Leyendo la base de datos ... 18582 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../00-libuv1_1.44.2-1+deb12u1_amd64.deb ...
+Desempaquetando libuv1:amd64 (1.44.2-1+deb12u1) ...
+Seleccionando el paquete libfstrm0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../01-libfstrm0_0.6.1-1_amd64.deb ...
+Desempaquetando libfstrm0:amd64 (0.6.1-1) ...
+Seleccionando el paquete libjemalloc2:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../02-libjemalloc2_5.3.0-1_amd64.deb ...
+Desempaquetando libjemalloc2:amd64 (5.3.0-1) ...
+Seleccionando el paquete liblmdb0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../03-liblmdb0_0.9.24-1_amd64.deb ...
+Desempaquetando liblmdb0:amd64 (0.9.24-1) ...
+Seleccionando el paquete libmaxminddb0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../04-libmaxminddb0_1.7.1-1_amd64.deb ...
+Desempaquetando libmaxminddb0:amd64 (1.7.1-1) ...
+Seleccionando el paquete libnghttp2-14:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../05-libnghttp2-14_1.52.0-1+deb12u1_amd64.deb ...
+Desempaquetando libnghttp2-14:amd64 (1.52.0-1+deb12u1) ...
+Seleccionando el paquete libprotobuf-c1:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../06-libprotobuf-c1_1.4.1-1+b1_amd64.deb ...
+Desempaquetando libprotobuf-c1:amd64 (1.4.1-1+b1) ...
+Seleccionando el paquete libicu72:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../07-libicu72_72.1-3_amd64.deb ...
+Desempaquetando libicu72:amd64 (72.1-3) ...
+Seleccionando el paquete libxml2:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../08-libxml2_2.9.14+dfsg-1.3~deb12u1_amd64.deb ...
+Desempaquetando libxml2:amd64 (2.9.14+dfsg-1.3~deb12u1) ...
+Seleccionando el paquete bind9-libs:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../09-bind9-libs_1%3a9.18.24-1_amd64.deb ...
+Desempaquetando bind9-libs:amd64 (1:9.18.24-1) ...
+Seleccionando el paquete bind9-host previamente no seleccionado.
+Preparando para desempaquetar .../10-bind9-host_1%3a9.18.24-1_amd64.deb ...
+Desempaquetando bind9-host (1:9.18.24-1) ...
+Seleccionando el paquete bind9-dnsutils previamente no seleccionado.
+Preparando para desempaquetar .../11-bind9-dnsutils_1%3a9.18.24-1_amd64.deb ...
+Desempaquetando bind9-dnsutils (1:9.18.24-1) ...
+Seleccionando el paquete dnsutils previamente no seleccionado.
+Preparando para desempaquetar .../12-dnsutils_1%3a9.18.24-1_all.deb ...
+Desempaquetando dnsutils (1:9.18.24-1) ...
+Configurando liblmdb0:amd64 (0.9.24-1) ...
+Configurando libicu72:amd64 (72.1-3) ...
+Configurando libmaxminddb0:amd64 (1.7.1-1) ...
+Configurando libfstrm0:amd64 (0.6.1-1) ...
+Configurando libnghttp2-14:amd64 (1.52.0-1+deb12u1) ...
+Configurando libjemalloc2:amd64 (5.3.0-1) ...
+Configurando libprotobuf-c1:amd64 (1.4.1-1+b1) ...
+Configurando libuv1:amd64 (1.44.2-1+deb12u1) ...
+Configurando libxml2:amd64 (2.9.14+dfsg-1.3~deb12u1) ...
+Configurando bind9-libs:amd64 (1:9.18.24-1) ...
+Configurando bind9-host (1:9.18.24-1) ...
+Configurando bind9-dnsutils (1:9.18.24-1) ...
+Configurando dnsutils (1:9.18.24-1) ...
+Procesando disparadores para libc-bin (2.36-9+deb12u4) ...
+
+Fin de la ejecución
+====================
+
+	XARXA TRONCAL: 
+
+====================
+Fecha y hora: 2024-05-06 21:35:05
+Prompt: root@monitoradmin
+Comando ejecutado: dig google.com
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> google.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 22134
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		249	IN	A	142.250.201.78
+
+;; Query time: 68 msec
+;; SERVER: 192.168.1.1#53(192.168.1.1) (UDP)
+;; WHEN: Mon May 06 21:35:05 CEST 2024
+;; MSG SIZE  rcvd: 55
+
+
+Fin de la ejecución
+====================
+
+
+	XARXA DNS: 
+
+====================
+Fecha y hora: 2024-05-06 21:48:59
+Prompt: root@monitordmz
+Comando ejecutado: dig google.com
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> google.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 20012
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		258	IN	A	142.250.200.78
+
+;; Query time: 24 msec
+;; SERVER: 192.168.1.1#53(192.168.1.1) (UDP)
+;; WHEN: Mon May 06 21:48:59 CEST 2024
+;; MSG SIZE  rcvd: 55
+
+
+Fin de la ejecución
+====================
+
+
+	XARXA CLIENTS: 
+
+====================
+Fecha y hora: 2024-05-06 21:52:14
+Prompt: root@monitorclients
+Comando ejecutado: dig google.com
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> google.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 51015
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		64	IN	A	142.250.200.78
+
+;; Query time: 4 msec
+;; SERVER: 192.168.1.1#53(192.168.1.1) (UDP)
+;; WHEN: Mon May 06 21:52:14 CEST 2024
+;; MSG SIZE  rcvd: 55
+
+
+Fin de la ejecución
+====================
+
+TCP DUMP: 
+
+====================
+Fecha y hora: 2024-05-06 21:39:59
+Prompt: root@routeracces
+Comando ejecutado: apt install tcpdump
+====================
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Leyendo lista de paquetes...
+Creando árbol de dependencias...
+Leyendo la información de estado...
+Se instalarán los siguientes paquetes adicionales:
+  libpcap0.8
+Se instalarán los siguientes paquetes NUEVOS:
+  libpcap0.8 tcpdump
+0 actualizados, 2 nuevos se instalarán, 0 para eliminar y 18 no actualizados.
+Se necesita descargar 624 kB de archivos.
+Se utilizarán 1.741 kB de espacio de disco adicional después de esta operación.
+¿Desea continuar? [S/n] Des:1 http://deb.debian.org/debian bookworm/main amd64 libpcap0.8 amd64 1.10.3-1 [157 kB]
+Des:2 http://deb.debian.org/debian bookworm/main amd64 tcpdump amd64 4.99.3-1 [467 kB]
+Descargados 624 kB en 0s (3.569 kB/s)
+Seleccionando el paquete libpcap0.8:amd64 previamente no seleccionado.
+(Leyendo la base de datos ... 
+(Leyendo la base de datos ... 5%
+(Leyendo la base de datos ... 10%
+(Leyendo la base de datos ... 15%
+(Leyendo la base de datos ... 20%
+(Leyendo la base de datos ... 25%
+(Leyendo la base de datos ... 30%
+(Leyendo la base de datos ... 35%
+(Leyendo la base de datos ... 40%
+(Leyendo la base de datos ... 45%
+(Leyendo la base de datos ... 50%
+(Leyendo la base de datos ... 55%
+(Leyendo la base de datos ... 60%
+(Leyendo la base de datos ... 65%
+(Leyendo la base de datos ... 70%
+(Leyendo la base de datos ... 75%
+(Leyendo la base de datos ... 80%
+(Leyendo la base de datos ... 85%
+(Leyendo la base de datos ... 90%
+(Leyendo la base de datos ... 95%
+(Leyendo la base de datos ... 100%
+(Leyendo la base de datos ... 21606 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../libpcap0.8_1.10.3-1_amd64.deb ...
+Desempaquetando libpcap0.8:amd64 (1.10.3-1) ...
+Seleccionando el paquete tcpdump previamente no seleccionado.
+Preparando para desempaquetar .../tcpdump_4.99.3-1_amd64.deb ...
+Desempaquetando tcpdump (4.99.3-1) ...
+Configurando libpcap0.8:amd64 (1.10.3-1) ...
+Configurando tcpdump (4.99.3-1) ...
+Procesando disparadores para libc-bin (2.36-9+deb12u4) ...
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-05-06 21:42:19
+Prompt: root@routeracces
+Comando ejecutado: tcpdump -i eth-dmz port 53 -w sortidadns1.pcap
+====================
+tcpdump: listening on eth-dmz, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-06 21:43:44
+Prompt: root@routeracces
+Comando ejecutado: tcpdump -r sortidadns1.pcap -A > 1-4-dns-wiresharkpaquets.txt
+====================
+reading from file sortidadns1.pcap, link-type EN10MB (Ethernet), snapshot length 262144
+Fin de la ejecución
+====================
+
+

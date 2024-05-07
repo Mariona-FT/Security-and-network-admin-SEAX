@@ -1,0 +1,230 @@
+MONITOR TRONCAL: 
+
+====================
+Fecha y hora: 2024-05-07 20:28:24
+Prompt: root@monitoradmin
+Comando ejecutado: dig google.com
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> google.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 3202
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		184	IN	A	142.250.184.14
+
+;; Query time: 20 msec
+;; SERVER: 192.168.1.1#53(192.168.1.1) (UDP)
+;; WHEN: Tue May 07 20:28:24 CEST 2024
+;; MSG SIZE  rcvd: 55
+
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-05-07 20:36:35
+Prompt: root@monitoradmin
+Comando ejecutado: dig 8.8.8.8
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> 8.8.8.8
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 50230
+;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 512
+;; QUESTION SECTION:
+;8.8.8.8.			IN	A
+
+;; AUTHORITY SECTION:
+.			130	IN	SOA	a.root-servers.net. nstld.verisign-grs.com. 2024050700 1800 900 604800 86400
+
+;; Query time: 20 msec
+;; SERVER: 192.168.1.1#53(192.168.1.1) (UDP)
+;; WHEN: Tue May 07 20:36:35 CEST 2024
+;; MSG SIZE  rcvd: 111
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 20:37:06
+Prompt: root@monitoradmin
+Comando ejecutado: dig +trace 8.8.8.8
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> +trace 8.8.8.8
+;; global options: +cmd
+.			494045	IN	NS	g.root-servers.net.
+.			494045	IN	NS	h.root-servers.net.
+.			494045	IN	NS	i.root-servers.net.
+.			494045	IN	NS	j.root-servers.net.
+.			494045	IN	NS	k.root-servers.net.
+.			494045	IN	NS	l.root-servers.net.
+.			494045	IN	NS	m.root-servers.net.
+.			494045	IN	NS	a.root-servers.net.
+.			494045	IN	NS	b.root-servers.net.
+.			494045	IN	NS	c.root-servers.net.
+.			494045	IN	NS	d.root-servers.net.
+.			494045	IN	NS	e.root-servers.net.
+.			494045	IN	NS	f.root-servers.net.
+;; Received 811 bytes from 192.168.1.1#53(192.168.1.1) in 24 ms
+
+.			86400	IN	SOA	a.root-servers.net. nstld.verisign-grs.com. 2024050700 1800 900 604800 86400
+.			86400	IN	RRSIG	SOA 8 0 86400 20240520050000 20240507040000 5613 . gTx35ZKGc3ziX1JLocWRWAzkcuu2gMPWX+8wrXmS5DuT3jyatoGtQqqn 0K9TM+nOOERskcyx3+O/jn81eKi3SxrXjq4iwHEQE9BqzfJ7khj+RxDa hSDgbL8IuPC3gtAfIe8z2uApkpulIEYyVqf0Xzom2tucWBlyCJJZMT8D CQk0vwVSttkyAAYqgSfGX+RrVY1OghWx84dRDsZM96zTmRum3Qb9KG2m 0wKHsh1k6aFZH2iMbKIbR/nmgTWHnnHWLA8c6cZKDX1fD5lNkBHIASiC n/Kj6pDyadS6RZGzXLFhhvQFklU1a0yyOkyAQ1+yCx7rDGrri692SrvQ bPgcGw==
+.			86400	IN	NSEC	aaa. NS SOA RRSIG NSEC DNSKEY ZONEMD
+.			86400	IN	RRSIG	NSEC 8 0 86400 20240520050000 20240507040000 5613 . Umu/Wm+jU01ozjx1slq0Pjv3Bix+b4uwyJwcMQqlgFJLEtxVa0tMp3ky yBZxZyHoTlTQuUAjOwyGEcMaWNFM5Dm9kB15+6o8BT5g2D6mrK9KcxGc LlwxVkESwPyP+o6NBdPAJiUb2gi4AFvpUG/dY/4mv5+T1pyuTKcSjxue WH+KTVGOG7cidVcZKq1rrklJZWx9ySyWthB91KNTGMBb6yjAlf4QcQPY BpcNcmj2avvFy6Z3CKmBeKNOVm8zl+4ZfJnuc1qlI2qJcFCAkcL13DwG PkDigLRNlN52NBGd9K8Q08RjMeT3/FxKttlPnAg/ysIcSGBqfDl0QIsy xLqvUA==
+;; Received 709 bytes from 192.5.5.241#53(f.root-servers.net) in 8 ms
+
+
+Fin de la ejecución
+====================
+
+MONITOR CLIENTS: 
+
+====================
+Fecha y hora: 2024-05-07 20:37:34
+Prompt: root@monitorclients
+Comando ejecutado: dig google.com
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> google.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 51345
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		195	IN	A	142.250.185.14
+
+;; Query time: 4 msec
+;; SERVER: 192.168.1.1#53(192.168.1.1) (UDP)
+;; WHEN: Tue May 07 20:37:34 CEST 2024
+;; MSG SIZE  rcvd: 55
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 20:37:41
+Prompt: root@monitorclients
+Comando ejecutado: dig +trace 8.8.8.8
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> +trace 8.8.8.8
+;; global options: +cmd
+.			492487	IN	NS	m.root-servers.net.
+.			492487	IN	NS	b.root-servers.net.
+.			492487	IN	NS	a.root-servers.net.
+.			492487	IN	NS	h.root-servers.net.
+.			492487	IN	NS	f.root-servers.net.
+.			492487	IN	NS	e.root-servers.net.
+.			492487	IN	NS	j.root-servers.net.
+.			492487	IN	NS	g.root-servers.net.
+.			492487	IN	NS	c.root-servers.net.
+.			492487	IN	NS	k.root-servers.net.
+.			492487	IN	NS	d.root-servers.net.
+.			492487	IN	NS	i.root-servers.net.
+.			492487	IN	NS	l.root-servers.net.
+;; Received 811 bytes from 192.168.1.1#53(192.168.1.1) in 24 ms
+
+.			86400	IN	SOA	a.root-servers.net. nstld.verisign-grs.com. 2024050700 1800 900 604800 86400
+.			86400	IN	RRSIG	SOA 8 0 86400 20240520050000 20240507040000 5613 . gTx35ZKGc3ziX1JLocWRWAzkcuu2gMPWX+8wrXmS5DuT3jyatoGtQqqn 0K9TM+nOOERskcyx3+O/jn81eKi3SxrXjq4iwHEQE9BqzfJ7khj+RxDa hSDgbL8IuPC3gtAfIe8z2uApkpulIEYyVqf0Xzom2tucWBlyCJJZMT8D CQk0vwVSttkyAAYqgSfGX+RrVY1OghWx84dRDsZM96zTmRum3Qb9KG2m 0wKHsh1k6aFZH2iMbKIbR/nmgTWHnnHWLA8c6cZKDX1fD5lNkBHIASiC n/Kj6pDyadS6RZGzXLFhhvQFklU1a0yyOkyAQ1+yCx7rDGrri692SrvQ bPgcGw==
+.			86400	IN	NSEC	aaa. NS SOA RRSIG NSEC DNSKEY ZONEMD
+.			86400	IN	RRSIG	NSEC 8 0 86400 20240520050000 20240507040000 5613 . Umu/Wm+jU01ozjx1slq0Pjv3Bix+b4uwyJwcMQqlgFJLEtxVa0tMp3ky yBZxZyHoTlTQuUAjOwyGEcMaWNFM5Dm9kB15+6o8BT5g2D6mrK9KcxGc LlwxVkESwPyP+o6NBdPAJiUb2gi4AFvpUG/dY/4mv5+T1pyuTKcSjxue WH+KTVGOG7cidVcZKq1rrklJZWx9ySyWthB91KNTGMBb6yjAlf4QcQPY BpcNcmj2avvFy6Z3CKmBeKNOVm8zl+4ZfJnuc1qlI2qJcFCAkcL13DwG PkDigLRNlN52NBGd9K8Q08RjMeT3/FxKttlPnAg/ysIcSGBqfDl0QIsy xLqvUA==
+;; Received 709 bytes from 198.41.0.4#53(a.root-servers.net) in 36 ms
+
+
+Fin de la ejecución
+====================
+
+MONITOR DMZ: 
+
+====================
+Fecha y hora: 2024-05-07 20:38:06
+Prompt: root@monitordmz
+Comando ejecutado: dig google.com
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> google.com
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 50547
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		162	IN	A	142.250.185.14
+
+;; Query time: 4 msec
+;; SERVER: 192.168.1.1#53(192.168.1.1) (UDP)
+;; WHEN: Tue May 07 20:38:06 CEST 2024
+;; MSG SIZE  rcvd: 55
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 20:38:15
+Prompt: root@monitordmz
+Comando ejecutado: dig +trace 8.8.8.8
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> +trace 8.8.8.8
+;; global options: +cmd
+.			492462	IN	NS	l.root-servers.net.
+.			492462	IN	NS	j.root-servers.net.
+.			492462	IN	NS	f.root-servers.net.
+.			492462	IN	NS	h.root-servers.net.
+.			492462	IN	NS	d.root-servers.net.
+.			492462	IN	NS	b.root-servers.net.
+.			492462	IN	NS	k.root-servers.net.
+.			492462	IN	NS	i.root-servers.net.
+.			492462	IN	NS	m.root-servers.net.
+.			492462	IN	NS	e.root-servers.net.
+.			492462	IN	NS	g.root-servers.net.
+.			492462	IN	NS	c.root-servers.net.
+.			492462	IN	NS	a.root-servers.net.
+;; Received 811 bytes from 192.168.1.1#53(192.168.1.1) in 24 ms
+
+;; UDP setup with 2001:7fe::53#53(2001:7fe::53) for 8.8.8.8 failed: network unreachable.
+;; no servers could be reached
+
+;; UDP setup with 2001:7fe::53#53(2001:7fe::53) for 8.8.8.8 failed: network unreachable.
+;; no servers could be reached
+
+;; UDP setup with 2001:7fe::53#53(2001:7fe::53) for 8.8.8.8 failed: network unreachable.
+;; UDP setup with 2001:503:ba3e::2:30#53(2001:503:ba3e::2:30) for 8.8.8.8 failed: network unreachable.
+;; UDP setup with 2001:500:12::d0d#53(2001:500:12::d0d) for 8.8.8.8 failed: network unreachable.
+.			86400	IN	SOA	a.root-servers.net. nstld.verisign-grs.com. 2024050700 1800 900 604800 86400
+.			86400	IN	NSEC	aaa. NS SOA RRSIG NSEC DNSKEY ZONEMD
+.			86400	IN	RRSIG	SOA 8 0 86400 20240520050000 20240507040000 5613 . gTx35ZKGc3ziX1JLocWRWAzkcuu2gMPWX+8wrXmS5DuT3jyatoGtQqqn 0K9TM+nOOERskcyx3+O/jn81eKi3SxrXjq4iwHEQE9BqzfJ7khj+RxDa hSDgbL8IuPC3gtAfIe8z2uApkpulIEYyVqf0Xzom2tucWBlyCJJZMT8D CQk0vwVSttkyAAYqgSfGX+RrVY1OghWx84dRDsZM96zTmRum3Qb9KG2m 0wKHsh1k6aFZH2iMbKIbR/nmgTWHnnHWLA8c6cZKDX1fD5lNkBHIASiC n/Kj6pDyadS6RZGzXLFhhvQFklU1a0yyOkyAQ1+yCx7rDGrri692SrvQ bPgcGw==
+.			86400	IN	RRSIG	NSEC 8 0 86400 20240520050000 20240507040000 5613 . Umu/Wm+jU01ozjx1slq0Pjv3Bix+b4uwyJwcMQqlgFJLEtxVa0tMp3ky yBZxZyHoTlTQuUAjOwyGEcMaWNFM5Dm9kB15+6o8BT5g2D6mrK9KcxGc LlwxVkESwPyP+o6NBdPAJiUb2gi4AFvpUG/dY/4mv5+T1pyuTKcSjxue WH+KTVGOG7cidVcZKq1rrklJZWx9ySyWthB91KNTGMBb6yjAlf4QcQPY BpcNcmj2avvFy6Z3CKmBeKNOVm8zl+4ZfJnuc1qlI2qJcFCAkcL13DwG PkDigLRNlN52NBGd9K8Q08RjMeT3/FxKttlPnAg/ysIcSGBqfDl0QIsy xLqvUA==
+;; Received 709 bytes from 170.247.170.2#53(b.root-servers.net) in 36 ms
+
+
+Fin de la ejecución
+====================

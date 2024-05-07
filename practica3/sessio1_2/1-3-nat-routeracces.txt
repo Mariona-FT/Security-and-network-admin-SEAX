@@ -1,0 +1,197 @@
+
+====================
+Fecha y hora: 2024-05-03 12:40:01
+Prompt: root@routeracces
+Comando ejecutado: nft add table ip nat
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-03 12:40:51
+Prompt: root@routeracces
+Comando ejecutado: nft add chain ip nat postrouting { type nat hook postrouting priority 100 ;\ }
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-03 12:43:42
+Prompt: root@routeracces
+Comando ejecutado: nft add rule ip nat postrouting oifname "eth-troncal" masquerade
+====================
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-05-03 12:43:50
+Prompt: root@routeracces
+Comando ejecutado: nft list rouleset > /etc/nftables.conf
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-03 12:45:04
+Prompt: root@routeracces
+Comando ejecutado: cat /etc/nftables.conf
+====================
+#!/usr/sbin/nft -f
+
+flush ruleset
+
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy accept;
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy accept;
+	}
+
+	chain output {
+		type filter hook output priority filter; policy accept;
+	}
+}
+table ip nat {
+	chain postrouting {
+		type nat hook postrouting priority srcnat; policy accept;
+		oifname "eth-troncal" masquerade
+	}
+}
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-05-03 12:45:04
+Prompt: root@routeracces
+Comando ejecutado: nft -f /etc/nftables.conf
+====================
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-05-03 12:45:30
+Prompt: root@routeracces
+Comando ejecutado: systemctl enable nftables
+====================
+Created symlink /etc/systemd/system/sysinit.target.wants/nftables.service → /lib/systemd/system/nftables.service.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-03 12:45:37
+Prompt: root@routeracces
+Comando ejecutado: systemctl start nftables
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-03 12:45:43
+Prompt: root@routeracces
+Comando ejecutado: systemctl status nftables
+====================
+● nftables.service - nftables
+     Loaded: loaded (/lib/systemd/system/nftables.service; enabled; preset: enabled)
+     Active: active (exited) since Fri 2024-05-03 12:45:37 CEST; 5s ago
+       Docs: man:nft(8)
+             http://wiki.nftables.org
+    Process: 597 ExecStart=/usr/sbin/nft -f /etc/nftables.conf (code=exited, status=0/SUCCESS)
+   Main PID: 597 (code=exited, status=0/SUCCESS)
+        CPU: 6ms
+
+may 03 12:45:37 routeracces systemd[1]: Starting nftables.service - nftables...
+may 03 12:45:37 routeracces systemd[1]: Finished nftables.service - nftables.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-03 12:45:47
+Prompt: root@routeracces
+Comando ejecutado: nft list ruleset
+====================
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy accept;
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy accept;
+	}
+
+	chain output {
+		type filter hook output priority filter; policy accept;
+	}
+}
+table ip nat {
+	chain postrouting {
+		type nat hook postrouting priority srcnat; policy accept;
+		oifname "eth-troncal" masquerade
+	}
+}
+
+Fin de la ejecución
+====================
+
+VERIFICACIONS:
+
+====================
+Fecha y hora: 2024-05-05 11:49:39
+Prompt: root@routeracces
+Comando ejecutado: ping -c 2 google.com
+====================
+PING google.com (142.250.184.14) 56(84) bytes of data.
+64 bytes from mad41s10-in-f14.1e100.net (142.250.184.14): icmp_seq=1 ttl=115 time=13.1 ms
+64 bytes from mad41s10-in-f14.1e100.net (142.250.184.14): icmp_seq=2 ttl=115 time=12.5 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 12.549/12.847/13.146/0.298 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 11:49:59
+Prompt: root@routeracces
+Comando ejecutado: ping -c 2 10.1.10.2
+====================
+PING 10.1.10.2 (10.1.10.2) 56(84) bytes of data.
+64 bytes from 10.1.10.2: icmp_seq=1 ttl=64 time=0.687 ms
+64 bytes from 10.1.10.2: icmp_seq=2 ttl=64 time=0.492 ms
+
+--- 10.1.10.2 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 0.492/0.589/0.687/0.097 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 00:19:31
+Prompt: root@routeracces
+Comando ejecutado: ping -c 2 10.1.20.1
+====================
+PING 10.1.20.1 (10.1.20.1) 56(84) bytes of data.
+64 bytes from 10.1.20.1: icmp_seq=1 ttl=64 time=0.756 ms
+64 bytes from 10.1.20.1: icmp_seq=2 ttl=64 time=1.62 ms
+
+--- 10.1.20.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 0.756/1.190/1.624/0.434 ms
+
+Fin de la ejecución
+====================

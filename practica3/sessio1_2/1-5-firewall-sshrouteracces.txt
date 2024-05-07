@@ -1,0 +1,116 @@
+	MONITOR DMZ: 
+====================
+Fecha y hora: 2024-05-07 01:58:06
+Prompt: root@monitordmz
+Comando ejecutado: ssh entel@10.1.10.1
+====================
+Linux routeracces 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Mon May  6 01:53:31 2024 from 192.168.1.27
+entel@routeracces:~$ exit
+cerrar sesión
+Connection to 10.1.10.1 closed.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 01:58:27
+Prompt: root@monitordmz
+Comando ejecutado: ssh entel@10.1.10.1
+====================
+Permission denied, please try again.
+Permission denied, please try again.
+entel@10.1.10.1: Permission denied (publickey,password).
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 02:01:00
+Prompt: root@monitordmz
+Comando ejecutado: ssh entel@10.1.20.1
+====================
+Linux routerintern 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Mon May  6 01:39:05 2024 from 10.1.20.11
+entel@routeracces:~$ exit
+Connection to 10.1.20.1 closed.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 02:03:39
+Prompt: root@monitordmz
+Comando ejecutado: ssh root@10.1.10.1
+====================
+Permission denied, please try again.
+Permission denied, please try again.
+root@10.1.10.1: Permission denied (publickey,password).
+
+Fin de la ejecución
+====================
+
+	MONITOR CLIENTS: 
+====================
+Fecha y hora: 2024-05-07 02:08:02
+Prompt: root@monitorclients
+Comando ejecutado: ssh entel@10.1.10.1
+====================
+Linux routeracces 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue May  7 02:07:48 2024 from 10.1.20.11
+entel@routeracces:~$ exit
+Connection to 10.1.10.1 closed.
+
+Fin de la ejecución
+====================
+
+	MONITOR TRONCAL(EXTERIOR):
+====================
+Fecha y hora: 2024-05-07 02:04:53
+Prompt: root@monitoradmin
+Comando ejecutado: ssh entel@10.1.10.1
+====================
+
+
+	LOGS: 
+
+====================
+Fecha y hora: 2024-05-07 13:34:30
+Prompt: root@routeracces
+Comando ejecutado: grep SSH attempt: /var/log/syslog
+====================
+grep: attempt:: No existe el fichero o el directorio
+/var/log/syslog:2024-05-07T13:10:37.466206+02:00 routeracces kernel: [  302.374615]  SSH acces attempt:IN=eth-troncal OUT= MAC=08:00:27:00:00:01:00:e0:4c:68:09:cd:08:00 SRC=192.168.1.24 DST=192.168.1.26 LEN=52 TOS=0x00 PREC=0x00 TTL=128 ID=13089 DF PROTO=TCP SPT=50909 DPT=22 WINDOW=64240 RES=0x00 SYN URGP=0 
+/var/log/syslog:2024-05-07T13:10:37.466218+02:00 routeracces kernel: [  302.374904]  SSH acces attempt:IN=eth-troncal OUT= MAC=08:00:27:00:00:01:00:e0:4c:68:09:cd:08:00 SRC=192.168.1.24 DST=192.168.1.26 LEN=40 TOS=0x00 PREC=0x00 TTL=128 ID=13090 DF PROTO=TCP SPT=50909 DPT=22 WINDOW=1026 RES=0x00 ACK URGP=0 
+/var/log/syslog:2024-05-07T13:10:37.466219+02:00 routeracces kernel: [  302.376670]  SSH acces attempt:IN=eth-troncal OUT= MAC=08:00:27:00:00:01:00:e0:4c:68:09:cd:08:00 SRC=192.168.1.24 DST=192.168.1.26 LEN=73 TOS=0x00 PREC=0x00 TTL=128 ID=13091 DF PROTO=TCP SPT=50909 DPT=22 WINDOW=1026 RES=0x00 ACK PSH URGP=0 
+/var/log/syslog:2024-05-07T13:10:37.472693+02:00 routeracces kernel: [  302.383789]  SSH acces attempt:IN=eth-troncal OUT= MAC=08:00:27:00:00:01:00:e0:4c:68:09:cd:08:00 SRC=192.168.1.24 DST=192.168.1.26 LEN=1552 TOS=0x00 PREC=0x00 TTL=128 ID=13092 DF PROTO=TCP SPT=50909 DPT=22 WINDOW=1026 RES=0x00 ACK PSH URGP=0 
+TTL=128 ID=13120 DF PROTO=TCP SPT=51155 DPT=22 WINDOW=1026 RES=0x00 ACK PSH URGP=0 
+/var/log/syslog:2024-05-07T13:32:17.896793+02:00 routeracces kernel: [ 1602.805406] SSH attempt:IN=lo OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:86:dd SRC=0000:0000:0000:0000:0000:0000:0000:0001 DST=0000:0000:0000:0000:0000:0000:0000:0001 LEN=72 TC=16 HOPLIMIT=64 FLOWLBL=273674 PROTO=TCP SPT=35200 DPT=22 WINDOW=512 RES=0x00 ACK URGP=0 
+0000:0000:0000:0000:0000:0000:0000:0001 LEN=132 TC=16 HOPLIMIT=64 FLOWLBL=273674 PROTO=TCP SPT=35200 DPT=22 WINDOW=512 RES=0x00 ACK PSH URGP=0 
+/var/log/syslog:2024-05-07T13:32:25.062398+02:00 routeracces kernel: [ 1609.974228] SSH attempt:IN=lo OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:86:dd SRC=0000:0000:0000:0000:0000:0000:0000:0001 DST=0000:0000:0000:0000:0000:0000:0000:0001 LEN=72 TC=16 HOPLIMIT=64 FLOWLBL=273674 PROTO=TCP SPT=35200 DPT=22 WINDOW=512 RES=0x00 ACK FIN URGP=0 
+/var/log/syslog:2024-05-07T13:32:25.068844+02:00 routeracces kernel: [ 1609.978670] SSH attempt:IN=lo OUT= MAC=00:00:00:00:00:00:00:00:00:00:00:00:86:dd SRC=0000:0000:0000:0000:0000:0000:0000:0001 DST=0000:0000:0000:0000:0000:0000:0000:0001 LEN=72 TC=16 HOPLIMIT=64 FLOWLBL=273674 PROTO=TCP SPT=35200 DPT=22 WINDOW=512 RES=0x00 ACK URGP=0 
+
+Fin de la ejecución
+====================
+

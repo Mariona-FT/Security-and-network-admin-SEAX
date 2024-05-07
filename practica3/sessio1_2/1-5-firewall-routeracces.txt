@@ -1,0 +1,430 @@
+	NATS INCIALS: 
+
+====================
+Fecha y hora: 2024-05-07 00:28:48
+Prompt: root@routeracces
+Comando ejecutado: nft list ruleset
+====================
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy accept;
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy accept;
+	}
+
+	chain output {
+		type filter hook output priority filter; policy accept;
+	}
+}
+table ip nat {
+	chain postrouting {
+		type nat hook postrouting priority srcnat; policy accept;
+		oifname "eth-troncal" masquerade
+	}
+}
+
+Fin de la ejecución
+====================
+
+	CONFIGURADA: chains prerouting + output
+
+====================
+Fecha y hora: 2024-05-07 01:00:42
+Prompt: root@routeracces
+Comando ejecutado: nft list ruleset
+====================
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy accept;
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy accept;
+	}
+
+	chain output {
+		type filter hook output priority filter; policy accept;
+	}
+}
+table ip nat {
+	chain postrouting {
+		type nat hook postrouting priority srcnat; policy accept;
+		oifname "eth-troncal" masquerade
+	}
+
+	chain prerouting {
+		type nat hook prerouting priority filter; policy accept;
+	}
+
+	chain output {
+		type nat hook output priority filter; policy accept;
+	}
+}
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 01:00:53
+Prompt: root@routeracces
+Comando ejecutado: nft list ruleset > /etc/nftables.conf
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 01:01:02
+Prompt: root@routeracces
+Comando ejecutado: cat /etc/nftables.conf
+====================
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy accept;
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy accept;
+	}
+
+	chain output {
+		type filter hook output priority filter; policy accept;
+	}
+}
+table ip nat {
+	chain postrouting {
+		type nat hook postrouting priority srcnat; policy accept;
+		oifname "eth-troncal" masquerade
+	}
+
+	chain prerouting {
+		type nat hook prerouting priority filter; policy accept;
+	}
+
+	chain output {
+		type nat hook output priority filter; policy accept;
+	}
+}
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 01:01:09
+Prompt: root@routeracces
+Comando ejecutado: systemctl restart nftables
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 01:01:17
+Prompt: root@routeracces
+Comando ejecutado: systemctl status nftables
+====================
+● nftables.service - nftables
+     Loaded: loaded (/lib/systemd/system/nftables.service; enabled; preset: enabled)
+     Active: active (exited) since Tue 2024-05-07 01:01:09 CEST; 7s ago
+       Docs: man:nft(8)
+             http://wiki.nftables.org
+    Process: 964 ExecStart=/usr/sbin/nft -f /etc/nftables.conf (code=exited, status=0/SUCCESS)
+   Main PID: 964 (code=exited, status=0/SUCCESS)
+        CPU: 7ms
+
+may 07 01:01:09 routeracces systemd[1]: nftables.service: Deactivated successfully.
+may 07 01:01:09 routeracces systemd[1]: Stopped nftables.service - nftables.
+may 07 01:01:09 routeracces systemd[1]: Starting nftables.service - nftables...
+may 07 01:01:09 routeracces systemd[1]: Finished nftables.service - nftables.
+
+Fin de la ejecución
+====================
+
+	LOGS: 
+
+====================
+Fecha y hora: 2024-05-07 02:19:53
+Prompt: root@routeracces
+Comando ejecutado: apt install rsyslog
+====================
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Leyendo lista de paquetes...
+Creando árbol de dependencias...
+Leyendo la información de estado...
+Se instalarán los siguientes paquetes adicionales:
+  libestr0 libfastjson4 liblognorm5
+Paquetes sugeridos:
+  rsyslog-mysql | rsyslog-pgsql rsyslog-mongodb rsyslog-doc rsyslog-openssl
+  | rsyslog-gnutls rsyslog-gssapi rsyslog-relp
+Se instalarán los siguientes paquetes NUEVOS:
+  libestr0 libfastjson4 liblognorm5 rsyslog
+0 actualizados, 4 nuevos se instalarán, 0 para eliminar y 18 no actualizados.
+Se necesita descargar 829 kB de archivos.
+Se utilizarán 2.280 kB de espacio de disco adicional después de esta operación.
+¿Desea continuar? [S/n] Des:1 http://deb.debian.org/debian bookworm/main amd64 libestr0 amd64 0.1.11-1 [9.204 B]
+Des:2 http://deb.debian.org/debian bookworm/main amd64 libfastjson4 amd64 1.2304.0-1 [28,9 kB]
+Des:3 http://deb.debian.org/debian bookworm/main amd64 liblognorm5 amd64 2.0.6-4 [67,2 kB]
+Des:4 http://deb.debian.org/debian bookworm/main amd64 rsyslog amd64 8.2302.0-1 [723 kB]
+Descargados 829 kB en 0s (3.410 kB/s)
+Seleccionando el paquete libestr0:amd64 previamente no seleccionado.
+(Leyendo la base de datos ... 
+(Leyendo la base de datos ... 5%
+(Leyendo la base de datos ... 10%
+(Leyendo la base de datos ... 15%
+(Leyendo la base de datos ... 20%
+(Leyendo la base de datos ... 25%
+(Leyendo la base de datos ... 30%
+(Leyendo la base de datos ... 35%
+(Leyendo la base de datos ... 40%
+(Leyendo la base de datos ... 45%
+(Leyendo la base de datos ... 50%
+(Leyendo la base de datos ... 55%
+(Leyendo la base de datos ... 60%
+(Leyendo la base de datos ... 65%
+(Leyendo la base de datos ... 70%
+(Leyendo la base de datos ... 75%
+(Leyendo la base de datos ... 80%
+(Leyendo la base de datos ... 85%
+(Leyendo la base de datos ... 90%
+(Leyendo la base de datos ... 95%
+(Leyendo la base de datos ... 100%
+(Leyendo la base de datos ... 21631 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../libestr0_0.1.11-1_amd64.deb ...
+Desempaquetando libestr0:amd64 (0.1.11-1) ...
+Seleccionando el paquete libfastjson4:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../libfastjson4_1.2304.0-1_amd64.deb ...
+Desempaquetando libfastjson4:amd64 (1.2304.0-1) ...
+Seleccionando el paquete liblognorm5:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../liblognorm5_2.0.6-4_amd64.deb ...
+Desempaquetando liblognorm5:amd64 (2.0.6-4) ...
+Seleccionando el paquete rsyslog previamente no seleccionado.
+Preparando para desempaquetar .../rsyslog_8.2302.0-1_amd64.deb ...
+Desempaquetando rsyslog (8.2302.0-1) ...
+Configurando libestr0:amd64 (0.1.11-1) ...
+Configurando libfastjson4:amd64 (1.2304.0-1) ...
+Configurando liblognorm5:amd64 (2.0.6-4) ...
+Configurando rsyslog (8.2302.0-1) ...
+Created symlink /etc/systemd/system/syslog.service → /lib/systemd/system/rsyslog.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/rsyslog.service → /lib/systemd/system/rsyslog.service.
+Procesando disparadores para libc-bin (2.36-9+deb12u4) ...
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 02:26:04
+Prompt: root@routeracces
+Comando ejecutado: touch /var/log/nftables.log
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 02:26:40
+Prompt: root@routeracces
+Comando ejecutado: chown 644 /var/log/nftables.log
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 02:31:41
+Prompt: root@routeracces
+Comando ejecutado: chown root:root /var/log/nftables.log
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 13:21:00
+Prompt: root@routeracces
+Comando ejecutado: cat /etc/rsyslog.d/nftables.conf
+====================
+:msg, contains,"nftables" /var/log/nftables.log
+& stop
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 13:21:19
+Prompt: root@routeracces
+Comando ejecutado: systemctl restart rsyslog
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 13:21:44
+Prompt: root@routeracces
+Comando ejecutado: cat /var/log/syslog
+====================
+2024-05-07T02:19:56.053113+02:00 routeracces kernel: [    0.000000] Linux version 6.1.0-18-amd64 (debian-kernel@lists.debian.org) (gcc-12 (Debian 12.2.0-14) 12.2.0, GNU ld (GNU Binutils for Debian) 2.40) #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01)
+2024-05-07T02:19:56.054224+02:00 routeracces kernel: [    0.000000] Command line: BOOT_IMAGE=/boot/vmlinuz-6.1.0-18-amd64 root=UUID=239b4845-4586-4aa3-a433-1285a0e7ad80 ro quiet
+2024-05-07T02:19:56.054226+02:00 routeracces kernel: [    0.000000] BIOS-provided physical RAM map:
+2024-05-07T02:19:56.054226+02:00 routeracces kernel: [    0.000000] BIOS-e820: [mem 0x0000000000000000-0x000000000009fbff] usable
+2024-05-07T02:19:56.054226+02:00 routeracces kernel: [    0.000000] BIOS-e820: [mem 0x000000000009fc00-0x000000000009ffff] reserved
+2024-05-07T02:19:56.054226+02:00 routeracces kernel: [    0.000000] BIOS-e820: [mem 0x00000000000f0000-0x00000000000fffff] reserved
+...
+
+Fin de la ejecución
+====================
+
+
+	SERVEI TALLAFOCS SSH + GUARDAR EN LOGS: 
+
+====================
+Fecha y hora: 2024-05-07 01:55:52
+Prompt: root@routeracces
+Comando ejecutado: nft list ruleset
+====================
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy accept;
+		ip saddr { 10.1.10.0/28, 10.1.20.0/24, 192.168.1.0/24 } tcp dport 22 accept
+		tcp dport 22 log prefix " SSH acces attempt:"
+		tcp dport 22 limit rate 3/minute accept
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy accept;
+	}
+
+	chain output {
+		type filter hook output priority filter; policy accept;
+	}
+}
+table ip nat {
+	chain postrouting {
+		type nat hook postrouting priority srcnat; policy accept;
+		oifname "eth-troncal" masquerade
+	}
+
+	chain prerouting {
+		type nat hook prerouting priority filter; policy accept;
+	}
+
+	chain output {
+		type nat hook output priority filter; policy accept;
+	}
+}
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 01:56:11
+Prompt: root@routeracces
+Comando ejecutado: cat /etc/nftables.conf
+====================
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy accept;
+		ip saddr { 10.1.10.0/28, 10.1.20.0/24, 192.168.1.0/24 } tcp dport 22 accept
+		tcp dport 22 log prefix " SSH acces attempt:"
+		tcp dport 22 limit rate 3/minute accept
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy accept;
+	}
+
+	chain output {
+		type filter hook output priority filter; policy accept;
+	}
+}
+table ip nat {
+	chain postrouting {
+		type nat hook postrouting priority srcnat; policy accept;
+		oifname "eth-troncal" masquerade
+	}
+
+	chain prerouting {
+		type nat hook prerouting priority filter; policy accept;
+	}
+
+	chain output {
+		type nat hook output priority filter; policy accept;
+	}
+}
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 01:56:28
+Prompt: root@routeracces
+Comando ejecutado: systemctl restart nftables
+====================
+
+Fin de la ejecución
+====================
+
+
+	CONFIG FINAL:
+
+====================
+Fecha y hora: 2024-05-07 22:12:52
+Prompt: root@routeracces
+Comando ejecutado: cat /etc/nftables.conf
+====================
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy drop;
+		ip saddr 10.1.10.0/28 tcp dport 22 counter packets 0 bytes 0 accept
+		ip saddr 10.1.20.0/24 tcp dport 22 counter packets 251 bytes 21248 accept
+		iifname "eth-troncal" ip protocol icmp counter packets 4 bytes 336 accept
+		iifname "eth-dmz" ip protocol icmp counter packets 0 bytes 0 accept
+		iifname "eth-troncal" counter packets 19 bytes 1215 accept
+		log prefix "DROP INPUT: " drop
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy drop;
+		iifname "eth-troncal" oifname "eth-dmz" ct state { established, related } counter packets 0 bytes 0 accept
+		iifname "eth-dmz" oifname "eth-troncal" tcp dport 80 counter packets 0 bytes 0 accept
+		iifname "eth-dmz" oifname "eth-troncal" tcp dport 443 counter packets 0 bytes 0 accept
+		iifname "eth-dmz" oifname "eth-troncal" tcp dport 53 counter packets 0 bytes 0 accept
+		ip saddr 10.1.10.0/28 oifname "eth-troncal" counter packets 0 bytes 0 accept
+		ip saddr 10.1.20.0/24 oifname "eth-troncal" counter packets 0 bytes 0 accept
+		ip saddr 10.1.10.0/28 ip daddr 10.1.20.0/24 counter accept
+		ip saddr 10.1.20.0/24 ip daddr 10.1.10.0/28 counter accept
+		log prefix "DROP FORWARD: " drop
+	}
+
+	chain output {
+		type filter hook output priority filter; policy drop;
+		ip saddr 10.1.10.0/28 tcp dport 22 counter packets 0 bytes 0 accept
+		ip saddr 10.1.20.0/24 tcp dport 22 counter packets 0 bytes 0 accept
+		oifname "eth-troncal" counter packets 1 bytes 56 accept
+		oifname "eth-troncal" ip protocol icmp counter packets 4 bytes 336 accept
+		oifname "eth-dmz" ip protocol icmp counter packets 0 bytes 0 accept
+		tcp sport 22 counter packets 152 bytes 18296 accept
+		log prefix "DROP OUTPUT: " drop
+	}
+}
+table ip nat {
+	chain OUTPUT {
+		type nat hook output priority filter; policy accept;
+	}
+
+	chain PREROUTING {
+		type nat hook prerouting priority filter; policy accept;
+	}
+
+	chain POSTROUTING {
+		type nat hook postrouting priority srcnat; policy accept;
+		oifname "eth-troncal" masquerade
+	}
+}
+
+Fin de la ejecución
+====================

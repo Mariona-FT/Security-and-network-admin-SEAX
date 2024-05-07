@@ -1,0 +1,165 @@
+
+====================
+Fecha y hora: 2024-05-03 12:24:22
+Prompt: root@routerintern
+Comando ejecutado: cat /etc/systemd/network/10-enp0s3-net.link
+====================
+[Match]
+OriginalName=enp0s3
+
+[Link]
+Name=eth-dmz
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-03 12:25:01
+Prompt: root@routerintern
+Comando ejecutado: cat /etc/systemd/network/10-enp0s8-net.link
+====================
+[Match]
+OriginalName=enp0s8
+
+[Link]
+Name=eth-clients
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-03 11:26:00
+Prompt: root@routerintern
+Comando ejecutado: reboot
+====================
+
+====================
+Fecha y hora: 2024-05-03 12:26:27
+Prompt: root@routerintern
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth-dmz: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:10:02 brd ff:ff:ff:ff:ff:ff
+    altname enp0s3
+    inet 10.1.10.1/28 brd 10.1.10.15 scope global eth-dmz
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe01:1002/64 scope link 
+       valid_lft forever preferred_lft forever
+3: eth-clients: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether 08:00:27:01:20:01 brd ff:ff:ff:ff:ff:ff
+    altname enp0s8
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-03 12:29:58
+Prompt: root@routerintern
+Comando ejecutado: cat /etc/network/interfaces
+====================
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# eth-dmz
+allow-hotplug eth-dmz
+iface eth-dmz inet static
+	address 10.1.10.2
+	netmask 255.255.255.240
+
+# eth-clients
+allow-hotplug eth-clients
+iface eth-clients inet static
+	address 10.1.20.1
+	netmask 255.255.255.0
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-03 12:30:28
+Prompt: root@routerintern
+Comando ejecutado: systemctl restart networking.service
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-03 12:30:41
+Prompt: root@routerintern
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth-dmz: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:10:02 brd ff:ff:ff:ff:ff:ff
+    altname enp0s3
+    inet 10.1.10.2/28 brd 10.1.10.15 scope global eth-dmz
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe01:1002/64 scope link 
+       valid_lft forever preferred_lft forever
+3: eth-clients: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:20:01 brd ff:ff:ff:ff:ff:ff
+    altname enp0s8
+    inet 10.1.20.1/24 brd 10.1.20.255 scope global eth-clients
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe01:2001/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-03 12:35:49
+Prompt: root@routerintern
+Comando ejecutado: ip route
+====================
+10.1.10.0/28 dev eth-dmz proto kernel scope link src 10.1.10.2 
+10.1.20.0/24 dev eth-clients proto kernel scope link src 10.1.20.1 
+
+Fin de la ejecución
+====================
+
+VERIFICACIONS: 
+
+====================
+Fecha y hora: 2024-05-03 12:36:12
+Prompt: root@routerintern
+Comando ejecutado: ping -c 2 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+64 bytes from 10.1.10.1: icmp_seq=1 ttl=64 time=0.174 ms
+64 bytes from 10.1.10.1: icmp_seq=2 ttl=64 time=0.213 ms
+
+--- 10.1.10.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1020ms
+rtt min/avg/max/mdev = 0.174/0.193/0.213/0.019 ms
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora:  2024-05-03 12:37:10
+Prompt: root@routerintern
+Comando ejecutado: ping -c 2 google.com
+====================
+
+Fin de la ejecución
+====================

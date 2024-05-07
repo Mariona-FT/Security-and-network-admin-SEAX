@@ -1,0 +1,182 @@
+	ABANS CONFIG FIREWALL: 
+
+====================
+Fecha y hora: 2024-05-07 18:29:38
+Prompt: root@routeracces
+Comando ejecutado: ping -c 2 10.1.20.1
+====================
+
+Fin de la ejecución
+====================
+
+	MONITOR TRONCAL:
+
+====================
+Fecha y hora: 2024-05-07 19:37:28
+Prompt: root@monitoradmin
+Comando ejecutado: ping -c 2 google.com
+====================
+PING google.com (142.250.201.78) 56(84) bytes of data.
+64 bytes from mad07s25-in-f14.1e100.net (142.250.201.78): icmp_seq=1 ttl=115 time=12.6 ms
+64 bytes from mad07s25-in-f14.1e100.net (142.250.201.78): icmp_seq=2 ttl=115 time=13.8 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 12.569/13.188/13.807/0.619 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 19:37:36
+Prompt: root@monitoradmin
+Comando ejecutado: ping -c 2 10.1.10.1
+====================
+
+====================
+Fecha y hora: 2024-05-07 19:37:40
+Prompt: root@monitoradmin
+Comando ejecutado: ping -c 2 10.1.10.2
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 19:37:43
+Prompt: root@monitoradmin
+Comando ejecutado: ping -c 2 10.1.20.1
+====================
+
+	MONITOR DMZ:
+
+====================
+Fecha y hora: 2024-05-07 19:38:05
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 google.com
+====================
+PING google.com (142.250.201.78) 56(84) bytes of data.
+64 bytes from mad07s25-in-f14.1e100.net (142.250.201.78): icmp_seq=1 ttl=114 time=12.6 ms
+64 bytes from mad07s25-in-f14.1e100.net (142.250.201.78): icmp_seq=2 ttl=114 time=13.5 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 12.586/13.034/13.482/0.448 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 19:38:15
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+64 bytes from 10.1.10.1: icmp_seq=1 ttl=64 time=0.706 ms
+64 bytes from 10.1.10.1: icmp_seq=2 ttl=64 time=2.25 ms
+
+--- 10.1.10.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 0.706/1.480/2.254/0.774 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 19:38:18
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 10.1.10.2
+====================
+PING 10.1.10.2 (10.1.10.2) 56(84) bytes of data.
+64 bytes from 10.1.10.2: icmp_seq=1 ttl=64 time=0.991 ms
+64 bytes from 10.1.10.2: icmp_seq=2 ttl=64 time=1.90 ms
+
+--- 10.1.10.2 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 0.991/1.443/1.895/0.452 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 19:38:22
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 10.1.20.1
+====================
+PING 10.1.20.1 (10.1.20.1) 56(84) bytes of data.
+64 bytes from 10.1.20.1: icmp_seq=1 ttl=64 time=1.06 ms
+From 10.1.10.1: icmp_seq=2 Redirect Host(New nexthop: 10.1.10.2)
+64 bytes from 10.1.20.1: icmp_seq=2 ttl=64 time=0.961 ms
+
+--- 10.1.20.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 0.961/1.011/1.062/0.050 ms
+
+Fin de la ejecución
+====================
+	
+	MONITOR CLIENTS: 
+
+====================
+Fecha y hora: 2024-05-07 19:41:19
+Prompt: root@monitorclients
+Comando ejecutado: ping -c 2 google.com
+====================
+PING google.com (142.250.201.78) 56(84) bytes of data.
+64 bytes from mad07s25-in-f14.1e100.net (142.250.201.78): icmp_seq=1 ttl=113 time=15.1 ms
+64 bytes from mad07s25-in-f14.1e100.net (142.250.201.78): icmp_seq=2 ttl=113 time=13.8 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1003ms
+rtt min/avg/max/mdev = 13.773/14.413/15.054/0.640 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 19:41:27
+Prompt: root@monitorclients
+Comando ejecutado: ping -c 2 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+64 bytes from 10.1.10.1: icmp_seq=1 ttl=63 time=1.72 ms
+64 bytes from 10.1.10.1: icmp_seq=2 ttl=63 time=3.73 ms
+
+--- 10.1.10.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 1.716/2.722/3.728/1.006 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 19:41:30
+Prompt: root@monitorclients
+Comando ejecutado: ping -c 2 10.1.10.2
+====================
+PING 10.1.10.2 (10.1.10.2) 56(84) bytes of data.
+64 bytes from 10.1.10.2: icmp_seq=1 ttl=64 time=0.840 ms
+64 bytes from 10.1.10.2: icmp_seq=2 ttl=64 time=2.40 ms
+
+--- 10.1.10.2 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 0.840/1.622/2.404/0.782 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 19:41:34
+Prompt: root@monitorclients
+Comando ejecutado: ping -c 2 10.1.20.1
+====================
+PING 10.1.20.1 (10.1.20.1) 56(84) bytes of data.
+64 bytes from 10.1.20.1: icmp_seq=1 ttl=64 time=1.14 ms
+64 bytes from 10.1.20.1: icmp_seq=2 ttl=64 time=1.09 ms
+
+--- 10.1.20.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 1.090/1.113/1.137/0.023 ms
+
+Fin de la ejecución
+====================

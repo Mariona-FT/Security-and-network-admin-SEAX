@@ -1,0 +1,202 @@
+	CONFIG INICIAL: 
+
+====================
+Fecha y hora: 2024-05-07 17:42:33
+Prompt: root@routerintern
+Comando ejecutado: cat /etc/nftables.conf
+====================
+#!/usr/sbin/nft -f
+
+flush ruleset
+
+table inet filter {
+	chain input {
+		type filter hook input priority filter;
+	}
+	chain forward {
+		type filter hook forward priority filter;
+	}
+	chain output {
+		type filter hook output priority filter;
+	}
+}
+
+Fin de la ejecución
+====================
+	
+	BORRAR CADENES:
+
+====================
+Fecha y hora: 2024-05-07 17:56:32
+Prompt: root@routerintern
+Comando ejecutado: cat /etc/nftables.conf
+====================
+#!/usr/sbin/nft -f
+
+flush ruleset
+
+table inet filter {
+	chain input {
+	}
+	chain forward {
+	}
+	chain output {
+	}
+}
+
+Fin de la ejecución
+====================
+
+	POLICY DROP: 
+
+====================
+Fecha y hora: 2024-05-07 18:15:04
+Prompt: root@routerintern
+Comando ejecutado: nft list ruleset
+====================
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy drop;
+	}
+
+	chain output {
+		type filter hook output priority filter; policy drop;
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy drop;
+	}
+}
+
+Fin de la ejecución
+===================
+
+
+====================
+Fecha y hora: 2024-05-07 18:16:00
+Prompt: root@routerintern
+Comando ejecutado: systemctl restart nftables
+====================
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-05-07 18:18:23
+Prompt: root@routeracces
+Comando ejecutado: ping -c 2 10.1.20.1
+====================
+PING 10.1.20.1 (10.1.20.1) 56(84) bytes of data.
+
+--- 10.1.20.1 ping statistics ---
+2 packets transmitted, 0 received, 100% packet loss, time 1028ms
+
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-05-07 18:29:34
+Prompt: root@routerintern
+Comando ejecutado: systemctl restart nftables
+====================
+
+Fin de la ejecución
+====================
+
+
+	CONFIG PER PINGS XARXA:
+
+====================
+Fecha y hora: 2024-05-07 19:14:43
+Prompt: root@routerintern
+Comando ejecutado: nft list ruleset
+====================
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy drop;
+		iifname "lo" accept
+		ct state established,related accept
+		icmp type echo-request limit rate 3/second counter packets 18 bytes 1512 accept
+		ip saddr { 10.1.10.11, 10.1.20.11, 192.168.1.28 } tcp dport 22 counter packets 0 bytes 0 accept
+		ip saddr 10.1.10.0/28 icmp type echo-request accept
+		ip saddr 10.1.20.0/24 icmp type echo-request accept
+	}
+
+	chain output {
+		type filter hook output priority filter; policy drop;
+		ip saddr 10.1.20.0/24 icmp type echo-request accept
+		ip saddr 10.1.10.0/28 icmp type echo-request accept
+		ip daddr 10.1.20.0/24 icmp type echo-request accept
+		ip daddr 10.1.10.0/28 icmp type echo-request accept
+		ip daddr 10.1.10.0/28 icmp type echo-reply accept
+		ip daddr 10.1.20.0/24 icmp type echo-reply accept
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy drop;
+		ct state established,related accept
+		iifname "eth-clients" accept
+		iifname "eth-dmz" accept
+		iifname "eth-dmz" oifname "eth-clients" accept
+		ip saddr 10.1.10.0/28 ip daddr 10.1.20.0/24 icmp type echo-request accept
+		ip saddr 10.1.20.0/24 ip daddr 10.1.10.0/28 icmp type echo-request accept
+	}
+}
+
+Fin de la ejecución
+====================
+
+
+	CONFIG SSH, DHCP, DNS,  NAGGIOS: 
+
+====================
+Fecha y hora: 2024-05-07 20:07:46
+Prompt: root@routerintern
+Comando ejecutado: cat /etc/nftables.conf
+====================
+table inet filter {
+	chain input {
+		type filter hook input priority filter; policy drop;
+		iifname "lo" accept
+		ct state established,related accept
+		icmp type echo-request limit rate 3/second counter packets 26 bytes 2184 accept
+		ip saddr { 10.1.10.11, 10.1.20.11, 192.168.1.28 } tcp dport 22 counter packets 3 bytes 180 accept
+		ip saddr 10.1.10.0/28 icmp type echo-request accept
+		ip saddr 10.1.20.0/24 icmp type echo-request accept
+		ip saddr { 10.1.10.11, 10.1.20.11, 192.168.1.28 } tcp dport 22 accept
+		tcp dport 53 accept
+		udp dport 53 accept
+		udp dport 161 accept
+		udp dport 5666 accept
+		tcp dport 161 accept
+		tcp dport 5666 accept
+		iifname "eth-clients" udp dport { 67, 68 } counter packets 0 bytes 0 accept
+	}
+
+	chain output {
+		type filter hook output priority filter; policy drop;
+		ip saddr 10.1.20.0/24 icmp type echo-request accept
+		ip saddr 10.1.10.0/28 icmp type echo-request accept
+		ip daddr 10.1.20.0/24 icmp type echo-request accept
+		ip daddr 10.1.10.0/28 icmp type echo-request accept
+		ip daddr 10.1.10.0/28 icmp type echo-reply accept
+		ip daddr 10.1.20.0/24 icmp type echo-reply accept
+		tcp sport 22 accept
+	}
+
+	chain forward {
+		type filter hook forward priority filter; policy drop;
+		ct state established,related accept
+		iifname "eth-clients" accept
+		iifname "eth-dmz" accept
+		iifname "eth-dmz" oifname "eth-clients" accept
+		ip saddr 10.1.10.0/28 ip daddr 10.1.20.0/24 icmp type echo-request accept
+		ip saddr 10.1.20.0/24 ip daddr 10.1.10.0/28 icmp type echo-request accept
+	}
+}
+
+Fin de la ejecución
+====================

@@ -1,0 +1,342 @@
+MONITOR DMZ: 
+
+	ROUTER ACCES: 
+
+====================
+Fecha y hora: 2024-05-07 22:05:17
+Prompt: root@monitordmz
+Comando ejecutado: ping google.com
+====================
+PING google.com (142.250.184.174) 56(84) bytes of data.
+64 bytes from mad07s23-in-f14.1e100.net (142.250.184.174): icmp_seq=1 ttl=114 time=12.8 ms
+64 bytes from mad07s23-in-f14.1e100.net (142.250.184.174): icmp_seq=2 ttl=114 time=13.9 ms
+64 bytes from mad07s23-in-f14.1e100.net (142.250.184.174): icmp_seq=3 ttl=114 time=15.0 ms
+64 bytes from mad07s23-in-f14.1e100.net (142.250.184.174): icmp_seq=4 ttl=114 time=14.3 ms
+
+====================
+Fecha y hora: 2024-05-07 22:05:25
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 google.com
+====================
+PING google.com (142.250.184.174) 56(84) bytes of data.
+64 bytes from mad07s23-in-f14.1e100.net (142.250.184.174): icmp_seq=1 ttl=114 time=13.8 ms
+64 bytes from mad07s23-in-f14.1e100.net (142.250.184.174): icmp_seq=2 ttl=114 time=14.1 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1003ms
+rtt min/avg/max/mdev = 13.846/13.970/14.095/0.124 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 22:05:31
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+64 bytes from 10.1.10.1: icmp_seq=1 ttl=64 time=1.02 ms
+64 bytes from 10.1.10.1: icmp_seq=2 ttl=64 time=2.40 ms
+
+--- 10.1.10.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 1.015/1.708/2.402/0.693 ms
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-05-07 22:12:06
+Prompt: root@monitordmz
+Comando ejecutado: ssh entel@10.1.10.1
+====================
+Linux routeracces 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue May  7 20:16:05 2024 from 10.1.10.11
+[?2004hentel@routeracces:~$ exit
+[?2004l
+cerrar sesión
+Connection to 10.1.10.1 closed.
+
+Fin de la ejecución
+====================
+
+	ROUTER INTERN: 
+
+====================
+Fecha y hora: 2024-05-07 22:05:35
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 10.1.10.2
+====================
+PING 10.1.10.2 (10.1.10.2) 56(84) bytes of data.
+64 bytes from 10.1.10.2: icmp_seq=1 ttl=64 time=0.802 ms
+64 bytes from 10.1.10.2: icmp_seq=2 ttl=64 time=1.03 ms
+
+--- 10.1.10.2 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 0.802/0.916/1.030/0.114 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 22:05:40
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 10.1.20.1
+====================
+PING 10.1.20.1 (10.1.20.1) 56(84) bytes of data.
+
+--- 10.1.20.1 ping statistics ---
+2 packets transmitted, 0 received, 100% packet loss, time 1008ms
+
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-05-07 22:12:14
+Prompt: root@monitordmz
+Comando ejecutado: ssh entel@10.1.10.2
+====================
+Linux routerintern 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue May  7 20:16:31 2024 from 10.1.10.11
+[?2004hentel@routerintern:~$ exit
+[?2004l
+cerrar sesión
+Connection to 10.1.10.2 closed.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 22:12:21
+Prompt: root@monitordmz
+Comando ejecutado: ssh entel@10.1.20.1
+====================
+Linux routerintern 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue May  7 22:12:15 2024 from 10.1.10.11
+[?2004hentel@routerintern:~$ exit
+[?2004l
+cerrar sesión
+Connection to 10.1.20.1 closed.
+
+Fin de la ejecución
+====================
+
+MONITOR CLIENTS: 
+	
+	ROUTER ACCES:
+
+====================
+Fecha y hora: 2024-05-07 22:15:18
+Prompt: root@monitorclients
+Comando ejecutado: ping -c 2 google.com
+====================
+PING google.com (142.250.185.14) 56(84) bytes of data.
+64 bytes from mad41s11-in-f14.1e100.net (142.250.185.14): icmp_seq=1 ttl=113 time=14.1 ms
+64 bytes from mad41s11-in-f14.1e100.net (142.250.185.14): icmp_seq=2 ttl=113 time=14.2 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 14.071/14.137/14.203/0.066 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 22:15:24
+Prompt: root@monitorclients
+Comando ejecutado: ping -c 2 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+64 bytes from 10.1.10.1: icmp_seq=1 ttl=63 time=1.86 ms
+64 bytes from 10.1.10.1: icmp_seq=2 ttl=63 time=2.12 ms
+
+--- 10.1.10.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 1.862/1.991/2.121/0.129 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 22:15:34
+Prompt: root@monitorclients
+Comando ejecutado: ssh entel@10.1.10.1
+====================
+Linux routeracces 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue May  7 22:12:07 2024 from 10.1.10.11
+[?2004hentel@routeracces:~$ exitcd /home[4Pexit
+[?2004l
+cerrar sesión
+Connection to 10.1.10.1 closed.
+
+Fin de la ejecución
+====================
+
+	ROUTER INTERN: 
+
+====================
+Fecha y hora: 2024-05-07 22:15:44
+Prompt: root@monitorclients
+Comando ejecutado: ping -c 2 10.1.10.2
+====================
+PING 10.1.10.2 (10.1.10.2) 56(84) bytes of data.
+64 bytes from 10.1.10.2: icmp_seq=1 ttl=64 time=0.877 ms
+64 bytes from 10.1.10.2: icmp_seq=2 ttl=64 time=0.874 ms
+
+--- 10.1.10.2 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 0.874/0.875/0.877/0.001 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 22:15:49
+Prompt: root@monitorclients
+Comando ejecutado: ssh entel@10.1.10.2
+====================
+Linux routerintern 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue May  7 22:12:22 2024 from 10.1.10.11
+[?2004hentel@routerintern:~$ exti[K[Kit
+[?2004l
+cerrar sesión
+Connection to 10.1.10.2 closed.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 22:16:15
+Prompt: root@monitorclients
+Comando ejecutado: ping -c 2 10.1.20.1
+====================
+PING 10.1.20.1 (10.1.20.1) 56(84) bytes of data.
+64 bytes from 10.1.20.1: icmp_seq=1 ttl=64 time=0.469 ms
+64 bytes from 10.1.20.1: icmp_seq=2 ttl=64 time=1.20 ms
+
+--- 10.1.20.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1030ms
+rtt min/avg/max/mdev = 0.469/0.833/1.198/0.364 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 22:16:25
+Prompt: root@monitorclients
+Comando ejecutado: ssh entel@10.1.20.1
+====================
+Linux routerintern 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue May  7 22:15:56 2024 from 10.1.20.11
+[?2004hentel@routerintern:~$ exit
+[?2004l
+cerrar sesión
+Connection to 10.1.20.1 closed.
+
+Fin de la ejecución
+====================
+
+MONITOR EXTERIOR:
+
+	ROUTER ACCES: 
+====================
+Fecha y hora: 2024-05-07 22:21:07
+Prompt: root@monitoradmin
+Comando ejecutado: ping -c 2 google.com
+====================
+PING google.com (142.250.184.174) 56(84) bytes of data.
+64 bytes from mad07s23-in-f14.1e100.net (142.250.184.174): icmp_seq=1 ttl=115 time=12.4 ms
+64 bytes from mad07s23-in-f14.1e100.net (142.250.184.174): icmp_seq=2 ttl=115 time=12.7 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 12.427/12.578/12.729/0.151 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 22:21:15
+Prompt: root@monitoradmin
+Comando ejecutado: ping -c 2 10.1.10.1
+====================
+
+====================
+Fecha y hora: 2024-05-07 22:21:27
+Prompt: root@monitoradmin
+Comando ejecutado: ssh entel@10.1.10.1
+====================
+
+	ROUTER INTERN: 
+
+====================
+Fecha y hora: 2024-05-07 22:21:32
+Prompt: root@monitoradmin
+Comando ejecutado: ping -c 2 10.1.10.2
+====================
+
+====================
+Fecha y hora: 2024-05-07 22:21:37
+Prompt: root@monitoradmin
+Comando ejecutado: ssh entel@10.1.10.2
+====================
+
+====================
+Fecha y hora: 2024-05-07 22:21:43
+Prompt: root@monitoradmin
+Comando ejecutado: ping -c 2 10.1.20.1
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-07 22:21:48
+Prompt: root@monitoradmin
+Comando ejecutado: ssh entel@10.1.20.1
+====================

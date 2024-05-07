@@ -1,0 +1,363 @@
+
+====================
+Fecha y hora: 2024-05-05 18:16:07
+Prompt: root@seax1
+Comando ejecutado: cat /etc/hosts
+====================
+127.0.0.1	localhost
+127.0.1.1	monitor.epsevg.upc.edu	monitor
+
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 18:17:28
+Prompt: root@seax1
+Comando ejecutado: cat /etc/hostname
+====================
+monitor
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 18:17:35
+Prompt: root@seax1
+Comando ejecutado: reboot
+====================
+Failed to connect to bus: No existe el fichero o el directorio
+
+====================
+Fecha y hora: 2024-05-05 18:25:49
+Prompt: root@monitor
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:00:11 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.27/24 brd 192.168.1.255 scope global dynamic enp0s3
+       valid_lft 85922sec preferred_lft 85922sec
+    inet6 fe80::a00:27ff:fe01:11/64 scope link 
+       valid_lft forever preferred_lft forever
+3: enp0s8: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether 08:00:27:01:00:11 brd ff:ff:ff:ff:ff:ff
+4: enp0s9: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether 08:00:27:01:00:11 brd ff:ff:ff:ff:ff:ff
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 18:57:58
+Prompt: root@monitor
+Comando ejecutado: cat /etc/network/interfaces
+====================
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# Bridge - XARXA TRONCAL
+allow-hotplug enp0s3
+iface enp0s3 inet dhcp
+
+#Interna - XARXA DMZ
+allow-hotplug enp0s8
+iface enp0s8 inet static
+	address 10.1.10.11
+	netmask 255.255.255.240
+	network 10.1.10.0
+	gateway 10.1.10.1
+
+#Interna -XARXA CLIENT
+allow-hotplug enp0s9
+iface enp0s9 inet static
+	address 10.1.20.11
+	netmask 255.255.255.0
+	network 10.1.20.0
+	gateway 10.1.20.1
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 18:59:52
+Prompt: root@monitor
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:00:11 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.27/24 brd 192.168.1.255 scope global dynamic enp0s3
+       valid_lft 86376sec preferred_lft 86376sec
+    inet6 fe80::a00:27ff:fe01:11/64 scope link 
+       valid_lft forever preferred_lft forever
+3: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:00:11 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.10.11/28 brd 10.1.10.15 scope global enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe01:11/64 scope link 
+       valid_lft forever preferred_lft forever
+4: enp0s9: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:00:11 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.20.11/24 brd 10.1.20.255 scope global enp0s9
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe01:11/64 scope link 
+       valid_lft forever preferred_lft forever
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 19:03:32
+Prompt: root@monitor
+Comando ejecutado: cat nomsmonitor.sh
+====================
+#!/bin/bash
+# Obté l'adreça IP de la interfície activa
+IP=$(ip -4 addr show scope global | grep inet | head -n1 | awk '{print $2}' | cut -d'/' -f1)
+
+# Defineix les xarxes i els noms associats
+if [[ $IP == 10.1.10.* ]]; then
+    NEWNAME="monitordmz"
+elif [[ $IP == 10.1.20.* ]]; then
+    NEWNAME="monitorclients"
+else
+    NEWNAME="monitoradmin"
+fi
+# Obté el nom actual del host
+CURRENTNAME=$(hostname)
+
+# Comprova si el nou nom és diferent del nom actual
+if [[ $CURRENTNAME != $NEWNAME ]]; then
+    echo $NEWNAME | tee /etc/hostname
+    hostname $NEWNAME
+    echo "Canviat el nom de la màquina i reiniciant..."
+    reboot
+else
+    echo "El nom de la màquina ja està configurat correctament. No es necessita reinici."
+fi
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 19:03:42
+Prompt: root@monitor
+Comando ejecutado: chmod +x nomsmonitor.sh
+====================
+
+Fin de la ejecución
+====================
+
+
+VERIFICACIONS: 
+
+XARXA TRONCAL:
+
+====================
+Fecha y hora: 2024-05-05 20:40:10
+Prompt: root@monitoradmin
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:00:11 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.27/24 brd 192.168.1.255 scope global dynamic enp0s3
+       valid_lft 86235sec preferred_lft 86235sec
+    inet6 fe80::a00:27ff:fe01:11/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 20:40:17
+Prompt: root@monitoradmin
+Comando ejecutado: ping -c 2 google.com
+====================
+PING google.com (142.250.185.14) 56(84) bytes of data.
+64 bytes from mad41s11-in-f14.1e100.net (142.250.185.14): icmp_seq=1 ttl=115 time=12.9 ms
+64 bytes from mad41s11-in-f14.1e100.net (142.250.185.14): icmp_seq=2 ttl=115 time=13.3 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 12.888/13.108/13.329/0.220 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 20:40:23
+Prompt: root@monitoradmin
+Comando ejecutado: ping -c 2 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+
+--- 10.1.10.1 ping statistics ---
+2 packets transmitted, 0 received, 100% packet loss, time 1027ms
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 20:40:39
+Prompt: root@monitoradmin
+Comando ejecutado: ping -c 2 10.1.20.1
+====================
+
+
+XARXA DMZ:
+
+====================
+Fecha y hora: 2024-05-05 20:43:16
+Prompt: root@monitordmz
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:00:11 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.10.11/28 brd 10.1.10.15 scope global enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe01:11/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 20:43:32
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+64 bytes from 10.1.10.1: icmp_seq=1 ttl=64 time=1.22 ms
+64 bytes from 10.1.10.1: icmp_seq=2 ttl=64 time=0.913 ms
+
+--- 10.1.10.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 0.913/1.067/1.221/0.154 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 20:43:38
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 10.1.20.1
+====================
+PING 10.1.20.1 (10.1.20.1) 56(84) bytes of data.
+64 bytes from 10.1.20.1: icmp_seq=1 ttl=64 time=3.54 ms
+From 10.1.10.1: icmp_seq=2 Redirect Host(New nexthop: 10.1.10.2)
+64 bytes from 10.1.20.1: icmp_seq=2 ttl=64 time=3.57 ms
+
+--- 10.1.20.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 3.544/3.556/3.569/0.012 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 20:43:47
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 google.com
+====================
+Fin de la ejecución
+====================
+(Per ara no tenen connexió a internet, més tard amb les NAT en tindran)
+
+
+XARXA CLIENTS:
+
+====================
+Fecha y hora: 2024-05-05 20:34:57
+Prompt: root@monitorclients
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s9: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:00:11 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.20.11/24 brd 10.1.20.255 scope global enp0s9
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe01:11/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 20:34:27
+Prompt: root@monitorclients
+Comando ejecutado: ping -c 2 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+64 bytes from 10.1.10.1: icmp_seq=1 ttl=63 time=2.50 ms
+64 bytes from 10.1.10.1: icmp_seq=2 ttl=63 time=3.24 ms
+
+--- 10.1.10.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1003ms
+rtt min/avg/max/mdev = 2.504/2.873/3.243/0.369 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 20:34:35
+Prompt: root@monitorclients
+Comando ejecutado: ping -c 2 10.1.20.1
+====================
+PING 10.1.20.1 (10.1.20.1) 56(84) bytes of data.
+64 bytes from 10.1.20.1: icmp_seq=1 ttl=64 time=1.24 ms
+64 bytes from 10.1.20.1: icmp_seq=2 ttl=64 time=3.52 ms
+
+--- 10.1.20.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 1.241/2.380/3.520/1.139 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 20:34:43
+Prompt: root@monitorclients
+Comando ejecutado: ping -c 2 google.com
+====================
+Fin de la ejecución
+====================
+(Per ara no tenen connexió a internet, més tard amb les NAT en tindran)
+

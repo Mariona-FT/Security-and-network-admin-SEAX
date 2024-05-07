@@ -1,0 +1,392 @@
+====================
+Fecha y hora: 2024-05-05 12:21:56
+Prompt: root@routeracces
+Comando ejecutado: apt update
+====================
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Obj:1 http://deb.debian.org/debian bookworm InRelease
+Des:2 http://security.debian.org/debian-security bookworm-security InRelease [48,0 kB]
+Des:3 http://deb.debian.org/debian bookworm-updates InRelease [55,4 kB]
+Des:4 http://security.debian.org/debian-security bookworm-security/main Sources [92,2 kB]
+Des:5 http://security.debian.org/debian-security bookworm-security/main amd64 Packages [156 kB]
+Des:6 http://security.debian.org/debian-security bookworm-security/main Translation-en [94,9 kB]
+Des:7 http://deb.debian.org/debian bookworm-updates/main Sources.diff/Index [10,6 kB]
+Des:8 http://deb.debian.org/debian bookworm-updates/main amd64 Packages.diff/Index [10,6 kB]
+Des:9 http://deb.debian.org/debian bookworm-updates/main Translation-en.diff/Index [10,6 kB]
+Des:10 http://deb.debian.org/debian bookworm-updates/main Sources T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [831 B]
+Des:11 http://deb.debian.org/debian bookworm-updates/main amd64 Packages T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [1.595 B]
+Des:10 http://deb.debian.org/debian bookworm-updates/main Sources T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [831 B]
+Des:11 http://deb.debian.org/debian bookworm-updates/main amd64 Packages T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [1.595 B]
+Des:12 http://deb.debian.org/debian bookworm-updates/main Translation-en T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [2.563 B]
+Des:12 http://deb.debian.org/debian bookworm-updates/main Translation-en T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [2.563 B]
+Descargados 483 kB en 1s (962 kB/s)
+Leyendo lista de paquetes...
+Creando árbol de dependencias...
+Leyendo la información de estado...
+Se pueden actualizar 18 paquetes. Ejecute «apt list --upgradable» para verlos.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 12:22:11
+Prompt: root@routeracces
+Comando ejecutado: apt install openssh-server -y
+====================
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Leyendo lista de paquetes...
+Creando árbol de dependencias...
+Leyendo la información de estado...
+Se instalarán los siguientes paquetes adicionales:
+  dbus dbus-bin dbus-daemon dbus-session-bus-common dbus-system-bus-common
+  dbus-user-session libcbor0.8 libdbus-1-3 libfido2-1 libnsl2 libpam-systemd
+  libwrap0 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6 libxext6 libxmuu1
+  ncurses-term openssh-client openssh-sftp-server runit-helper xauth
+Paquetes sugeridos:
+  keychain libpam-ssh monkeysphere ssh-askpass molly-guard ufw
+Se instalarán los siguientes paquetes NUEVOS:
+  dbus dbus-bin dbus-daemon dbus-session-bus-common dbus-system-bus-common
+  dbus-user-session libcbor0.8 libdbus-1-3 libfido2-1 libnsl2 libpam-systemd
+  libwrap0 libx11-6 libx11-data libxau6 libxcb1 libxdmcp6 libxext6 libxmuu1
+  ncurses-term openssh-client openssh-server openssh-sftp-server runit-helper
+  xauth
+0 actualizados, 25 nuevos se instalarán, 0 para eliminar y 18 no actualizados.
+Se necesita descargar 4.621 kB de archivos.
+Se utilizarán 19,2 MB de espacio de disco adicional después de esta operación.
+Des:1 http://deb.debian.org/debian bookworm/main amd64 libdbus-1-3 amd64 1.14.10-1~deb12u1 [201 kB]
+Des:2 http://deb.debian.org/debian bookworm/main amd64 dbus-bin amd64 1.14.10-1~deb12u1 [105 kB]
+Des:3 http://deb.debian.org/debian bookworm/main amd64 dbus-session-bus-common all 1.14.10-1~deb12u1 [78,2 kB]
+Des:4 http://deb.debian.org/debian bookworm/main amd64 dbus-daemon amd64 1.14.10-1~deb12u1 [184 kB]
+Des:5 http://deb.debian.org/debian bookworm/main amd64 dbus-system-bus-common all 1.14.10-1~deb12u1 [79,3 kB]
+Des:6 http://deb.debian.org/debian bookworm/main amd64 dbus amd64 1.14.10-1~deb12u1 [97,4 kB]
+Des:7 http://deb.debian.org/debian bookworm/main amd64 libcbor0.8 amd64 0.8.0-2+b1 [27,4 kB]
+Des:8 http://deb.debian.org/debian bookworm/main amd64 libfido2-1 amd64 1.12.0-2+b1 [77,2 kB]
+Des:9 http://deb.debian.org/debian bookworm/main amd64 openssh-client amd64 1:9.2p1-2+deb12u2 [990 kB]
+Des:10 http://deb.debian.org/debian bookworm/main amd64 openssh-sftp-server amd64 1:9.2p1-2+deb12u2 [66,0 kB]
+Des:11 http://deb.debian.org/debian bookworm/main amd64 runit-helper all 2.15.2 [6.520 B]
+Des:12 http://deb.debian.org/debian bookworm/main amd64 libnsl2 amd64 1.3.0-2 [39,5 kB]
+Des:13 http://deb.debian.org/debian bookworm/main amd64 libwrap0 amd64 7.6.q-32 [54,9 kB]
+Des:14 http://deb.debian.org/debian bookworm/main amd64 openssh-server amd64 1:9.2p1-2+deb12u2 [456 kB]
+Des:15 http://deb.debian.org/debian bookworm/main amd64 libpam-systemd amd64 252.22-1~deb12u1 [225 kB]
+Des:16 http://deb.debian.org/debian bookworm/main amd64 ncurses-term all 6.4-4 [501 kB]
+Des:17 http://deb.debian.org/debian bookworm/main amd64 dbus-user-session amd64 1.14.10-1~deb12u1 [78,1 kB]
+Des:18 http://deb.debian.org/debian bookworm/main amd64 libxau6 amd64 1:1.0.9-1 [19,7 kB]
+Des:19 http://deb.debian.org/debian bookworm/main amd64 libxdmcp6 amd64 1:1.1.2-3 [26,3 kB]
+Des:20 http://deb.debian.org/debian bookworm/main amd64 libxcb1 amd64 1.15-1 [144 kB]
+Des:21 http://deb.debian.org/debian bookworm/main amd64 libx11-data all 2:1.8.4-2+deb12u2 [292 kB]
+Des:22 http://deb.debian.org/debian bookworm/main amd64 libx11-6 amd64 2:1.8.4-2+deb12u2 [760 kB]
+Des:23 http://deb.debian.org/debian bookworm/main amd64 libxext6 amd64 2:1.3.4-1+b1 [52,9 kB]
+Des:24 http://deb.debian.org/debian bookworm/main amd64 libxmuu1 amd64 2:1.1.3-3 [23,9 kB]
+Des:25 http://deb.debian.org/debian bookworm/main amd64 xauth amd64 1:1.1.2-1 [36,0 kB]
+Preconfigurando paquetes ...
+Descargados 4.621 kB en 1s (8.556 kB/s)
+Seleccionando el paquete libdbus-1-3:amd64 previamente no seleccionado.
+(Leyendo la base de datos ... 
+(Leyendo la base de datos ... 5%
+(Leyendo la base de datos ... 10%
+(Leyendo la base de datos ... 15%
+(Leyendo la base de datos ... 20%
+(Leyendo la base de datos ... 25%
+(Leyendo la base de datos ... 30%
+(Leyendo la base de datos ... 35%
+(Leyendo la base de datos ... 40%
+(Leyendo la base de datos ... 45%
+(Leyendo la base de datos ... 50%
+(Leyendo la base de datos ... 55%
+(Leyendo la base de datos ... 60%
+(Leyendo la base de datos ... 65%
+(Leyendo la base de datos ... 70%
+(Leyendo la base de datos ... 75%
+(Leyendo la base de datos ... 80%
+(Leyendo la base de datos ... 85%
+(Leyendo la base de datos ... 90%
+(Leyendo la base de datos ... 95%
+(Leyendo la base de datos ... 100%
+(Leyendo la base de datos ... 18217 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../00-libdbus-1-3_1.14.10-1~deb12u1_amd64.deb ...
+Desempaquetando libdbus-1-3:amd64 (1.14.10-1~deb12u1) ...
+Seleccionando el paquete dbus-bin previamente no seleccionado.
+Preparando para desempaquetar .../01-dbus-bin_1.14.10-1~deb12u1_amd64.deb ...
+Desempaquetando dbus-bin (1.14.10-1~deb12u1) ...
+Seleccionando el paquete dbus-session-bus-common previamente no seleccionado.
+Preparando para desempaquetar .../02-dbus-session-bus-common_1.14.10-1~deb12u1_all.deb ...
+Desempaquetando dbus-session-bus-common (1.14.10-1~deb12u1) ...
+Seleccionando el paquete dbus-daemon previamente no seleccionado.
+Preparando para desempaquetar .../03-dbus-daemon_1.14.10-1~deb12u1_amd64.deb ...
+Desempaquetando dbus-daemon (1.14.10-1~deb12u1) ...
+Seleccionando el paquete dbus-system-bus-common previamente no seleccionado.
+Preparando para desempaquetar .../04-dbus-system-bus-common_1.14.10-1~deb12u1_all.deb ...
+Desempaquetando dbus-system-bus-common (1.14.10-1~deb12u1) ...
+Seleccionando el paquete dbus previamente no seleccionado.
+Preparando para desempaquetar .../05-dbus_1.14.10-1~deb12u1_amd64.deb ...
+Desempaquetando dbus (1.14.10-1~deb12u1) ...
+Seleccionando el paquete libcbor0.8:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../06-libcbor0.8_0.8.0-2+b1_amd64.deb ...
+Desempaquetando libcbor0.8:amd64 (0.8.0-2+b1) ...
+Seleccionando el paquete libfido2-1:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../07-libfido2-1_1.12.0-2+b1_amd64.deb ...
+Desempaquetando libfido2-1:amd64 (1.12.0-2+b1) ...
+Seleccionando el paquete openssh-client previamente no seleccionado.
+Preparando para desempaquetar .../08-openssh-client_1%3a9.2p1-2+deb12u2_amd64.deb ...
+Desempaquetando openssh-client (1:9.2p1-2+deb12u2) ...
+Seleccionando el paquete openssh-sftp-server previamente no seleccionado.
+Preparando para desempaquetar .../09-openssh-sftp-server_1%3a9.2p1-2+deb12u2_amd64.deb ...
+Desempaquetando openssh-sftp-server (1:9.2p1-2+deb12u2) ...
+Seleccionando el paquete runit-helper previamente no seleccionado.
+Preparando para desempaquetar .../10-runit-helper_2.15.2_all.deb ...
+Desempaquetando runit-helper (2.15.2) ...
+Seleccionando el paquete libnsl2:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../11-libnsl2_1.3.0-2_amd64.deb ...
+Desempaquetando libnsl2:amd64 (1.3.0-2) ...
+Seleccionando el paquete libwrap0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../12-libwrap0_7.6.q-32_amd64.deb ...
+Desempaquetando libwrap0:amd64 (7.6.q-32) ...
+Seleccionando el paquete openssh-server previamente no seleccionado.
+Preparando para desempaquetar .../13-openssh-server_1%3a9.2p1-2+deb12u2_amd64.deb ...
+Desempaquetando openssh-server (1:9.2p1-2+deb12u2) ...
+Seleccionando el paquete libpam-systemd:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../14-libpam-systemd_252.22-1~deb12u1_amd64.deb ...
+Desempaquetando libpam-systemd:amd64 (252.22-1~deb12u1) ...
+Seleccionando el paquete ncurses-term previamente no seleccionado.
+Preparando para desempaquetar .../15-ncurses-term_6.4-4_all.deb ...
+Desempaquetando ncurses-term (6.4-4) ...
+Seleccionando el paquete dbus-user-session previamente no seleccionado.
+Preparando para desempaquetar .../16-dbus-user-session_1.14.10-1~deb12u1_amd64.deb ...
+Desempaquetando dbus-user-session (1.14.10-1~deb12u1) ...
+Seleccionando el paquete libxau6:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../17-libxau6_1%3a1.0.9-1_amd64.deb ...
+Desempaquetando libxau6:amd64 (1:1.0.9-1) ...
+Seleccionando el paquete libxdmcp6:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../18-libxdmcp6_1%3a1.1.2-3_amd64.deb ...
+Desempaquetando libxdmcp6:amd64 (1:1.1.2-3) ...
+Seleccionando el paquete libxcb1:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../19-libxcb1_1.15-1_amd64.deb ...
+Desempaquetando libxcb1:amd64 (1.15-1) ...
+Seleccionando el paquete libx11-data previamente no seleccionado.
+Preparando para desempaquetar .../20-libx11-data_2%3a1.8.4-2+deb12u2_all.deb ...
+Desempaquetando libx11-data (2:1.8.4-2+deb12u2) ...
+Seleccionando el paquete libx11-6:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../21-libx11-6_2%3a1.8.4-2+deb12u2_amd64.deb ...
+Desempaquetando libx11-6:amd64 (2:1.8.4-2+deb12u2) ...
+Seleccionando el paquete libxext6:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../22-libxext6_2%3a1.3.4-1+b1_amd64.deb ...
+Desempaquetando libxext6:amd64 (2:1.3.4-1+b1) ...
+Seleccionando el paquete libxmuu1:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../23-libxmuu1_2%3a1.1.3-3_amd64.deb ...
+Desempaquetando libxmuu1:amd64 (2:1.1.3-3) ...
+Seleccionando el paquete xauth previamente no seleccionado.
+Preparando para desempaquetar .../24-xauth_1%3a1.1.2-1_amd64.deb ...
+Desempaquetando xauth (1:1.1.2-1) ...
+Configurando runit-helper (2.15.2) ...
+Configurando libxau6:amd64 (1:1.0.9-1) ...
+Configurando libxdmcp6:amd64 (1:1.1.2-3) ...
+Configurando libxcb1:amd64 (1.15-1) ...
+Configurando libcbor0.8:amd64 (0.8.0-2+b1) ...
+Configurando libx11-data (2:1.8.4-2+deb12u2) ...
+Configurando libdbus-1-3:amd64 (1.14.10-1~deb12u1) ...
+Configurando dbus-session-bus-common (1.14.10-1~deb12u1) ...
+Configurando libnsl2:amd64 (1.3.0-2) ...
+Configurando libx11-6:amd64 (2:1.8.4-2+deb12u2) ...
+Configurando dbus-system-bus-common (1.14.10-1~deb12u1) ...
+Configurando libfido2-1:amd64 (1.12.0-2+b1) ...
+Configurando libxmuu1:amd64 (2:1.1.3-3) ...
+Configurando dbus-bin (1.14.10-1~deb12u1) ...
+Configurando ncurses-term (6.4-4) ...
+Configurando openssh-client (1:9.2p1-2+deb12u2) ...
+Configurando libxext6:amd64 (2:1.3.4-1+b1) ...
+Configurando dbus-daemon (1.14.10-1~deb12u1) ...
+Configurando libwrap0:amd64 (7.6.q-32) ...
+Configurando dbus (1.14.10-1~deb12u1) ...
+dbus.service is a disabled or a static unit, not starting it.
+Configurando xauth (1:1.1.2-1) ...
+Configurando libpam-systemd:amd64 (252.22-1~deb12u1) ...
+Configurando openssh-sftp-server (1:9.2p1-2+deb12u2) ...
+Configurando openssh-server (1:9.2p1-2+deb12u2) ...
+
+Creating config file /etc/ssh/sshd_config with new version
+Creating SSH2 RSA key; this may take some time ...
+3072 SHA256:i5wYOgY8IffakU2yTzW4CaVy43Tr7v2M4WRIRmOiCYo root@routeracces (RSA)
+Creating SSH2 ECDSA key; this may take some time ...
+256 SHA256:sI7ynU0wYb8DtFIZkDz22vmJXBRwoDd85D5h8lwW55Q root@routeracces (ECDSA)
+Creating SSH2 ED25519 key; this may take some time ...
+256 SHA256:l7nv/JsE6hZv7Q7TOPqF7g6ypwKWmEJ0sY2iYQ9z6Sk root@routeracces (ED25519)
+Created symlink /etc/systemd/system/sshd.service → /lib/systemd/system/ssh.service.
+
+Created symlink /etc/systemd/system/multi-user.target.wants/ssh.service → /lib/systemd/system/ssh.service.
+
+rescue-ssh.target is a disabled or a static unit, not starting it.
+ssh.socket is a disabled or a static unit, not starting it.
+Configurando dbus-user-session (1.14.10-1~deb12u1) ...
+Procesando disparadores para libc-bin (2.36-9+deb12u4) ...
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 12:23:11
+Prompt: root@routeracces
+Comando ejecutado: cat /etc/ssh/sshd_config
+====================
+
+# This is the sshd server system-wide configuration file.  See
+# sshd_config(5) for more information.
+
+# This sshd was compiled with PATH=/usr/local/bin:/usr/bin:/bin:/usr/games
+
+# The strategy used for options in the default sshd_config shipped with
+# OpenSSH is to specify options with their default value where
+# possible, but leave them commented.  Uncommented options override the
+# default value.
+
+Include /etc/ssh/sshd_config.d/*.conf
+
+#Port 22
+#AddressFamily any
+#ListenAddress 0.0.0.0
+#ListenAddress ::
+
+#HostKey /etc/ssh/ssh_host_rsa_key
+#HostKey /etc/ssh/ssh_host_ecdsa_key
+#HostKey /etc/ssh/ssh_host_ed25519_key
+
+# Ciphers and keying
+#RekeyLimit default none
+
+# Logging
+#SyslogFacility AUTH
+#LogLevel INFO
+
+# Authentication:
+
+#LoginGraceTime 2m
+PermitRootLogin no
+#StrictModes yes
+#MaxAuthTries 6
+#MaxSessions 10
+
+#PubkeyAuthentication yes
+
+# Expect .ssh/authorized_keys2 to be disregarded by default in future.
+#AuthorizedKeysFile	.ssh/authorized_keys .ssh/authorized_keys2
+
+#AuthorizedPrincipalsFile none
+
+#AuthorizedKeysCommand none
+#AuthorizedKeysCommandUser nobody
+
+# For this to work you will also need host keys in /etc/ssh/ssh_known_hosts
+#HostbasedAuthentication no
+# Change to yes if you don't trust ~/.ssh/known_hosts for
+# HostbasedAuthentication
+#IgnoreUserKnownHosts no
+# Don't read the user's ~/.rhosts and ~/.shosts files
+#IgnoreRhosts yes
+
+# To disable tunneled clear text passwords, change to no here!
+PasswordAuthentication yes
+#PermitEmptyPasswords no
+
+# Change to yes to enable challenge-response passwords (beware issues with
+# some PAM modules and threads)
+KbdInteractiveAuthentication no
+
+# Kerberos options
+#KerberosAuthentication no
+#KerberosOrLocalPasswd yes
+#KerberosTicketCleanup yes
+#KerberosGetAFSToken no
+
+# GSSAPI options
+#GSSAPIAuthentication no
+#GSSAPICleanupCredentials yes
+#GSSAPIStrictAcceptorCheck yes
+#GSSAPIKeyExchange no
+
+# Set this to 'yes' to enable PAM authentication, account processing,
+# and session processing. If this is enabled, PAM authentication will
+# be allowed through the KbdInteractiveAuthentication and
+# PasswordAuthentication.  Depending on your PAM configuration,
+# PAM authentication via KbdInteractiveAuthentication may bypass
+# the setting of "PermitRootLogin prohibit-password".
+# If you just want the PAM account and session checks to run without
+# PAM authentication, then enable this but set PasswordAuthentication
+# and KbdInteractiveAuthentication to 'no'.
+UsePAM yes
+
+#AllowAgentForwarding yes
+#AllowTcpForwarding yes
+#GatewayPorts no
+X11Forwarding yes
+#X11DisplayOffset 10
+#X11UseLocalhost yes
+#PermitTTY yes
+PrintMotd no
+#PrintLastLog yes
+#TCPKeepAlive yes
+#PermitUserEnvironment no
+#Compression delayed
+#ClientAliveInterval 0
+#ClientAliveCountMax 3
+#UseDNS no
+#PidFile /run/sshd.pid
+#MaxStartups 10:30:100
+#PermitTunnel no
+#ChrootDirectory none
+#VersionAddendum none
+
+# no default banner path
+#Banner none
+
+# Allow client to pass locale environment variables
+AcceptEnv LANG LC_*
+
+# override default of no subsystems
+Subsystem	sftp	/usr/lib/openssh/sftp-server
+
+# Example of overriding settings on a per-user basis
+#Match User anoncvs
+#	X11Forwarding no
+#	AllowTcpForwarding no
+#	PermitTTY no
+#	ForceCommand cvs server
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 12:24:12
+Prompt: root@routeracces
+Comando ejecutado: systemctl restart sshd
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 12:22:39
+Prompt: root@routeracces
+Comando ejecutado: systemctl status ssh
+====================
+● ssh.service - OpenBSD Secure Shell server
+     Loaded: loaded (/lib/systemd/system/ssh.service; enabled; preset: enabled)
+     Active: active (running) since Sun 2024-05-05 12:22:17 CEST; 22s ago
+       Docs: man:sshd(8)
+             man:sshd_config(5)
+   Main PID: 1473 (sshd)
+      Tasks: 1 (limit: 1108)
+     Memory: 2.8M
+        CPU: 20ms
+     CGroup: /system.slice/ssh.service
+             └─1473 "sshd: /usr/sbin/sshd -D [listener] 0 of 10-100 startups"
+
+may 05 12:22:17 routeracces systemd[1]: Starting ssh.service - OpenBSD Secure Shell server...
+may 05 12:22:17 routeracces sshd[1473]: Server listening on 0.0.0.0 port 22.
+may 05 12:22:17 routeracces sshd[1473]: Server listening on :: port 22.
+may 05 12:22:17 routeracces systemd[1]: Started ssh.service - OpenBSD Secure Shell server.
+
+Fin de la ejecución
+====================

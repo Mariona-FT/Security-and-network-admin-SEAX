@@ -1,0 +1,207 @@
+
+** MONITOR DMZ: **
+
+ ROUTER D'ACCES:
+
+	XARXA TRONCAL:
+
+====================
+Fecha y hora: 2024-05-06 01:21:44
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 192.168.1.26
+====================
+PING 192.168.1.26 (192.168.1.26) 56(84) bytes of data.
+64 bytes from 192.168.1.26: icmp_seq=1 ttl=64 time=0.847 ms
+64 bytes from 192.168.1.26: icmp_seq=2 ttl=64 time=2.16 ms
+
+--- 192.168.1.26 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 0.847/1.502/2.158/0.655 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-06 00:00:48
+Prompt: root@monitordmz
+Comando ejecutado: ssh entel@192.168.1.26
+====================
+Linux routeracces 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sun May  5 23:59:53 2024 from 10.1.10.11
+entel@routeracces:~$ cd /home/
+entel@routeracces:/home$ ls
+entel
+entel@routeracces:/home$ exit
+
+cerrar sesión
+Connection to 192.168.1.26 closed.
+
+Fin de la ejecución
+====================	
+
+	XARXA DMZ: 
+
+====================
+Fecha y hora: 2024-05-06 01:21:22
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+64 bytes from 10.1.10.1: icmp_seq=1 ttl=64 time=0.706 ms
+64 bytes from 10.1.10.1: icmp_seq=2 ttl=64 time=0.840 ms
+
+--- 10.1.10.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 0.706/0.773/0.840/0.067 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-05 23:59:44
+Prompt: root@monitordmz
+Comando ejecutado: ssh entel@10.1.10.1
+====================
+Warning: Permanently added '10.1.10.1' (ED25519) to the list of known hosts.
+Linux routeracces 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sun May  5 23:45:19 2024 from 192.168.1.27
+entel@routeracces:~$ cd /home/
+entel@routeracces:/home$ ls
+entel
+entel@routeracces:/home$ exit
+
+cerrar sesión
+Connection to 10.1.10.1 closed.
+
+Fin de la ejecución
+====================
+
+ ROUTER INTERN:
+
+	XARXA DMZ: 
+
+====================
+Fecha y hora: 2024-05-06 01:21:30
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 10.1.10.2
+====================
+PING 10.1.10.2 (10.1.10.2) 56(84) bytes of data.
+64 bytes from 10.1.10.2: icmp_seq=1 ttl=64 time=0.866 ms
+64 bytes from 10.1.10.2: icmp_seq=2 ttl=64 time=1.36 ms
+
+--- 10.1.10.2 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 0.866/1.111/1.356/0.245 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-06 01:15:32
+Prompt: root@monitordmz
+Comando ejecutado: ssh entel@10.1.10.2
+====================
+Linux routerintern 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Mon May  6 00:05:08 2024 from 10.1.10.11
+entel@routerintern:~$ cd /home/
+entel@routerintern:/home$ ls
+entel
+entel@routerintern:/home$ exit
+cerrar sesión
+Connection to 10.1.10.2 closed.
+
+Fin de la ejecución
+====================
+
+
+	XARXA CLIENTS: 
+
+====================
+Fecha y hora: 2024-05-06 01:21:51
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 2 10.1.20.1
+====================
+PING 10.1.20.1 (10.1.20.1) 56(84) bytes of data.
+64 bytes from 10.1.20.1: icmp_seq=1 ttl=64 time=1.13 ms
+64 bytes from 10.1.20.1: icmp_seq=2 ttl=64 time=1.29 ms
+
+--- 10.1.20.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 1.125/1.205/1.286/0.080 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-06 00:04:35
+Prompt: root@monitordmz
+Comando ejecutado: ssh entel@10.1.10.2
+====================
+Warning: Permanently added '10.1.10.2' (ED25519) to the list of known hosts.
+Linux routerintern 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sat Feb 17 08:50:28 2024
+entel@routerintern:~$ cd /home/
+entel@routerintern:/home$ ls
+entel
+entel@routerintern:/home$ exit
+
+cerrar sesión
+Connection to 10.1.10.2 closed.
+
+Fin de la ejecución
+====================
+
+ENTRADA ROOT: 
+
+====================
+Fecha y hora: 2024-05-06 00:19:58
+Prompt: root@monitordmz
+Comando ejecutado: ssh root@10.1.10.1
+====================
+Permission denied, please try again.
+Permission denied, please try again.
+root@10.1.10.1: Permission denied (publickey,password).
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-06 01:23:51
+Prompt: root@monitordmz
+Comando ejecutado: ssh root@10.1.10.2
+====================
+Permission denied, please try again.
+Permission denied, please try again.
+root@10.1.10.2: Permission denied (publickey,password).
+
+Fin de la ejecución
+====================
+
