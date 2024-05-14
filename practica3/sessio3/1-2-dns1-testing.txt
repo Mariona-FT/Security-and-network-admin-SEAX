@@ -1,0 +1,591 @@
+
+====================
+Fecha y hora: 2024-05-14 18:57:21
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.3 google.com
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 google.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 3438
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 8e243a274a2e64cd01000000664397f32d12d8a073706426 (good)
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		259	IN	A	142.250.184.174
+
+;; Query time: 2423 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 14 18:57:23 CEST 2024
+;; MSG SIZE  rcvd: 83
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 18:57:41
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.3 dns2.seax.edu
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 dns2.seax.edu
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 10291
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 696673270bcaf0dd0100000066439805cf11e390c0185a27 (good)
+;; QUESTION SECTION:
+;dns2.seax.edu.			IN	A
+
+;; ANSWER SECTION:
+dns2.seax.edu.		604800	IN	A	10.1.10.4
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 14 18:57:41 CEST 2024
+;; MSG SIZE  rcvd: 86
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 18:57:55
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.3 -x 10.1.10.3
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 -x 10.1.10.3
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 59901
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: be7875af7eceb18b0100000066439813ef134ee1d6dbeca2 (good)
+;; QUESTION SECTION:
+;3.10.1.10.in-addr.arpa.		IN	PTR
+
+;; ANSWER SECTION:
+3.10.1.10.in-addr.arpa.	604800	IN	PTR	dns1.seax.edu.
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 14 18:57:55 CEST 2024
+;; MSG SIZE  rcvd: 106
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 18:59:54
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.4 -x 10.1.10.4
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.4 -x 10.1.10.4
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 58192
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 8dd97016cd029def010000006643988a26045e53050e263e (good)
+;; QUESTION SECTION:
+;4.10.1.10.in-addr.arpa.		IN	PTR
+
+;; ANSWER SECTION:
+4.10.1.10.in-addr.arpa.	604800	IN	PTR	dns2.seax.edu.
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.4#53(10.1.10.4) (UDP)
+;; WHEN: Tue May 14 18:59:54 CEST 2024
+;; MSG SIZE  rcvd: 106
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:01:20
+Prompt: root@dns1
+Comando ejecutado: ping -c 2 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+64 bytes from 10.1.10.1: icmp_seq=1 ttl=64 time=0.192 ms
+64 bytes from 10.1.10.1: icmp_seq=2 ttl=64 time=0.202 ms
+
+--- 10.1.10.1 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1029ms
+rtt min/avg/max/mdev = 0.192/0.197/0.202/0.005 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:01:27
+Prompt: root@dns1
+Comando ejecutado: ping -c 2 google.com
+====================
+PING google.com (142.250.184.174) 56(84) bytes of data.
+64 bytes from mad07s23-in-f14.1e100.net (142.250.184.174): icmp_seq=1 ttl=116 time=22.4 ms
+64 bytes from mad07s23-in-f14.1e100.net (142.250.184.174): icmp_seq=2 ttl=116 time=20.0 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 20.039/21.242/22.446/1.203 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:01:37
+Prompt: root@dns1
+Comando ejecutado: ping -c 2 10.1.10.4
+====================
+PING 10.1.10.4 (10.1.10.4) 56(84) bytes of data.
+64 bytes from 10.1.10.4: icmp_seq=1 ttl=64 time=0.236 ms
+64 bytes from 10.1.10.4: icmp_seq=2 ttl=64 time=0.207 ms
+
+--- 10.1.10.4 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1003ms
+rtt min/avg/max/mdev = 0.207/0.221/0.236/0.014 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:02:20
+Prompt: root@dns1
+Comando ejecutado: named-checkzone seax.edu /etc/bind/zones/db.seax.edu
+====================
+zone seax.edu/IN: loaded serial 2
+OK
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:03:06
+Prompt: root@dns1
+Comando ejecutado: systemctl status bind9
+====================
+● named.service - BIND Domain Name Server
+     Loaded: loaded (/lib/systemd/system/named.service; enabled; preset: enabled)
+     Active: active (running) since Tue 2024-05-14 18:50:01 CEST; 13min ago
+       Docs: man:named(8)
+   Main PID: 447 (named)
+     Status: "running"
+      Tasks: 4 (limit: 1108)
+     Memory: 22.0M
+        CPU: 131ms
+     CGroup: /system.slice/named.service
+             └─447 /usr/sbin/named -f -u bind
+
+may 14 19:01:33 dns1 named[447]: FORMERR resolving './NS/IN': 199.9.14.201#53
+may 14 19:01:34 dns1 named[447]: DNS format error from 192.58.128.30#53 resolving ./NS for <unknown>: non-improving referral
+may 14 19:01:34 dns1 named[447]: FORMERR resolving './NS/IN': 192.58.128.30#53
+may 14 19:01:35 dns1 named[447]: DNS format error from 192.36.148.17#53 resolving ./NS for <unknown>: non-improving referral
+may 14 19:01:35 dns1 named[447]: FORMERR resolving './NS/IN': 192.36.148.17#53
+may 14 19:01:35 dns1 named[447]: DNS format error from 199.7.91.13#53 resolving ./NS for <unknown>: non-improving referral
+may 14 19:01:35 dns1 named[447]: FORMERR resolving './NS/IN': 199.7.91.13#53
+may 14 19:01:37 dns1 named[447]: DNS format error from 192.33.4.12#53 resolving ./NS for <unknown>: non-improving referral
+may 14 19:01:37 dns1 named[447]: FORMERR resolving './NS/IN': 192.33.4.12#53
+may 14 19:01:37 dns1 named[447]: resolver priming query complete: timed out
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:20:08
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.3 www.public.seax.edu
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 www.public.seax.edu
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 30686
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 2e5f09d44dedd93f0100000066439d48b5b36b826b786b95 (good)
+;; QUESTION SECTION:
+;www.public.seax.edu.		IN	A
+
+;; ANSWER SECTION:
+www.public.seax.edu.	604800	IN	A	147.83.2.135
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 14 19:20:08 CEST 2024
+;; MSG SIZE  rcvd: 92
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:21:16
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.3 seax.edu A
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 seax.edu A
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 61342
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: e9f229ae8226a1470100000066439d8c67e71d9b71607635 (good)
+;; QUESTION SECTION:
+;seax.edu.			IN	A
+
+;; AUTHORITY SECTION:
+seax.edu.		604800	IN	SOA	dns1.seax.edu. admin.seax.edu. 2 604800 86400 2419200 604800
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 14 19:21:16 CEST 2024
+;; MSG SIZE  rcvd: 112
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:21:46
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.3 public.seax.edu
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 public.seax.edu
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 35534
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: ac46921d988f31980100000066439daaaf3536338635a799 (good)
+;; QUESTION SECTION:
+;public.seax.edu.		IN	A
+
+;; AUTHORITY SECTION:
+public.seax.edu.	604800	IN	SOA	dns2.public.seax.edu. admin.public.seax.edu. 2 604800 86400 2419200 604800
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 14 19:21:46 CEST 2024
+;; MSG SIZE  rcvd: 119
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:22:16
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.3 public.seax.edu A
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 public.seax.edu A
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 33155
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: e6d318bf44bf1f920100000066439dc85c64ff01968e6ec6 (good)
+;; QUESTION SECTION:
+;public.seax.edu.		IN	A
+
+;; AUTHORITY SECTION:
+public.seax.edu.	604800	IN	SOA	dns2.public.seax.edu. admin.public.seax.edu. 2 604800 86400 2419200 604800
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 14 19:22:16 CEST 2024
+;; MSG SIZE  rcvd: 119
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:22:20
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.3 public.seax.edu AAAA
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 public.seax.edu AAAA
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 65228
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 29d8b64dd8e79ce10100000066439dcc22060429487a7ba8 (good)
+;; QUESTION SECTION:
+;public.seax.edu.		IN	AAAA
+
+;; AUTHORITY SECTION:
+public.seax.edu.	604800	IN	SOA	dns2.public.seax.edu. admin.public.seax.edu. 2 604800 86400 2419200 604800
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 14 19:22:20 CEST 2024
+;; MSG SIZE  rcvd: 119
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:23:19
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.3 ssh1.seax.edu CNAME
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 ssh1.seax.edu CNAME
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 62704
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 8dd502a0ba7564770100000066439e07836d63cd60209490 (good)
+;; QUESTION SECTION:
+;ssh1.seax.edu.			IN	CNAME
+
+;; ANSWER SECTION:
+ssh1.seax.edu.		604800	IN	CNAME	dns1.seax.edu.
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 14 19:23:19 CEST 2024
+;; MSG SIZE  rcvd: 89
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:23:28
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.3 ssh2.seax.edu CNAME
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 ssh2.seax.edu CNAME
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 61616
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 21ec83f85a2095800100000066439e102dd40d41d2c3f284 (good)
+;; QUESTION SECTION:
+;ssh2.seax.edu.			IN	CNAME
+
+;; ANSWER SECTION:
+ssh2.seax.edu.		604800	IN	CNAME	dns2.seax.edu.
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 14 19:23:28 CEST 2024
+;; MSG SIZE  rcvd: 89
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:23:35
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.3 ssh5.seax.edu CNAME
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 ssh5.seax.edu CNAME
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 56127
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: e8d9a6cd52968ae90100000066439e17d6c66f4e65504659 (good)
+;; QUESTION SECTION:
+;ssh5.seax.edu.			IN	CNAME
+
+;; AUTHORITY SECTION:
+seax.edu.		604800	IN	SOA	dns1.seax.edu. admin.seax.edu. 2 604800 86400 2419200 604800
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 14 19:23:35 CEST 2024
+;; MSG SIZE  rcvd: 117
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:35:52
+Prompt: root@dns1
+Comando ejecutado: rndc status
+====================
+version: BIND 9.18.24-1-Debian (Extended Support Version) <id:>
+running on localhost: Linux x86_64 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01)
+boot time: Tue, 14 May 2024 16:50:01 GMT
+last configured: Tue, 14 May 2024 16:50:01 GMT
+configuration file: /etc/bind/named.conf
+CPUs found: 1
+worker threads: 1
+UDP listeners per interface: 1
+number of zones: 105 (97 automatic)
+debug level: 0
+xfers running: 0
+xfers deferred: 0
+soa queries in progress: 0
+query logging is OFF
+recursive clients: 0/900/1000
+tcp clients: 0/150
+TCP high-water: 0
+server is up and running
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:36:38
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.3 seax.edu SOA
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 seax.edu SOA
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 20438
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: e8b88b118c03ede6010000006643a126f49d306eebaf3466 (good)
+;; QUESTION SECTION:
+;seax.edu.			IN	SOA
+
+;; ANSWER SECTION:
+seax.edu.		604800	IN	SOA	dns1.seax.edu. admin.seax.edu. 2 604800 86400 2419200 604800
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 14 19:36:38 CEST 2024
+;; MSG SIZE  rcvd: 112
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:52:01
+Prompt: root@dns1
+Comando ejecutado: dig @10.1.10.3 public.seax.edu SOA
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 public.seax.edu SOA
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 37326
+;; flags: qr aa rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 407d55e1f6f7003d010000006643a4c185a6c96325577c39 (good)
+;; QUESTION SECTION:
+;public.seax.edu.		IN	SOA
+
+;; ANSWER SECTION:
+public.seax.edu.	604800	IN	SOA	dns2.public.seax.edu. admin.public.seax.edu. 2 604800 86400 2419200 604800
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 14 19:52:01 CEST 2024
+;; MSG SIZE  rcvd: 119
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:39:26
+Prompt: root@dns1
+Comando ejecutado: rndc -b 10.1.10.3 zonestatus seax.edu
+====================
+name: seax.edu
+type: primary
+files: /etc/bind/zones/db.seax.edu
+serial: 2
+nodes: 6
+last loaded: Tue, 14 May 2024 10:15:52 GMT
+secure: no
+dynamic: no
+reconfigurable via modzone: no
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 19:42:40
+Prompt: root@dns1
+Comando ejecutado: rndc -b 10.1.10.3 zonestatus public.seax.edu
+====================
+name: public.seax.edu
+type: secondary
+files: /var/cache/bind/db.public.seax.edu
+serial: 2
+nodes: 6
+last loaded: Tue, 14 May 2024 10:38:29 GMT
+next refresh: Tue, 14 May 2024 23:47:13 GMT
+expires: Tue, 11 Jun 2024 10:38:29 GMT
+secure: no
+dynamic: no
+reconfigurable via modzone: no
+
+Fin de la ejecución
+====================
+
+

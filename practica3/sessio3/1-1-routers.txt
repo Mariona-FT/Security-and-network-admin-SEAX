@@ -1,0 +1,26 @@
+
+====================
+Fecha y hora: 2024-05-14 18:12:43
+Prompt: root@routerintern
+Comando ejecutado: cat /etc/resolv.conf
+====================
+nameserver 10.1.10.3
+nameserver 10.1.10.4
+#nameserver 212.166.132.192
+#nameserver 212.166.132.96
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 18:12:43
+Prompt: root@routeracces
+Comando ejecutado: cat /etc/resolv.conf
+====================
+nameserver 10.1.10.3
+nameserver 10.1.10.4
+#nameserver 212.166.132.192
+#nameserver 212.166.132.96
+
+Fin de la ejecución
+====================

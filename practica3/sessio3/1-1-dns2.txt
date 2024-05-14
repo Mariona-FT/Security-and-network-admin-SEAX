@@ -1,0 +1,330 @@
+
+====================
+Fecha y hora: 2024-05-14 11:49:20
+Prompt: root@dns2
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth-dmz: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:10:04 brd ff:ff:ff:ff:ff:ff
+    altname enp0s3
+    inet 10.1.10.4/28 brd 10.1.10.15 scope global eth-dmz
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe01:1004/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 11:49:33
+Prompt: root@dns2
+Comando ejecutado: cat /etc/network/interfaces
+====================
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug eth-dmz
+iface eth-dmz inet static
+	address 10.1.10.4
+	netmask 255.255.255.240
+	gateway 10.1.10.1
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 11:58:22
+Prompt: root@dns2
+Comando ejecutado: ping -c 2 google.com
+====================
+PING google.com (142.250.184.14) 56(84) bytes of data.
+64 bytes from mad41s10-in-f14.1e100.net (142.250.184.14): icmp_seq=1 ttl=116 time=31.6 ms
+64 bytes from 142.250.184.14: icmp_seq=2 ttl=116 time=21.5 ms
+
+--- google.com ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 5047ms
+rtt min/avg/max/mdev = 21.464/26.513/31.562/5.049 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 12:18:16
+Prompt: root@dns2
+Comando ejecutado: apt update
+====================
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Obj:1 http://deb.debian.org/debian bookworm InRelease
+Des:2 http://security.debian.org/debian-security bookworm-security InRelease [48,0 kB]
+Des:3 http://deb.debian.org/debian bookworm-updates InRelease [55,4 kB]
+Des:4 http://security.debian.org/debian-security bookworm-security/main Sources [95,9 kB]
+Des:5 http://security.debian.org/debian-security bookworm-security/main amd64 Packages [156 kB]
+Des:6 http://security.debian.org/debian-security bookworm-security/main Translation-en [92,9 kB]
+Des:7 http://deb.debian.org/debian bookworm-updates/main Sources.diff/Index [10,6 kB]
+Des:8 http://deb.debian.org/debian bookworm-updates/main amd64 Packages.diff/Index [10,6 kB]
+Des:9 http://deb.debian.org/debian bookworm-updates/main Translation-en.diff/Index [10,6 kB]
+Des:10 http://deb.debian.org/debian bookworm-updates/main Sources T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [831 B]
+Des:11 http://deb.debian.org/debian bookworm-updates/main amd64 Packages T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [1.595 B]
+Des:10 http://deb.debian.org/debian bookworm-updates/main Sources T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [831 B]
+Des:11 http://deb.debian.org/debian bookworm-updates/main amd64 Packages T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [1.595 B]
+Des:12 http://deb.debian.org/debian bookworm-updates/main Translation-en T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [2.563 B]
+Des:12 http://deb.debian.org/debian bookworm-updates/main Translation-en T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [2.563 B]
+Descargados 485 kB en 1s (874 kB/s)
+Leyendo lista de paquetes...
+Creando árbol de dependencias...
+Leyendo la información de estado...
+Se pueden actualizar 18 paquetes. Ejecute «apt list --upgradable» para verlos.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 12:18:40
+Prompt: root@dns2
+Comando ejecutado: apt install bind9 bind9utils bind9-doc dnsutils -y
+====================
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Leyendo lista de paquetes...
+Creando árbol de dependencias...
+Leyendo la información de estado...
+Se instalarán los siguientes paquetes adicionales:
+  bind9-dnsutils bind9-host bind9-libs bind9-utils dns-root-data libfstrm0
+  libicu72 libjemalloc2 liblmdb0 libmaxminddb0 libnghttp2-14 libprotobuf-c1
+  libuv1 libxml2
+Paquetes sugeridos:
+  bind-doc resolvconf ufw mmdb-bin
+Se instalarán los siguientes paquetes NUEVOS:
+  bind9 bind9-dnsutils bind9-doc bind9-host bind9-libs bind9-utils bind9utils
+  dns-root-data dnsutils libfstrm0 libicu72 libjemalloc2 liblmdb0
+  libmaxminddb0 libnghttp2-14 libprotobuf-c1 libuv1 libxml2
+0 actualizados, 18 nuevos se instalarán, 0 para eliminar y 18 no actualizados.
+Se necesita descargar 17,7 MB de archivos.
+Se utilizarán 55,9 MB de espacio de disco adicional después de esta operación.
+Des:1 http://deb.debian.org/debian bookworm/main amd64 libfstrm0 amd64 0.6.1-1 [21,6 kB]
+Des:2 http://security.debian.org/debian-security bookworm-security/main amd64 libuv1 amd64 1.44.2-1+deb12u1 [136 kB]
+Des:3 http://deb.debian.org/debian bookworm/main amd64 libjemalloc2 amd64 5.3.0-1 [275 kB]
+Des:4 http://deb.debian.org/debian bookworm/main amd64 liblmdb0 amd64 0.9.24-1 [45,0 kB]
+Des:5 http://deb.debian.org/debian bookworm/main amd64 libmaxminddb0 amd64 1.7.1-1 [29,8 kB]
+Des:6 http://deb.debian.org/debian bookworm/main amd64 libnghttp2-14 amd64 1.52.0-1+deb12u1 [72,4 kB]
+Des:7 http://security.debian.org/debian-security bookworm-security/main amd64 bind9-libs amd64 1:9.18.24-1 [1.413 kB]
+Des:8 http://deb.debian.org/debian bookworm/main amd64 libprotobuf-c1 amd64 1.4.1-1+b1 [27,5 kB]
+Des:9 http://deb.debian.org/debian bookworm/main amd64 libicu72 amd64 72.1-3 [9.376 kB]
+Des:10 http://security.debian.org/debian-security bookworm-security/main amd64 bind9-utils amd64 1:9.18.24-1 [408 kB]
+Des:11 http://security.debian.org/debian-security bookworm-security/main amd64 bind9 amd64 1:9.18.24-1 [496 kB]
+Des:12 http://security.debian.org/debian-security bookworm-security/main amd64 bind9-host amd64 1:9.18.24-1 [305 kB]
+Des:13 http://security.debian.org/debian-security bookworm-security/main amd64 bind9-dnsutils amd64 1:9.18.24-1 [403 kB]
+Des:14 http://security.debian.org/debian-security bookworm-security/main amd64 bind9-doc all 1:9.18.24-1 [3.446 kB]
+Des:15 http://deb.debian.org/debian bookworm/main amd64 libxml2 amd64 2.9.14+dfsg-1.3~deb12u1 [687 kB]
+Des:16 http://deb.debian.org/debian bookworm/main amd64 dns-root-data all 2023010101 [4.124 B]
+Des:17 http://security.debian.org/debian-security bookworm-security/main amd64 bind9utils all 1:9.18.24-1 [261 kB]
+Des:18 http://security.debian.org/debian-security bookworm-security/main amd64 dnsutils all 1:9.18.24-1 [261 kB]
+Descargados 17,7 MB en 1s (29,9 MB/s)
+Seleccionando el paquete libuv1:amd64 previamente no seleccionado.
+(Leyendo la base de datos ... 
+(Leyendo la base de datos ... 5%
+(Leyendo la base de datos ... 10%
+(Leyendo la base de datos ... 15%
+(Leyendo la base de datos ... 20%
+(Leyendo la base de datos ... 25%
+(Leyendo la base de datos ... 30%
+(Leyendo la base de datos ... 35%
+(Leyendo la base de datos ... 40%
+(Leyendo la base de datos ... 45%
+(Leyendo la base de datos ... 50%
+(Leyendo la base de datos ... 55%
+(Leyendo la base de datos ... 60%
+(Leyendo la base de datos ... 65%
+(Leyendo la base de datos ... 70%
+(Leyendo la base de datos ... 75%
+(Leyendo la base de datos ... 80%
+(Leyendo la base de datos ... 85%
+(Leyendo la base de datos ... 90%
+(Leyendo la base de datos ... 95%
+(Leyendo la base de datos ... 100%
+(Leyendo la base de datos ... 18217 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../00-libuv1_1.44.2-1+deb12u1_amd64.deb ...
+Desempaquetando libuv1:amd64 (1.44.2-1+deb12u1) ...
+Seleccionando el paquete libfstrm0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../01-libfstrm0_0.6.1-1_amd64.deb ...
+Desempaquetando libfstrm0:amd64 (0.6.1-1) ...
+Seleccionando el paquete libjemalloc2:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../02-libjemalloc2_5.3.0-1_amd64.deb ...
+Desempaquetando libjemalloc2:amd64 (5.3.0-1) ...
+Seleccionando el paquete liblmdb0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../03-liblmdb0_0.9.24-1_amd64.deb ...
+Desempaquetando liblmdb0:amd64 (0.9.24-1) ...
+Seleccionando el paquete libmaxminddb0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../04-libmaxminddb0_1.7.1-1_amd64.deb ...
+Desempaquetando libmaxminddb0:amd64 (1.7.1-1) ...
+Seleccionando el paquete libnghttp2-14:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../05-libnghttp2-14_1.52.0-1+deb12u1_amd64.deb ...
+Desempaquetando libnghttp2-14:amd64 (1.52.0-1+deb12u1) ...
+Seleccionando el paquete libprotobuf-c1:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../06-libprotobuf-c1_1.4.1-1+b1_amd64.deb ...
+Desempaquetando libprotobuf-c1:amd64 (1.4.1-1+b1) ...
+Seleccionando el paquete libicu72:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../07-libicu72_72.1-3_amd64.deb ...
+Desempaquetando libicu72:amd64 (72.1-3) ...
+Seleccionando el paquete libxml2:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../08-libxml2_2.9.14+dfsg-1.3~deb12u1_amd64.deb ...
+Desempaquetando libxml2:amd64 (2.9.14+dfsg-1.3~deb12u1) ...
+Seleccionando el paquete bind9-libs:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../09-bind9-libs_1%3a9.18.24-1_amd64.deb ...
+Desempaquetando bind9-libs:amd64 (1:9.18.24-1) ...
+Seleccionando el paquete bind9-utils previamente no seleccionado.
+Preparando para desempaquetar .../10-bind9-utils_1%3a9.18.24-1_amd64.deb ...
+Desempaquetando bind9-utils (1:9.18.24-1) ...
+Seleccionando el paquete dns-root-data previamente no seleccionado.
+Preparando para desempaquetar .../11-dns-root-data_2023010101_all.deb ...
+Desempaquetando dns-root-data (2023010101) ...
+Seleccionando el paquete bind9 previamente no seleccionado.
+Preparando para desempaquetar .../12-bind9_1%3a9.18.24-1_amd64.deb ...
+Desempaquetando bind9 (1:9.18.24-1) ...
+Seleccionando el paquete bind9-host previamente no seleccionado.
+Preparando para desempaquetar .../13-bind9-host_1%3a9.18.24-1_amd64.deb ...
+Desempaquetando bind9-host (1:9.18.24-1) ...
+Seleccionando el paquete bind9-dnsutils previamente no seleccionado.
+Preparando para desempaquetar .../14-bind9-dnsutils_1%3a9.18.24-1_amd64.deb ...
+Desempaquetando bind9-dnsutils (1:9.18.24-1) ...
+Seleccionando el paquete bind9-doc previamente no seleccionado.
+Preparando para desempaquetar .../15-bind9-doc_1%3a9.18.24-1_all.deb ...
+Desempaquetando bind9-doc (1:9.18.24-1) ...
+Seleccionando el paquete bind9utils previamente no seleccionado.
+Preparando para desempaquetar .../16-bind9utils_1%3a9.18.24-1_all.deb ...
+Desempaquetando bind9utils (1:9.18.24-1) ...
+Seleccionando el paquete dnsutils previamente no seleccionado.
+Preparando para desempaquetar .../17-dnsutils_1%3a9.18.24-1_all.deb ...
+Desempaquetando dnsutils (1:9.18.24-1) ...
+Configurando liblmdb0:amd64 (0.9.24-1) ...
+Configurando libicu72:amd64 (72.1-3) ...
+Configurando bind9-doc (1:9.18.24-1) ...
+Configurando libmaxminddb0:amd64 (1.7.1-1) ...
+Configurando libfstrm0:amd64 (0.6.1-1) ...
+Configurando libnghttp2-14:amd64 (1.52.0-1+deb12u1) ...
+Configurando libjemalloc2:amd64 (5.3.0-1) ...
+Configurando libprotobuf-c1:amd64 (1.4.1-1+b1) ...
+Configurando dns-root-data (2023010101) ...
+Configurando libuv1:amd64 (1.44.2-1+deb12u1) ...
+Configurando libxml2:amd64 (2.9.14+dfsg-1.3~deb12u1) ...
+Configurando bind9-libs:amd64 (1:9.18.24-1) ...
+Configurando bind9-utils (1:9.18.24-1) ...
+Configurando bind9 (1:9.18.24-1) ...
+Añadiendo el grupo `bind' (GID 107) ...
+Hecho.
+Añadiendo el usuario del sistema `bind' (UID 100) ...
+Añadiendo un nuevo usuario `bind' (UID 100) con grupo `bind' ...
+No se crea el directorio personal `/var/cache/bind'.
+wrote key file "/etc/bind/rndc.key"
+named-resolvconf.service is a disabled or a static unit, not starting it.
+Created symlink /etc/systemd/system/bind9.service → /lib/systemd/system/named.service.
+Created symlink /etc/systemd/system/multi-user.target.wants/named.service → /lib/systemd/system/named.service.
+Configurando bind9utils (1:9.18.24-1) ...
+Configurando bind9-host (1:9.18.24-1) ...
+Configurando bind9-dnsutils (1:9.18.24-1) ...
+Configurando dnsutils (1:9.18.24-1) ...
+Procesando disparadores para libc-bin (2.36-9+deb12u4) ...
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 12:19:24
+Prompt: root@dns2
+Comando ejecutado: cat /etc/bind/named.conf.local
+====================
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 12:23:17
+Prompt: root@dns2
+Comando ejecutado: cat /etc/bind/named.conf.local
+====================
+zone "seax.edu" {
+	type slave;
+	file "/var/cache/bind/db.seax.edu";
+	masters { 10.1.10.3; };
+};
+
+zone "10.1.10.in-addr.arpa"  {
+	type slave;
+	file "/var/cache/bind/db.10.1.10";
+	masters { 10.1.10.3; };
+};
+	
+zone "10.1.20.in-addr.arpa"  {
+	type slave;
+	file "/var/cache/bind/db.10.1.20";
+	masters { 10.1.10.3; };
+};
+
+zone "public.seax.edu" {
+	type master;
+	file "/etc/bind/zones/db.public.seax.edu";
+	allow-transfer { 10.1.10.3; };
+};
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 12:24:11
+Prompt: root@dns2
+Comando ejecutado: mkdir -p /etc/bind/zones
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-14 12:24:56
+Prompt: root@dns2
+Comando ejecutado: cat /etc/bind/zones/db.public.seax.edu
+====================
+$TTL    604800
+@       IN      SOA     dns2.public.seax.edu. admin.public.seax.edu. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+
+@       IN      NS      dns2.public.seax.edu.
+@       IN      NS      dns1.public.seax.edu.
+
+dns1    IN      A       192.168.1.1
+dns2    IN      A       192.168.1.1
+ssh1    IN      CNAME   dns1.public.seax.edu.
+ssh2    IN      CNAME   dns2.public.seax.edu.
+www     IN      A       147.83.2.135
+www     IN      AAAA    2001:40b0:7500:1::21
+
+Fin de la ejecución
+====================
