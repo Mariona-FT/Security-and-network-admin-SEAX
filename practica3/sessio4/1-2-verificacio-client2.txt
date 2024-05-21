@@ -1,0 +1,214 @@
+
+====================
+Fecha y hora: 2024-05-21 18:39:19
+Prompt: root@seax1
+Comando ejecutado: dhclient -v
+====================
+Internet Systems Consortium DHCP Client 4.4.3-P1
+Copyright 2004-2022 Internet Systems Consortium.
+All rights reserved.
+For info, please visit https://www.isc.org/software/dhcp/
+
+Listening on LPF/enp0s3/08:00:27:01:20:10
+Sending on   LPF/enp0s3/08:00:27:01:20:10
+Sending on   Socket/fallback
+DHCPDISCOVER on enp0s3 to 255.255.255.255 port 67 interval 3
+DHCPOFFER of 10.1.20.12 from 10.1.20.1
+DHCPREQUEST for 10.1.20.12 on enp0s3 to 255.255.255.255 port 67
+DHCPACK of 10.1.20.12 from 10.1.20.1
+bound to 10.1.20.12 -- renewal in 11865 seconds.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 18:39:47
+Prompt: root@seax1
+Comando ejecutado: cat /etc/network/interfaces
+====================
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto enp0s3
+iface enp0s3 inet dhcp
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 18:39:56
+Prompt: root@seax1
+Comando ejecutado: cat /etc/resolv.conf
+====================
+domain seax.edu
+search seax.edu
+nameserver 10.1.10.3
+nameserver 10.1.10.4
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 18:39:31
+Prompt: root@seax1
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:20:10 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.20.12/24 brd 10.1.20.255 scope global dynamic enp0s3
+       valid_lft 28790sec preferred_lft 28790sec
+    inet6 fe80::a00:27ff:fe01:2010/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:02:59
+Prompt: root@seax1
+Comando ejecutado: ping -c 1 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+64 bytes from 10.1.10.1: icmp_seq=1 ttl=63 time=1.59 ms
+
+--- 10.1.10.1 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 1.592/1.592/1.592/0.000 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:03:03
+Prompt: root@seax1
+Comando ejecutado: ping -c 1 10.1.10.3
+====================
+PING 10.1.10.3 (10.1.10.3) 56(84) bytes of data.
+64 bytes from 10.1.10.3: icmp_seq=1 ttl=62 time=28.3 ms
+
+--- 10.1.10.3 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 28.297/28.297/28.297/0.000 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:03:04
+Prompt: root@seax1
+Comando ejecutado: ping -c 1 10.1.10.4
+====================
+PING 10.1.10.4 (10.1.10.4) 56(84) bytes of data.
+64 bytes from 10.1.10.4: icmp_seq=1 ttl=62 time=7.93 ms
+
+--- 10.1.10.4 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 7.927/7.927/7.927/0.000 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:03:08
+Prompt: root@seax1
+Comando ejecutado: ping -c 1 10.1.20.1
+====================
+PING 10.1.20.1 (10.1.20.1) 56(84) bytes of data.
+64 bytes from 10.1.20.1: icmp_seq=1 ttl=64 time=0.835 ms
+
+--- 10.1.20.1 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.835/0.835/0.835/0.000 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:03:15
+Prompt: root@seax1
+Comando ejecutado: ping -c 1 google.com
+====================
+PING google.com (172.217.168.174) 56(84) bytes of data.
+64 bytes from mad07s10-in-f14.1e100.net (172.217.168.174): icmp_seq=1 ttl=113 time=15.1 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 15.119/15.119/15.119/0.000 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:03:28
+Prompt: root@seax1
+Comando ejecutado: dig @10.1.10.3 google.com
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 google.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 65257
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 4f7634d7e66a15fd01000000664cf00128e5de5e02e185d8 (good)
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		287	IN	A	172.217.168.174
+
+;; Query time: 4 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 21 21:03:28 CEST 2024
+;; MSG SIZE  rcvd: 83
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:03:34
+Prompt: root@seax1
+Comando ejecutado: dig @10.1.10.4 google.com
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.4 google.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 54857
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 9d6ec549e5ab40a501000000664cf007d9de9537b1d5311a (good)
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		33	IN	A	216.58.211.206
+
+;; Query time: 20 msec
+;; SERVER: 10.1.10.4#53(10.1.10.4) (UDP)
+;; WHEN: Tue May 21 21:03:34 CEST 2024
+;; MSG SIZE  rcvd: 83
+
+
+Fin de la ejecución
+====================

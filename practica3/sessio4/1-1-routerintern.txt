@@ -1,0 +1,427 @@
+
+====================
+Fecha y hora: 2024-05-20 17:07:13
+Prompt: root@routerintern
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth-dmz: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:10:02 brd ff:ff:ff:ff:ff:ff
+    altname enp0s3
+    inet 10.1.10.2/28 brd 10.1.10.15 scope global eth-dmz
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe01:1002/64 scope link 
+       valid_lft forever preferred_lft forever
+3: eth-clients: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:20:01 brd ff:ff:ff:ff:ff:ff
+    altname enp0s8
+    inet 10.1.20.1/24 brd 10.1.20.255 scope global eth-clients
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe01:2001/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-20 17:07:26
+Prompt: root@routerintern
+Comando ejecutado: apt update
+====================
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Obj:1 http://deb.debian.org/debian bookworm InRelease
+Des:2 http://security.debian.org/debian-security bookworm-security InRelease [48,0 kB]
+Des:3 http://deb.debian.org/debian bookworm-updates InRelease [55,4 kB]
+Des:4 http://security.debian.org/debian-security bookworm-security/main Sources [95,9 kB]
+Des:5 http://security.debian.org/debian-security bookworm-security/main amd64 Packages [156 kB]
+Des:6 http://security.debian.org/debian-security bookworm-security/main Translation-en [92,9 kB]
+Des:7 http://deb.debian.org/debian bookworm-updates/main Sources.diff/Index [10,6 kB]
+Des:8 http://deb.debian.org/debian bookworm-updates/main amd64 Packages.diff/Index [10,6 kB]
+Des:9 http://deb.debian.org/debian bookworm-updates/main Translation-en.diff/Index [10,6 kB]
+Des:10 http://deb.debian.org/debian bookworm-updates/main Sources T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [831 B]
+Des:11 http://deb.debian.org/debian bookworm-updates/main amd64 Packages T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [1.595 B]
+Des:10 http://deb.debian.org/debian bookworm-updates/main Sources T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [831 B]
+Des:11 http://deb.debian.org/debian bookworm-updates/main amd64 Packages T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [1.595 B]
+Des:12 http://deb.debian.org/debian bookworm-updates/main Translation-en T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [2.563 B]
+Des:12 http://deb.debian.org/debian bookworm-updates/main Translation-en T-2024-04-23-2036.10-F-2024-04-23-2036.10.pdiff [2.563 B]
+Descargados 485 kB en 1s (820 kB/s)
+Leyendo lista de paquetes...
+Creando árbol de dependencias...
+Leyendo la información de estado...
+Se pueden actualizar 19 paquetes. Ejecute «apt list --upgradable» para verlos.
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-20 17:07:58
+Prompt: root@routerintern
+Comando ejecutado: apt install isc-dhcp-server -y
+====================
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Leyendo lista de paquetes...
+Creando árbol de dependencias...
+Leyendo la información de estado...
+Se instalarán los siguientes paquetes adicionales:
+  policycoreutils selinux-utils
+Paquetes sugeridos:
+  policykit-1 isc-dhcp-server-ldap ieee-data
+Se instalarán los siguientes paquetes NUEVOS:
+  isc-dhcp-server policycoreutils selinux-utils
+0 actualizados, 3 nuevos se instalarán, 0 para eliminar y 19 no actualizados.
+Se necesita descargar 1.766 kB de archivos.
+Se utilizarán 7.818 kB de espacio de disco adicional después de esta operación.
+Des:1 http://deb.debian.org/debian bookworm/main amd64 isc-dhcp-server amd64 4.4.3-P1-2 [1.479 kB]
+Des:2 http://deb.debian.org/debian bookworm/main amd64 selinux-utils amd64 3.4-1+b6 [126 kB]
+Des:3 http://deb.debian.org/debian bookworm/main amd64 policycoreutils amd64 3.4-1 [161 kB]
+Preconfigurando paquetes ...
+Descargados 1.766 kB en 1s (3.333 kB/s)
+Seleccionando el paquete isc-dhcp-server previamente no seleccionado.
+(Leyendo la base de datos ... 
+(Leyendo la base de datos ... 5%
+(Leyendo la base de datos ... 10%
+(Leyendo la base de datos ... 15%
+(Leyendo la base de datos ... 20%
+(Leyendo la base de datos ... 25%
+(Leyendo la base de datos ... 30%
+(Leyendo la base de datos ... 35%
+(Leyendo la base de datos ... 40%
+(Leyendo la base de datos ... 45%
+(Leyendo la base de datos ... 50%
+(Leyendo la base de datos ... 55%
+(Leyendo la base de datos ... 60%
+(Leyendo la base de datos ... 65%
+(Leyendo la base de datos ... 70%
+(Leyendo la base de datos ... 75%
+(Leyendo la base de datos ... 80%
+(Leyendo la base de datos ... 85%
+(Leyendo la base de datos ... 90%
+(Leyendo la base de datos ... 95%
+(Leyendo la base de datos ... 100%
+(Leyendo la base de datos ... 18452 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../isc-dhcp-server_4.4.3-P1-2_amd64.deb ...
+Desempaquetando isc-dhcp-server (4.4.3-P1-2) ...
+Seleccionando el paquete selinux-utils previamente no seleccionado.
+Preparando para desempaquetar .../selinux-utils_3.4-1+b6_amd64.deb ...
+Desempaquetando selinux-utils (3.4-1+b6) ...
+Seleccionando el paquete policycoreutils previamente no seleccionado.
+Preparando para desempaquetar .../policycoreutils_3.4-1_amd64.deb ...
+Desempaquetando policycoreutils (3.4-1) ...
+Configurando selinux-utils (3.4-1+b6) ...
+Configurando policycoreutils (3.4-1) ...
+Configurando isc-dhcp-server (4.4.3-P1-2) ...
+Generating /etc/default/isc-dhcp-server...
+[0;1;31mJob for isc-dhcp-server.service failed because the control process exited with error code.[0m
+[0;1;31mSee "systemctl status isc-dhcp-server.service" and "journalctl -xeu isc-dhcp-server.service" for details.[0m
+invoke-rc.d: initscript isc-dhcp-server, action "start" failed.
+[0;1;31m×[0m isc-dhcp-server.service - LSB: DHCP server
+     Loaded: loaded (]8;;file://routerintern/etc/init.d/isc-dhcp-server /etc/init.d/isc-dhcp-server]8;; ; generated[0;1;32m[0m)
+     Active: [0;1;31mfailed[0m (Result: exit-code) since Mon 2024-05-20 17:08:03 CEST; 7ms ago
+       Docs: ]8;;man:systemd-sysv-generator(8) man:systemd-sysv-generator(8)]8;; 
+    Process: 908 ExecStart=/etc/init.d/isc-dhcp-server start [0;1;31m(code=exited, status=1/FAILURE)[0m
+        CPU: 14ms
+
+may 20 17:08:01 routerintern dhcpd[920]: [0;1;31m[0;1;39m[0;1;31mbugs on either our web page at www.isc.org or in the README file[0m
+may 20 17:08:01 routerintern dhcpd[920]: [0;1;31m[0;1;39m[0;1;31mbefore submitting a bug.  These pages explain the proper[0m
+may 20 17:08:01 routerintern dhcpd[920]: [0;1;31m[0;1;39m[0;1;31mprocess and the information we find helpful for debugging.[0m
+may 20 17:08:01 routerintern dhcpd[920]: 
+may 20 17:08:01 routerintern dhcpd[920]: [0;1;31m[0;1;39m[0;1;31mexiting.[0m
+may 20 17:08:03 routerintern isc-dhcp-server[908]: Starting ISC DHCPv4 server: dhcpdcheck syslog for diagnostics. ... failed!
+may 20 17:08:03 routerintern isc-dhcp-server[908]:  failed!
+may 20 17:08:03 routerintern systemd[1]: [0;1;39m[0;1;31m[0;1;39misc-dhcp-server.service: Control process exited, code=exited, status=1/FAILURE[0m
+may 20 17:08:03 routerintern systemd[1]: [0;1;38;5;185m[0;1;39m[0;1;38;5;185misc-dhcp-server.service: Failed with result 'exit-code'.[0m
+may 20 17:08:03 routerintern systemd[1]: [0;1;31m[0;1;39m[0;1;31mFailed to start isc-dhcp-server.service - LSB: DHCP server.[0m
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-20 17:26:35
+Prompt: root@routerintern
+Comando ejecutado: systemctl status isc-dhcp-server
+====================
+× isc-dhcp-server.service - LSB: DHCP server
+     Loaded: loaded (/etc/init.d/isc-dhcp-server; generated)
+     Active: failed (Result: exit-code) since Tue 2024-05-21 17:31:07 CEST; 6min ago
+       Docs: man:systemd-sysv-generator(8)
+    Process: 914 ExecStart=/etc/init.d/isc-dhcp-server start (code=exited, status=1/FAILURE)
+        CPU: 23ms
+
+may 21 17:31:05 routerintern dhcpd[926]: bugs on either our web page at www.isc.org or in the README file
+may 21 17:31:05 routerintern dhcpd[926]: before submitting a bug.  These pages explain the proper
+may 21 17:31:05 routerintern dhcpd[926]: process and the information we find helpful for debugging.
+may 21 17:31:05 routerintern dhcpd[926]: 
+may 21 17:31:05 routerintern dhcpd[926]: exiting.
+may 21 17:31:07 routerintern isc-dhcp-server[914]: Starting ISC DHCPv4 server: dhcpdcheck syslog for diagnostics. ... failed!
+may 21 17:31:07 routerintern isc-dhcp-server[914]:  failed!
+may 21 17:31:07 routerintern systemd[1]: isc-dhcp-server.service: Control process exited, code=exited, status=1/FAILURE
+may 21 17:31:07 routerintern systemd[1]: isc-dhcp-server.service: Failed with result 'exit-code'.
+may 21 17:31:07 routerintern systemd[1]: Failed to start isc-dhcp-server.service - LSB: DHCP server.
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-05-20 17:08:47
+Prompt: root@routerintern
+Comando ejecutado: cat /etc/dhcp/dhcpd.conf
+====================
+# dhcpd.conf
+#
+# Sample configuration file for ISC dhcpd
+#
+
+# option definitions common to all supported networks...
+option domain-name "example.org";
+option domain-name-servers ns1.example.org, ns2.example.org;
+
+default-lease-time 600;
+max-lease-time 7200;
+
+# The ddns-updates-style parameter controls whether or not the server will
+# attempt to do a DNS update when a lease is confirmed. We default to the
+# behavior of the version 2 packages ('none', since DHCP v2 didn't
+# have support for DDNS.)
+ddns-update-style none;
+
+# If this DHCP server is the official DHCP server for the local
+# network, the authoritative directive should be uncommented.
+#authoritative;
+
+# Use this to send dhcp log messages to a different log file (you also
+# have to hack syslog.conf to complete the redirection).
+#log-facility local7;
+
+# No service will be given on this subnet, but declaring it helps the 
+# DHCP server to understand the network topology.
+
+#subnet 10.152.187.0 netmask 255.255.255.0 {
+#}
+
+# This is a very basic subnet declaration.
+
+#subnet 10.254.239.0 netmask 255.255.255.224 {
+#  range 10.254.239.10 10.254.239.20;
+#  option routers rtr-239-0-1.example.org, rtr-239-0-2.example.org;
+#}
+
+# This declaration allows BOOTP clients to get dynamic addresses,
+# which we don't really recommend.
+
+#subnet 10.254.239.32 netmask 255.255.255.224 {
+#  range dynamic-bootp 10.254.239.40 10.254.239.60;
+#  option broadcast-address 10.254.239.31;
+#  option routers rtr-239-32-1.example.org;
+#}
+
+# A slightly different configuration for an internal subnet.
+#subnet 10.5.5.0 netmask 255.255.255.224 {
+#  range 10.5.5.26 10.5.5.30;
+#  option domain-name-servers ns1.internal.example.org;
+#  option domain-name "internal.example.org";
+#  option routers 10.5.5.1;
+#  option broadcast-address 10.5.5.31;
+#  default-lease-time 600;
+#  max-lease-time 7200;
+#}
+
+# Hosts which require special configuration options can be listed in
+# host statements.   If no address is specified, the address will be
+# allocated dynamically (if possible), but the host-specific information
+# will still come from the host declaration.
+
+#host passacaglia {
+#  hardware ethernet 0:0:c0:5d:bd:95;
+#  filename "vmunix.passacaglia";
+#  server-name "toccata.example.com";
+#}
+
+# Fixed IP addresses can also be specified for hosts.   These addresses
+# should not also be listed as being available for dynamic assignment.
+# Hosts for which fixed IP addresses have been specified can boot using
+# BOOTP or DHCP.   Hosts for which no fixed address is specified can only
+# be booted with DHCP, unless there is an address range on the subnet
+# to which a BOOTP client is connected which has the dynamic-bootp flag
+# set.
+#host fantasia {
+#  hardware ethernet 08:00:07:26:c0:a5;
+#  fixed-address fantasia.example.com;
+#}
+
+# You can declare a class of clients and then do address allocation
+# based on that.   The example below shows a case where all clients
+# in a certain class get addresses on the 10.17.224/24 subnet, and all
+# other clients get addresses on the 10.0.29/24 subnet.
+
+#class "foo" {
+#  match if substring (option vendor-class-identifier, 0, 4) = "SUNW";
+#}
+
+#shared-network 224-29 {
+#  subnet 10.17.224.0 netmask 255.255.255.0 {
+#    option routers rtr-224.example.org;
+#  }
+#  subnet 10.0.29.0 netmask 255.255.255.0 {
+#    option routers rtr-29.example.org;
+#  }
+#  pool {
+#    allow members of "foo";
+#    range 10.17.224.10 10.17.224.250;
+#  }
+#  pool {
+#    deny members of "foo";
+#    range 10.0.29.10 10.0.29.230;
+#  }
+#}
+
+Fin de la ejecución
+====================
+
+	CONFIGURACIÓ FINAL:
+====================
+Fecha y hora: 2024-05-20 17:24:28
+Prompt: root@routerintern
+Comando ejecutado: cat /etc/dhcp/dhcpd.conf
+====================
+# dhcpd.conf
+#
+# Sample configuration file for ISC dhcpd
+#
+
+# option definitions common to all supported networks...
+option domain-name "seax.edu";
+option domain-name-servers 10.1.10.3, 10.1.10.4;
+
+# If this DHCP server is the official DHCP server for the local
+# network, the authoritative directive should be uncommented.
+authoritative;
+
+# Subxarxa DMZ
+subnet 10.1.10.0 netmask 255.255.255.240 {
+    range 10.1.10.12 10.1.10.14;  # Rang per a màquines puntuals
+    option routers 10.1.10.1;
+    option subnet-mask 255.255.255.240;
+        
+    # Adreces IP estàtiques per a dispositius crítics
+    host dns1 {
+        hardware ethernet 08:00:27:01:10:03;
+        fixed-address 10.1.10.3;
+    }
+    
+    host dns2 {
+        hardware ethernet 08:00:27:01:10:04;
+        fixed-address 10.1.10.4;
+    }
+    
+    host nagios {
+        hardware ethernet 08:00:27:01:10:05;
+        fixed-address 10.1.10.5;
+    }
+
+    host monitor {
+        hardware ethernet 08:00:27:01:10:11;
+        fixed-address 10.1.10.11;
+    }
+}
+
+# Subxarxa de Clients
+subnet 10.1.20.0 netmask 255.255.255.0 {
+    range 10.1.20.10 10.1.20.254;
+    option routers 10.1.20.1;
+    option subnet-mask 255.255.255.0;
+
+    default-lease-time 28800;  # 8 hores en segons
+    max-lease-time 28800;      # 8 hores en segons
+}
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-20 17:24:47
+Prompt: root@routerintern
+Comando ejecutado: cat /etc/default/isc-dhcp-server
+====================
+# Defaults for isc-dhcp-server (sourced by /etc/init.d/isc-dhcp-server)
+
+# Path to dhcpd's config file (default: /etc/dhcp/dhcpd.conf).
+#DHCPDv4_CONF=/etc/dhcp/dhcpd.conf
+#DHCPDv6_CONF=/etc/dhcp/dhcpd6.conf
+
+# Path to dhcpd's PID file (default: /var/run/dhcpd.pid).
+#DHCPDv4_PID=/var/run/dhcpd.pid
+#DHCPDv6_PID=/var/run/dhcpd6.pid
+
+# Additional options to start dhcpd with.
+#	Don't use options -cf or -pf here; use DHCPD_CONF/ DHCPD_PID instead
+#OPTIONS=""
+
+# On what interfaces should the DHCP server (dhcpd) serve DHCP requests?
+#	Separate multiple interfaces with spaces, e.g. "eth0 eth1".
+INTERFACESv4=""
+INTERFACESv6=""
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-20 17:25:25
+Prompt: root@routerintern
+Comando ejecutado: cat /etc/default/isc-dhcp-server
+====================
+# Defaults for isc-dhcp-server (sourced by /etc/init.d/isc-dhcp-server)
+
+# Path to dhcpd's config file (default: /etc/dhcp/dhcpd.conf).
+#DHCPDv4_CONF=/etc/dhcp/dhcpd.conf
+#DHCPDv6_CONF=/etc/dhcp/dhcpd6.conf
+
+# Path to dhcpd's PID file (default: /var/run/dhcpd.pid).
+#DHCPDv4_PID=/var/run/dhcpd.pid
+#DHCPDv6_PID=/var/run/dhcpd6.pid
+
+# Additional options to start dhcpd with.
+#	Don't use options -cf or -pf here; use DHCPD_CONF/ DHCPD_PID instead
+#OPTIONS=""
+
+# On what interfaces should the DHCP server (dhcpd) serve DHCP requests?
+#	Separate multiple interfaces with spaces, e.g. "eth0 eth1".
+INTERFACESv4="eth-clients eth-dmz"
+INTERFACESv6=""
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-20 17:26:01
+Prompt: root@routerintern
+Comando ejecutado: dhcpd -t -cf /etc/dhcp/dhcpd.conf
+====================
+Internet Systems Consortium DHCP Server 4.4.3-P1
+Copyright 2004-2022 Internet Systems Consortium.
+All rights reserved.
+For info, please visit https://www.isc.org/software/dhcp/
+Config file: /etc/dhcp/dhcpd.conf
+Database file: /var/lib/dhcp/dhcpd.leases
+PID file: /var/run/dhcpd.pid
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-20 17:26:35
+Prompt: root@routerintern
+Comando ejecutado: systemctl restart isc-dhcp-server
+====================
+
+Fin de la ejecución
+====================

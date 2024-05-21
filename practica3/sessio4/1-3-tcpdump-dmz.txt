@@ -1,0 +1,189 @@
+tcpdump: listening on eth-dmz, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+19:06:15.527735 08:00:27:01:10:11 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    0.0.0.0.68 > 255.255.255.255.67: [udp sum ok] BOOTP/DHCP, Request from 08:00:27:01:10:11, length 300, xid 0xc5aade43, secs 8, Flags [none] (0x0000)
+	  Client-Ethernet-Address 08:00:27:01:10:11
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: Request
+	    Requested-IP (50), length 4: 10.1.20.11
+	    Hostname (12), length 5: "seax1"
+	    Parameter-Request (55), length 13: 
+	      Subnet-Mask (1), BR (28), Time-Zone (2), Default-Gateway (3)
+	      Domain-Name (15), Domain-Name-Server (6), Unknown (119), Hostname (12)
+	      Netbios-Name-Server (44), Netbios-Scope (47), MTU (26), Classless-Static-Route (121)
+	      NTP (42)
+	    Client-ID (61), length 19: hardware-type 255, 27:01:10:11:00:01:00:01:2d:c7:66:30:08:00:27:01:20:02
+19:06:15.527860 08:00:27:01:10:02 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    10.1.10.2.67 > 255.255.255.255.68: [udp sum ok] BOOTP/DHCP, Reply, length 300, xid 0xc5aade43, secs 8, Flags [Broadcast] (0x8000)
+	  Client-Ethernet-Address 08:00:27:01:10:11
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: NACK
+	    Server-ID (54), length 4: 10.1.10.2
+	    MSG (56), length 31: "requested address not available"
+19:06:15.528091 08:00:27:c9:41:bc > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 590: (tos 0x0, ttl 255, id 14, offset 0, flags [none], proto UDP (17), length 576)
+    10.0.10.3.67 > 255.255.255.255.68: [udp sum ok] BOOTP/DHCP, Reply, length 548, xid 0xc5aade43, Flags [none] (0x0000)
+	  Client-Ethernet-Address 08:00:27:01:10:11
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    Server-ID (54), length 4: 10.0.10.3
+	    DHCP-Message (53), length 1: NACK
+19:06:15.533756 08:00:27:01:10:11 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    0.0.0.0.68 > 255.255.255.255.67: [udp sum ok] BOOTP/DHCP, Request from 08:00:27:01:10:11, length 300, xid 0x34706647, Flags [none] (0x0000)
+	  Client-Ethernet-Address 08:00:27:01:10:11
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: Discover
+	    Hostname (12), length 5: "seax1"
+	    Parameter-Request (55), length 13: 
+	      Subnet-Mask (1), BR (28), Time-Zone (2), Default-Gateway (3)
+	      Domain-Name (15), Domain-Name-Server (6), Unknown (119), Hostname (12)
+	      Netbios-Name-Server (44), Netbios-Scope (47), MTU (26), Classless-Static-Route (121)
+	      NTP (42)
+	    Client-ID (61), length 19: hardware-type 255, 27:01:10:11:00:01:00:01:2d:c7:66:30:08:00:27:01:20:02
+19:06:15.533874 08:00:27:01:10:02 > 08:00:27:01:10:11, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    10.1.10.2.67 > 10.1.10.11.68: [udp sum ok] BOOTP/DHCP, Reply, length 300, xid 0x34706647, Flags [none] (0x0000)
+	  Your-IP 10.1.10.11
+	  Client-Ethernet-Address 08:00:27:01:10:11
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: Offer
+	    Server-ID (54), length 4: 10.1.10.2
+	    Lease-Time (51), length 4: 43200
+	    Subnet-Mask (1), length 4: 255.255.255.240
+	    Default-Gateway (3), length 4: 10.1.10.1
+	    Domain-Name (15), length 8: "seax.edu"
+	    Domain-Name-Server (6), length 8: 10.1.10.3,10.1.10.4
+19:06:15.534146 08:00:27:c9:41:bc > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 590: (tos 0x0, ttl 255, id 15, offset 0, flags [none], proto UDP (17), length 576)
+    10.0.10.3.67 > 255.255.255.255.68: [udp sum ok] BOOTP/DHCP, Reply, length 548, xid 0x34706647, Flags [none] (0x0000)
+	  Your-IP 10.0.10.10
+	  Client-Ethernet-Address 08:00:27:01:10:11
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    Server-ID (54), length 4: 10.0.10.3
+	    DHCP-Message (53), length 1: Offer
+	    Subnet-Mask (1), length 4: 255.255.255.240
+	    Default-Gateway (3), length 4: 10.1.10.1
+	    Domain-Name-Server (6), length 8: 212.166.132.192,212.166.132.96
+	    Lease-Time (51), length 4: 600
+19:06:15.534243 08:00:27:01:10:11 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    0.0.0.0.68 > 255.255.255.255.67: [udp sum ok] BOOTP/DHCP, Request from 08:00:27:01:10:11, length 300, xid 0x34706647, Flags [none] (0x0000)
+	  Client-Ethernet-Address 08:00:27:01:10:11
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: Request
+	    Server-ID (54), length 4: 10.1.10.2
+	    Requested-IP (50), length 4: 10.1.10.11
+	    Hostname (12), length 5: "seax1"
+	    Parameter-Request (55), length 13: 
+	      Subnet-Mask (1), BR (28), Time-Zone (2), Default-Gateway (3)
+	      Domain-Name (15), Domain-Name-Server (6), Unknown (119), Hostname (12)
+	      Netbios-Name-Server (44), Netbios-Scope (47), MTU (26), Classless-Static-Route (121)
+	      NTP (42)
+	    Client-ID (61), length 19: hardware-type 255, 27:01:10:11:00:01:00:01:2d:c7:66:30:08:00:27:01:20:02
+19:06:15.534305 08:00:27:01:10:02 > 08:00:27:01:10:11, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    10.1.10.2.67 > 10.1.10.11.68: [udp sum ok] BOOTP/DHCP, Reply, length 300, xid 0x34706647, Flags [none] (0x0000)
+	  Your-IP 10.1.10.11
+	  Client-Ethernet-Address 08:00:27:01:10:11
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: ACK
+	    Server-ID (54), length 4: 10.1.10.2
+	    Lease-Time (51), length 4: 43200
+	    Subnet-Mask (1), length 4: 255.255.255.240
+	    Default-Gateway (3), length 4: 10.1.10.1
+	    Domain-Name (15), length 8: "seax.edu"
+	    Domain-Name-Server (6), length 8: 10.1.10.3,10.1.10.4
+19:06:27.732034 08:00:27:01:10:12 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    0.0.0.0.68 > 255.255.255.255.67: [udp sum ok] BOOTP/DHCP, Request from 08:00:27:01:10:12, length 300, xid 0x901c864a, secs 4, Flags [none] (0x0000)
+	  Client-Ethernet-Address 08:00:27:01:10:12
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: Request
+	    Requested-IP (50), length 4: 10.1.20.10
+	    Hostname (12), length 5: "seax1"
+	    Parameter-Request (55), length 13: 
+	      Subnet-Mask (1), BR (28), Time-Zone (2), Default-Gateway (3)
+	      Domain-Name (15), Domain-Name-Server (6), Unknown (119), Hostname (12)
+	      Netbios-Name-Server (44), Netbios-Scope (47), MTU (26), Classless-Static-Route (121)
+	      NTP (42)
+	    Client-ID (61), length 19: hardware-type 255, 27:01:10:12:00:01:00:01:2d:c7:66:30:08:00:27:01:20:02
+19:06:27.732154 08:00:27:01:10:02 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    10.1.10.2.67 > 255.255.255.255.68: [udp sum ok] BOOTP/DHCP, Reply, length 300, xid 0x901c864a, secs 4, Flags [Broadcast] (0x8000)
+	  Client-Ethernet-Address 08:00:27:01:10:12
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: NACK
+	    Server-ID (54), length 4: 10.1.10.2
+	    MSG (56), length 31: "requested address not available"
+19:06:27.732264 08:00:27:c9:41:bc > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 590: (tos 0x0, ttl 255, id 16, offset 0, flags [none], proto UDP (17), length 576)
+    10.0.10.3.67 > 255.255.255.255.68: [udp sum ok] BOOTP/DHCP, Reply, length 548, xid 0x901c864a, Flags [none] (0x0000)
+	  Client-Ethernet-Address 08:00:27:01:10:12
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    Server-ID (54), length 4: 10.0.10.3
+	    DHCP-Message (53), length 1: NACK
+19:06:27.738157 08:00:27:01:10:12 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    0.0.0.0.68 > 255.255.255.255.67: [udp sum ok] BOOTP/DHCP, Request from 08:00:27:01:10:12, length 300, xid 0x89ac8b18, Flags [none] (0x0000)
+	  Client-Ethernet-Address 08:00:27:01:10:12
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: Discover
+	    Hostname (12), length 5: "seax1"
+	    Parameter-Request (55), length 13: 
+	      Subnet-Mask (1), BR (28), Time-Zone (2), Default-Gateway (3)
+	      Domain-Name (15), Domain-Name-Server (6), Unknown (119), Hostname (12)
+	      Netbios-Name-Server (44), Netbios-Scope (47), MTU (26), Classless-Static-Route (121)
+	      NTP (42)
+	    Client-ID (61), length 19: hardware-type 255, 27:01:10:12:00:01:00:01:2d:c7:66:30:08:00:27:01:20:02
+19:06:27.738528 08:00:27:c9:41:bc > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 590: (tos 0x0, ttl 255, id 17, offset 0, flags [none], proto UDP (17), length 576)
+    10.0.10.3.67 > 255.255.255.255.68: [udp sum ok] BOOTP/DHCP, Reply, length 548, xid 0x89ac8b18, Flags [none] (0x0000)
+	  Your-IP 10.0.10.9
+	  Client-Ethernet-Address 08:00:27:01:10:12
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    Server-ID (54), length 4: 10.0.10.3
+	    DHCP-Message (53), length 1: Offer
+	    Subnet-Mask (1), length 4: 255.255.255.240
+	    Default-Gateway (3), length 4: 10.1.10.1
+	    Domain-Name-Server (6), length 8: 212.166.132.192,212.166.132.96
+	    Lease-Time (51), length 4: 600
+19:06:27.738642 08:00:27:01:10:12 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    0.0.0.0.68 > 255.255.255.255.67: [udp sum ok] BOOTP/DHCP, Request from 08:00:27:01:10:12, length 300, xid 0x89ac8b18, Flags [none] (0x0000)
+	  Client-Ethernet-Address 08:00:27:01:10:12
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: Request
+	    Server-ID (54), length 4: 10.0.10.3
+	    Requested-IP (50), length 4: 10.0.10.9
+	    Hostname (12), length 5: "seax1"
+	    Parameter-Request (55), length 13: 
+	      Subnet-Mask (1), BR (28), Time-Zone (2), Default-Gateway (3)
+	      Domain-Name (15), Domain-Name-Server (6), Unknown (119), Hostname (12)
+	      Netbios-Name-Server (44), Netbios-Scope (47), MTU (26), Classless-Static-Route (121)
+	      NTP (42)
+	    Client-ID (61), length 19: hardware-type 255, 27:01:10:12:00:01:00:01:2d:c7:66:30:08:00:27:01:20:02
+19:06:27.738753 08:00:27:01:10:02 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    10.1.10.2.67 > 255.255.255.255.68: [udp sum ok] BOOTP/DHCP, Reply, length 300, xid 0x89ac8b18, Flags [Broadcast] (0x8000)
+	  Client-Ethernet-Address 08:00:27:01:10:12
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: NACK
+	    Server-ID (54), length 4: 10.1.10.2
+	    MSG (56), length 31: "requested address not available"
+19:06:27.741799 08:00:27:c9:41:bc > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 590: (tos 0x0, ttl 255, id 18, offset 0, flags [none], proto UDP (17), length 576)
+    10.0.10.3.67 > 255.255.255.255.68: [udp sum ok] BOOTP/DHCP, Reply, length 548, xid 0x89ac8b18, Flags [none] (0x0000)
+	  Your-IP 10.0.10.9
+	  Client-Ethernet-Address 08:00:27:01:10:12
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    Server-ID (54), length 4: 10.0.10.3
+	    DHCP-Message (53), length 1: ACK
+	    Subnet-Mask (1), length 4: 255.255.255.240
+	    Default-Gateway (3), length 4: 10.1.10.1
+	    Domain-Name-Server (6), length 8: 212.166.132.192,212.166.132.96
+	    Lease-Time (51), length 4: 600
+
+16 packets captured
+16 packets received by filter
+0 packets dropped by kernel

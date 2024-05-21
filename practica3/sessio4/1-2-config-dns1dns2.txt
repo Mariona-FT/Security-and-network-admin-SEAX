@@ -1,0 +1,124 @@
+DNS1:
+
+====================
+Fecha y hora: 2024-05-21 21:26:23
+Prompt: root@dns1
+Comando ejecutado: 
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:26:31
+Prompt: root@dns1
+Comando ejecutado: cat /etc/network/interfaces
+====================
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug eth-dmz
+iface eth-dmz inet dhcp
+#iface eth-dmz inet static
+#	address 10.1.10.3
+#	netmask 255.255.255.240
+#	gateway 10.1.10.1
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:26:45
+Prompt: root@dns1
+Comando ejecutado: systemctl restart networking
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:27:00
+Prompt: root@dns1
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth-dmz: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:10:03 brd ff:ff:ff:ff:ff:ff
+    altname enp0s3
+    inet 10.1.10.3/28 brd 10.1.10.15 scope global dynamic eth-dmz
+       valid_lft 43194sec preferred_lft 43194sec
+    inet6 fe80::a00:27ff:fe01:1003/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+DNS2: 
+
+====================
+Fecha y hora: 2024-05-21 21:28:14
+Prompt: root@dns2
+Comando ejecutado: cat /etc/network/interfaces
+====================
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+allow-hotplug eth-dmz
+iface eth-dmz inet dhcp
+#iface eth-dmz inet static
+#	address 10.1.10.4
+#	netmask 255.255.255.240
+#	gateway 10.1.10.1
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:30:24
+Prompt: root@dns2
+Comando ejecutado: systemctl restart networking
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:30:37
+Prompt: root@dns2
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eth-dmz: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:10:04 brd ff:ff:ff:ff:ff:ff
+    altname enp0s3
+    inet 10.1.10.4/28 brd 10.1.10.15 scope global dynamic eth-dmz
+       valid_lft 43193sec preferred_lft 43193sec
+    inet6 fe80::a00:27ff:fe01:1004/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================

@@ -1,0 +1,193 @@
+====================
+Fecha y hora: 2024-05-20 17:03:57
+Prompt: root@seax1
+Comando ejecutado: cat /etc/network/interfaces
+====================
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto enp0s3
+iface enp0s3 inet dhcp
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 17:38:30
+Prompt: root@seax1
+Comando ejecutado: cat /etc/resolv.conf
+====================
+domain seax.edu
+search seax.edu
+nameserver 10.1.10.3
+nameserver 10.1.10.4
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-20 17:02:53
+Prompt: root@seax1
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s3: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:20:11 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.20.11/24 brd 10.1.20.255 scope global enp0s3
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe01:2011/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-20 17:04:37
+Prompt: root@seax1
+Comando ejecutado: ping -c 1 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+64 bytes from 10.1.10.1: icmp_seq=1 ttl=63 time=0.354 ms
+
+--- 10.1.10.1 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.354/0.354/0.354/0.000 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-20 17:05:05
+Prompt: root@seax1
+Comando ejecutado: ping -c 1 10.1.10.3
+====================
+PING 10.1.10.3 (10.1.10.3) 56(84) bytes of data.
+64 bytes from 10.1.10.3: icmp_seq=1 ttl=62 time=11.9 ms
+
+--- 10.1.10.3 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 11.854/11.854/11.854/0.000 ms
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 20:38:33
+Prompt: root@seax1
+Comando ejecutado: ping -c 1 10.1.10.4
+====================
+PING 10.1.10.4 (10.1.10.4) 56(84) bytes of data.
+64 bytes from 10.1.10.4: icmp_seq=1 ttl=63 time=4.79 ms
+
+--- 10.1.10.4 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 4.787/4.787/4.787/0.000 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-20 17:05:21
+Prompt: root@seax1
+Comando ejecutado: ping -c 1 10.1.20.1
+====================
+PING 10.1.20.1 (10.1.20.1) 56(84) bytes of data.
+64 bytes from 10.1.20.1: icmp_seq=1 ttl=64 time=0.166 ms
+
+--- 10.1.20.1 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.166/0.166/0.166/0.000 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 17:34:33
+Prompt: root@seax1
+Comando ejecutado: ping -c 1 google.com
+====================
+PING google.com (142.250.200.142) 56(84) bytes of data.
+64 bytes from mad41s14-in-f14.1e100.net (142.250.200.142): icmp_seq=1 ttl=115 time=24.0 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 23.972/23.972/23.972/0.000 ms
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-05-21 20:12:00
+Prompt: root@seax1
+Comando ejecutado: dig @10.1.10.3 google.com
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 google.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 55160
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 381a122e6b74cf4b01000000664ce3f053dc7ca3de9d5702 (good)
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		300	IN	A	172.217.168.174
+
+;; Query time: 47 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 21 20:12:00 CEST 2024
+;; MSG SIZE  rcvd: 83
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 20:12:05
+Prompt: root@seax1
+Comando ejecutado: dig @10.1.10.4 google.com
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.4 google.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 15045
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 1471fef93a13ee0d01000000664ce3f53dfab02e0677f4f9 (good)
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		87	IN	A	216.58.211.206
+
+;; Query time: 56 msec
+;; SERVER: 10.1.10.4#53(10.1.10.4) (UDP)
+;; WHEN: Tue May 21 20:12:05 CEST 2024
+;; MSG SIZE  rcvd: 83
+
+
+Fin de la ejecución
+====================

@@ -1,0 +1,204 @@
+
+====================
+Fecha y hora: 2024-05-21 21:58:30
+Prompt: root@monitordmz
+Comando ejecutado: cat /etc/network/interfaces
+====================
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# Bridge - XARXA TRONCAL
+allow-hotplug enp0s3
+iface enp0s3 inet dhcp
+
+#Interna - XARXA DMZ
+allow-hotplug enp0s8
+iface enp0s8 inet dhcp
+#iface enp0s8 inet static
+#	address 10.1.10.11
+#	netmask 255.255.255.240
+#	network 10.1.10.0
+#	gateway 10.1.10.1
+
+#Interna -XARXA CLIENT
+allow-hotplug enp0s9
+iface enp0s9 inet static
+	address 10.1.20.11
+	netmask 255.255.255.0
+	network 10.1.20.0
+	gateway 10.1.20.1
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:58:42
+Prompt: root@monitordmz
+Comando ejecutado: systemctl restart networking
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:58:56
+Prompt: root@monitordmz
+Comando ejecutado: ip a
+====================
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: enp0s8: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 08:00:27:01:10:11 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.10.11/28 brd 10.1.10.15 scope global enp0s8
+       valid_lft forever preferred_lft forever
+    inet6 fe80::a00:27ff:fe01:1011/64 scope link 
+       valid_lft forever preferred_lft forever
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:59:19
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 1 10.1.10.1
+====================
+PING 10.1.10.1 (10.1.10.1) 56(84) bytes of data.
+64 bytes from 10.1.10.1: icmp_seq=1 ttl=64 time=2.95 ms
+
+--- 10.1.10.1 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 2.945/2.945/2.945/0.000 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:59:25
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 1 10.1.10.3
+====================
+PING 10.1.10.3 (10.1.10.3) 56(84) bytes of data.
+64 bytes from 10.1.10.3: icmp_seq=1 ttl=255 time=2.53 ms
+
+--- 10.1.10.3 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 2.527/2.527/2.527/0.000 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:59:27
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 1 10.1.10.4
+====================
+PING 10.1.10.4 (10.1.10.4) 56(84) bytes of data.
+64 bytes from 10.1.10.4: icmp_seq=1 ttl=64 time=3.34 ms
+
+--- 10.1.10.4 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 3.338/3.338/3.338/0.000 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:59:32
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 1 10.1.20.1
+====================
+PING 10.1.20.1 (10.1.20.1) 56(84) bytes of data.
+64 bytes from 10.1.20.1: icmp_seq=1 ttl=64 time=6.60 ms
+
+--- 10.1.20.1 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 6.604/6.604/6.604/0.000 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:59:41
+Prompt: root@monitordmz
+Comando ejecutado: ping -c 1 google.com
+====================
+PING google.com (216.58.211.206) 56(84) bytes of data.
+64 bytes from mad01s25-in-f14.1e100.net (216.58.211.206): icmp_seq=1 ttl=114 time=32.5 ms
+
+--- google.com ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 32.476/32.476/32.476/0.000 ms
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:59:51
+Prompt: root@monitordmz
+Comando ejecutado: dig @10.1.10.3 google.com
+====================
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.3 google.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 22174
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 4f7634d7e66a15fd01000000664cf00128e5de5e02e185d8 (good)
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		287	IN	A	172.217.168.174
+
+;; Query time: 4 msec
+;; SERVER: 10.1.10.3#53(10.1.10.3) (UDP)
+;; WHEN: Tue May 21 21:59:51 CEST 2024
+;; MSG SIZE  rcvd: 83
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-21 21:59:55
+Prompt: root@monitordmz
+Comando ejecutado: dig @10.1.10.4 google.com
+====================
+
+; <<>> DiG 9.18.24-1-Debian <<>> @10.1.10.4 google.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 17569
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 1232
+; COOKIE: 0489c3a45149ceaf01000000664cfd3ce137959cacfd30f8 (good)
+;; QUESTION SECTION:
+;google.com.			IN	A
+
+;; ANSWER SECTION:
+google.com.		54	IN	A	216.58.211.206
+
+;; Query time: 0 msec
+;; SERVER: 10.1.10.4#53(10.1.10.4) (UDP)
+;; WHEN: Tue May 21 21:59:55 CEST 2024
+;; MSG SIZE  rcvd: 83
+
+
+Fin de la ejecución
+====================

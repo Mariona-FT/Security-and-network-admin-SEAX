@@ -1,0 +1,87 @@
+tcpdump: listening on eth-clients, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+18:54:46.293735 08:00:27:01:20:10 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    0.0.0.0.68 > 255.255.255.255.67: [udp sum ok] BOOTP/DHCP, Request from 08:00:27:01:20:10, length 300, xid 0x9191be2b, secs 6, Flags [none] (0x0000)
+	  Client-Ethernet-Address 08:00:27:01:20:10
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: Request
+	    Requested-IP (50), length 4: 10.1.20.11
+	    Hostname (12), length 5: "seax1"
+	    Parameter-Request (55), length 13: 
+	      Subnet-Mask (1), BR (28), Time-Zone (2), Default-Gateway (3)
+	      Domain-Name (15), Domain-Name-Server (6), Unknown (119), Hostname (12)
+	      Netbios-Name-Server (44), Netbios-Scope (47), MTU (26), Classless-Static-Route (121)
+	      NTP (42)
+	    Client-ID (61), length 19: hardware-type 255, 27:01:20:10:00:01:00:01:2d:c7:66:30:08:00:27:01:20:02
+18:54:46.293839 08:00:27:01:20:01 > 08:00:27:01:20:10, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    10.1.20.1.67 > 10.1.20.11.68: [udp sum ok] BOOTP/DHCP, Reply, length 300, xid 0x9191be2b, secs 6, Flags [none] (0x0000)
+	  Your-IP 10.1.20.11
+	  Client-Ethernet-Address 08:00:27:01:20:10
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: ACK
+	    Server-ID (54), length 4: 10.1.20.1
+	    Lease-Time (51), length 4: 27353
+	    Subnet-Mask (1), length 4: 255.255.255.0
+	    Default-Gateway (3), length 4: 10.1.20.1
+	    Domain-Name (15), length 8: "seax.edu"
+	    Domain-Name-Server (6), length 8: 10.1.10.3,10.1.10.4
+18:55:18.794541 08:00:27:01:20:11 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    0.0.0.0.68 > 255.255.255.255.67: [udp sum ok] BOOTP/DHCP, Request from 08:00:27:01:20:11, length 300, xid 0x89d47110, secs 7, Flags [none] (0x0000)
+	  Client-Ethernet-Address 08:00:27:01:20:11
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: Discover
+	    Requested-IP (50), length 4: 10.1.20.10
+	    Hostname (12), length 5: "seax1"
+	    Parameter-Request (55), length 13: 
+	      Subnet-Mask (1), BR (28), Time-Zone (2), Default-Gateway (3)
+	      Domain-Name (15), Domain-Name-Server (6), Unknown (119), Hostname (12)
+	      Netbios-Name-Server (44), Netbios-Scope (47), MTU (26), Classless-Static-Route (121)
+	      NTP (42)
+	    Client-ID (61), length 19: hardware-type 255, 27:01:20:11:00:01:00:01:2d:c7:66:30:08:00:27:01:20:02
+18:55:19.795997 08:00:27:01:20:01 > 08:00:27:01:20:11, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    10.1.20.1.67 > 10.1.20.10.68: [udp sum ok] BOOTP/DHCP, Reply, length 300, xid 0x89d47110, secs 7, Flags [none] (0x0000)
+	  Your-IP 10.1.20.10
+	  Client-Ethernet-Address 08:00:27:01:20:11
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: Offer
+	    Server-ID (54), length 4: 10.1.20.1
+	    Lease-Time (51), length 4: 28800
+	    Subnet-Mask (1), length 4: 255.255.255.0
+	    Default-Gateway (3), length 4: 10.1.20.1
+	    Domain-Name (15), length 8: "seax.edu"
+	    Domain-Name-Server (6), length 8: 10.1.10.3,10.1.10.4
+18:55:19.796304 08:00:27:01:20:11 > ff:ff:ff:ff:ff:ff, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    0.0.0.0.68 > 255.255.255.255.67: [udp sum ok] BOOTP/DHCP, Request from 08:00:27:01:20:11, length 300, xid 0x89d47110, secs 7, Flags [none] (0x0000)
+	  Client-Ethernet-Address 08:00:27:01:20:11
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: Request
+	    Server-ID (54), length 4: 10.1.20.1
+	    Requested-IP (50), length 4: 10.1.20.10
+	    Hostname (12), length 5: "seax1"
+	    Parameter-Request (55), length 13: 
+	      Subnet-Mask (1), BR (28), Time-Zone (2), Default-Gateway (3)
+	      Domain-Name (15), Domain-Name-Server (6), Unknown (119), Hostname (12)
+	      Netbios-Name-Server (44), Netbios-Scope (47), MTU (26), Classless-Static-Route (121)
+	      NTP (42)
+	    Client-ID (61), length 19: hardware-type 255, 27:01:20:11:00:01:00:01:2d:c7:66:30:08:00:27:01:20:02
+18:55:19.800594 08:00:27:01:20:01 > 08:00:27:01:20:11, ethertype IPv4 (0x0800), length 342: (tos 0x10, ttl 128, id 0, offset 0, flags [none], proto UDP (17), length 328)
+    10.1.20.1.67 > 10.1.20.10.68: [udp sum ok] BOOTP/DHCP, Reply, length 300, xid 0x89d47110, secs 7, Flags [none] (0x0000)
+	  Your-IP 10.1.20.10
+	  Client-Ethernet-Address 08:00:27:01:20:11
+	  Vendor-rfc1048 Extensions
+	    Magic Cookie 0x63825363
+	    DHCP-Message (53), length 1: ACK
+	    Server-ID (54), length 4: 10.1.20.1
+	    Lease-Time (51), length 4: 28800
+	    Subnet-Mask (1), length 4: 255.255.255.0
+	    Default-Gateway (3), length 4: 10.1.20.1
+	    Domain-Name (15), length 8: "seax.edu"
+	    Domain-Name-Server (6), length 8: 10.1.10.3,10.1.10.4
+
+6 packets captured
+6 packets received by filter
+0 packets dropped by kernel
