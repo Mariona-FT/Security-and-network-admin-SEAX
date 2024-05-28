@@ -1,0 +1,90 @@
+
+====================
+Fecha y hora: 2024-05-28 11:58:22
+Prompt: root@nagios
+Comando ejecutado: a2enmod rewrite
+====================
+Enabling module rewrite.
+To activate the new configuration, you need to run:
+  systemctl restart apache2
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-28 11:58:34
+Prompt: root@nagios
+Comando ejecutado: a2enmod cgi
+====================
+Enabling module cgi.
+To activate the new configuration, you need to run:
+  systemctl restart apache2
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-28 11:59:20
+Prompt: root@nagios
+Comando ejecutado: htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+====================
+Adding password for user nagiosadmin
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-28 11:59:50
+Prompt: root@nagios
+Comando ejecutado: systemctl restart apache2
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-28 11:59:58
+Prompt: root@nagios
+Comando ejecutado: systemctl start apache2
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-28 12:00:06
+Prompt: root@nagios
+Comando ejecutado: systemctl enable apache2
+====================
+Synchronizing state of apache2.service with SysV service script with /lib/systemd/systemd-sysv-install.
+Executing: /lib/systemd/systemd-sysv-install enable apache2
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-28 12:00:13
+Prompt: root@nagios
+Comando ejecutado: systemctl status apache2
+====================
+● apache2.service - The Apache HTTP Server
+     Loaded: loaded (/lib/systemd/system/apache2.service; enabled; preset: enabled)
+     Active: active (running) since Tue 2024-05-28 11:59:50 CEST; 23s ago
+       Docs: https://httpd.apache.org/docs/2.4/
+   Main PID: 12381 (apache2)
+      Tasks: 6 (limit: 1108)
+     Memory: 13.2M
+        CPU: 45ms
+     CGroup: /system.slice/apache2.service
+             ├─12381 /usr/sbin/apache2 -k start
+             ├─12384 /usr/sbin/apache2 -k start
+             ├─12385 /usr/sbin/apache2 -k start
+             ├─12386 /usr/sbin/apache2 -k start
+             ├─12387 /usr/sbin/apache2 -k start
+             └─12388 /usr/sbin/apache2 -k start
+
+may 28 11:59:50 nagios systemd[1]: Starting apache2.service - The Apache HTTP Server...
+may 28 11:59:50 nagios systemd[1]: Started apache2.service - The Apache HTTP Server.
+
+Fin de la ejecución
+====================

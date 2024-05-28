@@ -1,0 +1,1094 @@
+
+====================
+Fecha y hora: 2024-05-28 20:54:30
+Prompt: root@nagios
+Comando ejecutado: cat /usr/local/nagios/etc/servers/nagiosserver.cfg
+====================
+define host {
+    use                     linux-server
+    host_name               nagiosserver
+    alias                   Nagios Server
+    address                 10.1.10.5
+    max_check_attempts      5
+    check_period            24x7
+    notification_interval   30
+    notification_period     24x7
+}
+
+define service {
+    use                     generic-service
+    host_name               nagiosserver
+    service_description     Check Load
+    check_command           check_nrpe!check_load
+}
+
+define service {
+    use                     generic-service
+    host_name               nagiosserver
+    service_description     Check Disk
+    check_command           check_nrpe!check_disk
+}
+
+define service {
+    use                     generic-service
+    host_name               nagiosserver
+    service_description     Check RAM
+    check_command           check_nrpe!check_mem
+}
+
+define service {
+    use                     generic-service
+    host_name               nagiosserver
+    service_description     Check SSH
+    check_command           check_ssh
+}
+
+define service {
+    use                     generic-service
+    host_name               nagiosserver
+    service_description     Check HTTP
+    check_command           check_http
+}
+
+define service {
+    use                     generic-service
+    host_name               nagiosserver
+    service_description     Check DHCP
+    check_command           check_dhcp
+}
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-28 20:54:55
+Prompt: root@nagios
+Comando ejecutado: cat /usr/local/nagios/etc/objects/hostgroups.cfg
+====================
+define hostgroup {
+    hostgroup_name  routers
+    alias           Routers Group
+    members         routeracces,routerintern
+}
+
+define hostgroup {
+    hostgroup_name  servers
+    alias           Servers Group
+    members         nagiosserver,dns1,dns2
+}
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-28 20:57:23
+Prompt: root@nagios
+Comando ejecutado: cat /usr/local/nagios/etc/objects/commands.cfg
+====================
+###############################################################################
+# COMMANDS.CFG - SAMPLE COMMAND DEFINITIONS FOR NAGIOS 4.4.6
+#
+#
+# NOTES: This config file provides you with some example command definitions
+#        that you can reference in host, service, and contact definitions.
+#
+#        You don't need to keep commands in a separate file from your other
+#        object definitions.  This has been done just to make things easier to
+#        understand.
+#
+###############################################################################
+
+
+
+################################################################################
+#
+# SAMPLE NOTIFICATION COMMANDS
+#
+# These are some example notification commands.  They may or may not work on
+# your system without modification.  As an example, some systems will require
+# you to use "/usr/bin/mailx" instead of "/usr/bin/mail" in the commands below.
+#
+################################################################################
+
+define command {
+
+    command_name    notify-host-by-email
+    command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\nHost: $HOSTNAME$\nState: $HOSTSTATE$\nAddress: $HOSTADDRESS$\nInfo: $HOSTOUTPUT$\n\nDate/Time: $LONGDATETIME$\n" | /bin/mail -s "** $NOTIFICATIONTYPE$ Host Alert: $HOSTNAME$ is $HOSTSTATE$ **" $CONTACTEMAIL$
+}
+
+
+
+define command {
+
+    command_name    notify-service-by-email
+    command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\n\nService: $SERVICEDESC$\nHost: $HOSTALIAS$\nAddress: $HOSTADDRESS$\nState: $SERVICESTATE$\n\nDate/Time: $LONGDATETIME$\n\nAdditional Info:\n\n$SERVICEOUTPUT$\n" | /bin/mail -s "** $NOTIFICATIONTYPE$ Service Alert: $HOSTALIAS$/$SERVICEDESC$ is $SERVICESTATE$ **" $CONTACTEMAIL$
+}
+
+
+
+################################################################################
+#
+# SAMPLE HOST CHECK COMMANDS
+#
+################################################################################
+
+# This command checks to see if a host is "alive" by pinging it
+# The check must result in a 100% packet loss or 5 second (5000ms) round trip
+# average time to produce a critical error.
+# Note: Five ICMP echo packets are sent (determined by the '-p 5' argument)
+
+define command {
+
+    command_name    check-host-alive
+    command_line    $USER1$/check_ping -H $HOSTADDRESS$ -w 3000.0,80% -c 5000.0,100% -p 5
+}
+
+
+
+################################################################################
+#
+# SAMPLE SERVICE CHECK COMMANDS
+#
+# These are some example service check commands.  They may or may not work on
+# your system, as they must be modified for your plugins.  See the HTML
+# documentation on the plugins for examples of how to configure command definitions.
+#
+# NOTE:  The following 'check_local_...' functions are designed to monitor
+#        various metrics on the host that Nagios is running on (i.e. this one).
+################################################################################
+
+define command {
+
+    command_name    check_local_disk
+    command_line    $USER1$/check_disk -w $ARG1$ -c $ARG2$ -p $ARG3$
+}
+
+
+
+define command {
+
+    command_name    check_local_load
+    command_line    $USER1$/check_load -w $ARG1$ -c $ARG2$
+}
+
+
+
+define command {
+
+    command_name    check_local_procs
+    command_line    $USER1$/check_procs -w $ARG1$ -c $ARG2$ -s $ARG3$
+}
+
+
+
+define command {
+
+    command_name    check_local_users
+    command_line    $USER1$/check_users -w $ARG1$ -c $ARG2$
+}
+
+
+
+define command {
+
+    command_name    check_local_swap
+    command_line    $USER1$/check_swap -w $ARG1$ -c $ARG2$
+}
+
+
+
+define command {
+
+    command_name    check_local_mrtgtraf
+    command_line    $USER1$/check_mrtgtraf -F $ARG1$ -a $ARG2$ -w $ARG3$ -c $ARG4$ -e $ARG5$
+}
+
+
+
+################################################################################
+# NOTE:  The following 'check_...' commands are used to monitor services on
+#        both local and remote hosts.
+################################################################################
+
+define command {
+
+    command_name    check_ftp
+    command_line    $USER1$/check_ftp -H $HOSTADDRESS$ $ARG1$
+}
+
+
+
+define command {
+
+    command_name    check_hpjd
+    command_line    $USER1$/check_hpjd -H $HOSTADDRESS$ $ARG1$
+}
+
+
+
+define command {
+
+    command_name    check_snmp
+    command_line    $USER1$/check_snmp -H $HOSTADDRESS$ $ARG1$
+}
+
+
+
+define command {
+
+    command_name    check_http
+    command_line    $USER1$/check_http -I $HOSTADDRESS$ $ARG1$
+}
+
+
+
+define command {
+
+    command_name    check_ssh
+    command_line    $USER1$/check_ssh $ARG1$ $HOSTADDRESS$
+}
+
+
+
+define command {
+
+    command_name    check_dhcp
+    command_line    $USER1$/check_dhcp $ARG1$
+}
+
+
+
+define command {
+
+    command_name    check_ping
+    command_line    $USER1$/check_ping -H $HOSTADDRESS$ -w $ARG1$ -c $ARG2$ -p 5
+}
+
+
+
+define command {
+
+    command_name    check_pop
+    command_line    $USER1$/check_pop -H $HOSTADDRESS$ $ARG1$
+}
+
+
+
+define command {
+
+    command_name    check_imap
+    command_line    $USER1$/check_imap -H $HOSTADDRESS$ $ARG1$
+}
+
+
+
+define command {
+
+    command_name    check_smtp
+    command_line    $USER1$/check_smtp -H $HOSTADDRESS$ $ARG1$
+}
+
+
+
+define command {
+
+    command_name    check_tcp
+    command_line    $USER1$/check_tcp -H $HOSTADDRESS$ -p $ARG1$ $ARG2$
+}
+
+
+
+define command {
+
+    command_name    check_udp
+    command_line    $USER1$/check_udp -H $HOSTADDRESS$ -p $ARG1$ $ARG2$
+}
+
+
+
+define command {
+
+    command_name    check_nt
+    command_line    $USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -v $ARG1$ $ARG2$
+}
+
+
+
+################################################################################
+#
+# SAMPLE PERFORMANCE DATA COMMANDS
+#
+# These are sample performance data commands that can be used to send performance
+# data output to two text files (one for hosts, another for services).  If you
+# plan on simply writing performance data out to a file, consider using the
+# host_perfdata_file and service_perfdata_file options in the main config file.
+#
+################################################################################
+
+define command {
+
+    command_name    process-host-perfdata
+    command_line    /usr/bin/printf "%b" "$LASTHOSTCHECK$\t$HOSTNAME$\t$HOSTSTATE$\t$HOSTATTEMPT$\t$HOSTSTATETYPE$\t$HOSTEXECUTIONTIME$\t$HOSTOUTPUT$\t$HOSTPERFDATA$\n" >> /usr/local/nagios/var/host-perfdata.out
+}
+
+
+
+define command {
+
+    command_name    process-service-perfdata
+    command_line    /usr/bin/printf "%b" "$LASTSERVICECHECK$\t$HOSTNAME$\t$SERVICEDESC$\t$SERVICESTATE$\t$SERVICEATTEMPT$\t$SERVICESTATETYPE$\t$SERVICEEXECUTIONTIME$\t$SERVICELATENCY$\t$SERVICEOUTPUT$\t$SERVICEPERFDATA$\n" >> /usr/local/nagios/var/service-perfdata.out
+}
+
+####################################################################
+# Mis comandos
+
+define command {
+
+    command_name    check_nrpe
+    command_line    /usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -c $ARG1$
+}
+
+define command {
+
+    command_name    check_disk
+    command_line    /usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -c check_disk
+}
+
+define command {
+
+    command_name    check_load
+    command_line    /usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -c check_load
+}
+
+define command {
+
+    command_name    check_mem
+    command_line    /usr/lib/nagios/plugins/check_nrpe -H $HOSTADDRESS$ -c check_mem
+}
+
+
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-28 20:58:15
+Prompt: root@nagios
+Comando ejecutado: /usr/local/nagios/bin/nagios -v /usr/local/nagios/etc/nagios.cfg
+====================
+
+Nagios Core 4.4.6
+Copyright (c) 2009-present Nagios Core Development Team and Community Contributors
+Copyright (c) 1999-2009 Ethan Galstad
+Last Modified: 2020-04-28
+License: GPL
+
+Website: https://www.nagios.org
+Reading configuration data...
+   Read main config file okay...
+   Read object config files okay...
+
+Running pre-flight check on configuration data...
+
+Checking objects...
+	Checked 14 services.
+	Checked 2 hosts.
+	Checked 1 host groups.
+	Checked 0 service groups.
+	Checked 1 contacts.
+	Checked 1 contact groups.
+	Checked 28 commands.
+	Checked 5 time periods.
+	Checked 0 host escalations.
+	Checked 0 service escalations.
+Checking for circular paths...
+	Checked 2 hosts
+	Checked 0 service dependencies
+	Checked 0 host dependencies
+	Checked 5 timeperiods
+Checking global event handlers...
+Checking obsessive compulsive processor commands...
+Checking misc settings...
+
+Total Warnings: 0
+Total Errors:   0
+
+Things look okay - No serious problems were detected during the pre-flight check
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-28 20:58:38
+Prompt: root@nagios
+Comando ejecutado: systemctl restart nagios
+====================
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-28 20:58:44
+Prompt: root@nagios
+Comando ejecutado: systemctl restart apache2
+====================
+
+Fin de la ejecución
+====================
+
+
+====================
+Fecha y hora: 2024-05-28 21:03:06
+Prompt: root@nagios
+Comando ejecutado: apt install -y nagios-nrpe-server nagios-plugins
+====================
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Leyendo lista de paquetes...
+Creando árbol de dependencias...
+Leyendo la información de estado...
+Se instalarán los siguientes paquetes adicionales:
+  bind9-dnsutils bind9-host bind9-libs dirmngr dnsutils gnupg gnupg-l10n
+  gnupg-utils gpg gpg-agent gpg-wks-client gpg-wks-server gpgconf gpgsm
+  libarchive13 libassuan0 libavahi-client3 libavahi-common-data
+  libavahi-common3 libcups2 libdbi1 libfstrm0 libgpgme11 libjemalloc2 libksba8
+  libldb2 liblmdb0 libmariadb3 libmaxminddb0 libncurses6 libnet-snmp-perl
+  libnpth0 libpq5 libprotobuf-c1 libpython3-stdlib libpython3.11
+  libpython3.11-minimal libpython3.11-stdlib libradcli4 libsensors-config
+  libsensors5 libsmbclient libsnmp-base libsnmp40 libtalloc2 libtdb1
+  libtevent0 liburiparser1 libuv1 libwbclient0 mariadb-common
+  monitoring-plugins-basic monitoring-plugins-common
+  monitoring-plugins-standard mysql-common pinentry-curses python3 python3-gpg
+  python3-ldb python3-minimal python3-samba python3-talloc python3-tdb
+  python3.11 python3.11-minimal rpcbind samba-common samba-common-bin
+  samba-dsdb-modules samba-libs smbclient snmp sudo
+Paquetes sugeridos:
+  pinentry-gnome3 tor parcimonie xloadimage scdaemon lrzip cups-common
+  mmdb-bin libcrypt-des-perl libdigest-hmac-perl libio-socket-inet6-perl
+  lm-sensors snmp-mibs-downloader icinga2 nagios-plugins-contrib fping postfix
+  | sendmail-bin | exim4-daemon-heavy | exim4-daemon-light qstat xinetd
+  | inetd pinentry-doc python3-doc python3-tk python3-venv python3.11-venv
+  python3.11-doc binfmt-support heimdal-clients python3-markdown
+  python3-dnspython cifs-utils
+Se instalarán los siguientes paquetes NUEVOS:
+  bind9-dnsutils bind9-host bind9-libs dirmngr dnsutils gnupg gnupg-l10n
+  gnupg-utils gpg gpg-agent gpg-wks-client gpg-wks-server gpgconf gpgsm
+  libarchive13 libassuan0 libavahi-client3 libavahi-common-data
+  libavahi-common3 libcups2 libdbi1 libfstrm0 libgpgme11 libjemalloc2 libksba8
+  libldb2 liblmdb0 libmariadb3 libmaxminddb0 libncurses6 libnet-snmp-perl
+  libnpth0 libpq5 libprotobuf-c1 libpython3-stdlib libpython3.11
+  libpython3.11-minimal libpython3.11-stdlib libradcli4 libsensors-config
+  libsensors5 libsmbclient libsnmp-base libsnmp40 libtalloc2 libtdb1
+  libtevent0 liburiparser1 libuv1 libwbclient0 mariadb-common
+  monitoring-plugins monitoring-plugins-basic monitoring-plugins-common
+  monitoring-plugins-standard mysql-common nagios-nrpe-server pinentry-curses
+  python3 python3-gpg python3-ldb python3-minimal python3-samba python3-talloc
+  python3-tdb python3.11 python3.11-minimal rpcbind samba-common
+  samba-common-bin samba-dsdb-modules samba-libs smbclient snmp sudo
+0 actualizados, 75 nuevos se instalarán, 0 para eliminar y 0 no actualizados.
+Se necesita descargar 38,6 MB de archivos.
+Se utilizarán 136 MB de espacio de disco adicional después de esta operación.
+Des:1 http://security.debian.org/debian-security bookworm-security/main amd64 bind9-libs amd64 1:9.18.24-1 [1.413 kB]
+Des:2 http://deb.debian.org/debian bookworm/main amd64 nagios-nrpe-server amd64 4.1.0-1+b1 [367 kB]
+Des:3 http://deb.debian.org/debian bookworm/main amd64 libpython3.11-minimal amd64 3.11.2-6 [813 kB]
+Des:4 http://security.debian.org/debian-security bookworm-security/main amd64 bind9-host amd64 1:9.18.24-1 [305 kB]
+Des:5 http://deb.debian.org/debian bookworm/main amd64 python3.11-minimal amd64 3.11.2-6 [2.064 kB]
+Des:6 http://security.debian.org/debian-security bookworm-security/main amd64 bind9-dnsutils amd64 1:9.18.24-1 [403 kB]
+Des:7 http://security.debian.org/debian-security bookworm-security/main amd64 dnsutils all 1:9.18.24-1 [261 kB]
+Des:8 http://security.debian.org/debian-security bookworm-security/main amd64 libpq5 amd64 15.6-0+deb12u1 [188 kB]
+Des:9 http://deb.debian.org/debian bookworm/main amd64 python3-minimal amd64 3.11.2-1+b1 [26,3 kB]
+Des:10 http://deb.debian.org/debian bookworm/main amd64 libpython3.11-stdlib amd64 3.11.2-6 [1.796 kB]
+Des:11 http://deb.debian.org/debian bookworm/main amd64 python3.11 amd64 3.11.2-6 [572 kB]
+Des:12 http://deb.debian.org/debian bookworm/main amd64 libpython3-stdlib amd64 3.11.2-1+b1 [9.312 B]
+Des:13 http://deb.debian.org/debian bookworm/main amd64 python3 amd64 3.11.2-1+b1 [26,3 kB]
+Des:14 http://deb.debian.org/debian bookworm/main amd64 rpcbind amd64 1.2.6-6+b1 [48,3 kB]
+Des:15 http://deb.debian.org/debian bookworm/main amd64 sudo amd64 1.9.13p3-1+deb12u1 [1.889 kB]
+Des:16 http://deb.debian.org/debian bookworm/main amd64 libuv1 amd64 1.44.2-1 [140 kB]
+Des:17 http://deb.debian.org/debian bookworm/main amd64 libfstrm0 amd64 0.6.1-1 [21,6 kB]
+Des:18 http://deb.debian.org/debian bookworm/main amd64 libjemalloc2 amd64 5.3.0-1 [275 kB]
+Des:19 http://deb.debian.org/debian bookworm/main amd64 liblmdb0 amd64 0.9.24-1 [45,0 kB]
+Des:20 http://deb.debian.org/debian bookworm/main amd64 libmaxminddb0 amd64 1.7.1-1 [29,8 kB]
+Des:21 http://deb.debian.org/debian bookworm/main amd64 libprotobuf-c1 amd64 1.4.1-1+b1 [27,5 kB]
+Des:22 http://deb.debian.org/debian bookworm/main amd64 libassuan0 amd64 2.5.5-5 [48,5 kB]
+Des:23 http://deb.debian.org/debian bookworm/main amd64 gpgconf amd64 2.2.40-1.1 [564 kB]
+Des:24 http://deb.debian.org/debian bookworm/main amd64 libksba8 amd64 1.6.3-2 [128 kB]
+Des:25 http://deb.debian.org/debian bookworm/main amd64 libnpth0 amd64 1.6-3 [19,0 kB]
+Des:26 http://deb.debian.org/debian bookworm/main amd64 dirmngr amd64 2.2.40-1.1 [792 kB]
+Des:27 http://deb.debian.org/debian bookworm/main amd64 gnupg-l10n all 2.2.40-1.1 [1.093 kB]
+Des:28 http://deb.debian.org/debian bookworm/main amd64 gnupg-utils amd64 2.2.40-1.1 [927 kB]
+Des:29 http://deb.debian.org/debian bookworm/main amd64 gpg amd64 2.2.40-1.1 [949 kB]
+Des:30 http://deb.debian.org/debian bookworm/main amd64 pinentry-curses amd64 1.2.1-1 [77,4 kB]
+Des:31 http://deb.debian.org/debian bookworm/main amd64 gpg-agent amd64 2.2.40-1.1 [695 kB]
+Des:32 http://deb.debian.org/debian bookworm/main amd64 gpg-wks-client amd64 2.2.40-1.1 [541 kB]
+Des:33 http://deb.debian.org/debian bookworm/main amd64 gpg-wks-server amd64 2.2.40-1.1 [531 kB]
+Des:34 http://deb.debian.org/debian bookworm/main amd64 gpgsm amd64 2.2.40-1.1 [671 kB]
+Des:35 http://deb.debian.org/debian bookworm/main amd64 gnupg all 2.2.40-1.1 [846 kB]
+Des:36 http://deb.debian.org/debian bookworm/main amd64 libarchive13 amd64 3.6.2-1 [343 kB]
+Des:37 http://deb.debian.org/debian bookworm/main amd64 libavahi-common-data amd64 0.8-10 [107 kB]
+Des:38 http://deb.debian.org/debian bookworm/main amd64 libavahi-common3 amd64 0.8-10 [41,6 kB]
+Des:39 http://deb.debian.org/debian bookworm/main amd64 libavahi-client3 amd64 0.8-10 [45,5 kB]
+Des:40 http://deb.debian.org/debian bookworm/main amd64 libcups2 amd64 2.4.2-3+deb12u5 [245 kB]
+Des:41 http://deb.debian.org/debian bookworm/main amd64 libdbi1 amd64 0.9.0-6 [28,9 kB]
+Des:42 http://deb.debian.org/debian bookworm/main amd64 libgpgme11 amd64 1.18.0-3+b1 [300 kB]
+Des:43 http://deb.debian.org/debian bookworm/main amd64 libtalloc2 amd64 2.4.0-f2 [25,6 kB]
+Des:44 http://deb.debian.org/debian bookworm/main amd64 libtdb1 amd64 1.4.8-2 [44,5 kB]
+Des:45 http://deb.debian.org/debian bookworm/main amd64 libtevent0 amd64 0.14.1-1 [37,9 kB]
+Des:46 http://deb.debian.org/debian bookworm/main amd64 libldb2 amd64 2:2.6.2+samba4.17.12+dfsg-0+deb12u1 [162 kB]
+Des:47 http://deb.debian.org/debian bookworm/main amd64 mysql-common all 5.8+1.1.0 [6.636 B]
+Des:48 http://deb.debian.org/debian bookworm/main amd64 mariadb-common all 1:10.11.6-0+deb12u1 [24,4 kB]
+Des:49 http://deb.debian.org/debian bookworm/main amd64 libmariadb3 amd64 1:10.11.6-0+deb12u1 [174 kB]
+Des:50 http://deb.debian.org/debian bookworm/main amd64 libncurses6 amd64 6.4-4 [103 kB]
+Des:51 http://deb.debian.org/debian bookworm/main amd64 libnet-snmp-perl all 6.0.1-7 [94,7 kB]
+Des:52 http://deb.debian.org/debian bookworm/main amd64 libpython3.11 amd64 3.11.2-6 [1.988 kB]
+Des:53 http://deb.debian.org/debian bookworm/main amd64 libradcli4 amd64 1.2.11-1+b2 [41,5 kB]
+Des:54 http://deb.debian.org/debian bookworm/main amd64 libsensors-config all 1:3.6.0-7.1 [14,3 kB]
+Des:55 http://deb.debian.org/debian bookworm/main amd64 libsensors5 amd64 1:3.6.0-7.1 [34,2 kB]
+Des:56 http://deb.debian.org/debian bookworm/main amd64 libwbclient0 amd64 2:4.17.12+dfsg-0+deb12u1 [53,9 kB]
+Des:57 http://deb.debian.org/debian bookworm/main amd64 samba-libs amd64 2:4.17.12+dfsg-0+deb12u1 [5.658 kB]
+Des:58 http://deb.debian.org/debian bookworm/main amd64 libsmbclient amd64 2:4.17.12+dfsg-0+deb12u1 [82,9 kB]
+Des:59 http://deb.debian.org/debian bookworm/main amd64 libsnmp-base all 5.9.3+dfsg-2 [1.753 kB]
+Des:60 http://deb.debian.org/debian bookworm/main amd64 libsnmp40 amd64 5.9.3+dfsg-2 [2.556 kB]
+Des:61 http://deb.debian.org/debian bookworm/main amd64 liburiparser1 amd64 0.9.7+dfsg-2 [43,8 kB]
+Des:62 http://deb.debian.org/debian bookworm/main amd64 monitoring-plugins-common amd64 2.3.3-5+deb12u2 [39,0 kB]
+Des:63 http://deb.debian.org/debian bookworm/main amd64 monitoring-plugins-basic amd64 2.3.3-5+deb12u2 [285 kB]
+Des:64 http://deb.debian.org/debian bookworm/main amd64 monitoring-plugins-standard amd64 2.3.3-5+deb12u2 [171 kB]
+Des:65 http://deb.debian.org/debian bookworm/main amd64 monitoring-plugins all 2.3.3-5+deb12u2 [10,9 kB]
+Des:66 http://deb.debian.org/debian bookworm/main amd64 python3-gpg amd64 1.18.0-3+b1 [363 kB]
+Des:67 http://deb.debian.org/debian bookworm/main amd64 python3-ldb amd64 2:2.6.2+samba4.17.12+dfsg-0+deb12u1 [60,7 kB]
+Des:68 http://deb.debian.org/debian bookworm/main amd64 python3-tdb amd64 1.4.8-2 [16,5 kB]
+Des:69 http://deb.debian.org/debian bookworm/main amd64 python3-talloc amd64 2.4.0-f2 [14,5 kB]
+Des:70 http://deb.debian.org/debian bookworm/main amd64 python3-samba amd64 2:4.17.12+dfsg-0+deb12u1 [2.828 kB]
+Des:71 http://deb.debian.org/debian bookworm/main amd64 samba-common all 2:4.17.12+dfsg-0+deb12u1 [87,9 kB]
+Des:72 http://deb.debian.org/debian bookworm/main amd64 samba-common-bin amd64 2:4.17.12+dfsg-0+deb12u1 [1.179 kB]
+Des:73 http://deb.debian.org/debian bookworm/main amd64 samba-dsdb-modules amd64 2:4.17.12+dfsg-0+deb12u1 [317 kB]
+Des:74 http://deb.debian.org/debian bookworm/main amd64 smbclient amd64 2:4.17.12+dfsg-0+deb12u1 [442 kB]
+Des:75 http://deb.debian.org/debian bookworm/main amd64 snmp amd64 5.9.3+dfsg-2 [172 kB]
+Preconfigurando paquetes ...
+Descargados 38,6 MB en 3s (13,9 MB/s)
+Seleccionando el paquete nagios-nrpe-server previamente no seleccionado.
+(Leyendo la base de datos ... 
+(Leyendo la base de datos ... 5%
+(Leyendo la base de datos ... 10%
+(Leyendo la base de datos ... 15%
+(Leyendo la base de datos ... 20%
+(Leyendo la base de datos ... 25%
+(Leyendo la base de datos ... 30%
+(Leyendo la base de datos ... 35%
+(Leyendo la base de datos ... 40%
+(Leyendo la base de datos ... 45%
+(Leyendo la base de datos ... 50%
+(Leyendo la base de datos ... 55%
+(Leyendo la base de datos ... 60%
+(Leyendo la base de datos ... 65%
+(Leyendo la base de datos ... 70%
+(Leyendo la base de datos ... 75%
+(Leyendo la base de datos ... 80%
+(Leyendo la base de datos ... 85%
+(Leyendo la base de datos ... 90%
+(Leyendo la base de datos ... 95%
+(Leyendo la base de datos ... 100%
+(Leyendo la base de datos ... 30264 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../nagios-nrpe-server_4.1.0-1+b1_amd64.deb ...
+Desempaquetando nagios-nrpe-server (4.1.0-1+b1) ...
+Seleccionando el paquete libpython3.11-minimal:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../libpython3.11-minimal_3.11.2-6_amd64.deb ...
+Desempaquetando libpython3.11-minimal:amd64 (3.11.2-6) ...
+Seleccionando el paquete python3.11-minimal previamente no seleccionado.
+Preparando para desempaquetar .../python3.11-minimal_3.11.2-6_amd64.deb ...
+Desempaquetando python3.11-minimal (3.11.2-6) ...
+Configurando libpython3.11-minimal:amd64 (3.11.2-6) ...
+Configurando python3.11-minimal (3.11.2-6) ...
+Seleccionando el paquete python3-minimal previamente no seleccionado.
+(Leyendo la base de datos ... 
+(Leyendo la base de datos ... 5%
+(Leyendo la base de datos ... 10%
+(Leyendo la base de datos ... 15%
+(Leyendo la base de datos ... 20%
+(Leyendo la base de datos ... 25%
+(Leyendo la base de datos ... 30%
+(Leyendo la base de datos ... 35%
+(Leyendo la base de datos ... 40%
+(Leyendo la base de datos ... 45%
+(Leyendo la base de datos ... 50%
+(Leyendo la base de datos ... 55%
+(Leyendo la base de datos ... 60%
+(Leyendo la base de datos ... 65%
+(Leyendo la base de datos ... 70%
+(Leyendo la base de datos ... 75%
+(Leyendo la base de datos ... 80%
+(Leyendo la base de datos ... 85%
+(Leyendo la base de datos ... 90%
+(Leyendo la base de datos ... 95%
+(Leyendo la base de datos ... 100%
+(Leyendo la base de datos ... 30595 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../python3-minimal_3.11.2-1+b1_amd64.deb ...
+Desempaquetando python3-minimal (3.11.2-1+b1) ...
+Seleccionando el paquete libpython3.11-stdlib:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../libpython3.11-stdlib_3.11.2-6_amd64.deb ...
+Desempaquetando libpython3.11-stdlib:amd64 (3.11.2-6) ...
+Seleccionando el paquete python3.11 previamente no seleccionado.
+Preparando para desempaquetar .../python3.11_3.11.2-6_amd64.deb ...
+Desempaquetando python3.11 (3.11.2-6) ...
+Seleccionando el paquete libpython3-stdlib:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../libpython3-stdlib_3.11.2-1+b1_amd64.deb ...
+Desempaquetando libpython3-stdlib:amd64 (3.11.2-1+b1) ...
+Configurando python3-minimal (3.11.2-1+b1) ...
+Seleccionando el paquete python3 previamente no seleccionado.
+(Leyendo la base de datos ... 
+(Leyendo la base de datos ... 5%
+(Leyendo la base de datos ... 10%
+(Leyendo la base de datos ... 15%
+(Leyendo la base de datos ... 20%
+(Leyendo la base de datos ... 25%
+(Leyendo la base de datos ... 30%
+(Leyendo la base de datos ... 35%
+(Leyendo la base de datos ... 40%
+(Leyendo la base de datos ... 45%
+(Leyendo la base de datos ... 50%
+(Leyendo la base de datos ... 55%
+(Leyendo la base de datos ... 60%
+(Leyendo la base de datos ... 65%
+(Leyendo la base de datos ... 70%
+(Leyendo la base de datos ... 75%
+(Leyendo la base de datos ... 80%
+(Leyendo la base de datos ... 85%
+(Leyendo la base de datos ... 90%
+(Leyendo la base de datos ... 95%
+(Leyendo la base de datos ... 100%
+(Leyendo la base de datos ... 30998 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../00-python3_3.11.2-1+b1_amd64.deb ...
+Desempaquetando python3 (3.11.2-1+b1) ...
+Seleccionando el paquete rpcbind previamente no seleccionado.
+Preparando para desempaquetar .../01-rpcbind_1.2.6-6+b1_amd64.deb ...
+Desempaquetando rpcbind (1.2.6-6+b1) ...
+Seleccionando el paquete sudo previamente no seleccionado.
+Preparando para desempaquetar .../02-sudo_1.9.13p3-1+deb12u1_amd64.deb ...
+Desempaquetando sudo (1.9.13p3-1+deb12u1) ...
+Seleccionando el paquete libuv1:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../03-libuv1_1.44.2-1_amd64.deb ...
+Desempaquetando libuv1:amd64 (1.44.2-1) ...
+Seleccionando el paquete libfstrm0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../04-libfstrm0_0.6.1-1_amd64.deb ...
+Desempaquetando libfstrm0:amd64 (0.6.1-1) ...
+Seleccionando el paquete libjemalloc2:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../05-libjemalloc2_5.3.0-1_amd64.deb ...
+Desempaquetando libjemalloc2:amd64 (5.3.0-1) ...
+Seleccionando el paquete liblmdb0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../06-liblmdb0_0.9.24-1_amd64.deb ...
+Desempaquetando liblmdb0:amd64 (0.9.24-1) ...
+Seleccionando el paquete libmaxminddb0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../07-libmaxminddb0_1.7.1-1_amd64.deb ...
+Desempaquetando libmaxminddb0:amd64 (1.7.1-1) ...
+Seleccionando el paquete libprotobuf-c1:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../08-libprotobuf-c1_1.4.1-1+b1_amd64.deb ...
+Desempaquetando libprotobuf-c1:amd64 (1.4.1-1+b1) ...
+Seleccionando el paquete bind9-libs:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../09-bind9-libs_1%3a9.18.24-1_amd64.deb ...
+Desempaquetando bind9-libs:amd64 (1:9.18.24-1) ...
+Seleccionando el paquete bind9-host previamente no seleccionado.
+Preparando para desempaquetar .../10-bind9-host_1%3a9.18.24-1_amd64.deb ...
+Desempaquetando bind9-host (1:9.18.24-1) ...
+Seleccionando el paquete bind9-dnsutils previamente no seleccionado.
+Preparando para desempaquetar .../11-bind9-dnsutils_1%3a9.18.24-1_amd64.deb ...
+Desempaquetando bind9-dnsutils (1:9.18.24-1) ...
+Seleccionando el paquete libassuan0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../12-libassuan0_2.5.5-5_amd64.deb ...
+Desempaquetando libassuan0:amd64 (2.5.5-5) ...
+Seleccionando el paquete gpgconf previamente no seleccionado.
+Preparando para desempaquetar .../13-gpgconf_2.2.40-1.1_amd64.deb ...
+Desempaquetando gpgconf (2.2.40-1.1) ...
+Seleccionando el paquete libksba8:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../14-libksba8_1.6.3-2_amd64.deb ...
+Desempaquetando libksba8:amd64 (1.6.3-2) ...
+Seleccionando el paquete libnpth0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../15-libnpth0_1.6-3_amd64.deb ...
+Desempaquetando libnpth0:amd64 (1.6-3) ...
+Seleccionando el paquete dirmngr previamente no seleccionado.
+Preparando para desempaquetar .../16-dirmngr_2.2.40-1.1_amd64.deb ...
+Desempaquetando dirmngr (2.2.40-1.1) ...
+Seleccionando el paquete dnsutils previamente no seleccionado.
+Preparando para desempaquetar .../17-dnsutils_1%3a9.18.24-1_all.deb ...
+Desempaquetando dnsutils (1:9.18.24-1) ...
+Seleccionando el paquete gnupg-l10n previamente no seleccionado.
+Preparando para desempaquetar .../18-gnupg-l10n_2.2.40-1.1_all.deb ...
+Desempaquetando gnupg-l10n (2.2.40-1.1) ...
+Seleccionando el paquete gnupg-utils previamente no seleccionado.
+Preparando para desempaquetar .../19-gnupg-utils_2.2.40-1.1_amd64.deb ...
+Desempaquetando gnupg-utils (2.2.40-1.1) ...
+Seleccionando el paquete gpg previamente no seleccionado.
+Preparando para desempaquetar .../20-gpg_2.2.40-1.1_amd64.deb ...
+Desempaquetando gpg (2.2.40-1.1) ...
+Seleccionando el paquete pinentry-curses previamente no seleccionado.
+Preparando para desempaquetar .../21-pinentry-curses_1.2.1-1_amd64.deb ...
+Desempaquetando pinentry-curses (1.2.1-1) ...
+Seleccionando el paquete gpg-agent previamente no seleccionado.
+Preparando para desempaquetar .../22-gpg-agent_2.2.40-1.1_amd64.deb ...
+Desempaquetando gpg-agent (2.2.40-1.1) ...
+Seleccionando el paquete gpg-wks-client previamente no seleccionado.
+Preparando para desempaquetar .../23-gpg-wks-client_2.2.40-1.1_amd64.deb ...
+Desempaquetando gpg-wks-client (2.2.40-1.1) ...
+Seleccionando el paquete gpg-wks-server previamente no seleccionado.
+Preparando para desempaquetar .../24-gpg-wks-server_2.2.40-1.1_amd64.deb ...
+Desempaquetando gpg-wks-server (2.2.40-1.1) ...
+Seleccionando el paquete gpgsm previamente no seleccionado.
+Preparando para desempaquetar .../25-gpgsm_2.2.40-1.1_amd64.deb ...
+Desempaquetando gpgsm (2.2.40-1.1) ...
+Seleccionando el paquete gnupg previamente no seleccionado.
+Preparando para desempaquetar .../26-gnupg_2.2.40-1.1_all.deb ...
+Desempaquetando gnupg (2.2.40-1.1) ...
+Seleccionando el paquete libarchive13:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../27-libarchive13_3.6.2-1_amd64.deb ...
+Desempaquetando libarchive13:amd64 (3.6.2-1) ...
+Seleccionando el paquete libavahi-common-data:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../28-libavahi-common-data_0.8-10_amd64.deb ...
+Desempaquetando libavahi-common-data:amd64 (0.8-10) ...
+Seleccionando el paquete libavahi-common3:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../29-libavahi-common3_0.8-10_amd64.deb ...
+Desempaquetando libavahi-common3:amd64 (0.8-10) ...
+Seleccionando el paquete libavahi-client3:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../30-libavahi-client3_0.8-10_amd64.deb ...
+Desempaquetando libavahi-client3:amd64 (0.8-10) ...
+Seleccionando el paquete libcups2:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../31-libcups2_2.4.2-3+deb12u5_amd64.deb ...
+Desempaquetando libcups2:amd64 (2.4.2-3+deb12u5) ...
+Seleccionando el paquete libdbi1:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../32-libdbi1_0.9.0-6_amd64.deb ...
+Desempaquetando libdbi1:amd64 (0.9.0-6) ...
+Seleccionando el paquete libgpgme11:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../33-libgpgme11_1.18.0-3+b1_amd64.deb ...
+Desempaquetando libgpgme11:amd64 (1.18.0-3+b1) ...
+Seleccionando el paquete libtalloc2:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../34-libtalloc2_2.4.0-f2_amd64.deb ...
+Desempaquetando libtalloc2:amd64 (2.4.0-f2) ...
+Seleccionando el paquete libtdb1:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../35-libtdb1_1.4.8-2_amd64.deb ...
+Desempaquetando libtdb1:amd64 (1.4.8-2) ...
+Seleccionando el paquete libtevent0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../36-libtevent0_0.14.1-1_amd64.deb ...
+Desempaquetando libtevent0:amd64 (0.14.1-1) ...
+Seleccionando el paquete libldb2:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../37-libldb2_2%3a2.6.2+samba4.17.12+dfsg-0+deb12u1_amd64.deb ...
+Desempaquetando libldb2:amd64 (2:2.6.2+samba4.17.12+dfsg-0+deb12u1) ...
+Seleccionando el paquete mysql-common previamente no seleccionado.
+Preparando para desempaquetar .../38-mysql-common_5.8+1.1.0_all.deb ...
+Desempaquetando mysql-common (5.8+1.1.0) ...
+Seleccionando el paquete mariadb-common previamente no seleccionado.
+Preparando para desempaquetar .../39-mariadb-common_1%3a10.11.6-0+deb12u1_all.deb ...
+Desempaquetando mariadb-common (1:10.11.6-0+deb12u1) ...
+Seleccionando el paquete libmariadb3:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../40-libmariadb3_1%3a10.11.6-0+deb12u1_amd64.deb ...
+Desempaquetando libmariadb3:amd64 (1:10.11.6-0+deb12u1) ...
+Seleccionando el paquete libncurses6:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../41-libncurses6_6.4-4_amd64.deb ...
+Desempaquetando libncurses6:amd64 (6.4-4) ...
+Seleccionando el paquete libnet-snmp-perl previamente no seleccionado.
+Preparando para desempaquetar .../42-libnet-snmp-perl_6.0.1-7_all.deb ...
+Desempaquetando libnet-snmp-perl (6.0.1-7) ...
+Seleccionando el paquete libpq5:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../43-libpq5_15.6-0+deb12u1_amd64.deb ...
+Desempaquetando libpq5:amd64 (15.6-0+deb12u1) ...
+Seleccionando el paquete libpython3.11:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../44-libpython3.11_3.11.2-6_amd64.deb ...
+Desempaquetando libpython3.11:amd64 (3.11.2-6) ...
+Seleccionando el paquete libradcli4 previamente no seleccionado.
+Preparando para desempaquetar .../45-libradcli4_1.2.11-1+b2_amd64.deb ...
+Desempaquetando libradcli4 (1.2.11-1+b2) ...
+Seleccionando el paquete libsensors-config previamente no seleccionado.
+Preparando para desempaquetar .../46-libsensors-config_1%3a3.6.0-7.1_all.deb ...
+Desempaquetando libsensors-config (1:3.6.0-7.1) ...
+Seleccionando el paquete libsensors5:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../47-libsensors5_1%3a3.6.0-7.1_amd64.deb ...
+Desempaquetando libsensors5:amd64 (1:3.6.0-7.1) ...
+Seleccionando el paquete libwbclient0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../48-libwbclient0_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb ...
+Desempaquetando libwbclient0:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Seleccionando el paquete samba-libs:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../49-samba-libs_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb ...
+Desempaquetando samba-libs:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Seleccionando el paquete libsmbclient:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../50-libsmbclient_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb ...
+Desempaquetando libsmbclient:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Seleccionando el paquete libsnmp-base previamente no seleccionado.
+Preparando para desempaquetar .../51-libsnmp-base_5.9.3+dfsg-2_all.deb ...
+Desempaquetando libsnmp-base (5.9.3+dfsg-2) ...
+Seleccionando el paquete libsnmp40:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../52-libsnmp40_5.9.3+dfsg-2_amd64.deb ...
+Desempaquetando libsnmp40:amd64 (5.9.3+dfsg-2) ...
+Seleccionando el paquete liburiparser1:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../53-liburiparser1_0.9.7+dfsg-2_amd64.deb ...
+Desempaquetando liburiparser1:amd64 (0.9.7+dfsg-2) ...
+Seleccionando el paquete monitoring-plugins-common previamente no seleccionado.
+Preparando para desempaquetar .../54-monitoring-plugins-common_2.3.3-5+deb12u2_amd64.deb ...
+Desempaquetando monitoring-plugins-common (2.3.3-5+deb12u2) ...
+Seleccionando el paquete monitoring-plugins-basic previamente no seleccionado.
+Preparando para desempaquetar .../55-monitoring-plugins-basic_2.3.3-5+deb12u2_amd64.deb ...
+Desempaquetando monitoring-plugins-basic (2.3.3-5+deb12u2) ...
+Seleccionando el paquete monitoring-plugins-standard previamente no seleccionado.
+Preparando para desempaquetar .../56-monitoring-plugins-standard_2.3.3-5+deb12u2_amd64.deb ...
+Desempaquetando monitoring-plugins-standard (2.3.3-5+deb12u2) ...
+Seleccionando el paquete monitoring-plugins previamente no seleccionado.
+Preparando para desempaquetar .../57-monitoring-plugins_2.3.3-5+deb12u2_all.deb ...
+Desempaquetando monitoring-plugins (2.3.3-5+deb12u2) ...
+Seleccionando el paquete python3-gpg previamente no seleccionado.
+Preparando para desempaquetar .../58-python3-gpg_1.18.0-3+b1_amd64.deb ...
+Desempaquetando python3-gpg (1.18.0-3+b1) ...
+Seleccionando el paquete python3-ldb previamente no seleccionado.
+Preparando para desempaquetar .../59-python3-ldb_2%3a2.6.2+samba4.17.12+dfsg-0+deb12u1_amd64.deb ...
+Desempaquetando python3-ldb (2:2.6.2+samba4.17.12+dfsg-0+deb12u1) ...
+Seleccionando el paquete python3-tdb previamente no seleccionado.
+Preparando para desempaquetar .../60-python3-tdb_1.4.8-2_amd64.deb ...
+Desempaquetando python3-tdb (1.4.8-2) ...
+Seleccionando el paquete python3-talloc:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../61-python3-talloc_2.4.0-f2_amd64.deb ...
+Desempaquetando python3-talloc:amd64 (2.4.0-f2) ...
+Seleccionando el paquete python3-samba previamente no seleccionado.
+Preparando para desempaquetar .../62-python3-samba_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb ...
+Desempaquetando python3-samba (2:4.17.12+dfsg-0+deb12u1) ...
+Seleccionando el paquete samba-common previamente no seleccionado.
+Preparando para desempaquetar .../63-samba-common_2%3a4.17.12+dfsg-0+deb12u1_all.deb ...
+Desempaquetando samba-common (2:4.17.12+dfsg-0+deb12u1) ...
+Seleccionando el paquete samba-common-bin previamente no seleccionado.
+Preparando para desempaquetar .../64-samba-common-bin_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb ...
+Desempaquetando samba-common-bin (2:4.17.12+dfsg-0+deb12u1) ...
+Seleccionando el paquete samba-dsdb-modules:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../65-samba-dsdb-modules_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb ...
+Desempaquetando samba-dsdb-modules:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Seleccionando el paquete smbclient previamente no seleccionado.
+Preparando para desempaquetar .../66-smbclient_2%3a4.17.12+dfsg-0+deb12u1_amd64.deb ...
+Desempaquetando smbclient (2:4.17.12+dfsg-0+deb12u1) ...
+Seleccionando el paquete snmp previamente no seleccionado.
+Preparando para desempaquetar .../67-snmp_5.9.3+dfsg-2_amd64.deb ...
+Desempaquetando snmp (5.9.3+dfsg-2) ...
+Configurando libksba8:amd64 (1.6.3-2) ...
+Configurando liblmdb0:amd64 (0.9.24-1) ...
+Configurando mysql-common (5.8+1.1.0) ...
+update-alternatives: utilizando /etc/mysql/my.cnf.fallback para proveer /etc/mysql/my.cnf (my.cnf) en modo automático
+Configurando libdbi1:amd64 (0.9.0-6) ...
+Configurando libarchive13:amd64 (3.6.2-1) ...
+Configurando libsnmp-base (5.9.3+dfsg-2) ...
+Configurando libnet-snmp-perl (6.0.1-7) ...
+Configurando libtdb1:amd64 (1.4.8-2) ...
+Configurando nagios-nrpe-server (4.1.0-1+b1) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/nagios-nrpe-server.service → /lib/systemd/system/nagios-nrpe-server.service.
+Configurando libmaxminddb0:amd64 (1.7.1-1) ...
+Configurando libpython3.11-stdlib:amd64 (3.11.2-6) ...
+Configurando libfstrm0:amd64 (0.6.1-1) ...
+Configurando libsensors-config (1:3.6.0-7.1) ...
+Configurando libpq5:amd64 (15.6-0+deb12u1) ...
+Configurando rpcbind (1.2.6-6+b1) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/rpcbind.service → /lib/systemd/system/rpcbind.service.
+Created symlink /etc/systemd/system/sockets.target.wants/rpcbind.socket → /lib/systemd/system/rpcbind.socket.
+Configurando libnpth0:amd64 (1.6-3) ...
+Configurando samba-common (2:4.17.12+dfsg-0+deb12u1) ...
+
+Creating config file /etc/samba/smb.conf with new version
+Configurando libjemalloc2:amd64 (5.3.0-1) ...
+Configurando libassuan0:amd64 (2.5.5-5) ...
+Configurando libprotobuf-c1:amd64 (1.4.1-1+b1) ...
+Configurando libwbclient0:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Configurando libtalloc2:amd64 (2.4.0-f2) ...
+Configurando mariadb-common (1:10.11.6-0+deb12u1) ...
+update-alternatives: utilizando /etc/mysql/mariadb.cnf para proveer /etc/mysql/my.cnf (my.cnf) en modo automático
+Configurando libuv1:amd64 (1.44.2-1) ...
+Configurando libtevent0:amd64 (0.14.1-1) ...
+Configurando gnupg-l10n (2.2.40-1.1) ...
+Configurando libradcli4 (1.2.11-1+b2) ...
+Configurando libavahi-common-data:amd64 (0.8-10) ...
+Configurando libncurses6:amd64 (6.4-4) ...
+Configurando sudo (1.9.13p3-1+deb12u1) ...
+Configurando libmariadb3:amd64 (1:10.11.6-0+deb12u1) ...
+Configurando libsensors5:amd64 (1:3.6.0-7.1) ...
+Configurando liburiparser1:amd64 (0.9.7+dfsg-2) ...
+Configurando gpgconf (2.2.40-1.1) ...
+Configurando monitoring-plugins-common (2.3.3-5+deb12u2) ...
+Configurando libldb2:amd64 (2:2.6.2+samba4.17.12+dfsg-0+deb12u1) ...
+Configurando gpg (2.2.40-1.1) ...
+Configurando libpython3-stdlib:amd64 (3.11.2-1+b1) ...
+Configurando gnupg-utils (2.2.40-1.1) ...
+Configurando pinentry-curses (1.2.1-1) ...
+Configurando monitoring-plugins-basic (2.3.3-5+deb12u2) ...
+
+Creating config file /etc/nagios-plugins/config/apt.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/dhcp.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/disk.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/dummy.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/ftp.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/http.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/load.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/mail.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/news.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/ntp.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/ping.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/procs.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/real.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/ssh.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/tcp_udp.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/telnet.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/users.cfg with new version
+Setcap for check_icmp and check_dhcp worked!
+Configurando python3.11 (3.11.2-6) ...
+Configurando gpg-agent (2.2.40-1.1) ...
+Created symlink /etc/systemd/user/sockets.target.wants/gpg-agent-browser.socket → /usr/lib/systemd/user/gpg-agent-browser.socket.
+Created symlink /etc/systemd/user/sockets.target.wants/gpg-agent-extra.socket → /usr/lib/systemd/user/gpg-agent-extra.socket.
+Created symlink /etc/systemd/user/sockets.target.wants/gpg-agent-ssh.socket → /usr/lib/systemd/user/gpg-agent-ssh.socket.
+Created symlink /etc/systemd/user/sockets.target.wants/gpg-agent.socket → /usr/lib/systemd/user/gpg-agent.socket.
+Configurando libpython3.11:amd64 (3.11.2-6) ...
+Configurando bind9-libs:amd64 (1:9.18.24-1) ...
+Configurando gpgsm (2.2.40-1.1) ...
+Configurando libavahi-common3:amd64 (0.8-10) ...
+Configurando python3 (3.11.2-1+b1) ...
+running python rtupdate hooks for python3.11...
+running python post-rtupdate hooks for python3.11...
+Configurando libgpgme11:amd64 (1.18.0-3+b1) ...
+Configurando monitoring-plugins-standard (2.3.3-5+deb12u2) ...
+
+Creating config file /etc/nagios-plugins/config/breeze.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/curl-http.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/disk-smb.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/dns.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/flexlm.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/fping.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/games.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/hppjd.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/ifstatus.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/ldap.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/mailq.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/mrtg.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/mysql.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/netware.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/nt.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/pgsql.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/radius.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/rpc-nfs.cfg with new version
+
+Creating config file /etc/nagios-plugins/config/snmp.cfg with new version
+Configurando monitoring-plugins (2.3.3-5+deb12u2) ...
+Configurando dirmngr (2.2.40-1.1) ...
+Created symlink /etc/systemd/user/sockets.target.wants/dirmngr.socket → /usr/lib/systemd/user/dirmngr.socket.
+Configurando python3-tdb (1.4.8-2) ...
+Configurando libsnmp40:amd64 (5.9.3+dfsg-2) ...
+Configurando python3-gpg (1.18.0-3+b1) ...
+Configurando python3-ldb (2:2.6.2+samba4.17.12+dfsg-0+deb12u1) ...
+Configurando gpg-wks-server (2.2.40-1.1) ...
+Configurando bind9-host (1:9.18.24-1) ...
+Configurando libavahi-client3:amd64 (0.8-10) ...
+Configurando gpg-wks-client (2.2.40-1.1) ...
+Configurando python3-talloc:amd64 (2.4.0-f2) ...
+Configurando samba-libs:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Configurando snmp (5.9.3+dfsg-2) ...
+Configurando libsmbclient:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Configurando smbclient (2:4.17.12+dfsg-0+deb12u1) ...
+Configurando libcups2:amd64 (2.4.2-3+deb12u5) ...
+Configurando gnupg (2.2.40-1.1) ...
+Configurando bind9-dnsutils (1:9.18.24-1) ...
+Configurando samba-dsdb-modules:amd64 (2:4.17.12+dfsg-0+deb12u1) ...
+Configurando python3-samba (2:4.17.12+dfsg-0+deb12u1) ...
+Configurando dnsutils (1:9.18.24-1) ...
+Configurando samba-common-bin (2:4.17.12+dfsg-0+deb12u1) ...
+Procesando disparadores para systemd (252.22-1~deb12u1) ...
+Procesando disparadores para libc-bin (2.36-9+deb12u4) ...
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-28 21:04:48
+Prompt: root@nagios
+Comando ejecutado: apt install -y nagios-nrpe-plugin
+====================
+
+WARNING: apt does not have a stable CLI interface. Use with caution in scripts.
+
+Leyendo lista de paquetes...
+Creando árbol de dependencias...
+Leyendo la información de estado...
+Se instalarán los siguientes paquetes NUEVOS:
+  nagios-nrpe-plugin
+0 actualizados, 1 nuevos se instalarán, 0 para eliminar y 0 no actualizados.
+Se necesita descargar 31,0 kB de archivos.
+Se utilizarán 85,0 kB de espacio de disco adicional después de esta operación.
+Des:1 http://deb.debian.org/debian bookworm/main amd64 nagios-nrpe-plugin amd64 4.1.0-1+b1 [31,0 kB]
+Descargados 31,0 kB en 1s (23,9 kB/s)
+Seleccionando el paquete nagios-nrpe-plugin previamente no seleccionado.
+(Leyendo la base de datos ... 
+(Leyendo la base de datos ... 5%
+(Leyendo la base de datos ... 10%
+(Leyendo la base de datos ... 15%
+(Leyendo la base de datos ... 20%
+(Leyendo la base de datos ... 25%
+(Leyendo la base de datos ... 30%
+(Leyendo la base de datos ... 35%
+(Leyendo la base de datos ... 40%
+(Leyendo la base de datos ... 45%
+(Leyendo la base de datos ... 50%
+(Leyendo la base de datos ... 55%
+(Leyendo la base de datos ... 60%
+(Leyendo la base de datos ... 65%
+(Leyendo la base de datos ... 70%
+(Leyendo la base de datos ... 75%
+(Leyendo la base de datos ... 80%
+(Leyendo la base de datos ... 85%
+(Leyendo la base de datos ... 90%
+(Leyendo la base de datos ... 95%
+(Leyendo la base de datos ... 100%
+(Leyendo la base de datos ... 33025 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../nagios-nrpe-plugin_4.1.0-1+b1_amd64.deb ...
+Desempaquetando nagios-nrpe-plugin (4.1.0-1+b1) ...
+Configurando nagios-nrpe-plugin (4.1.0-1+b1) ...
+
+Fin de la ejecución
+====================
+
+====================
+Fecha y hora: 2024-05-28 21:10:07
+Prompt:marc@marc-ubuntu
+Comando ejecutado: ssh -L 8080:localhost:80 -J root@192.168.0.19,root@10.1.10.2 root@10.1.10.5
+==================== 
+root@192.168.0.19's password: 
+root@10.1.10.2's password: 
+root@10.1.10.5's password: 
+Linux nagios 6.1.0-18-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.1.76-1 (2024-02-01) x86_64
+
+The programs included with the Debian GNU/Linux system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Tue May 28 21:11:19 2024
+root@nagios:~#
+====================
