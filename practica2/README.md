@@ -19,7 +19,7 @@ Informe final: El document final de la pràctica,respon les preguntes proposades
 
 ### Sessió 2: Accés al servidor mitjançant SAMBA i backups.
 - Carpeta general: [carpeta sessió 2](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica2/sessio2)
-    - Informe final PDF: [p2_s2_Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica2/sessio1/p2_s1_Resultats.txt)
+    - Informe final PDF: [p2_s2_Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica2/sessio2/p2_s2_Informe%20Resultats.pdf)
   - Informe final TXT: [p2_s2_Resultats.txt](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica2/sessio2/p2_s2_Resultats.txt)
   - Evidències: En la carpeta de la sessió del fitxer *1-x.txt* al *2-x.txt*
 
