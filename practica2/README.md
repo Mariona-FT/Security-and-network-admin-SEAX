@@ -8,7 +8,7 @@ Aquesta pràctica forma part del curs de SEAX (Sistemes d'Administració i Arqui
 ## Fitxers
 A continuació, es detallen els fitxers importants presents en aquest repositori:
 - Carpeta general: On trobaràs tots els fitxers, proves i evidències creades per la sessió.
-Informe final: El document final de la pràctica,respon les preguntes proposades, resumeix els resultats i les conclusions en pdf i txt.
+- Informe final: El document final de la pràctica,respon les preguntes proposades, resumeix els resultats i les conclusions en pdf i txt.
 - Evidències: Fitxers en format .txt que contenen les evidències per al informe final.
 
 ### Sessió 1: Accés al servidor mitjançant SSH i SFTP.
