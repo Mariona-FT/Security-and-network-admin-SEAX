@@ -17,15 +17,15 @@ Enunciat inicial de la Pràctica 3: [SEAX P3.pdf](https://github.com/Mariona-FT/
 - Carpeta general: [carpeta sessió 1_2](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica3/sessio1_2)
   - Informe final PDF: [p3_s1_s2 Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio1_2/p3_s1_s2_Informe%20Resultats.pdf)
   - Informe final TXT: [p3_s1_s2_Resultats.txt](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio1_2/p3_s1_s2_Resultats.txt)
-    - Enunciats PDF: [p3_s1_encaminament, tallafocs i NAT](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio1_2/SEAX%20-%20P3%20-%20S1_2-Routing_FW_NAT.pdf) i [p3_s2_fail2ban.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio1_2/SEAX%20-%20P3%20-%20S2-FW-Fail2ban.pdf)
+    - Enunciats PDF: [p3_s1_encaminament, tallafocs i NAT](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio1_2/SEAX%20-%20P3%20-%20S1_2-Routing_FW_NAT.pdf) i [p3_s2_fail2ban](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio1_2/SEAX%20-%20P3%20-%20S2-FW-Fail2ban.pdf)
   - Evidències: En la carpeta de la sessió del fitxer *1-x.txt*
   - Script bash: [nomsmonitor.sh](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio1_2/nomsmonitor.sh)
 
 ### Sessió 3: DNS.
 - Carpeta general: [carpeta sessió 3](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica3/sessio3)
-  - Informe final PDF: [p3_s1_s2 Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio1_2/p3_s1_s2_Resultats.txt)
+  - Informe final PDF: [p3_s3_Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio3/p3_s3_Informe%20Resultats.pdf)
   - Informe final TXT: [p3_s3_Resultats.txt](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio3/p3_s3_Resultats.txt)
-    - Enunciat PDF: [p3_s3 DNS ](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio3/SEAX%20-%20P3%20-%20S3-DNS.pdf) 
+    - Enunciat PDF: [p3_s3 DNS](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio3/SEAX%20-%20P3%20-%20S3-DNS.pdf) 
   - Evidències: En la carpeta de la sessió del fitxer *1-x.txt* 
 
 ### Sessió 4: DHCP.
