@@ -30,7 +30,7 @@ Enunciat inicial de la Pràctica 3: [SEAX P3.pdf](https://github.com/Mariona-FT/
 
 ### Sessió 4: DHCP.
 - Carpeta general: [carpeta sessió 4](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica3/sessio4)
-  - Informe final PDF: [p3_s1_s2 Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio1_2/p3_s1_s2_Resultats.txt)
+  - Informe final PDF: [p3_s1_s2 Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio4/p3_s4_Informe%20Resultats.pdf)
   - Informe final TXT: [p3_s4_Resultats.txt](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio4/p3_s4_Resultats.txt)
     - Enunciat PDF: [p3_s3 DCHP](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio4/SEAX%20-%20P3%20-%20S4-DHCP.pdf) 
   - Evidències: En la carpeta de la sessió del fitxer *1-x.txt*
