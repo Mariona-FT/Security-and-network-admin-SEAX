@@ -32,14 +32,14 @@ Enunciat inicial de la Pràctica 3: [SEAX P3.pdf](https://github.com/Mariona-FT/
 - Carpeta general: [carpeta sessió 4](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica3/sessio4)
   - Informe final PDF: [p3_s1_s2 Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio4/p3_s4_Informe%20Resultats.pdf)
   - Informe final TXT: [p3_s4_Resultats.txt](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio4/p3_s4_Resultats.txt)
-    - Enunciat PDF: [p3_s3 DCHP](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio4/SEAX%20-%20P3%20-%20S4-DHCP.pdf) 
+    - Enunciat PDF: [p3_s4 DCHP](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio4/SEAX%20-%20P3%20-%20S4-DHCP.pdf) 
   - Evidències: En la carpeta de la sessió del fitxer *1-x.txt*
 
 ### Sessió 5: Nagios.
-- Carpeta general: [carpeta sessió 5](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica2/sessio5)
-   - Informe final PDF: [p3_s1_s2 Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio1_2/p3_s1_s2_Resultats.txt)
+- Carpeta general: [carpeta sessió 5](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica3/sessio5)
+   - Informe final PDF: [p3_s1_s2 Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio5/p3_s5_Informe%20Resultats.pdf)
   - Informe final TXT: [p3_s5_Resultats.txt](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio5/p3_s5_Resultats.txt)
-    - Enunciat PDF: [p3_s3 Nagios](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio5/SEAX%20-%20P3%20-%20S5-Nagios.pdf) 
+    - Enunciat PDF: [p3_s5 Nagios](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica3/sessio5/SEAX%20-%20P3%20-%20S5-Nagios.pdf) 
   - Evidències: En la carpeta de la sessió del fitxer *1-x.txt* al *6-x.txt*
 
 ## Autors
