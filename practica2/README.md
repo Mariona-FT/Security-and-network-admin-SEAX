@@ -25,7 +25,7 @@ Informe final: El document final de la pràctica,respon les preguntes proposades
 
 ### Sessió 3:  Accés al servidor mitjançant un servei de xarxa privada virtual (VPN).
 - Carpeta general: [carpeta sessió 3](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica2/sessio3)
-   - Informe final PDF: [p2_s3_Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica2/sessio1/p2_s1_Resultats.txt)
+   - Informe final PDF: [p2_s3_Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica2/sessio3/p2_s3_Informe%20Resultats.pdf)
   - Informe final TXT: [p2_s3_Resultats.txt](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica2/sessio3/p2_s3_Resultats.txt)
   - Evidències: En la carpeta de la sessió del fitxer *1-x.txt* al *3-x.txt*
 
