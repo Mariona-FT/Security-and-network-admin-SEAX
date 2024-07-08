@@ -9,19 +9,22 @@ Aquesta pràctica forma part del curs de SEAX (Sistemes d'Administració i Arqui
 ## Fitxers
 A continuació, es detallen els fitxers importants presents en aquest repositori:
 - Carpeta general: On trobaràs tots els fitxers, proves i evidències creades per la sessió.
-- Informe final: El document final de la pràctica,respon les preguntes proposades, resumeix els resultats i les conclusions.
+- Informe final: El document final de la pràctica,respon les preguntes proposades, resumeix els resultats i les conclusions en pdf i txt.
 - Script bash: En certes sessions també s'ha creat un script en bash per fer proves en les màquines virtuals de Debian. 
 - Evidències: Fitxers en format .txt que contenen les evidències per al informe final.
 
 ### Sessió 1: Configuració de les interfícies de xarxa Ethernet.
 - Carpeta general: [carpeta sessió 1](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica1/sessio1 )
-- Informe final: [p1_s1_Resultats](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio1/p1_s1_Resultats.txt)
-- Evidències: En la carpeta de la sessió del fitxer *1_x.txt* al *4_x.txt*
+  - Informe final PDF: [p1_s1_Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio1/p1_s1_Informe%20Resultats.pdf)
+  - Informe final TXT: [p1_s1_Resultats.txt](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio1/p1_s1_Resultats.txt)
+  - Evidències: En la carpeta de la sessió del fitxer *1_x.txt* al *4_x.txt*
 
 ### Sessió 2: Configuració de les interfícies de xarxa Ethernet.
 - Carpeta general: [carpeta sessió 2](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica1/sessio2)
-- Informe final: [p1_s2_Resultats](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio2/p1_s2_Resultats.txt)
-- Script bash: [info_inet.sh](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio2/info_inet.sh)
+  - Informe final PDF: [p1_s2_Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio2/p1_s2_Informe%20Resultats.pdf)
+  - Informe final TXT: [p1_s2_Resultats.txt](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio2/p1_s2_Resultats.txt)
+  - Script bash: [info_inet.sh](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio2/info_inet.sh)
+    - Scripts previs bash: [script.sh](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio2/script.sh) i [trafic.sh](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio2/trafic.sh)
 ```
 Per Executar l'Script:
 Donar privilegis:  chmod +x info_inet.sh
@@ -32,8 +35,9 @@ El resultat estarà en el fitxer generat: log_inet.log
 
 ### Sessió 3: Configuració de les interfícies de xarxa Wi-Fi 
 - Carpeta general: [carpeta sessió 3](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica1/sessio3)
-- Informe final: [p1_s3_Resultats](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio3/p1_s3_Resultats.txt)
-- Script bash: [info_inet.sh](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio3/info_inet.sh)
+  - Informe final PDF: [p1_s3_Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio3/p1_s3_Informe%20Resultats.pdf)
+  - Informe final TXT: [p1_s3_Resultats.txt](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio3/p1_s3_Resultats.txt)
+  - Script bash: [info_inet.sh](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio3/info_inet.sh)
 ```
 Per Executar l'Script:
 Donar privilegis: chmod +x info_inet.sh
@@ -45,8 +49,9 @@ El resultat estarà en el fitxer generat: log_inet.log
 
 ### Sessió 4: Anàlisi de la xarxa 
 - Carpeta general: [carpeta sessió 4](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/tree/main/practica1/sessio4)
-- Informe final: [p1_s4_Resultats](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio4/p1_s4_Resultats.txt)
-- Script bash: [info_connect.sh](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio4/info_connect.sh)
+  - Informe final PDF: [p1_s4_Informe_Resultats.pdf](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio4/p1_s4_Informe%20Resultats.pdf)
+  - Informe final TXT: [p1_s4_Resultats.txt](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio4/p1_s4_Resultats.txt)
+  - Script bash: [info_connect.sh](https://github.com/Mariona-FT/Security-and-network-admin-SEAX/blob/main/practica1/sessio4/info_connect.sh)
 ```
 Per Executar l'Script:
 Donar privilegis:  chmod +x info_connect.sh
